@@ -4,49 +4,83 @@
 {{ $testimonials := hugo.Data.testimonials }}
 
 <div class="space-y-36 sm:space-y-48 lg:space-y-56 py-16 sm:py-24 lg:py-32">
-  <section id="hero" class="relative overflow-hidden">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+  <section id="hero" class="relative pt-6 pb-12 lg:py-20 overflow-hidden">
+    <div class="absolute -top-24 -left-20 w-96 h-96 rounded-full bg-primary-500/10 blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/2 -right-20 w-96 h-96 rounded-full bg-secondary-400/15 blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       <div class="lg:col-span-7 space-y-8">
         {{ with $hp.hero.badge }}
-        <div class="flex items-center gap-3">
-          <span class="w-1.5 h-7 rounded-full bg-primary-600 dark:bg-primary-500"></span>
-          <span class="text-sm font-extrabold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
-            {{ . }}
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider bg-primary-100/90 text-primary-800 dark:bg-primary-950/80 dark:text-primary-300 border border-primary-200 dark:border-primary-800 shadow-sm">
+          <span class="flex h-2.5 w-2.5 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-500 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-600"></span>
           </span>
+          <span>{{ . }}</span>
         </div>
         {{ end }}
 
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-neutral-900 dark:text-white leading-[1.05]">
-          {{ $hp.hero.title }}
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-neutral-900 dark:text-white tracking-tight leading-[1.08]">
+          Fiecare Voce Contează. <br class="hidden sm:inline" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
+            Schimbarea Începe Cu Tine.
+          </span>
         </h1>
 
-        <p class="text-xl sm:text-2xl text-neutral-600 dark:text-neutral-300 leading-relaxed font-normal max-w-2xl">
+        <p class="text-lg sm:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-2xl font-normal">
           {{ $hp.hero.subtitle }}
         </p>
 
-        <div class="flex flex-wrap gap-5 pt-4">
+        <div class="flex flex-wrap items-center gap-4 pt-2">
           {{ with $hp.hero.primary_cta }}
-          <a href="{{ .url }}" class="inline-flex items-center justify-center px-9 py-4 rounded-full font-black text-lg text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-500 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
-            {{ .text }}
-            <svg class="w-5 h-5 ml-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <a href="{{ .url }}" class="inline-flex items-center justify-center px-8 py-4 rounded-full font-black text-base sm:text-lg text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-500 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 gap-2">
+            <span>{{ .text }}</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
           {{ end }}
 
           {{ with $hp.hero.secondary_cta }}
-          <a href="{{ .url }}" class="inline-flex items-center justify-center px-9 py-4 rounded-full font-black text-lg text-neutral-900 dark:text-white bg-secondary-400/20 hover:bg-secondary-400 border-2 border-secondary-400 hover:text-neutral-900 transition-all transform hover:-translate-y-1">
+          <a href="{{ .url }}" class="inline-flex items-center justify-center px-8 py-4 rounded-full font-black text-base sm:text-lg text-neutral-900 dark:text-white bg-secondary-400/20 hover:bg-secondary-400 border-2 border-secondary-400 hover:text-neutral-900 transition-all transform hover:-translate-y-0.5">
             {{ .text }}
           </a>
           {{ end }}
         </div>
+
+        <div class="pt-6 border-t border-neutral-200/80 dark:border-neutral-800/80 grid grid-cols-3 gap-4 max-w-lg">
+          <div>
+            <div class="text-2xl font-black text-primary-600 dark:text-primary-400">2,500+</div>
+            <div class="text-xs text-neutral-500 dark:text-neutral-400 font-bold">Tineri Implicați</div>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-primary-600 dark:text-primary-400">18,000+</div>
+            <div class="text-xs text-neutral-500 dark:text-neutral-400 font-bold">Ore Voluntariat</div>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-primary-600 dark:text-primary-400">45+</div>
+            <div class="text-xs text-neutral-500 dark:text-neutral-400 font-bold">Proiecte Active</div>
+          </div>
+        </div>
       </div>
 
-      <div class="lg:col-span-5 relative flex items-center justify-center">
-        <div class="hero-logo-card w-full rounded-3xl p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-primary-500/10 via-secondary-400/15 to-neutral-100/60 dark:from-primary-950/50 dark:via-secondary-900/30 dark:to-neutral-900/80 border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xl flex items-center justify-center group hover:scale-[1.02] transition-transform duration-500">
-          <img
-            src="{{ "images/logo.svg" | relURL }}"
-            class="w-full h-auto max-h-72 sm:max-h-80 object-contain drop-shadow-2xl nozoom"
-            alt="Fiecare Voce Logo"
-          />
+      <div class="lg:col-span-5 relative">
+        <div class="relative w-full rounded-3xl p-8 sm:p-10 bg-white dark:bg-neutral-800/90 border border-neutral-200/90 dark:border-neutral-700/80 shadow-2xl space-y-6">
+          <div class="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200/60 dark:border-neutral-800 flex items-center justify-center min-h-[220px]">
+            <img
+              src="{{ "images/logo.svg" | relURL }}"
+              class="h-28 sm:h-36 w-auto max-w-full object-contain drop-shadow-md nozoom"
+              alt="Fiecare Voce Logo"
+            />
+          </div>
+
+          <div class="p-5 rounded-2xl bg-primary-500/10 dark:bg-primary-950/40 border border-primary-500/20 flex items-center gap-4">
+            <div class="p-3 rounded-xl bg-primary-600 text-white shrink-0 shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            </div>
+            <div>
+              <div class="font-extrabold text-sm text-neutral-900 dark:text-white">Comunitate Activă</div>
+              <div class="text-xs text-neutral-600 dark:text-neutral-300">Implicare civică și educație non-formală</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
