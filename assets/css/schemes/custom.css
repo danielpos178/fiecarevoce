@@ -46,4 +46,8 @@ html.dark, :root.dark {
   --color-neutral-700: 241, 245, 249;
   --color-neutral-800: 248, 250, 252;
   --color-neutral-900: 255, 255, 255;
+
+  --color-primary-300: 163, 222, 157;
+  --color-primary-400: 119, 194, 111;
+  --color-primary-500: 75, 146, 63;
 }
