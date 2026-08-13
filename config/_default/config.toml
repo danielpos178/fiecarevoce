@@ -1,5 +1,5 @@
 baseURL = 'https://fiecarevoce.com/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'Fiecare Voce'
 theme = 'blowfish'
 defaultContentLanguage = 'en'

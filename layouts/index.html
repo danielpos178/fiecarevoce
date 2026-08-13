@@ -1,7 +1,7 @@
 {{ define "main" }}
-{{ $hp := .Site.Data.homepage }}
-{{ $impact := .Site.Data.impact }}
-{{ $testimonials := .Site.Data.testimonials }}
+{{ $hp := hugo.Data.homepage }}
+{{ $impact := hugo.Data.data.impact | default hugo.Data.impact }}
+{{ $testimonials := hugo.Data.testimonials }}
 
 <div class="space-y-20 py-8 sm:py-12">
   <section id="hero" class="relative overflow-hidden">
