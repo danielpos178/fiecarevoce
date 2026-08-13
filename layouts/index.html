@@ -3,42 +3,55 @@
 {{ $impact := hugo.Data.impact }}
 {{ $testimonials := hugo.Data.testimonials }}
 
-<div class="space-y-28 sm:space-y-36 lg:space-y-44 py-12 sm:py-20">
+<div class="space-y-36 sm:space-y-48 lg:space-y-56 py-16 sm:py-24 lg:py-32">
   <section id="hero" class="relative overflow-hidden">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       <div class="lg:col-span-7 space-y-8">
-        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-primary-100/80 text-primary-800 dark:bg-primary-950/70 dark:text-primary-300 border border-primary-200 dark:border-primary-800 shadow-sm">
-          <span class="w-2.5 h-2.5 rounded-full bg-primary-600 animate-pulse"></span>
-          <span class="text-sm font-extrabold tracking-wide uppercase">ONG de Tineret • Fiecare Voce</span>
+        {{ with $hp.hero.badge }}
+        <div class="flex items-center gap-3">
+          <span class="w-1.5 h-7 rounded-full bg-primary-600 dark:bg-primary-500"></span>
+          <span class="text-sm font-extrabold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+            {{ . }}
+          </span>
         </div>
+        {{ end }}
 
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-neutral-900 dark:text-white leading-[1.08]">
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-neutral-900 dark:text-white leading-[1.05]">
           {{ $hp.hero.title }}
         </h1>
 
-        <p class="text-xl sm:text-2xl text-neutral-600 dark:text-neutral-300 leading-relaxed font-normal max-w-3xl">
+        <p class="text-xl sm:text-2xl text-neutral-600 dark:text-neutral-300 leading-relaxed font-normal max-w-2xl">
           {{ $hp.hero.subtitle }}
         </p>
 
         <div class="flex flex-wrap gap-5 pt-4">
           {{ with $hp.hero.primary_cta }}
-          <a href="{{ .url }}" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl font-black text-lg text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-500 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
+          <a href="{{ .url }}" class="inline-flex items-center justify-center px-9 py-4 rounded-full font-black text-lg text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-500 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
             {{ .text }}
-            <svg class="w-6 h-6 ml-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg class="w-5 h-5 ml-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
           {{ end }}
 
           {{ with $hp.hero.secondary_cta }}
-          <a href="{{ .url }}" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl font-black text-lg text-neutral-900 bg-secondary-400 hover:bg-secondary-300 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
+          <a href="{{ .url }}" class="inline-flex items-center justify-center px-9 py-4 rounded-full font-black text-lg text-neutral-900 dark:text-white bg-secondary-400/20 hover:bg-secondary-400 border-2 border-secondary-400 hover:text-neutral-900 transition-all transform hover:-translate-y-1">
             {{ .text }}
           </a>
           {{ end }}
         </div>
       </div>
 
-      <div class="lg:col-span-5 relative">
-        <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-neutral-200/80 dark:border-neutral-700/80 group">
-          {{ partial "responsive-image.html" (dict "src" $hp.hero.image "alt" "Tineri implicati in comunitate" "class" "w-full h-80 sm:h-96 lg:h-[480px] object-cover group-hover:scale-105 transition-transform duration-500" "loading" "eager" "fetchpriority" "high") }}
+      <div class="lg:col-span-5 relative flex items-center justify-center">
+        <div class="relative w-full aspect-square sm:max-w-md lg:max-w-full rounded-3xl p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-primary-500/10 via-secondary-400/15 to-neutral-100/60 dark:from-primary-950/50 dark:via-secondary-900/30 dark:to-neutral-900/80 border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xl flex items-center justify-center group hover:scale-[1.02] transition-transform duration-500">
+          <div class="w-full h-full flex items-center justify-center">
+            {{ $logoResource := resources.Get "images/logo.svg" }}
+            {{ if $logoResource }}
+              <div class="w-full h-auto max-h-80 drop-shadow-2xl nozoom flex items-center justify-center">
+                {{ $logoResource.Content | safeHTML }}
+              </div>
+            {{ else }}
+              {{ partial "responsive-image.html" (dict "src" "images/logo.svg" "alt" "Logo Fiecare Voce" "class" "w-full h-auto max-h-80 object-contain drop-shadow-2xl" "loading" "eager" "fetchpriority" "high") }}
+            {{ endif }}
+          </div>
         </div>
       </div>
     </div>
