@@ -9,23 +9,37 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   letter-spacing: -0.025em;
 }
 
-.logo svg {
-  height: 2.75rem;
-  width: auto;
-  max-width: 100%;
-  display: block;
+/* Strict SVG & Image Logo Scaling Constraints */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  max-height: 3rem;
+  max-width: 14rem;
+  overflow: hidden;
+}
+
+.logo svg, svg.logo-img, .logo img {
+  height: 2.75rem !important;
+  width: auto !important;
+  max-height: 2.75rem !important;
+  max-width: 14rem !important;
+  object-fit: contain !important;
+}
+
+.hero-logo-card svg {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 22rem !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
 }
 
 button, a.btn, input, select, textarea {
-  border-radius: 0.75rem !important; /* 12px modern soft radius */
+  border-radius: 0.75rem;
 }
 
-article, .card, .bg-neutral-50, .bg-neutral-800\/60, .bg-white {
-  border-radius: 1rem; /* 16px modern card radius */
-}
-
-img, picture, iframe {
-  border-radius: 1rem; /* 16px image radius */
+article, .card {
+  border-radius: 1rem;
 }
 
 .dark img {

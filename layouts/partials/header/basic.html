@@ -1,0 +1,24 @@
+<div class="main-menu flex items-center w-full gap-4 p-2 pl-0">
+  <div class="flex items-center shrink-0">
+    <a href="{{ "" | relLangURL }}" class="flex items-center gap-3">
+      <img
+        src="{{ "images/logo.svg" | relURL }}"
+        class="h-10 sm:h-12 w-auto max-h-12 object-contain nozoom"
+        alt="{{ .Site.Title }}"
+      />
+      {{ if not .Site.Params.disableTextInHeader | default false }}
+        <span class="text-xl font-black tracking-tight text-neutral-900 dark:text-white truncate">
+          {{ .Site.Title }}
+        </span>
+      {{ end }}
+    </a>
+  </div>
+  <div class="flex items-center ms-auto">
+    <div class="hidden md:flex">
+      {{ partial "header/components/desktop-menu.html" . }}
+    </div>
+    <div class="flex md:hidden">
+      {{ partial "header/components/mobile-menu.html" . }}
+    </div>
+  </div>
+</div>
