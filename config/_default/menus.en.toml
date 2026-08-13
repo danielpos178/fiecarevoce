@@ -1,0 +1,24 @@
+[[main]]
+  name = "Despre Noi"
+  url = "#despre"
+  weight = 10
+
+[[main]]
+  name = "Piloni"
+  url = "#piloni"
+  weight = 20
+
+[[main]]
+  name = "Impact"
+  url = "#impact"
+  weight = 30
+
+[[main]]
+  name = "Articole"
+  url = "#articole"
+  weight = 40
+
+[[main]]
+  name = "Implică-te"
+  url = "#implica-te"
+  weight = 50

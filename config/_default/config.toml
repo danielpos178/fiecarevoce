@@ -1,0 +1,7 @@
+baseURL = 'https://fiecarevoce.com/'
+languageCode = 'en-us'
+title = 'Fiecare Voce'
+theme = 'blowfish'
+defaultContentLanguage = 'en'
+enableRobotsTXT = true
+summaryLength = 25

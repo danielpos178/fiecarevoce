@@ -1,0 +1,19 @@
+colorScheme = "custom"
+defaultTheme = "light"
+showAppearanceSwitcher = true
+enableSearch = true
+enableCodeCopy = true
+
+[header]
+  layout = "flex"
+  showTitle = true
+  showLogo = false
+
+[footer]
+  showCopyright = true
+  showThemeAttribution = false
+
+[homepage]
+  layout = "custom"
+  showRecent = true
+  showRecentItems = 3
