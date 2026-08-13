@@ -1,0 +1,188 @@
+{{ define "main" }}
+{{ $hp := .Site.Data.homepage }}
+{{ $impact := .Site.Data.impact }}
+{{ $testimonials := .Site.Data.testimonials }}
+
+<div class="space-y-20 py-8 sm:py-12">
+  <section id="hero" class="relative overflow-hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7 space-y-6">
+        {{ with $hp.hero.badge }}
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-medium bg-secondary-100 text-secondary-800 dark:bg-secondary-900/50 dark:text-secondary-300 border border-secondary-200 dark:border-secondary-700">
+          <span class="w-2 h-2 rounded-full bg-secondary-500 animate-pulse"></span>
+          {{ . }}
+        </div>
+        {{ end }}
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight">
+          {{ $hp.hero.title }}
+        </h1>
+
+        <p class="text-lg sm:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-2xl">
+          {{ $hp.hero.subtitle }}
+        </p>
+
+        <div class="flex flex-wrap gap-4 pt-2">
+          {{ with $hp.hero.primary_cta }}
+          <a href="{{ .url }}" class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-semibold text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-500 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+            {{ .text }}
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          {{ end }}
+
+          {{ with $hp.hero.secondary_cta }}
+          <a href="{{ .url }}" class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-semibold text-neutral-900 bg-secondary-400 hover:bg-secondary-300 shadow-sm hover:shadow transition-all transform hover:-translate-y-0.5">
+            {{ .text }}
+          </a>
+          {{ end }}
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 relative">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-neutral-200 dark:border-neutral-700">
+          {{ partial "responsive-image.html" (dict "src" $hp.hero.image "alt" "Tineri implicati in comunitate" "class" "w-full h-80 lg:h-96 object-cover" "loading" "eager" "fetchpriority" "high") }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{ with $impact }}
+  <section id="impact" class="space-y-8 border-t border-b border-neutral-200 dark:border-neutral-800 py-12">
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white">{{ .section_title }}</h2>
+      <p class="text-neutral-600 dark:text-neutral-400">{{ .section_subtitle }}</p>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      {{ range .stats }}
+      <div class="bg-neutral-50 dark:bg-neutral-800/60 p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-700/80 text-center transition-all hover:border-primary-400 dark:hover:border-primary-500">
+        <div class="text-3xl sm:text-4xl font-extrabold text-primary-600 dark:text-primary-400">{{ .number }}</div>
+        <div class="font-bold text-neutral-800 dark:text-neutral-100 mt-2">{{ .label }}</div>
+        <div class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-1">{{ .description }}</div>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{ with $hp.pillars }}
+  <section id="piloni" class="space-y-8">
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white">{{ .title }}</h2>
+      <p class="text-neutral-600 dark:text-neutral-400">{{ .subtitle }}</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {{ range .items }}
+      <div class="flex flex-col justify-between p-6 bg-white dark:bg-neutral-800/40 rounded-2xl border border-neutral-200 dark:border-neutral-700/60 hover:shadow-xl transition-all group">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="p-3 rounded-xl bg-primary-100 text-primary-700 dark:bg-primary-900/60 dark:text-primary-300 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-secondary-100 text-secondary-800 dark:bg-secondary-900/60 dark:text-secondary-300">
+              {{ .badge }}
+            </span>
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+            {{ .title }}
+          </h3>
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            {{ .description }}
+          </p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  <section id="articole" class="space-y-8">
+    <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white">Noutăți & Articole</h2>
+        <p class="text-neutral-600 dark:text-neutral-400 mt-1">Urmărește ultimele acțiuni și povești din comunitatea noastră.</p>
+      </div>
+    </div>
+
+    {{ $posts := where site.RegularPages "Type" "posts" }}
+    {{ if gt (len $posts) 0 }}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range first 3 $posts }}
+      <article class="flex flex-col bg-white dark:bg-neutral-800/40 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700/60 shadow-sm hover:shadow-md transition-shadow">
+        {{ with .Params.image }}
+        <div class="h-48 overflow-hidden">
+          {{ partial "responsive-image.html" (dict "src" . "alt" $.Title "class" "w-full h-full object-cover" "loading" "lazy") }}
+        </div>
+        {{ end }}
+        <div class="p-6 flex flex-col justify-between grow space-y-4">
+          <div class="space-y-2">
+            <div class="text-xs text-neutral-500 dark:text-neutral-400">
+              {{ .Date.Format "02 Jan 2006" }}
+            </div>
+            <h3 class="text-xl font-bold text-neutral-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3">
+              {{ .Summary }}
+            </p>
+          </div>
+          <div>
+            <a href="{{ .RelPermalink }}" class="inline-flex items-center text-sm font-semibold text-primary-600 dark:text-primary-400 hover:underline">
+              Citește mai mult &rarr;
+            </a>
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="p-6 text-center text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-800/30 rounded-2xl">
+      Articolele vor fi publicate în curând.
+    </div>
+    {{ end }}
+  </section>
+
+  {{ with $testimonials }}
+  <section id="testimoniale" class="space-y-8">
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white">{{ .section_title }}</h2>
+      <p class="text-neutral-600 dark:text-neutral-400">{{ .section_subtitle }}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {{ range .testimonials }}
+      <div class="p-6 bg-neutral-50 dark:bg-neutral-800/50 rounded-2xl border border-neutral-200 dark:border-neutral-700 flex flex-col justify-between space-y-4">
+        <p class="text-neutral-700 dark:text-neutral-300 italic leading-relaxed text-sm">
+          "{{ .quote }}"
+        </p>
+        <div class="flex items-center gap-3 pt-2 border-t border-neutral-200/60 dark:border-neutral-700/60">
+          <div class="w-10 h-10 rounded-full bg-primary-600 text-white font-bold flex items-center justify-center text-sm">
+            {{ substr .author 0 1 }}
+          </div>
+          <div>
+            <div class="font-bold text-sm text-neutral-900 dark:text-white">{{ .author }}</div>
+            <div class="text-xs text-neutral-500 dark:text-neutral-400">{{ .role }} • {{ .location }}</div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{ with $hp.cta }}
+  <section id="implica-te" class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white rounded-3xl p-8 sm:p-12 text-center shadow-xl space-y-6 relative overflow-hidden">
+    <div class="max-w-2xl mx-auto space-y-4 relative z-10">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">{{ .title }}</h2>
+      <p class="text-primary-100 text-base sm:text-lg leading-relaxed">{{ .subtitle }}</p>
+      <div class="pt-2">
+        <a href="{{ .button_url }}" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-neutral-900 bg-secondary-400 hover:bg-secondary-300 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 text-lg">
+          {{ .button_text }}
+        </a>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+</div>
+{{ end }}
