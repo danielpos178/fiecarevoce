@@ -16,6 +16,18 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   display: block;
 }
 
+button, a.btn, input, select, textarea {
+  border-radius: 0.75rem !important; /* 12px modern soft radius */
+}
+
+article, .card, .bg-neutral-50, .bg-neutral-800\/60, .bg-white {
+  border-radius: 1rem; /* 16px modern card radius */
+}
+
+img, picture, iframe {
+  border-radius: 1rem; /* 16px image radius */
+}
+
 .dark img {
   filter: brightness(0.92) contrast(1.05);
 }
