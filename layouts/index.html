@@ -41,17 +41,12 @@
       </div>
 
       <div class="lg:col-span-5 relative flex items-center justify-center">
-        <div class="relative w-full aspect-square sm:max-w-md lg:max-w-full rounded-3xl p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-primary-500/10 via-secondary-400/15 to-neutral-100/60 dark:from-primary-950/50 dark:via-secondary-900/30 dark:to-neutral-900/80 border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xl flex items-center justify-center group hover:scale-[1.02] transition-transform duration-500">
-          <div class="w-full h-full flex items-center justify-center">
-            {{ $logoResource := resources.Get "images/logo.svg" }}
-            {{ if $logoResource }}
-              <div class="w-full h-auto max-h-80 drop-shadow-2xl nozoom flex items-center justify-center">
-                {{ $logoResource.Content | safeHTML }}
-              </div>
-            {{ else }}
-              {{ partial "responsive-image.html" (dict "src" "images/logo.svg" "alt" "Logo Fiecare Voce" "class" "w-full h-auto max-h-80 object-contain drop-shadow-2xl" "loading" "eager" "fetchpriority" "high") }}
-            {{ end }}
-          </div>
+        <div class="hero-logo-card w-full rounded-3xl p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-primary-500/10 via-secondary-400/15 to-neutral-100/60 dark:from-primary-950/50 dark:via-secondary-900/30 dark:to-neutral-900/80 border border-neutral-200/80 dark:border-neutral-700/80 shadow-2xl flex items-center justify-center group hover:scale-[1.02] transition-transform duration-500">
+          <img
+            src="{{ "images/logo.svg" | relURL }}"
+            class="w-full h-auto max-h-72 sm:max-h-80 object-contain drop-shadow-2xl nozoom"
+            alt="Fiecare Voce Logo"
+          />
         </div>
       </div>
     </div>
