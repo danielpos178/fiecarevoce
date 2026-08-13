@@ -1,0 +1,38 @@
+hero:
+  badge: "ONG de Tineret"
+  title: "Fiecare Voce Contează. Schimbarea Începe Cu Tine."
+  subtitle: "O platformă dedicată tinerilor între 12 și 25 de ani pentru a-și face auzită vocea, a iniția proiecte comunitare și a construi un viitor sustenabil."
+  primary_cta:
+    text: "Alătură-te Cauzei"
+    url: "#implica-te"
+  secondary_cta:
+    text: "Descoperă Pilonii"
+    url: "#piloni"
+  image: "images/placeholder-hero.jpg"
+
+pillars:
+  title: "Pilonii Noștri de Acțiune"
+  subtitle: "Domeniile în care mobilizăm tinerii și creăm un impact social de durată."
+  items:
+    - title: "Educație & Leadership"
+      description: "Ateliere practice, programe de mentorat și deprinderi civice pentru noua generație de lideri."
+      icon: "academic-cap"
+      badge: "Formare"
+    - title: "Advocacy & Drepturi"
+      description: "Sprijinim tinerii să participe activ în deciziile locale și în elaborarea politicilor comunitare."
+      icon: "mega-phone"
+      badge: "Implicare"
+    - title: "Sustenabilitate & Mediu"
+      description: "Campanii de ecologizare, educație ambientală și inițiative verzi conduse de voluntari."
+      icon: "sparkles"
+      badge: "Eco"
+    - title: "Comunitate & Incluziune"
+      description: "Spații sigure și oportunități egale pentru tinerii din toate mediile sociale și regionale."
+      icon: "user-group"
+      badge: "Echitate"
+
+cta:
+  title: "Ești Gata Să Faci Primul Pas?"
+  subtitle: "Fie că vrei să devii voluntar, să propui un proiect sau să susții misiunea noastră, vocea ta contează."
+  button_text: "Înscrie-te ca Voluntar"
+  button_url: "#implica-te"
