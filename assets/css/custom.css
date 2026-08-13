@@ -9,6 +9,13 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   letter-spacing: -0.025em;
 }
 
+.logo svg {
+  height: 2.75rem;
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+
 .dark img {
   filter: brightness(0.92) contrast(1.05);
 }
