@@ -1,8 +1,16 @@
 colorScheme = "custom"
-defaultTheme = "light"
+defaultAppearance = "light"
+autoSwitchAppearance = true
 showAppearanceSwitcher = true
 enableSearch = true
 enableCodeCopy = true
+description = "Fiecare Voce este o asociație non-profit dedicată tinerilor între 12 și 25 de ani pentru dezvoltare comunitară, educație civică, sustenabilitate și inițiative sociale."
+keywords = ["ONG", "tineret", "voluntariat", "lideri comunitari", "advocacy", "sustenabilitate", "schimbare sociala"]
+defaultSocialImage = "images/placeholder-hero.jpg"
+
+[author]
+  name = "Asociația Fiecare Voce"
+  email = "contact@fiecarevoce.com"
 
 [header]
   layout = "flex"
@@ -17,3 +25,6 @@ enableCodeCopy = true
   layout = "custom"
   showRecent = true
   showRecentItems = 3
+
+[seo]
+  metaDescriptionOrder = ["summary", "description", "site"]
