@@ -157,23 +157,31 @@
   {{ with $testimonials }}
   <section id="testimoniale" class="space-y-12">
     <div class="text-center max-w-4xl mx-auto space-y-4">
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white">{{ .section_title }}</h2>
+      <div class="inline-block px-4 py-1.5 rounded-full bg-secondary-100 text-secondary-900 dark:bg-secondary-900/60 dark:text-secondary-300 text-xs font-extrabold uppercase tracking-wider">
+        Comunitatea Voce
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 dark:text-white">{{ .section_title }}</h2>
       <p class="text-lg sm:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed">{{ .section_subtitle }}</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {{ range .testimonials }}
-      <div class="p-8 bg-neutral-50 dark:bg-neutral-800/70 rounded-3xl border border-neutral-200/90 dark:border-neutral-700 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md transition-shadow">
-        <p class="text-neutral-700 dark:text-neutral-200 italic leading-relaxed text-base">
-          "{{ .quote }}"
-        </p>
-        <div class="flex items-center gap-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
-          <div class="w-12 h-12 rounded-2xl bg-primary-600 text-white font-extrabold flex items-center justify-center text-lg shadow-md">
+      <div class="p-8 bg-white dark:bg-neutral-800/80 rounded-3xl border border-neutral-200/90 dark:border-neutral-700/80 flex flex-col justify-between space-y-6 shadow-md hover:shadow-xl transition-shadow">
+        <div class="space-y-4">
+          <span class="inline-flex p-3 rounded-2xl bg-primary-100 text-primary-700 dark:bg-primary-900/60 dark:text-primary-300">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+          </span>
+          <p class="text-neutral-700 dark:text-neutral-200 italic leading-relaxed text-base">
+            "{{ .quote }}"
+          </p>
+        </div>
+        <div class="flex items-center gap-4 pt-4 border-t border-neutral-200/80 dark:border-neutral-700/80">
+          <div class="w-12 h-12 rounded-2xl bg-primary-600 text-white font-black flex items-center justify-center text-lg shadow-md">
             {{ substr .author 0 1 }}
           </div>
           <div>
-            <div class="font-extrabold text-base text-neutral-900 dark:text-white">{{ .author }}</div>
-            <div class="text-xs font-medium text-neutral-500 dark:text-neutral-400 mt-0.5">{{ .role }} • {{ .location }}</div>
+            <div class="font-black text-base text-neutral-900 dark:text-white">{{ .author }}</div>
+            <div class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 mt-0.5">{{ .role }} • {{ .location }}</div>
           </div>
         </div>
       </div>
@@ -183,9 +191,9 @@
   {{ end }}
 
   {{ with $hp.cta }}
-  <section id="implica-te" class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 text-white rounded-3xl p-10 sm:p-16 lg:p-20 text-center shadow-2xl space-y-8 relative overflow-hidden">
+  <section id="implica-te" class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 text-white rounded-3xl p-10 sm:p-16 lg:p-20 text-center shadow-2xl space-y-8 relative overflow-hidden border border-primary-500/30">
     <div class="max-w-3xl mx-auto space-y-6 relative z-10">
-      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">{{ .title }}</h2>
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white">{{ .title }}</h2>
       <p class="text-primary-100 text-lg sm:text-xl leading-relaxed">{{ .subtitle }}</p>
       <div class="pt-4">
         <a href="{{ .button_url }}" class="inline-flex items-center justify-center px-10 py-5 rounded-2xl font-black text-neutral-900 bg-secondary-400 hover:bg-secondary-300 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 text-xl">
