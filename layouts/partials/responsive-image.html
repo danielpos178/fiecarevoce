@@ -7,35 +7,35 @@
 {{ $img := resources.Get $src }}
 
 {{ if $img }}
-  {{ $w400 := $img.Resize "400x webp" }}
-  {{ $w800 := $img.Resize "800x webp" }}
-  {{ $w1200 := $img.Resize "1200x webp" }}
-  {{ $fallback := $img.Resize (printf "%dx%d webp" $img.Width $img.Height) }}
+ {{ $w400 := $img.Resize "400x webp" }}
+ {{ $w800 := $img.Resize "800x webp" }}
+ {{ $w1200 := $img.Resize "1200x webp" }}
+ {{ $fallback := $img.Resize (printf "%dx%d webp" $img.Width $img.Height) }}
 
-  <picture class="block w-full overflow-hidden">
-    <source
-      type="image/webp"
-      srcset="{{ $w400.RelPermalink }} 400w, {{ $w800.RelPermalink }} 800w, {{ $w1200.RelPermalink }} 1200w"
-      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-    />
-    <img
-      src="{{ $fallback.RelPermalink }}"
-      alt="{{ $alt }}"
-      width="{{ $img.Width }}"
-      height="{{ $img.Height }}"
-      loading="{{ $loading }}"
-      fetchpriority="{{ $fetchpriority }}"
-      decoding="async"
-      class="{{ $class }}"
-    />
-  </picture>
+ <picture class="block w-full overflow-hidden">
+ <source
+ type="image/webp"
+ srcset="{{ $w400.RelPermalink }} 400w, {{ $w800.RelPermalink }} 800w, {{ $w1200.RelPermalink }} 1200w"
+ sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+ />
+ <img
+ src="{{ $fallback.RelPermalink }}"
+ alt="{{ $alt }}"
+ width="{{ $img.Width }}"
+ height="{{ $img.Height }}"
+ loading="{{ $loading }}"
+ fetchpriority="{{ $fetchpriority }}"
+ decoding="async"
+ class="{{ $class }}"
+ />
+ </picture>
 {{ else }}
-  <img
-    src="{{ $src | relURL }}"
-    alt="{{ $alt }}"
-    loading="{{ $loading }}"
-    fetchpriority="{{ $fetchpriority }}"
-    decoding="async"
-    class="{{ $class }}"
-  />
+ <img
+ src="{{ $src | relURL }}"
+ alt="{{ $alt }}"
+ loading="{{ $loading }}"
+ fetchpriority="{{ $fetchpriority }}"
+ decoding="async"
+ class="{{ $class }}"
+ />
 {{ end }}
