@@ -1,7 +1,7 @@
 colorScheme = "custom"
 defaultAppearance = "light"
-autoSwitchAppearance = true
-showAppearanceSwitcher = true
+autoSwitchAppearance = false
+showAppearanceSwitcher = false
 enableSearch = true
 enableCodeCopy = true
 description = "Fiecare Voce este o asociație non-profit dedicată tinerilor între 12 și 25 de ani pentru dezvoltare comunitară, educație civică, sustenabilitate și inițiative sociale."
@@ -16,7 +16,7 @@ defaultSocialImage = "images/placeholder-hero.jpg"
   layout = "flex"
   showTitle = false
   showLogo = true
-  logo = "images/logo.svg"
+  logo = "images/logo1000.webp"
   disableTextInHeader = true
 
 [footer]
