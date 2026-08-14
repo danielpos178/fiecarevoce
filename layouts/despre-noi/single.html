@@ -101,38 +101,28 @@
   {{ end }}
 
   {{ with hugo.Data.despre.structure }}
-  <section id="structura" class="w-full">
-    <div class="max-w-6xl mx-auto px-4 my-16">
-      <div class="relative w-full rounded-3xl overflow-hidden bg-gradient-to-br from-[#4b923f] to-[#366d2d] dark:from-neutral-900 dark:to-neutral-950 border border-transparent dark:border-neutral-800 transition-colors duration-300 shadow-xl">
-        
-        <!-- Decorative Background Elements -->
-        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-white/10 dark:bg-[#4b923f]/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-black/10 dark:bg-black/40 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 p-8 md:p-12 z-10">
-          
-          <!-- Left Column (Context & Copy) -->
-          <div class="flex-1 max-w-2xl">
-            <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 dark:bg-white/10 text-white text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-sm">
-              Guvernanță & Transparență
-            </div>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mt-3 mb-2">{{ .title }}</h2>
-            <p class="text-emerald-100 dark:text-emerald-500 text-lg md:text-xl font-medium mb-4">{{ .subtitle }}</p>
-            <p class="text-white/90 leading-relaxed max-w-xl text-base">{{ .description }}</p>
-          </div>
-          
-          <!-- Right Column (CTA Button) -->
-          <div class="flex flex-col items-start lg:items-end shrink-0">
-             <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="bg-[#ffbd59] hover:bg-[#f0ad42] text-slate-900 font-bold px-8 py-5 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-3">
-               <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-               <span>{{ .rof.text }}</span>
-               <svg class="w-5 h-5 shrink-0 ml-1 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-             </a>
-             <p class="text-white/70 dark:text-neutral-500 text-xs mt-3 lg:text-right w-full font-medium tracking-wide">Document PDF public &bull; Actualizat 2025/2026</p>
-          </div>
-          
-        </div>
+  <section id="structura" class="w-full max-w-6xl mx-auto px-4 my-16">
+    <div class="bg-[#4b923f] dark:bg-[#386e2e] rounded-3xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 p-8 md:p-12 transition-colors duration-300 shadow-sm">
+      
+      <!-- Left Column (Context & Copy) -->
+      <div class="flex-1">
+        <p class="text-emerald-100 dark:text-emerald-200 text-lg md:text-xl font-medium tracking-wide mb-1">{{ .subtitle }}</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mt-3 mb-4">{{ .title }}</h2>
+        <p class="text-white/90 leading-relaxed max-w-xl text-base">{{ .description }}</p>
       </div>
+      
+      <!-- Right Column (CTA Button) -->
+      <div class="flex flex-col items-start lg:items-end shrink-0 w-full lg:w-auto mt-4 lg:mt-0">
+         <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="bg-[#ffbd59] hover:bg-[#f0ad42] text-slate-900 font-bold px-8 py-5 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3 text-base md:text-lg w-full sm:w-auto">
+           <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+           <span>{{ .rof.text }}</span>
+           <svg class="w-5 h-5 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+         </a>
+         {{ if .rof.subcaption }}
+         <p class="text-white/60 dark:text-white/50 text-xs mt-3 text-center sm:text-left w-full lg:text-right font-medium tracking-wide px-2">{{ .rof.subcaption }}</p>
+         {{ end }}
+      </div>
+      
     </div>
   </section>
   {{ end }}
