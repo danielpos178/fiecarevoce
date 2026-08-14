@@ -1,12 +1,11 @@
 hero:
-  badge: "ONG de Tineret"
-  title: "Fiecare Voce Contează. Schimbarea Începe Cu Tine."
-  subtitle: "O platformă dedicată tinerilor între 12 și 25 de ani pentru a-și face auzită vocea, a iniția proiecte comunitare și a construi un viitor sustenabil."
+  title: "Fiecare voce contează. Schimbarea începe cu tine."
+  subtitle: "O platformă dedicată tinerilorpentru a-și face auzită vocea, a iniția proiecte comunitare și a construi un viitor sustenabil."
   primary_cta:
     text: "Alătură-te Cauzei"
     url: "#implica-te"
   secondary_cta:
-    text: "Descoperă Pilonii"
+    text: "Descoperă Mai Multe"
     url: "#piloni"
   image: "images/placeholder-hero.jpg"
 
