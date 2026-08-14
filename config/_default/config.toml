@@ -6,3 +6,8 @@ theme = 'blowfish'
 defaultContentLanguage = 'ro'
 enableRobotsTXT = true
 summaryLength = 25
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"

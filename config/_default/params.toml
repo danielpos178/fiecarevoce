@@ -30,3 +30,6 @@ defaultSocialImage = "images/logo1000.webp"
 
 [seo]
   metaDescriptionOrder = ["summary", "description", "site"]
+
+[sitemap]
+  excludedKinds = ["taxonomy", "term"]
