@@ -42,6 +42,4 @@ article, .card {
   border-radius: 1rem;
 }
 
-.dark img {
-  filter: brightness(0.92) contrast(1.05);
-}
+
