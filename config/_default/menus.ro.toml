@@ -1,12 +1,7 @@
 [[main]]
   name = "Despre Noi"
-  url = "#despre"
+  url = "/despre-noi/"
   weight = 10
-
-[[main]]
-  name = "Piloni"
-  url = "#piloni"
-  weight = 20
 
 [[main]]
   name = "Impact"

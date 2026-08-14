@@ -1,0 +1,47 @@
+hero:
+  title: "Despre Noi"
+  subtitle: "Suntem echipa din spatele Fiecare Voce. Mai jos afli mai multe despre fondatori, structura internă și regulamentul de organizare și funcționare (ROF)."
+
+pillars:
+  title: "Pilonii Noștri de Acțiune"
+  subtitle: "Domeniile în care mobilizăm tinerii și creăm un impact social de durată."
+  items:
+    - title: "Educație & Leadership"
+      description: "Ateliere practice, programe de mentorat și deprinderi civice pentru noua generație de lideri."
+      icon: "academic-cap"
+      badge: "Formare"
+    - title: "Advocacy & Drepturi"
+      description: "Sprijinim tinerii să participe activ în deciziile locale și în elaborarea politicilor comunitare."
+      icon: "mega-phone"
+      badge: "Implicare"
+    - title: "Sustenabilitate & Mediu"
+      description: "Campanii de ecologizare, educație ambientală și inițiative verzi conduse de voluntari."
+      icon: "sparkles"
+      badge: "Eco"
+    - title: "Comunitate & Incluziune"
+      description: "Spații sigure și oportunități egale pentru tinerii din toate mediile sociale și regionale."
+      icon: "user-group"
+      badge: "Echitate"
+
+founders:
+  title: "Fondatori"
+  subtitle: "Tinerii care au pus bazele organizației Fiecare Voce."
+  items:
+    - name: "Iulia Geambazu"
+      role: "Co-Fondator & Președinte"
+      bio: "Pasionată de educație civică și dezvoltare comunitară, Iulia a fondat Fiecare Voce pentru a oferi tinerilor o platformă unde ideile lor devin realitate."
+      image: ""
+      initials: "IG"
+    - name: "Luca Georgescu"
+      role: "Co-Fondator & Vicepreședinte"
+      bio: "Cu o experiență bogată în advocacy și politici pentru tineret, Luca coordonează proiectele strategice și relațiile instituționale."
+      image: ""
+      initials: "LG"
+
+structure:
+  title: "Structura Internă și ROF"
+  subtitle: "Cum funcționăm și cum suntem organizați"
+  description: "Asociația Fiecare Voce este guvernată de un set clar de reguli și proceduri, detaliate în Regulamentul de Organizare și Funcționare (ROF). Structura noastră este formată din Adunarea Generală, Consiliul Director și departamente specializate care se asigură de implementarea eficientă a tuturor proiectelor noastre comunitare."
+  rof:
+    text: "Citește Regulamentul (ROF)"
+    url: "https://docs.google.com/document/d/1vSN4kOriZqW1tOvKcQyvI67Jl1DyNQ1z-MeKfLFMeog/edit?tab=t.0"

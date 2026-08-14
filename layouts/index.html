@@ -3,25 +3,26 @@
  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
  
  <div class="lg:col-span-7">
+ {{ with hugo.Data.homepage.hero }}
  <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
- Fiecare Voce Contează. <br />
- <span class="text-brand-green ">Schimbarea Începe Cu Tine.</span>
+ {{ .title | markdownify }}
  </h1>
 
  <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mt-4 mb-8 leading-relaxed font-normal">
- Fiecare Voce este, în același timp, un proiect, o comunitate și un spațiu sigur pentru exprimare.
+ {{ .subtitle | markdownify }}
  </p>
 
  <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
- <a href="#implica-te" class="bg-brand-green hover:bg-brand-green/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center gap-2">
- <span>Implică-te Acum</span>
+ <a href="{{ .primary_cta.url }}" class="bg-brand-green hover:bg-brand-green/90 text-white font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center gap-2">
+ <span>{{ .primary_cta.text }}</span>
  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
  </a>
 
- <a href="#piloni" class="bg-brand-gold hover:bg-brand-gold/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center">
- Descoperă Pilonii
+ <a href="{{ .secondary_cta.url }}" class="bg-brand-gold hover:bg-brand-gold/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center">
+ {{ .secondary_cta.text }}
  </a>
  </div>
+ {{ end }}
  </div>
 
  <div class="lg:col-span-5 flex justify-center items-center w-full">
@@ -48,13 +49,13 @@
  </div>
 
  <!-- 2. Impact Metric Card 1 -->
- <div class="bg-brand-green text-slate-900 rounded-3xl p-8 shadow-md flex flex-col justify-between">
+ <div class="bg-brand-green text-white rounded-3xl p-8 shadow-md flex flex-col justify-between">
  <div>
  <div class="text-5xl font-black tracking-tight mb-2">2&times;</div>
  <h3 class="text-xl font-bold leading-snug">Întâlniri cu Ministerul Educației</h3>
  </div>
- <p class="text-slate-800 text-sm font-medium mt-4 mb-4">Vara 2025, am apărat drepturile olimpicilor.</p>
- <a href="#" class="inline-block mt-auto text-sm font-bold text-slate-900 opacity-90 hover:opacity-100 hover:underline">Detalii &rarr;</a>
+ <p class="text-emerald-100 text-sm font-medium mt-4 mb-4">Vara 2025, am apărat drepturile olimpicilor.</p>
+ <a href="#" class="inline-block mt-auto text-sm font-bold text-white opacity-90 hover:opacity-100 hover:underline">Detalii &rarr;</a>
  </div>
 
  <!-- 3. Impact Metric Card 2 -->
@@ -100,44 +101,15 @@
  </div>
 
  </div>
- </div>
-</section>
-
-{{ with hugo.Data.homepage.pillars }}
-<section id="piloni" class="w-full bg-slate-50 py-16 sm:py-24 border-b border-slate-200/80 ">
- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
- <div class="max-w-3xl mb-12">
- <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
- {{ .title }}
- </h2>
- <p class="text-slate-600 text-base md:text-lg mt-4 font-normal leading-relaxed">
- {{ .subtitle }}
- </p>
- </div>
-
- <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
- {{ range .items }}
- <div class="flex flex-col space-y-4 relative group">
- <div class="absolute -inset-y-4 -inset-x-4 sm:-inset-x-6 rounded-2xl bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
- <div class="flex items-start gap-4">
- <div class="shrink-0 p-3 rounded-xl bg-brand-green/10 text-brand-green mt-1">
- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
- </div>
- <div>
- <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
- {{ .title }}
- </h3>
- <p class="text-base text-slate-600 leading-relaxed font-normal">
- {{ .description }}
- </p>
- </div>
- </div>
- </div>
- {{ end }}
+ <div class="mt-12 flex justify-center w-full">
+   <a href="/despre-noi/" class="bg-brand-gold hover:bg-brand-gold/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center">
+     Află mai multe despre noi
+   </a>
  </div>
  </div>
 </section>
-{{ end }}
+
+
 
 <section id="articole" class="w-full bg-white py-16 sm:py-24">
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -206,7 +178,7 @@
  </blockquote>
  </div>
  <div class="flex items-center gap-4">
- <div class="w-12 h-12 rounded-full bg-brand-green text-slate-900 font-bold flex items-center justify-center text-lg shrink-0 shadow-sm">
+ <div class="w-12 h-12 rounded-full bg-brand-green text-white font-bold flex items-center justify-center text-lg shrink-0 shadow-sm">
  {{ .initials }}
  </div>
  <div>
@@ -226,10 +198,10 @@
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
  <div class="space-y-6">
- <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
+ <h2 class="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
  {{ .title }}
  </h2>
- <p class="text-slate-800 text-lg md:text-xl font-normal leading-relaxed">
+ <p class="text-emerald-100 text-lg md:text-xl font-normal leading-relaxed">
  {{ .subtitle }}
  </p>
  </div>

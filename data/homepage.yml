@@ -1,37 +1,16 @@
 hero:
-  title: "Fiecare voce contează. Schimbarea începe cu tine."
-  subtitle: "O platformă dedicată tinerilorpentru a-și face auzită vocea, a iniția proiecte comunitare și a construi un viitor sustenabil."
+  title: "Vocea ta contează. Schimbarea începe cu tine."
+  subtitle: "O platformă dedicată tinerilor pentru a-și face auzită vocea, a iniția proiecte comunitare și a construi un viitor sustenabil."
   primary_cta:
     text: "Alătură-te Cauzei"
     url: "#implica-te"
   secondary_cta:
-    text: "Descoperă Mai Multe"
-    url: "#piloni"
+    text: "Despre Noi"
+    url: "/despre-noi/"
   image: "images/placeholder-hero.jpg"
 
-pillars:
-  title: "Pilonii Noștri de Acțiune"
-  subtitle: "Domeniile în care mobilizăm tinerii și creăm un impact social de durată."
-  items:
-    - title: "Educație & Leadership"
-      description: "Ateliere practice, programe de mentorat și deprinderi civice pentru noua generație de lideri."
-      icon: "academic-cap"
-      badge: "Formare"
-    - title: "Advocacy & Drepturi"
-      description: "Sprijinim tinerii să participe activ în deciziile locale și în elaborarea politicilor comunitare."
-      icon: "mega-phone"
-      badge: "Implicare"
-    - title: "Sustenabilitate & Mediu"
-      description: "Campanii de ecologizare, educație ambientală și inițiative verzi conduse de voluntari."
-      icon: "sparkles"
-      badge: "Eco"
-    - title: "Comunitate & Incluziune"
-      description: "Spații sigure și oportunități egale pentru tinerii din toate mediile sociale și regionale."
-      icon: "user-group"
-      badge: "Echitate"
-
 cta:
-  title: "Ești Gata Să Faci Primul Pas?"
+  title: "Vrei sa te alături?"
   subtitle: "Fie că vrei să devii voluntar, să propui un proiect sau să susții misiunea noastră, vocea ta contează."
-  button_text: "Înscrie-te ca Voluntar"
-  button_url: "#implica-te"
+  button_text: "Contactează-ne"
+  button_url: "mailto:fiecarevoce@gmail.com"

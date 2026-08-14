@@ -1,0 +1,100 @@
+{{ define "main" }}
+<div class="relative flex flex-col grow w-full">
+  
+  {{ with hugo.Data.despre.hero }}
+  <section class="w-full clear-both block bg-slate-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
+        {{ .title }}
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-normal">
+        {{ .subtitle }}
+      </p>
+    </div>
+  </section>
+  {{ end }}
+
+  {{ with hugo.Data.despre.founders }}
+  <section id="fondatori" class="w-full bg-white py-16 sm:py-24 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">{{ .title }}</h2>
+        <p class="text-slate-600 text-base md:text-lg mt-4 font-normal leading-relaxed">{{ .subtitle }}</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        {{ range .items }}
+        <div class="bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col space-y-6 hover:shadow-sm transition-shadow">
+          <div class="flex items-center gap-6">
+            <div class="w-20 h-20 rounded-full bg-brand-green text-white font-bold flex items-center justify-center text-3xl shrink-0 shadow-sm overflow-hidden">
+              {{ if .image }}
+                <img src="{{ .image }}" alt="{{ .name }}" class="w-full h-full object-cover">
+              {{ else }}
+                {{ .initials }}
+              {{ end }}
+            </div>
+            <div>
+              <h3 class="font-black text-2xl text-slate-900">{{ .name }}</h3>
+              <div class="text-base font-bold text-brand-green">{{ .role }}</div>
+            </div>
+          </div>
+          <div>
+            <p class="text-slate-700 leading-relaxed text-base">{{ .bio }}</p>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+  {{ with hugo.Data.despre.pillars }}
+  <section id="piloni" class="w-full bg-slate-50 py-16 sm:py-24 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">{{ .title }}</h2>
+        <p class="text-slate-600 text-base md:text-lg mt-4 font-normal leading-relaxed">{{ .subtitle }}</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        {{ range .items }}
+        <div class="flex flex-col space-y-4 relative group">
+          <div class="absolute -inset-y-4 -inset-x-4 sm:-inset-x-6 rounded-2xl bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 p-3 rounded-xl bg-brand-green/10 text-brand-green mt-1">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">{{ .title }}</h3>
+              <p class="text-base text-slate-600 leading-relaxed font-normal">{{ .description }}</p>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+  {{ with hugo.Data.despre.structure }}
+  <section id="structura" class="w-full bg-brand-green py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-6">{{ .title }}</h2>
+          <p class="text-lg sm:text-xl text-emerald-100 mb-8 leading-relaxed font-normal">{{ .subtitle }}</p>
+          <p class="text-base text-white/90 leading-relaxed mb-8">{{ .description }}</p>
+        </div>
+        <div class="flex lg:justify-end items-center">
+           <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="bg-brand-gold hover:bg-amber-400 text-slate-900 font-black rounded-xl px-10 py-5 text-lg shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center gap-3">
+             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+             <span>{{ .rof.text }}</span>
+           </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+</div>
+{{ end }}
