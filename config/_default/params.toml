@@ -6,7 +6,7 @@ enableSearch = true
 enableCodeCopy = true
 description = "Fiecare Voce este o asociație non-profit dedicată tinerilor între 12 și 25 de ani pentru dezvoltare comunitară, educație civică, sustenabilitate și inițiative sociale."
 keywords = ["ONG", "tineret", "voluntariat", "lideri comunitari", "advocacy", "sustenabilitate", "schimbare sociala"]
-defaultSocialImage = "images/placeholder-hero.jpg"
+defaultSocialImage = "images/logo1000.webp"
 
 [author]
   name = "Fiecare Voce"
