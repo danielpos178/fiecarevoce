@@ -35,6 +35,7 @@
 <section id="impact" class="w-full border-y border-slate-200 bg-white py-16 sm:py-24">
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <h2 class="sr-only">Impactul Nostru</h2>
+ {{ with hugo.Data.homepage.impact }}
  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
  <!-- 1. Feature Award Card -->
@@ -43,37 +44,37 @@
  <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4h7.6l-6.1 4.5 2.3 7.1-6.2-4.6-6.2 4.6 2.3-7.1-6.1-4.5h7.6z"/></svg>
  </div>
  <div class="relative z-10">
- <div class="text-xs font-bold text-brand-green tracking-widest uppercase mb-4">GALA TINERETULUI PRAHOVA • 2025</div>
- <h3 class="text-3xl font-black text-slate-900 leading-tight">Cel mai bun proiect preuniversitar din Prahova</h3>
+ <div class="text-xs font-bold text-brand-green tracking-widest uppercase mb-4">{{ .award.label | safeHTML }}</div>
+ <h3 class="text-3xl font-black text-slate-900 leading-tight">{{ .award.title | markdownify }}</h3>
  </div>
  </div>
 
  <!-- 2. Impact Metric Card 1 -->
  <div class="bg-brand-green text-white rounded-3xl p-8 shadow-md flex flex-col justify-between">
  <div>
- <div class="text-5xl font-black tracking-tight mb-2">2&times;</div>
- <h3 class="text-xl font-bold leading-snug">Întâlniri cu Ministerul Educației</h3>
+ <div class="text-5xl font-black tracking-tight mb-2">{{ .stat1.value | safeHTML }}</div>
+ <h3 class="text-xl font-bold leading-snug">{{ .stat1.title }}</h3>
  </div>
- <p class="text-emerald-100 text-sm font-medium mt-4 mb-4">Vara 2025, am apărat drepturile olimpicilor.</p>
- <a href="#" class="inline-block mt-auto text-sm font-bold text-white opacity-90 hover:opacity-100 hover:underline">Detalii &rarr;</a>
+ <p class="text-emerald-100 text-sm font-medium mt-4 mb-4">{{ .stat1.description }}</p>
+ <a href="{{ .stat1.link }}" class="inline-block mt-auto text-sm font-bold text-white opacity-90 hover:opacity-100 hover:underline">Detalii &rarr;</a>
  </div>
 
  <!-- 3. Impact Metric Card 2 -->
  <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col justify-between">
  <div>
- <div class="text-5xl font-black text-slate-900 tracking-tight mb-2">1</div>
- <h3 class="text-xl font-bold text-slate-800 leading-snug">Hotărâre de Guvern influențată</h3>
+ <div class="text-5xl font-black text-slate-900 tracking-tight mb-2">{{ .stat2.value | safeHTML }}</div>
+ <h3 class="text-xl font-bold text-slate-800 leading-snug">{{ .stat2.title }}</h3>
  </div>
- <a href="#" class="inline-block mt-6 text-sm font-bold text-brand-green hover:underline mt-auto">Detalii &rarr;</a>
+ <a href="{{ .stat2.link }}" class="inline-block mt-6 text-sm font-bold text-brand-green hover:underline mt-auto">Detalii &rarr;</a>
  </div>
 
  <!-- 4. Reach Metric Card -->
  <div class="md:col-span-2 lg:col-span-2 bg-brand-gold text-slate-900 rounded-3xl p-8 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-6">
  <div>
- <div class="text-5xl font-black tracking-tight mb-2">100K+</div>
- <h3 class="text-xl font-bold leading-snug">Vizualizări reviste</h3>
+ <div class="text-5xl font-black tracking-tight mb-2">{{ .stat3.value | safeHTML }}</div>
+ <h3 class="text-xl font-bold leading-snug">{{ .stat3.title }}</h3>
  </div>
- <p class="text-slate-800 text-sm font-semibold sm:text-right max-w-xs">Postările au ajuns la zeci de mii de elevi din România.</p>
+ <p class="text-slate-800 text-sm font-semibold sm:text-right max-w-xs">{{ .stat3.description }}</p>
  </div>
 
  <!-- 5. Community Dual-Stat Box -->
@@ -83,9 +84,9 @@
  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
  </div>
  <div>
- <div class="text-4xl font-black tracking-tight mb-1">500+</div>
- <h3 class="text-lg font-bold">Persoane în comunitate</h3>
- <p class="text-slate-400 text-sm mt-1">O comunitate activă de tineri implicați.</p>
+ <div class="text-4xl font-black tracking-tight mb-1">{{ .community1.value | safeHTML }}</div>
+ <h3 class="text-lg font-bold">{{ .community1.title }}</h3>
+ <p class="text-slate-400 text-sm mt-1">{{ .community1.description }}</p>
  </div>
  </div>
  <div class="flex items-start gap-4 sm:pl-8 pt-8 sm:pt-0">
@@ -93,19 +94,20 @@
  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
  </div>
  <div>
- <div class="text-4xl font-black tracking-tight mb-1">30+</div>
- <h3 class="text-lg font-bold">Membri Social Media</h3>
- <p class="text-slate-400 text-sm mt-1">Voluntari care contribuie săptămânal.</p>
+ <div class="text-4xl font-black tracking-tight mb-1">{{ .community2.value | safeHTML }}</div>
+ <h3 class="text-lg font-bold">{{ .community2.title }}</h3>
+ <p class="text-slate-400 text-sm mt-1">{{ .community2.description }}</p>
  </div>
  </div>
  </div>
 
  </div>
  <div class="mt-12 flex justify-center w-full">
-   <a href="/despre-noi/" class="bg-brand-gold hover:bg-brand-gold/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center">
-     Află mai multe despre noi
+   <a href="{{ .cta.url }}" class="bg-brand-gold hover:bg-brand-gold/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center">
+     {{ .cta.text }}
    </a>
  </div>
+ {{ end }}
  </div>
 </section>
 

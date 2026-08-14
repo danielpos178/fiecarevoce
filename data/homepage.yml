@@ -6,7 +6,7 @@ hero:
     url: "#implica-te"
   secondary_cta:
     text: "Citeste articolele"
-    url: "/posts/"
+    url: "#articole"
   image: "images/logo1000.webp"
 
 cta:
@@ -14,3 +14,32 @@ cta:
   subtitle: "Fie că vrei să devii voluntar, să propui un proiect sau să susții misiunea noastră, vocea ta contează."
   button_text: "Contactează-ne"
   button_url: "mailto:fiecarevoce@gmail.com"
+
+impact:
+  award:
+    label: "GALA TINERETULUI PRAHOVA • 2025"
+    title: "Cel mai bun proiect preuniversitar din Prahova"
+  stat1:
+    value: "2&times;"
+    title: "Întâlniri cu Ministerul Educației"
+    description: "Vara 2025, am apărat drepturile olimpicilor."
+    link: "#"
+  stat2:
+    value: "1"
+    title: "Hotărâre de Guvern influențată"
+    link: "#"
+  stat3:
+    value: "100K+"
+    title: "Vizualizări ale revistei"
+    description: "Postările au ajuns la zeci de mii de elevi din România."
+  community1:
+    value: "500+"
+    title: "Persoane în comunitate"
+    description: "O comunitate activă de tineri implicați."
+  community2:
+    value: "30+"
+    title: "Membri Social Media"
+    description: "Voluntari care contribuie săptămânal."
+  cta:
+    text: "Află mai multe despre noi"
+    url: "/despre-noi/"
