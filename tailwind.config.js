@@ -1,4 +1,12 @@
 module.exports = {
+  content: [
+    "../../layouts/**/*.html",
+    "../../content/**/*.md",
+    "../../content/**/*.html",
+    "./layouts/**/*.html",
+    "./content/**/*.md",
+    "./content/**/*.html",
+  ],
   darkMode: "class",
   theme: {
     screens: {
@@ -50,6 +58,10 @@ module.exports = {
       },
     },
     extend: {
+      colors: {
+        'brand-green': '#4b923f',
+        'brand-gold': '#ffbd59',
+      },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
