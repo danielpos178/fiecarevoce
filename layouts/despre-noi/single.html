@@ -2,12 +2,15 @@
 <div class="relative flex flex-col grow w-full">
   
   {{ with hugo.Data.despre.hero }}
-  <section class="w-full clear-both block bg-slate-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto text-center">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
+  <section class="w-full bg-slate-50 dark:bg-neutral-900 py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-200 dark:border-neutral-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ffbd59]/20 text-[#4b923f] dark:text-[#5ac24b] text-sm font-bold tracking-widest uppercase mb-6">
+        Despre Noi &bull; Cine Suntem
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white leading-tight tracking-tight mb-6 max-w-4xl">
         {{ .title }}
       </h1>
-      <p class="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-normal">
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed font-normal">
         {{ .subtitle }}
       </p>
     </div>
