@@ -5,9 +5,9 @@ hero:
     text: "Alătură-te Cauzei"
     url: "#implica-te"
   secondary_cta:
-    text: "Despre Noi"
-    url: "/despre-noi/"
-  image: "images/placeholder-hero.jpg"
+    text: "Citeste articolele"
+    url: "/posts/"
+  image: "images/logo1000.webp"
 
 cta:
   title: "Vrei sa te alături?"

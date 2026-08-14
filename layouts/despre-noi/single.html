@@ -1,12 +1,9 @@
 {{ define "main" }}
 <div class="relative flex flex-col grow w-full">
-  
+
   {{ with hugo.Data.despre.hero }}
   <section class="w-full bg-slate-50 dark:bg-neutral-900 py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-200 dark:border-neutral-800 transition-colors duration-300">
     <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ffbd59]/20 text-[#4b923f] dark:text-[#5ac24b] text-sm font-bold tracking-widest uppercase mb-6">
-        Despre Noi &bull; Cine Suntem
-      </div>
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white leading-tight tracking-tight mb-6 max-w-4xl">
         {{ .title }}
       </h1>
@@ -28,7 +25,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {{ range .items }}
         <div class="flex flex-col bg-white dark:bg-neutral-900 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-          
+
           <!-- Top Image Banner Area -->
           <div class="w-full aspect-[4/3] bg-slate-100 dark:bg-neutral-800 relative overflow-hidden group">
             {{ if .image }}
@@ -41,18 +38,18 @@
               </div>
             {{ end }}
           </div>
-          
+
           <!-- Card Content Area -->
           <div class="flex flex-col flex-grow p-8 sm:p-10">
             <div class="mb-4">
               <span class="text-xs font-black tracking-widest uppercase text-[#4b923f] dark:text-[#5ac24b] mb-2 block">{{ .role }}</span>
               <h3 class="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white leading-tight">{{ .name }}</h3>
             </div>
-            
+
             <div class="mb-8">
               <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-base">{{ .bio }}</p>
             </div>
-            
+
             <div class="mt-auto bg-slate-50 dark:bg-neutral-800/60 rounded-2xl p-5">
               <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide mb-4">{{ .achievements_title }}</h4>
               <ul class="space-y-3">
@@ -64,7 +61,7 @@
                 {{ end }}
               </ul>
             </div>
-            
+
           </div>
         </div>
         {{ end }}
@@ -101,37 +98,27 @@
   {{ end }}
 
   {{ with hugo.Data.despre.structure }}
-  <section id="structura" class="w-full bg-[#4b923f] dark:bg-[#386e2e] py-12 md:py-16 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center justify-between">
-        
-        <!-- Left Column -->
-        <div class="lg:col-span-8 flex flex-col items-start text-left">
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
-            {{ .title }}
-          </h2>
-          <p class="text-white/80 font-medium text-lg mb-4">
-            {{ .subtitle }}
-          </p>
-          <p class="text-white/90 text-sm sm:text-base leading-relaxed max-w-2xl">
-            {{ .description }}
-          </p>
-        </div>
-
-        <!-- Right Column -->
-        <div class="lg:col-span-4 flex flex-col items-center lg:items-end justify-center text-center lg:text-right gap-3 w-full">
-           <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="inline-flex bg-[#ffbd59] hover:bg-[#f0ad42] text-slate-900 font-bold rounded-xl px-8 py-4 text-base md:text-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 items-center justify-center gap-3 w-full sm:w-auto">
-             <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-             <span>{{ .rof.text }}</span>
-             <svg class="w-5 h-5 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-           </a>
-           {{ if .rof.subcaption }}
-           <p class="text-xs text-white/75 font-medium tracking-wide w-full">{{ .rof.subcaption }}</p>
-           {{ end }}
-        </div>
-
-      </div>
-    </div>
+  <section id="structura" class="w-full py-20 sm:py-32 bg-brand-green ">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+   <div class="space-y-6">
+   <h2 class="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
+   {{ .title }}
+   </h2>
+   <p class="text-emerald-100 text-md md:text-md font-normal leading-relaxed">
+   {{ .subtitle }}
+   </p>
+   <p class="text-white leading-relaxed max-w-xl text-base">{{ .description }}</p>
+   </div>
+   <div class="flex md:justify-end w-20">
+   <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="bg-[#ffbd59] hover:bg-[#f0ad42] text-slate-900 font-bold px-8 py-5 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3 text-base md:text-lg w-full sm:w-auto">
+     <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+     <span>{{ .rof.text }}</span>
+     <svg class="w-5 h-5 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+   </a>
+   </div>
+   </div>
+   </div>
   </section>
   {{ end }}
 
