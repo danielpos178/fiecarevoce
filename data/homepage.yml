@@ -12,8 +12,10 @@ hero:
 cta:
   title: "Vrei sa te alături?"
   subtitle: "Fie că vrei să devii voluntar, să propui un proiect sau să susții misiunea noastră, vocea ta contează."
-  button_text: "Contactează-ne"
+  button_text: "Contactează-ne pe email"
   button_url: "mailto:fiecarevoce@gmail.com"
+  instagram_text: "Contactează-ne pe Instagram"
+  instagram_url: "https://instagram.com/fiecarevoce"
 
 impact:
   award:
