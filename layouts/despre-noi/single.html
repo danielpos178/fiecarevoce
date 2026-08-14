@@ -83,10 +83,10 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
         {{ range .items }}
-        <div class="flex flex-col space-y-4 relative group bg-white dark:bg-neutral-950 p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-all duration-300">
+        <div class="flex flex-col rounded-xl space-y-4 relative group bg-white dark:bg-neutral-950 p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-all duration-300">
           <div class="flex items-start gap-4">
             <div class="shrink-0 p-3 rounded-xl bg-[#4b923f]/10 text-[#4b923f] dark:text-[#5ac24b] mt-1">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              {{ .icon | safeHTML }}
             </div>
             <div>
               <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">{{ .title }}</h3>
