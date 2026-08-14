@@ -1,7 +1,7 @@
 baseURL = 'https://fiecarevoce.com/'
-locale = 'en-us'
+locale = 'ro-RO'
 title = 'Fiecare Voce'
 theme = 'blowfish'
-defaultContentLanguage = 'en'
+defaultContentLanguage = 'ro'
 enableRobotsTXT = true
 summaryLength = 25
