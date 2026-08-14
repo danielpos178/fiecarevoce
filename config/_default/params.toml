@@ -14,9 +14,10 @@ defaultSocialImage = "images/placeholder-hero.jpg"
 
 [header]
   layout = "flex"
-  showTitle = true
+  showTitle = false
   showLogo = true
   logo = "images/logo.svg"
+  disableTextInHeader = true
 
 [footer]
   showCopyright = true
