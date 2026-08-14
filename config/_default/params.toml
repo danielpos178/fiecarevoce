@@ -11,7 +11,7 @@ defaultSocialImage = "images/logo1000.webp"
 
 [author]
   name = "Fiecare Voce"
-  email = "contact@fiecarevoce.com"
+  email = "fiecarevoce@gmail.com"
 
 [header]
   layout = "flex"
