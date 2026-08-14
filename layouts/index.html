@@ -1,219 +1,248 @@
 {{ define "main" }}
-<section id="hero" class="w-full clear-both block bg-white dark:bg-neutral-900 py-12 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80 dark:border-neutral-800 transition-colors duration-300">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-    
-    <div class="lg:col-span-7">
-      <span class="inline-block bg-[#ffbd59]/20 text-[#4b923f] dark:text-[#ffbd59] border border-[#ffbd59]/40 font-bold px-3.5 py-1.5 rounded-full text-xs tracking-wider uppercase">
-        ONG DE TINERET • FIECARE VOCE
-      </span>
+<section id="hero" class="w-full clear-both block bg-slate-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+ <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+ 
+ <div class="lg:col-span-7">
+ <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
+ Fiecare Voce Contează. <br />
+ <span class="text-brand-green ">Schimbarea Începe Cu Tine.</span>
+ </h1>
 
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white leading-[1.1] tracking-tight mt-4 mb-6">
-        Fiecare Voce Contează. <br />
-        <span class="text-[#4b923f] dark:text-emerald-400">Schimbarea Începe Cu Tine.</span>
-      </h1>
+ <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mt-4 mb-8 leading-relaxed font-normal">
+ Fiecare Voce este, în același timp, un proiect, o comunitate și un spațiu sigur pentru exprimare.
+ </p>
 
-      <p class="text-lg sm:text-xl text-slate-600 dark:text-neutral-300 leading-relaxed mb-8 max-w-2xl font-normal">
-        O platformă dedicată tinerilor între 12 și 25 de ani pentru a-și face auzită vocea, a iniția proiecte comunitare și a construi un viitor sustenabil.
-      </p>
+ <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+ <a href="#implica-te" class="bg-brand-green hover:bg-brand-green/90 text-white font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center gap-2">
+ <span>Implică-te Acum</span>
+ <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+ </a>
 
-      <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-        <a href="#implica-te" class="bg-[#4b923f] hover:bg-[#3d7733] text-white font-bold text-base px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-center inline-flex justify-center items-center gap-2">
-          <span>Implică-te Acum</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </a>
+ <a href="#piloni" class="bg-brand-gold hover:bg-brand-gold/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center">
+ Descoperă Pilonii
+ </a>
+ </div>
+ </div>
 
-        <a href="#piloni" class="bg-[#ffbd59] hover:bg-[#f0ad42] text-[#0f172a] font-bold text-base px-8 py-4 rounded-xl shadow-md hover:shadow-lg transition-all text-center inline-flex justify-center items-center">
-          Descoperă Pilonii
-        </a>
-      </div>
-    </div>
+ <div class="lg:col-span-5 flex justify-center items-center w-full">
+ <img
+ src="{{ "images/logo1000.webp" | relURL }}"
+ alt="Fiecare Voce Logo"
+ class="w-full max-w-sm lg:max-w-lg h-auto object-contain border-0 outline-none shadow-none bg-transparent"
+ />
+ </div>
 
-    <div class="lg:col-span-5 flex justify-center items-center w-full">
-      <img
-        src="{{ "images/logo.svg" | relURL }}"
-        alt="Fiecare Voce Logo"
-        class="w-full max-w-sm sm:max-w-md h-auto object-contain drop-shadow-sm nozoom border-0 outline-none shadow-none"
-      />
-    </div>
-
-  </div>
+ </div>
 </section>
 
-{{ with hugo.Data.impact }}
-<section id="impact" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10 sm:my-14">
-  <div class="bg-[#4b923f] dark:bg-neutral-800 text-white rounded-3xl p-8 sm:p-12 shadow-lg border border-transparent dark:border-neutral-700">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      {{ range .stats }}
-      <div class="space-y-1 p-4 rounded-2xl bg-white/10 dark:bg-neutral-900/60 backdrop-blur-sm border border-white/15 dark:border-neutral-700/60">
-        <div class="text-4xl md:text-5xl font-black text-white dark:text-primary-400 tracking-tight">{{ .number }}</div>
-        <div class="font-extrabold text-white dark:text-neutral-100 text-base md:text-lg mt-1">{{ .label }}</div>
-        <div class="text-emerald-100 dark:text-neutral-400 font-medium text-xs md:text-sm mt-0.5 leading-snug">{{ .description }}</div>
-      </div>
-      {{ end }}
-    </div>
-  </div>
+<section id="impact" class="w-full border-y border-slate-200 bg-white py-16 sm:py-24">
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+ <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+ 
+ <!-- 1. Feature Award Card -->
+ <div class="md:col-span-1 md:row-span-2 bg-slate-100 rounded-3xl p-8 flex flex-col justify-end border border-slate-200 relative overflow-hidden group hover:border-brand-green/30 transition-colors">
+ <div class="absolute -right-8 -top-8 text-brand-gold/20 group-hover:scale-110 transition-transform duration-500">
+ <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4h7.6l-6.1 4.5 2.3 7.1-6.2-4.6-6.2 4.6 2.3-7.1-6.1-4.5h7.6z"/></svg>
+ </div>
+ <div class="relative z-10">
+ <div class="text-xs font-bold text-brand-green tracking-widest uppercase mb-4">GALA TINERETULUI PRAHOVA • 2025</div>
+ <h3 class="text-3xl font-black text-slate-900 leading-tight">Cel mai bun proiect preuniversitar din Prahova</h3>
+ </div>
+ </div>
+
+ <!-- 2. Impact Metric Card 1 -->
+ <div class="bg-brand-green text-white rounded-3xl p-8 shadow-md flex flex-col justify-between">
+ <div>
+ <div class="text-5xl font-black tracking-tight mb-2">2&times;</div>
+ <h3 class="text-xl font-bold leading-snug">Întâlniri cu Ministerul Educației</h3>
+ </div>
+ <p class="text-emerald-100 text-sm font-medium mt-4 mb-4">Vara 2025, am apărat drepturile olimpicilor.</p>
+ <a href="#" class="inline-block mt-auto text-sm font-bold text-white opacity-90 hover:opacity-100 hover:underline">Detalii &rarr;</a>
+ </div>
+
+ <!-- 3. Impact Metric Card 2 -->
+ <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col justify-between">
+ <div>
+ <div class="text-5xl font-black text-slate-900 tracking-tight mb-2">1</div>
+ <h3 class="text-xl font-bold text-slate-800 leading-snug">Hotărâre de Guvern influențată</h3>
+ </div>
+ <a href="#" class="inline-block mt-6 text-sm font-bold text-brand-green hover:underline mt-auto">Detalii &rarr;</a>
+ </div>
+
+ <!-- 4. Reach Metric Card -->
+ <div class="md:col-span-2 lg:col-span-2 bg-brand-gold text-slate-900 rounded-3xl p-8 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+ <div>
+ <div class="text-5xl font-black tracking-tight mb-2">100K+</div>
+ <h3 class="text-xl font-bold leading-snug">Vizualizări reviste</h3>
+ </div>
+ <p class="text-slate-800 text-sm font-semibold sm:text-right max-w-xs">Postările au ajuns la zeci de mii de elevi din România.</p>
+ </div>
+
+ <!-- 5. Community Dual-Stat Box -->
+ <div class="md:col-span-2 lg:col-span-3 bg-slate-900 text-white rounded-3xl p-8 sm:p-10 border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-700/50">
+ <div class="flex items-start gap-4">
+ <div class="bg-brand-green/20 text-brand-green p-3 rounded-2xl shrink-0">
+ <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+ </div>
+ <div>
+ <div class="text-4xl font-black tracking-tight mb-1">500+</div>
+ <h4 class="text-lg font-bold">Persoane în comunitate</h4>
+ <p class="text-slate-400 text-sm mt-1">O comunitate activă de tineri implicați.</p>
+ </div>
+ </div>
+ <div class="flex items-start gap-4 sm:pl-8 pt-8 sm:pt-0">
+ <div class="bg-brand-gold/20 text-brand-gold p-3 rounded-2xl shrink-0">
+ <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+ </div>
+ <div>
+ <div class="text-4xl font-black tracking-tight mb-1">30+</div>
+ <h4 class="text-lg font-bold">Membri Social Media</h4>
+ <p class="text-slate-400 text-sm mt-1">Voluntari care contribuie săptămânal.</p>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
 </section>
-{{ end }}
 
 {{ with hugo.Data.homepage.pillars }}
-<section id="piloni" class="w-full bg-slate-50 dark:bg-neutral-950 py-16 sm:py-24 border-t border-b border-slate-200/80 dark:border-neutral-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto space-y-3">
-      <div>
-        <span class="inline-block bg-[#ffbd59]/20 text-[#4b923f] dark:text-[#ffbd59] border border-[#ffbd59]/40 font-bold px-3.5 py-1.5 rounded-full text-xs tracking-wider uppercase">
-          PILONII NOȘTRI DE ACȚIUNE
-        </span>
-      </div>
-      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
-        {{ .title }}
-      </h2>
-      <div class="w-20 h-1.5 bg-[#ffbd59] mx-auto rounded-full mt-2"></div>
-      <p class="text-slate-600 dark:text-neutral-300 text-base md:text-lg mt-2 font-normal leading-relaxed">
-        {{ .subtitle }}
-      </p>
-    </div>
+<section id="piloni" class="w-full bg-slate-50 py-16 sm:py-24 border-b border-slate-200/80 ">
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+ <div class="max-w-3xl mb-12">
+ <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+ {{ .title }}
+ </h2>
+ <p class="text-slate-600 text-base md:text-lg mt-4 font-normal leading-relaxed">
+ {{ .subtitle }}
+ </p>
+ </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto mt-10">
-      {{ range .items }}
-      <div class="border-t-4 border-t-[#4b923f] bg-white dark:bg-neutral-900 border-x border-b border-slate-200 dark:border-neutral-800 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-4">
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="p-3 rounded-xl bg-[#4b923f]/10 text-[#4b923f] dark:bg-emerald-950/60 dark:text-emerald-400">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            </span>
-            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#ffbd59]/20 text-slate-900 dark:text-amber-300 border border-[#ffbd59]/40">
-              {{ .badge }}
-            </span>
-          </div>
-          <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
-            {{ .title }}
-          </h3>
-          <p class="text-base text-slate-600 dark:text-neutral-300 leading-relaxed font-normal">
-            {{ .description }}
-          </p>
-        </div>
-      </div>
-      {{ end }}
-    </div>
-  </div>
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+ {{ range .items }}
+ <div class="flex flex-col space-y-4 relative group">
+ <div class="absolute -inset-y-4 -inset-x-4 sm:-inset-x-6 rounded-2xl bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+ <div class="flex items-start gap-4">
+ <div class="shrink-0 p-3 rounded-xl bg-brand-green/10 text-brand-green mt-1">
+ <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+ </div>
+ <div>
+ <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
+ {{ .title }}
+ </h3>
+ <p class="text-base text-slate-600 leading-relaxed font-normal">
+ {{ .description }}
+ </p>
+ </div>
+ </div>
+ </div>
+ {{ end }}
+ </div>
+ </div>
 </section>
 {{ end }}
 
-<section id="articole" class="w-full bg-white dark:bg-neutral-900 py-16 sm:py-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-    <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 border-b border-slate-200 dark:border-neutral-800 pb-6">
-      <div>
-        <span class="inline-block bg-[#ffbd59]/20 text-[#4b923f] dark:text-[#ffbd59] border border-[#ffbd59]/40 font-bold px-3.5 py-1.5 rounded-full text-xs tracking-wider uppercase">
-          ACTUALITĂȚI
-        </span>
-        <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-3">
-          Noutăți & Articole
-        </h2>
-      </div>
-    </div>
+<section id="articole" class="w-full bg-white py-16 sm:py-24">
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+ <div class="mb-12 border-b border-slate-200 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+ <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+ Noutăți & Articole
+ </h2>
+ <a href="/posts/" class="text-brand-green font-bold hover:underline flex items-center gap-1">
+ Vezi toate <span aria-hidden="true">&rarr;</span>
+ </a>
+ </div>
 
-    {{ $posts := where site.RegularPages "Type" "posts" }}
-    {{ if gt (len $posts) 0 }}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {{ range first 3 $posts }}
-      <article class="bg-slate-50 dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
-        {{ with .Params.image }}
-        <div class="h-48 overflow-hidden relative">
-          {{ partial "responsive-image.html" (dict "src" . "alt" $.Title "class" "w-full h-full object-cover" "loading" "lazy") }}
-        </div>
-        {{ end }}
-        <div class="p-6 flex flex-col justify-between grow space-y-4">
-          <div class="space-y-2">
-            <div class="text-xs font-bold text-[#4b923f] dark:text-emerald-400 uppercase">
-              {{ .Date.Format "02 Jan 2006" }}
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white hover:text-[#4b923f] dark:hover:text-emerald-400 transition-colors leading-snug">
-              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </h3>
-            <p class="text-sm text-slate-600 dark:text-neutral-300 line-clamp-3 leading-relaxed font-normal">
-              {{ .Summary }}
-            </p>
-          </div>
-          <div>
-            <a href="{{ .RelPermalink }}" class="inline-flex items-center text-sm font-bold text-[#4b923f] dark:text-emerald-400 hover:underline gap-1">
-              <span>Citește articolul</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-          </div>
-        </div>
-      </article>
-      {{ end }}
-    </div>
-    {{ else }}
-    <div class="p-8 text-center text-slate-500 dark:text-neutral-400 bg-slate-50 dark:bg-neutral-800 rounded-2xl border border-slate-200 dark:border-neutral-700">
-      Articolele vor fi publicate în curând.
-    </div>
-    {{ end }}
-  </div>
+ {{ $posts := where site.RegularPages "Type" "posts" }}
+ {{ if gt (len $posts) 0 }}
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+ {{ range first 3 $posts }}
+ <article class="flex flex-col space-y-4 group">
+ <a href="{{ .RelPermalink }}" class="block overflow-hidden rounded-xl aspect-[16/9] bg-slate-100 relative">
+ {{ if .Params.image }}
+ {{ partial "responsive-image.html" (dict "src" .Params.image "alt" $.Title "class" "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" "loading" "lazy") }}
+ {{ else }}
+ <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-brand-green/10 to-brand-gold/10 group-hover:scale-105 transition-transform duration-500">
+ <svg class="w-12 h-12 text-brand-green/30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5C3.89 3 3 3.9 3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+ </div>
+ {{ end }}
+ </a>
+ <div class="flex flex-col items-start gap-2">
+ <time class="text-sm font-semibold text-slate-500 ">{{ .Date.Format "02 Jan 2006" }}</time>
+ <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-green transition-colors leading-tight">
+ <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+ </h3>
+ <p class="text-slate-600 line-clamp-2 text-sm leading-relaxed">
+ {{ .Summary }}
+ </p>
+ </div>
+ </article>
+ {{ end }}
+ </div>
+ {{ else }}
+ <div class="p-8 text-center text-slate-500 bg-slate-50 rounded-2xl border border-dashed border-slate-200 ">
+ Articolele vor fi publicate în curând.
+ </div>
+ {{ end }}
+ </div>
 </section>
 
 {{ with hugo.Data.testimonials }}
-<section id="testimoniale" class="w-full bg-slate-100 dark:bg-neutral-950 py-16 sm:py-24 border-t border-b border-slate-200/80 dark:border-neutral-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-    <div class="text-center max-w-3xl mx-auto space-y-3">
-      <div>
-        <span class="inline-block bg-[#ffbd59]/20 text-[#4b923f] dark:text-[#ffbd59] border border-[#ffbd59]/40 font-bold px-3.5 py-1.5 rounded-full text-xs tracking-wider uppercase">
-          COMUNITATEA VOCE
-        </span>
-      </div>
-      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
-        {{ .section_title }}
-      </h2>
-      <div class="w-20 h-1.5 bg-[#4b923f] mx-auto rounded-full mt-2"></div>
-      <p class="text-slate-600 dark:text-neutral-300 text-base md:text-lg mt-2 font-normal leading-relaxed">
-        {{ .section_subtitle }}
-      </p>
-    </div>
+<section id="testimoniale" class="w-full bg-slate-50 py-16 sm:py-24 border-y border-slate-200/80 ">
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+ <div class="max-w-3xl mb-12">
+ <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+ {{ .section_title }}
+ </h2>
+ <p class="text-slate-600 text-base md:text-lg mt-4 font-normal leading-relaxed">
+ {{ .section_subtitle }}
+ </p>
+ </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-      {{ range .testimonials }}
-      <div class="bg-white dark:bg-neutral-900 border-x border-b border-slate-200 dark:border-neutral-800 border-t-4 border-t-[#4b923f] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-6">
-        <div class="space-y-3">
-          <div class="text-[#4b923f] dark:text-emerald-400">
-            <svg class="w-8 h-8 opacity-80" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-          </div>
-          <p class="text-slate-700 dark:text-neutral-200 italic leading-relaxed text-base font-normal">
-            "{{ .quote }}"
-          </p>
-        </div>
-        <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-neutral-800">
-          <div class="w-10 h-10 rounded-full bg-[#4b923f] text-white font-bold flex items-center justify-center text-sm shadow shrink-0">
-            {{ substr .author 0 1 }}
-          </div>
-          <div>
-            <div class="font-bold text-sm text-slate-900 dark:text-white">{{ .author }}</div>
-            <div class="text-xs text-slate-500 dark:text-neutral-400 font-medium">{{ .role }} • {{ .location }}</div>
-          </div>
-        </div>
-      </div>
-      {{ end }}
-    </div>
-  </div>
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+ {{ range .testimonials }}
+ <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col justify-between space-y-6 hover:shadow-sm transition-shadow">
+ <div>
+
+ <blockquote class="text-slate-700 italic leading-relaxed text-lg font-medium">
+ {{ .quote }}
+ </blockquote>
+ </div>
+ <div class="flex items-center gap-4">
+ <div class="w-12 h-12 rounded-full bg-brand-green text-white font-bold flex items-center justify-center text-lg shrink-0 shadow-sm">
+ {{ .initials }}
+ </div>
+ <div>
+ <div class="font-bold text-base text-slate-900 ">{{ .author }}</div>
+ <div class="text-sm text-slate-500 ">{{ .role }}</div>
+ </div>
+ </div>
+ </div>
+ {{ end }}
+ </div>
+ </div>
 </section>
 {{ end }}
 
 {{ with hugo.Data.homepage.cta }}
-<section id="implica-te" class="w-full py-16 sm:py-24 bg-white dark:bg-neutral-900">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-gradient-to-br from-[#4b923f] via-[#3d7a33] to-[#2d5c26] text-white rounded-3xl p-10 sm:p-16 text-center shadow-xl space-y-6">
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white">
-        {{ .title }}
-      </h2>
-      <p class="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-normal">
-        {{ .subtitle }}
-      </p>
-      <div class="pt-2">
-        <a href="{{ .button_url }}" class="inline-block bg-[#ffbd59] hover:bg-[#f0ad42] text-[#0f172a] font-bold rounded-xl px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-200">
-          {{ .button_text }}
-        </a>
-      </div>
-    </div>
-  </div>
+<section id="implica-te" class="w-full py-20 sm:py-32 bg-brand-green ">
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+ <div class="space-y-6">
+ <h2 class="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
+ {{ .title }}
+ </h2>
+ <p class="text-emerald-100 text-lg md:text-xl font-normal leading-relaxed">
+ {{ .subtitle }}
+ </p>
+ </div>
+ <div class="flex md:justify-end">
+ <a href="{{ .button_url }}" class="inline-block bg-brand-gold hover:bg-amber-400 text-slate-900 font-black rounded-xl px-12 py-5 text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+ {{ .button_text }}
+ </a>
+ </div>
+ </div>
+ </div>
 </section>
 {{ end }}
 {{ end }}
