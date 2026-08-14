@@ -1,0 +1,23 @@
+title: "Fondatori"
+subtitle: "Tinerii care au pus bazele organizației Fiecare Voce."
+items:
+  - name: "Iulia Geambazu"
+    role: "Co-Fondatoare"
+    image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+    bio: "Bună! Sunt Geambazu Iulia, co-fondatoare a proiectului Fiecare Voce. De-a lungul anilor am participat la diverse olimpiade și concursuri școlare, iar implicarea în activități extrașcolare a fost mereu o parte importantă din parcursul meu. Prin Fiecare Voce, am creat un spațiu în care elevii își pot exprima liber opiniile despre teme precum educație, istorie sau politică. Alături de Luca, am construit un mediu în care fiecare tânăr își poate descoperi și face auzită propria voce."
+    achievements_title: "Realizări & Activități"
+    achievements:
+      - "Acceptată la École Polytechnique Paris — Science Bachelors"
+      - "Lucrează la o platformă dedicată copiilor cu autism"
+      - "Bronz la faza finală a concursului Upper School (Matematică)"
+      - "Multiple etape naționale la Olimpiada Națională de Matematică"
+  - name: "Luca Georgescu"
+    role: "Co-Fondator"
+    image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+    bio: "Sunt Luca Georgescu, co-fondator al proiectului Fiecare Voce. Sunt pasionat de graphic design și computer science, particip la olimpiade și mă implic în activități extrașcolare. Prin articolele și postările de pe Fiecare Voce, contribui la informarea și educarea elevilor din România, ajutându-i să își cunoască drepturile și să se implice mai activ în comunitatea școlară."
+    achievements_title: "Realizări & Activități"
+    achievements:
+      - "Bronz la Olimpiada Națională de Informatică"
+      - "Bronz la Olimpiada Națională de Inteligență Artificială (ONIA)"
+      - "Membru The Rory Bookshelf"
+      - "Consiliul Național al Elevilor (CNE)"

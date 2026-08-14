@@ -1,6 +1,6 @@
 hero:
   title: "Despre Noi"
-  subtitle: "Suntem echipa din spatele Fiecare Voce. Mai jos afli mai multe despre fondatori, structura internă și regulamentul de organizare și funcționare (ROF)."
+  subtitle: "Mai jos afli mai multe despre fondatori, structura internă și regulamentul de organizare și funcționare (ROF)."
 
 pillars:
   title: "Pilonii Noștri de Acțiune"
@@ -23,20 +23,7 @@ pillars:
       icon: "user-group"
       badge: "Echitate"
 
-founders:
-  title: "Fondatori"
-  subtitle: "Tinerii care au pus bazele organizației Fiecare Voce."
-  items:
-    - name: "Iulia Geambazu"
-      role: "Co-Fondator & Președinte"
-      bio: "Pasionată de educație civică și dezvoltare comunitară, Iulia a fondat Fiecare Voce pentru a oferi tinerilor o platformă unde ideile lor devin realitate."
-      image: ""
-      initials: "IG"
-    - name: "Luca Georgescu"
-      role: "Co-Fondator & Vicepreședinte"
-      bio: "Cu o experiență bogată în advocacy și politici pentru tineret, Luca coordonează proiectele strategice și relațiile instituționale."
-      image: ""
-      initials: "LG"
+
 
 structure:
   title: "Structura Internă și ROF"
