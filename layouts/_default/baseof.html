@@ -8,8 +8,8 @@
   {{- partial "head.html" . -}}
   {{- partialCached "init.html" . -}}
 
-  {{ $bodyLayout := "flex flex-col min-h-screen m-auto leading-7 max-w-full px-[5%] lg:px-[10%]" }}
-  {{ $bodyColor := "text-lg bg-neutral text-neutral-900 dark:bg-neutral-900 dark:text-neutral" }}
+  {{ $bodyLayout := "flex flex-col min-h-screen w-full leading-7" }}
+  {{ $bodyColor := "text-lg bg-slate-50 text-slate-900 dark:bg-neutral-900 dark:text-neutral-100" }}
   <body class="{{ $bodyLayout }} {{ $bodyColor }} {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
     <div id="the-top" class="absolute flex self-center">
       <a
@@ -19,20 +19,24 @@
         {{ i18n "nav.skip_to_main" }}
       </a>
     </div>
-    {{ $header := print "header/" site.Params.header.layout ".html" }}
-    {{ if templates.Exists ( printf "partials/%s" $header ) }}
-      {{ partial $header . }}
-    {{ else }}
-      {{ partial "header/basic.html" . }}
-    {{ end }}
-    <div class="relative flex flex-col grow">
-      <main id="main-content" class="grow">
+    <div class="w-full max-w-7xl mx-auto px-6">
+      {{ $header := print "header/" site.Params.header.layout ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $header ) }}
+        {{ partial $header . }}
+      {{ else }}
+        {{ partial "header/basic.html" . }}
+      {{ end }}
+    </div>
+    <div class="relative flex flex-col grow w-full">
+      <main id="main-content" class="grow w-full">
         {{ block "main" . }}{{ end }}
         {{ if and (site.Params.footer.showScrollToTop | default true) }}
           {{- partial "scroll-to-top.html" . -}}
         {{ end }}
       </main>
-      {{- partial "footer.html" . -}}
+      <div class="w-full max-w-7xl mx-auto px-6">
+        {{- partial "footer.html" . -}}
+      </div>
       {{ if site.Params.enableSearch | default false }}
         {{- partial "search.html" . -}}
       {{ end }}
