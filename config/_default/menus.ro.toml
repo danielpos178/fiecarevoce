@@ -5,15 +5,15 @@
 
 [[main]]
   name = "Impact"
-  url = "#impact"
+  url = "/#impact"
   weight = 30
 
 [[main]]
   name = "Articole"
-  url = "#articole"
+  url = "/posts/"
   weight = 40
 
 [[main]]
   name = "Implică-te"
-  url = "#implica-te"
+  url = "/#implica-te"
   weight = 50
