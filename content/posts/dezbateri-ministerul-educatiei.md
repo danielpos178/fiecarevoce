@@ -2,6 +2,8 @@
 title: "Dezbaterile cu Ministerul Educației"
 date: 2025-07-15
 summary: "În vara anului 2025, echipa noastră a participat la două dezbateri organizate de Ministerul Educației pe tema burselor școlare."
+author: "Echipa Fiecare Voce"
+categories: ["Advocacy"]
 ---
 
 În vara anului 2025, echipa noastră a participat la două dezbateri organizate de Ministerul Educației pe tema burselor școlare. Pentru noi, aceste întâlniri au fost o oportunitate de a duce discuția dincolo de opinii și de a veni cu argumente, statistici și exemple concrete despre modul în care anumite schimbări urmau să îi afecteze pe elevi.

@@ -3,6 +3,8 @@ title: "Revista Fiecare Voce"
 date: 2025-08-01
 image: "/images/proiecte/revista-cover-1.jpg"
 summary: "Revista Fiecare Voce a debutat în vara anului 2025, odată cu apariția revistei „Arhiva Sirenei”, care a avut două numere și care a ajuns, până astăzi, la peste 160.000 de vizualizări pe platforma Yumpu."
+author: "Redacția Fiecare Voce"
+categories: ["Revistă"]
 ---
 
 Revista Fiecare Voce a debutat în vara anului 2025, odată cu apariția revistei „Arhiva Sirenei”, care a avut două numere și care a ajuns, până astăzi, la peste 160.000 de vizualizări pe platforma Yumpu.

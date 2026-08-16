@@ -2,6 +2,8 @@
 title: "Standarde Naționale de Evaluare"
 date: 2026-07-22
 summary: "În luna iulie a anului 2026, Fiecare Voce a constituit un grup de lucru intern format din trei redactori și membri ai Secretariatului, prin care am redactat integral, împreună cu elevii, un document privind standardele naționale de evaluare."
+author: "Grupul de Lucru FV"
+categories: ["Advocacy"]
 ---
 
 În luna iulie a anului 2026, Fiecare Voce a constituit un grup de lucru intern format din trei redactori și membri ai Secretariatului, prin care am redactat integral, împreună cu elevii, un document privind standardele naționale de evaluare.

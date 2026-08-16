@@ -2,6 +2,8 @@
 title: "Campania elevilor din mediul rural"
 date: 2025-12-25
 summary: "În decembrie 2025 am început Campania elevilor din mediul rural, prin care am încercat să aducem în atenția publicului, zi de zi până în ziua de Crăciun, realitatea cu care se confruntă, din păcate, mulți elevi din mediul rural."
+author: "Echipa Fiecare Voce"
+categories: ["Advocacy"]
 ---
 
 În decembrie 2025 am început Campania elevilor din mediul rural, prin care am încercat să aducem în atenția publicului, zi de zi până în ziua de Crăciun, realitatea cu care se confruntă, din păcate, mulți elevi din mediul rural. 
