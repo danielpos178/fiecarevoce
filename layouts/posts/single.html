@@ -1,39 +1,64 @@
 {{ define "main" }}
-<article class="bg-white min-h-screen pb-16 md:pb-24">
-  <!-- Header -->
-  <header class="w-full bg-slate-50 pt-20 md:pt-32 pb-32 md:pb-48 relative">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-medium text-slate-900 leading-[1.15] mb-6 font-serif">
-        {{ .Title }}
-      </h1>
-      <div class="flex items-center gap-6 text-xs font-medium text-slate-500 uppercase tracking-widest">
-        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "02 January 2006" }}</time>
-        <span>{{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Lifestyle{{ end }}</span>
+<div class="bg-slate-50 min-h-screen pb-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+    
+    <!-- Hero / Header mimicking the featured post on list.html -->
+    <article class="w-full bg-brand-green rounded-[2rem] overflow-hidden flex flex-col lg:flex-row mb-12 shadow-lg">
+      <div class="w-full lg:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+        
+        <!-- Back link & Category -->
+        <div class="flex items-center gap-3 mb-6">
+          <a href="/posts/" class="text-emerald-100 hover:text-white flex items-center gap-1 text-sm font-bold transition-colors">
+            <span aria-hidden="true">&larr;</span> Înapoi la Blog
+          </a>
+          <span class="text-emerald-300/50">•</span>
+          <span class="text-brand-gold font-bold text-sm tracking-widest uppercase">{{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Articol{{ end }}</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
+          {{ .Title }}
+        </h1>
+        
+        <div class="flex items-center gap-4 mt-auto pt-6 border-t border-emerald-700/50">
+          <div class="w-12 h-12 rounded-full bg-slate-900 overflow-hidden flex items-center justify-center text-brand-gold font-bold text-lg shrink-0 shadow-md">
+            {{ if .Params.author }}
+              {{ substr .Params.author 0 1 }}
+            {{ else }}
+              FV
+            {{ end }}
+          </div>
+          <div>
+            <div class="text-base font-bold text-white">{{ .Params.author | default "Echipa Fiecare Voce" }}</div>
+            <div class="text-sm font-medium text-emerald-200">{{ .Date.Format "02 Jan 2006" }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full lg:w-1/2 relative min-h-[300px] lg:min-h-full bg-emerald-800 overflow-hidden">
+        {{ if .Params.image }}
+          {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "absolute inset-0 w-full h-full object-cover" "loading" "eager") }}
+        {{ else }}
+          <div class="absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-800 to-emerald-950">
+            <svg class="w-24 h-24 text-emerald-700/50" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5C3.89 3 3 3.9 3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+          </div>
+        {{ end }}
+      </div>
+    </article>
+
+    <!-- Content Area matching the white cards style -->
+    <div class="w-full bg-white rounded-[2rem] p-8 md:p-12 lg:p-16 shadow-sm border border-slate-200">
+      <div class="max-w-3xl mx-auto">
+        <div class="prose prose-slate prose-lg md:prose-xl max-w-none 
+                    prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
+                    prose-a:text-brand-green prose-a:font-semibold hover:prose-a:text-brand-green/80 
+                    prose-img:rounded-2xl prose-img:shadow-md
+                    prose-blockquote:border-l-brand-gold prose-blockquote:bg-brand-gold/10 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:font-medium prose-blockquote:text-slate-700
+                    prose-strong:text-slate-900 prose-strong:font-bold">
+          {{ .Content }}
+        </div>
       </div>
     </div>
-  </header>
 
-  <!-- Featured Image -->
-  {{ if .Params.image }}
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 md:-mt-36 relative z-10">
-    <div class="w-full aspect-[4/3] md:aspect-[21/9] bg-slate-200 shadow-sm">
-      {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover" "loading" "eager") }}
-    </div>
   </div>
-  {{ end }}
-
-  <!-- Content -->
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 {{ if .Params.image }}mt-16 md:mt-24{{ else }}mt-12{{ end }}">
-    <div class="prose prose-slate prose-lg md:prose-xl max-w-none 
-                prose-headings:font-medium prose-headings:text-slate-900 prose-headings:font-serif
-                prose-a:text-brand-green hover:prose-a:text-brand-green/80 prose-a:underline-offset-4
-                prose-p:font-light prose-p:leading-relaxed prose-p:text-slate-700
-                prose-p:first-of-type:text-xl md:prose-p:first-of-type:text-2xl prose-p:first-of-type:font-medium prose-p:first-of-type:text-slate-900 prose-p:first-of-type:leading-snug
-                prose-img:shadow-sm
-                prose-blockquote:border-l-2 prose-blockquote:border-slate-300 prose-blockquote:pl-6 prose-blockquote:font-serif prose-blockquote:text-slate-600 prose-blockquote:italic
-                prose-strong:text-slate-900 prose-strong:font-bold">
-      {{ .Content }}
-    </div>
-  </div>
-</article>
+</div>
 {{ end }}

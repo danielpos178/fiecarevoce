@@ -4,6 +4,7 @@ items:
   - name: "Luca Georgescu"
     role: "Co-Fondator"
     image: "/images/echipa/luca-georgescu.jpg"
+    image_position: "50% 25%"
     bio: "Bună! Sunt Luca, elev în clasa a X-a și unul dintre cei doi co-fondatori ai proiectului. Sunt pasionat de educația din România și încerc, alături de echipa Fiecare Voce, să avem un impact cu adevărat real, punând presiune și exprimându-ne dezacordul față de propunerile Ministerului care afectează elevii și, în general, mediul preuniversitar. Sunt și o persoană foarte STEM oriented, fiind pasionat în special de AI și Tech și încercând să construiesc proiecte la intersecția dintre Inteligența Artificială și educație."
     achievements_title: "Realizări & Activități"
     achievements:
@@ -14,6 +15,7 @@ items:
   - name: "Iulia Geambazu"
     role: "Co-Fondator"
     image: "/images/echipa/iulia-geambazu.jpg"
+    image_position: "50% 25%"
     bio: "Bună! Sunt Geambazu Iulia, co-fondatoare a proiectului Fiecare Voce. De-a lungul anilor am participat la diverse olimpiade și concursuri școlare, iar implicarea în activități extrașcolare a fost mereu o parte importantă din parcursul meu. Anul acesta voi începe studiile la École Polytechnique, în Franța, și doresc să lucrez în continuare la dezvoltarea proiectului. Prin Fiecare Voce, am creat un spațiu în care elevii își pot exprima liber opiniile despre teme precum educație, istorie sau politică. Alături de Luca, am construit un mediu în care fiecare tânăr își poate descoperi și face auzită propria voce."
     achievements_title: "Realizări & Activități"
     achievements:
@@ -24,6 +26,7 @@ items:
   - name: "Briana Bucur"
     role: "Coordonator Principal"
     image: "/images/echipa/briana-bucur.jpg"
+    image_position: "35% 35%"
     bio: "Bună! Sunt Briana, am 16 ani și sunt o persoană organizată, responsabilă și deschisă. Îmi place să mă implic în lucrurile care mă pasionează și să cunosc oameni noi. Se ocupă de activitatea de zi cu zi a platformei și ajută ideile și deciziile noastre să prindă contur și să ajungă, la propriu, să fie puse în practică."
     achievements_title: "Rol & Responsabilități"
     achievements:
@@ -32,6 +35,7 @@ items:
   - name: "Teodora Costache"
     role: "Secretar"
     image: "/images/echipa/teodora-costache.jpg"
+    image_position: "50% 25%"
     bio: "Este persoana care ține lucrurile organizate: de la întâlniri și minute până la documentele care circulă în interiorul și în afara platformei."
     achievements_title: "Rol & Responsabilități"
     achievements:
@@ -49,6 +53,7 @@ items:
   - name: "Eva Chelba"
     role: "Coordonator de activitate al membrilor"
     image: "/images/echipa/eva-chelba.jpg"
+    image_position: "50% 25%"
     bio: "Ține aproape de membrii echipei, urmărește implicarea lor și ajută la împărțirea activităților astfel încât fiecare să își poată găsi locul și să contribuie cât mai bine."
     achievements_title: "Rol & Responsabilități"
     achievements:
