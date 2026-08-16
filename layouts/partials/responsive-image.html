@@ -9,16 +9,16 @@
 {{ $img := resources.Get $cleanSrc }}
 
 {{ if $img }}
- {{ $w400 := $img.Resize "400x webp" }}
- {{ $w800 := $img.Resize "800x webp" }}
+ {{ $w600 := $img.Resize "600x webp" }}
  {{ $w1200 := $img.Resize "1200x webp" }}
+ {{ $w1800 := $img.Resize "1800x webp" }}
  {{ $fallback := $img.Resize (printf "%dx%d webp" $img.Width $img.Height) }}
 
- <picture class="block w-full overflow-hidden">
+ <picture class="block {{ $class }}">
  <source
  type="image/webp"
- srcset="{{ $w400.RelPermalink }} 400w, {{ $w800.RelPermalink }} 800w, {{ $w1200.RelPermalink }} 1200w"
- sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+ srcset="{{ $w600.RelPermalink }} 600w, {{ $w1200.RelPermalink }} 1200w, {{ $w1800.RelPermalink }} 1800w"
+ sizes="(max-width: 768px) 100vw, 100vw"
  />
  <img
  src="{{ $fallback.RelPermalink }}"

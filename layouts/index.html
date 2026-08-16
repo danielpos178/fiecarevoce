@@ -35,12 +35,12 @@
 {{ with hugo.Data.homepage.cine_suntem }}
 <section id="cine-suntem" class="w-full bg-white py-16 sm:py-24 border-b border-slate-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-center">
-   <div class="md:w-1/2 md:pr-12 lg:pr-16">
+   <div class="md:w-5/12 lg:w-2/5 md:pr-8 lg:pr-12">
     <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-6">{{ .title }}</h2>
     <p class="text-lg text-slate-600 leading-relaxed mb-6 text-justify">{{ .description }}</p>
     <a href="{{ .link_url | relURL }}" class="text-brand-green font-bold hover:underline flex items-center gap-2">{{ .link_text | safeHTML }}</a>
    </div>
-   <div class="md:w-1/2">
+   <div class="md:w-7/12 lg:w-3/5">
     {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "rounded-3xl shadow-lg w-full h-auto object-cover" "loading" "lazy") }}
    </div>
   </div>
