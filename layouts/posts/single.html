@@ -1,0 +1,57 @@
+{{ define "main" }}
+<article class="bg-white min-h-screen pb-16 md:pb-24">
+  <!-- Header -->
+  <header class="w-full bg-slate-50 pt-16 md:pt-24 pb-20 md:pb-24 border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-6 flex justify-center items-center gap-3 text-sm font-semibold text-slate-500">
+        <a href="/posts/" class="text-brand-green hover:underline flex items-center gap-1">
+          <span aria-hidden="true">&larr;</span> Înapoi la Blog
+        </a>
+        <span class="text-slate-300">•</span>
+        <span class="uppercase tracking-wider text-brand-gold bg-brand-gold/10 px-3 py-1 rounded-full">
+          {{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Articol{{ end }}
+        </span>
+        <span class="text-slate-300">•</span>
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-8">
+        {{ .Title }}
+      </h1>
+      <div class="flex items-center justify-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center text-slate-500 font-bold text-lg shadow-sm">
+          {{ if .Params.author }}
+            {{ substr .Params.author 0 1 }}
+          {{ else }}
+            FV
+          {{ end }}
+        </div>
+        <div class="text-left">
+          <div class="text-base font-bold text-slate-900">{{ .Params.author | default "Echipa Fiecare Voce" }}</div>
+          <div class="text-sm text-slate-500">Autor</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Featured Image -->
+  {{ if .Params.image }}
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 md:-mt-16 relative z-10">
+    <div class="w-full aspect-video md:aspect-[21/9] rounded-2xl md:rounded-3xl overflow-hidden shadow-xl bg-slate-100">
+      {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover" "loading" "eager") }}
+    </div>
+  </div>
+  {{ end }}
+
+  <!-- Content -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 {{ if .Params.image }}mt-12 md:mt-16{{ else }}mt-8{{ end }}">
+    <div class="prose prose-slate prose-lg md:prose-xl max-w-none 
+                prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
+                prose-a:text-brand-green prose-a:font-semibold hover:prose-a:text-brand-green/80 
+                prose-img:rounded-2xl prose-img:shadow-md
+                prose-blockquote:border-l-brand-gold prose-blockquote:bg-brand-gold/10 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:font-medium prose-blockquote:text-slate-700
+                prose-strong:text-slate-900 prose-strong:font-bold">
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+{{ end }}
