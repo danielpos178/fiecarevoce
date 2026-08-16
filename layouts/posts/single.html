@@ -1,56 +1,39 @@
 {{ define "main" }}
 <article class="bg-white min-h-screen pb-16 md:pb-24">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
-    
-    <!-- Title -->
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-8">
-      {{ .Title }}
-    </h1>
-
-    <!-- Featured Image -->
-    {{ if .Params.image }}
-    <div class="w-full mb-8 rounded-2xl md:rounded-3xl overflow-hidden bg-slate-100">
-      {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-auto object-cover" "loading" "eager") }}
-    </div>
-    {{ end }}
-
-    <!-- Author & Date Info -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10 border-b border-slate-100 pb-6">
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center text-slate-500 font-bold text-lg">
-          {{ if .Params.author }}
-            {{ substr .Params.author 0 1 }}
-          {{ else }}
-            FV
-          {{ end }}
-        </div>
-        <div class="text-left">
-          <div class="text-base font-bold text-brand-green">{{ .Params.author | default "Echipa Fiecare Voce" }}</div>
-          <div class="text-sm text-slate-500">
-            Publicat: <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "02.01.2006" }}</time>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Optional Right Side Action or Tag -->
-      <div>
-        <span class="inline-flex items-center gap-1 text-sm font-semibold text-slate-600 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200">
-          <svg class="w-4 h-4 text-brand-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
-          {{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Articol{{ end }}
-        </span>
+  <!-- Header -->
+  <header class="w-full bg-slate-50 pt-20 md:pt-32 pb-32 md:pb-48 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-medium text-slate-900 leading-[1.15] mb-6 font-serif">
+        {{ .Title }}
+      </h1>
+      <div class="flex items-center gap-6 text-xs font-medium text-slate-500 uppercase tracking-widest">
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "02 January 2006" }}</time>
+        <span>{{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Lifestyle{{ end }}</span>
       </div>
     </div>
+  </header>
 
-    <!-- Content -->
+  <!-- Featured Image -->
+  {{ if .Params.image }}
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 md:-mt-36 relative z-10">
+    <div class="w-full aspect-[4/3] md:aspect-[21/9] bg-slate-200 shadow-sm">
+      {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover" "loading" "eager") }}
+    </div>
+  </div>
+  {{ end }}
+
+  <!-- Content -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 {{ if .Params.image }}mt-16 md:mt-24{{ else }}mt-12{{ end }}">
     <div class="prose prose-slate prose-lg md:prose-xl max-w-none 
-                prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
-                prose-a:text-brand-green prose-a:font-semibold hover:prose-a:text-brand-green/80 
-                prose-img:rounded-2xl prose-img:shadow-md
-                prose-blockquote:border-l-brand-gold prose-blockquote:bg-brand-gold/10 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:font-medium prose-blockquote:text-slate-700
+                prose-headings:font-medium prose-headings:text-slate-900 prose-headings:font-serif
+                prose-a:text-brand-green hover:prose-a:text-brand-green/80 prose-a:underline-offset-4
+                prose-p:font-light prose-p:leading-relaxed prose-p:text-slate-700
+                prose-p:first-of-type:text-xl md:prose-p:first-of-type:text-2xl prose-p:first-of-type:font-medium prose-p:first-of-type:text-slate-900 prose-p:first-of-type:leading-snug
+                prose-img:shadow-sm
+                prose-blockquote:border-l-2 prose-blockquote:border-slate-300 prose-blockquote:pl-6 prose-blockquote:font-serif prose-blockquote:text-slate-600 prose-blockquote:italic
                 prose-strong:text-slate-900 prose-strong:font-bold">
       {{ .Content }}
     </div>
-
   </div>
 </article>
 {{ end }}
