@@ -13,8 +13,9 @@ images = ["images/og-logo.webp"]
 [author]
   name = "Fiecare Voce"
   email = "fiecarevoce@gmail.com"
-  [author.links]
-    instagram = "https://www.instagram.com/fiecarevoce"
+  links = [
+    { instagram = "https://www.instagram.com/fiecarevoce" }
+  ]
 
 [header]
   layout = "flex"
