@@ -8,10 +8,13 @@ robots = "index, follow"
 description = "Fiecare Voce este o platforma pentru dezvoltare comunitară, educație civică și inițiative sociale."
 keywords = ["ONG", "tineret", "voluntariat", "lideri comunitari", "advocacy", "sustenabilitate", "schimbare sociala"]
 defaultSocialImage = "images/og-logo.webp"
+images = ["images/og-logo.webp"]
 
 [author]
   name = "Fiecare Voce"
   email = "fiecarevoce@gmail.com"
+  [author.links]
+    instagram = "https://www.instagram.com/fiecarevoce"
 
 [header]
   layout = "flex"
