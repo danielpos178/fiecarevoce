@@ -38,10 +38,10 @@
    <div class="md:w-1/2 md:pr-12 lg:pr-16">
     <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-6">{{ .title }}</h2>
     <p class="text-lg text-slate-600 leading-relaxed mb-6 text-justify">{{ .description }}</p>
-    <a href="{{ .link_url }}" class="text-brand-green font-bold hover:underline flex items-center gap-2">{{ .link_text | safeHTML }}</a>
+    <a href="{{ .link_url | relURL }}" class="text-brand-green font-bold hover:underline flex items-center gap-2">{{ .link_text | safeHTML }}</a>
    </div>
    <div class="md:w-1/2">
-    <img src="{{ .image }}" alt="{{ .title }}" class="rounded-3xl shadow-lg w-full h-auto object-cover">
+    {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "rounded-3xl shadow-lg w-full h-auto object-cover" "loading" "lazy") }}
    </div>
   </div>
  </section>
@@ -118,7 +118,7 @@
 
  </div>
  <div class="mt-12 flex justify-center w-full">
-   <a href="{{ .cta.url }}" class="bg-brand-gold hover:bg-brand-gold/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center">
+   <a href="{{ .cta.url | relURL }}" class="bg-brand-gold hover:bg-brand-gold/90 text-slate-900 font-bold text-base px-8 py-4 rounded-xl shadow-sm hover:shadow transition-all text-center inline-flex justify-center items-center">
      {{ .cta.text }}
    </a>
  </div>
@@ -135,7 +135,7 @@
 		 <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
 			 {{ .title }}
 		 </h2>
-		 <a href="{{ .link_url }}" class="text-brand-green font-bold text-lg md:text-xl whitespace-nowrap hover:underline flex items-center gap-2">
+		 <a href="{{ .link_url | relURL }}" class="text-brand-green font-bold text-lg md:text-xl whitespace-nowrap hover:underline flex items-center gap-2">
 			 {{ .link_text | safeHTML }}
 		 </a>
   </div>

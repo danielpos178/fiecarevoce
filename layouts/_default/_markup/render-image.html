@@ -1,0 +1,92 @@
+{{- define "RenderImageSimple" -}}
+  {{- $imgObj := .imgObj -}}
+  {{- $src := .src -}}
+  {{- $alt := .alt -}}
+  <img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low"
+    alt="{{ $alt }}"
+    src="{{ $src | relURL }}"
+    {{ with $imgObj -}}
+      {{ with $imgObj.Width }}width="{{ . }}"{{ end }}
+      {{ with $imgObj.Height }}height="{{ . }}"{{ end }}
+    {{- end }}>
+{{- end -}}
+
+{{- define "RenderImageResponsive" -}}
+  {{- $imgObj := .imgObj -}}
+  {{- $alt := .alt -}}
+  {{- $originalWidth := $imgObj.Width -}}
+
+  {{- $img800 := $imgObj -}}
+  {{- $img1280 := $imgObj -}}
+  {{- if gt $originalWidth 800 -}}
+    {{- $img800 = $imgObj.Resize "800x" -}}
+  {{- end -}}
+  {{- if gt $originalWidth 1280 -}}
+    {{- $img1280 = $imgObj.Resize "1280x" -}}
+  {{- end -}}
+
+  {{- $srcset := printf "%s 800w, %s 1280w" $img800.RelPermalink $img1280.RelPermalink -}}
+
+  <img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="{{ $alt }}"
+    {{ with $imgObj.Width }}width="{{ . }}"{{ end }}
+    {{ with $imgObj.Height }}height="{{ . }}"{{ end }}
+    src="{{ $img800.RelPermalink }}"
+    srcset="{{ $srcset }}"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="{{ $imgObj.RelPermalink }}">
+{{- end -}}
+
+{{- define "RenderImageCaption" -}}
+  {{- with .caption -}}
+    <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end -}}
+{{- end -}}
+
+{{- $disableImageOptimizationMD := .Page.Site.Params.disableImageOptimizationMD | default false -}}
+{{- $urlStr := .Destination | safeURL -}}
+{{- $url := urls.Parse $urlStr -}}
+{{- $altText := .Text -}}
+{{- $caption := .Title -}}
+{{- $isRemote := findRE "^(https?|data)" $url.Scheme -}}
+{{- $resource := "" -}}
+
+{{- if not $isRemote -}}
+  {{- $cleanUrlStr := strings.TrimPrefix "/" $urlStr -}}
+  {{- $resource = or ($.Page.Resources.GetMatch $urlStr) ($.Page.Resources.GetMatch $cleanUrlStr) (resources.Get $urlStr) (resources.Get $cleanUrlStr) -}}
+{{- end -}}
+
+<figure
+  {{- range $k, $v := .Attributes -}}
+    {{- if $v -}}
+      {{- printf " %s=%q" $k ($v | transform.HTMLEscape) | safeHTMLAttr -}}
+    {{- end -}}
+  {{- end -}}>
+  {{- if $isRemote -}}
+    {{- template "RenderImageSimple" (dict "imgObj" "" "src" $urlStr "alt" $altText) -}}
+  {{- else if $resource -}}
+    {{- $isSVG := eq $resource.MediaType.SubType "svg" -}}
+    {{- $shouldOptimize := and (not $disableImageOptimizationMD) (not $isSVG) -}}
+    {{- if $shouldOptimize -}}
+      {{- template "RenderImageResponsive" (dict "imgObj" $resource "alt" $altText) -}}
+    {{- else -}}
+      {{- if $isSVG -}}
+        {{- template "RenderImageSimple" (dict "imgObj" "" "src" $resource.RelPermalink "alt" $altText) -}}
+      {{- else -}}
+        {{- template "RenderImageSimple" (dict "imgObj" $resource "src" $resource.RelPermalink "alt" $altText) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- template "RenderImageSimple" (dict "imgObj" "" "src" $urlStr "alt" $altText) -}}
+  {{- end -}}
+
+  {{- template "RenderImageCaption" (dict "caption" $caption) -}}
+</figure>

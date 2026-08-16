@@ -12,7 +12,7 @@
       </p>
       {{ if .image }}
       <div class="mt-12 w-full max-w-5xl mx-auto">
-        <img src="{{ .image }}" alt="{{ .title }}" class="rounded-3xl shadow-xl w-full h-auto object-cover aspect-video">
+        {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "rounded-3xl shadow-xl w-full h-auto object-cover aspect-video" "loading" "eager") }}
       </div>
       {{ end }}
     </div>
@@ -71,7 +71,7 @@
           <!-- Top Image Banner Area -->
           <div class="w-full aspect-[4/3] bg-slate-100 dark:bg-neutral-800 relative overflow-hidden group">
             {{ if .image }}
-              <img src="{{ .image }}" alt="{{ .name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style="object-position: {{ .image_position | default "50% 50%" }};">
+              {{ partial "responsive-image.html" (dict "src" .image "alt" .name "class" "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" "style" (printf "object-position: %s;" (.image_position | default "50% 50%"))) }}
             {{ else }}
               <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 dark:from-neutral-800 dark:to-neutral-900">
                  <div class="w-24 h-24 rounded-full bg-white/50 dark:bg-neutral-900/50 flex items-center justify-center backdrop-blur-sm">
