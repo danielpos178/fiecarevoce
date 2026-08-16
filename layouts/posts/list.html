@@ -1,0 +1,106 @@
+{{ define "main" }}
+<div class="bg-slate-50 min-h-screen pb-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+      <h1 class="text-4xl md:text-5xl font-black text-brand-green tracking-tight">
+        Blog
+      </h1>
+      <!-- Category Filter -->
+      <div class="flex items-center gap-2 bg-white rounded-full p-1 border border-slate-200 shadow-sm overflow-x-auto max-w-full">
+        <a href="/posts/" class="px-6 py-2 rounded-full bg-brand-green text-white text-sm font-bold whitespace-nowrap transition-colors">Toate</a>
+        <!-- Mock categories for aesthetic -->
+        <a href="#" class="px-6 py-2 rounded-full text-slate-600 hover:text-slate-900 text-sm font-semibold whitespace-nowrap hover:bg-slate-50 transition-colors">Noutăți</a>
+        <a href="#" class="px-6 py-2 rounded-full text-slate-600 hover:text-slate-900 text-sm font-semibold whitespace-nowrap hover:bg-slate-50 transition-colors">Proiecte</a>
+        <a href="#" class="px-6 py-2 rounded-full text-slate-600 hover:text-slate-900 text-sm font-semibold whitespace-nowrap hover:bg-slate-50 transition-colors">Echipă</a>
+      </div>
+    </div>
+
+    {{ $posts := where site.RegularPages "Type" "posts" }}
+    {{ $paginator := .Paginate $posts }}
+
+    {{ if gt (len $posts) 0 }}
+      <!-- Featured Post -->
+      {{ if eq $paginator.PageNumber 1 }}
+        {{ $featured := index $posts 0 }}
+        <article class="w-full bg-brand-green rounded-[2rem] overflow-hidden flex flex-col lg:flex-row mb-16 shadow-lg group">
+          <div class="w-full lg:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+            <div class="text-brand-gold font-bold text-sm tracking-widest uppercase mb-4">{{ $featured.Date.Format "02 Jan 2006" }}</div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight mb-6 group-hover:text-brand-gold transition-colors">
+              <a href="{{ $featured.RelPermalink }}">{{ $featured.Title }}</a>
+            </h2>
+            <p class="text-emerald-100 text-lg md:text-xl leading-relaxed mb-10 line-clamp-3">
+              {{ $featured.Summary }}
+            </p>
+            <div>
+              <a href="{{ $featured.RelPermalink }}" class="inline-flex items-center gap-3 bg-brand-gold hover:bg-amber-400 text-slate-900 font-bold px-6 py-3 rounded-xl transition-colors">
+                <span class="w-8 h-8 rounded-full bg-slate-900 text-brand-gold flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </span>
+                Citește articolul
+              </a>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 relative min-h-[300px] lg:min-h-full bg-emerald-800 overflow-hidden">
+            {{ if $featured.Params.image }}
+              {{ partial "responsive-image.html" (dict "src" $featured.Params.image "alt" $featured.Title "class" "absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" "loading" "eager") }}
+            {{ else }}
+              <div class="absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-800 to-emerald-950 group-hover:scale-105 transition-transform duration-700">
+                <svg class="w-24 h-24 text-emerald-700/50" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5C3.89 3 3 3.9 3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+              </div>
+            {{ end }}
+          </div>
+        </article>
+      {{ end }}
+
+      <!-- Remaining Posts Grid -->
+      {{ $remainingPosts := $paginator.Pages }}
+      {{ if eq $paginator.PageNumber 1 }}
+        {{ $remainingPosts = after 1 $paginator.Pages }}
+      {{ end }}
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {{ range $remainingPosts }}
+          <article class="flex flex-col space-y-4 group bg-white p-4 rounded-3xl border border-slate-200 shadow-sm hover:border-brand-green/30 hover:shadow-md transition-all">
+            <a href="{{ .RelPermalink }}" class="block overflow-hidden rounded-2xl aspect-[16/9] bg-slate-100 relative">
+              {{ if .Params.image }}
+                {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" "loading" "lazy") }}
+              {{ else }}
+                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-brand-green/10 to-brand-gold/10 group-hover:scale-105 transition-transform duration-500">
+                  <svg class="w-12 h-12 text-brand-green/30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5C3.89 3 3 3.9 3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+                </div>
+              {{ end }}
+            </a>
+            <div class="flex flex-col items-start gap-2 px-2 pb-2 flex-grow">
+              <div class="flex justify-between items-center w-full mt-2">
+                <span class="text-xs font-bold text-brand-gold uppercase tracking-wider bg-brand-gold/10 px-3 py-1 rounded-full">{{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Articol{{ end }}</span>
+                <time class="text-sm font-semibold text-slate-500">{{ .Date.Format "02 Jan 2006" }}</time>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-green transition-colors leading-tight mt-2">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h3>
+              <div class="mt-auto pt-4 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center text-slate-500 font-bold text-sm shrink-0">
+                  {{ if .Params.author }}
+                    {{ substr .Params.author 0 1 }}
+                  {{ else }}
+                    FV
+                  {{ end }}
+                </div>
+                <span class="text-sm font-semibold text-slate-700 truncate">{{ .Params.author | default "Echipa Fiecare Voce" }}</span>
+              </div>
+            </div>
+          </article>
+        {{ end }}
+      </div>
+
+      <!-- Pagination -->
+      {{ partial "pagination.html" . }}
+    {{ else }}
+      <div class="p-12 text-center text-slate-500 bg-white rounded-3xl border border-dashed border-slate-300 shadow-sm">
+        Articolele vor fi publicate în curând.
+      </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
