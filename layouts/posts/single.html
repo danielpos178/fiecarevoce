@@ -1,24 +1,23 @@
 {{ define "main" }}
 <article class="bg-white min-h-screen pb-16 md:pb-24">
-  <!-- Header -->
-  <header class="w-full bg-slate-50 pt-16 md:pt-24 pb-20 md:pb-24 border-b border-slate-200">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="mb-6 flex justify-center items-center gap-3 text-sm font-semibold text-slate-500">
-        <a href="/posts/" class="text-brand-green hover:underline flex items-center gap-1">
-          <span aria-hidden="true">&larr;</span> Înapoi la Blog
-        </a>
-        <span class="text-slate-300">•</span>
-        <span class="uppercase tracking-wider text-brand-gold bg-brand-gold/10 px-3 py-1 rounded-full">
-          {{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Articol{{ end }}
-        </span>
-        <span class="text-slate-300">•</span>
-        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "02 Jan 2006" }}</time>
-      </div>
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-8">
-        {{ .Title }}
-      </h1>
-      <div class="flex items-center justify-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center text-slate-500 font-bold text-lg shadow-sm">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+    
+    <!-- Title -->
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-8">
+      {{ .Title }}
+    </h1>
+
+    <!-- Featured Image -->
+    {{ if .Params.image }}
+    <div class="w-full mb-8 rounded-2xl md:rounded-3xl overflow-hidden bg-slate-100">
+      {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-auto object-cover" "loading" "eager") }}
+    </div>
+    {{ end }}
+
+    <!-- Author & Date Info -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10 border-b border-slate-100 pb-6">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center text-slate-500 font-bold text-lg">
           {{ if .Params.author }}
             {{ substr .Params.author 0 1 }}
           {{ else }}
@@ -26,24 +25,23 @@
           {{ end }}
         </div>
         <div class="text-left">
-          <div class="text-base font-bold text-slate-900">{{ .Params.author | default "Echipa Fiecare Voce" }}</div>
-          <div class="text-sm text-slate-500">Autor</div>
+          <div class="text-base font-bold text-brand-green">{{ .Params.author | default "Echipa Fiecare Voce" }}</div>
+          <div class="text-sm text-slate-500">
+            Publicat: <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "02.01.2006" }}</time>
+          </div>
         </div>
       </div>
+      
+      <!-- Optional Right Side Action or Tag -->
+      <div>
+        <span class="inline-flex items-center gap-1 text-sm font-semibold text-slate-600 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200">
+          <svg class="w-4 h-4 text-brand-gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+          {{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Articol{{ end }}
+        </span>
+      </div>
     </div>
-  </header>
 
-  <!-- Featured Image -->
-  {{ if .Params.image }}
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 md:-mt-16 relative z-10">
-    <div class="w-full aspect-video md:aspect-[21/9] rounded-2xl md:rounded-3xl overflow-hidden shadow-xl bg-slate-100">
-      {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover" "loading" "eager") }}
-    </div>
-  </div>
-  {{ end }}
-
-  <!-- Content -->
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 {{ if .Params.image }}mt-12 md:mt-16{{ else }}mt-8{{ end }}">
+    <!-- Content -->
     <div class="prose prose-slate prose-lg md:prose-xl max-w-none 
                 prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
                 prose-a:text-brand-green prose-a:font-semibold hover:prose-a:text-brand-green/80 
@@ -52,6 +50,7 @@
                 prose-strong:text-slate-900 prose-strong:font-bold">
       {{ .Content }}
     </div>
+
   </div>
 </article>
 {{ end }}
