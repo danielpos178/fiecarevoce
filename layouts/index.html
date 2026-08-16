@@ -32,6 +32,19 @@
  </div>
 </section>
 
+<section id="cine-suntem" class="w-full bg-white py-16 sm:py-24 border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-center">
+   <div class="md:w-1/2">
+    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-6">Cine suntem?</h2>
+    <p class="text-lg text-slate-600 leading-relaxed mb-6">Fiecare Voce a luat naștere la 1 decembrie 2024, dintr-o realitate pe care am observat-o tot mai des: vocea elevilor nu este ascultată și luată în considerare atât de mult pe cât ar trebui. Astăzi, suntem o platformă independentă care susține și publică opiniile elevilor, fără filtre, și aduce în atenție problemele care afectează educația românească.</p>
+    <a href="/despre-noi/" class="text-brand-green font-bold hover:underline flex items-center gap-2">Citește mai mult despre noi &rarr;</a>
+   </div>
+   <div class="md:w-1/2">
+    <img src="/images/echipa/echipa-fiecare-voce.jpg" alt="Echipa Fiecare Voce" class="rounded-3xl shadow-lg w-full h-auto object-cover">
+   </div>
+  </div>
+ </section>
+
 <section id="impact" class="w-full border-y border-slate-200 bg-white py-16 sm:py-24">
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <h2 class="sr-only">Impactul Nostru</h2>
@@ -113,11 +126,11 @@
 
 
 
-<section id="articole" class="w-full bg-white py-16 sm:py-24">
+<section id="proiecte" class="w-full bg-white py-16 sm:py-24">
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 	 <div class="mb-12 border-b border-slate-200 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
 		 <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-			 Noutăți & Articole
+			 Proiecte din Trecut
 		 </h2>
 		 <a href="/posts/" class="text-brand-green font-bold text-lg md:text-xl whitespace-nowrap hover:underline flex items-center gap-2">
 			 Vezi toate <span aria-hidden="true" class="text-2xl">&rarr;</span>
@@ -126,8 +139,8 @@
 
  {{ $posts := where site.RegularPages "Type" "posts" }}
  {{ if gt (len $posts) 0 }}
- <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
- {{ range first 3 $posts }}
+ <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+ {{ range first 6 $posts }}
  <article class="flex flex-col space-y-4 group">
  <a href="{{ .RelPermalink }}" class="block overflow-hidden rounded-xl aspect-[16/9] bg-slate-100 relative">
  {{ if .Params.image }}
