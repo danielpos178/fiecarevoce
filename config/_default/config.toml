@@ -5,6 +5,7 @@ theme = 'blowfish'
 defaultContentLanguage = 'ro'
 enableRobotsTXT = true
 summaryLength = 25
+disableHugoGeneratorInject = true
 
 [sitemap]
   changefreq = "weekly"
