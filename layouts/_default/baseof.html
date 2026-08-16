@@ -11,6 +11,15 @@
  {{ $bodyLayout := "flex flex-col min-h-screen w-full leading-7" }}
  {{ $bodyColor := "text-lg bg-slate-50 text-slate-900" }}
  <body class="{{ $bodyLayout }} {{ $bodyColor }} {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
+ {{ if site.Data.status.maintenance_mode.enabled }}
+ <div class="flex flex-col items-center justify-center min-h-screen w-full bg-slate-50">
+ <div class="p-8 bg-white shadow-lg rounded-2xl max-w-lg border border-slate-100 text-center mx-4">
+ <svg class="w-16 h-16 mx-auto text-primary-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+ <h1 class="text-3xl font-bold text-slate-800 mb-4">{{ site.Data.status.maintenance_mode.title | default "Site în mentenanță" }}</h1>
+ <p class="text-lg text-slate-600">{{ site.Data.status.maintenance_mode.message | default "Revenim în curând. Vă mulțumim pentru răbdare!" }}</p>
+ </div>
+ </div>
+ {{ else }}
  <div id="the-top" class="absolute flex self-center">
  <a
  class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0"
@@ -23,10 +32,12 @@
  <!-- Sticky Header Wrapper -->
  <div class="sticky top-0 z-50 w-full bg-slate-50 shadow-sm border-b border-slate-200 transition-colors duration-300">
  <!-- Under Construction Banner -->
+ {{ if site.Data.status.construction_banner.enabled }}
  <div class="w-full bg-[#ffbd59] text-[#0f172a] text-center py-2 px-4 text-sm font-bold flex items-center justify-center gap-2 relative">
  <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
- <span>Acest site este în construcție. Anumite funcționalități ar putea fi indisponibile.</span>
+ <span>{{ site.Data.status.construction_banner.text | default "Acest site este în construcție. Anumite funcționalități ar putea fi indisponibile." }}</span>
  </div>
+ {{ end }}
 
  <div class="w-full max-w-7xl mx-auto px-6 py-1">
  {{ $header := print "header/" site.Params.header.layout ".html" }}
@@ -51,5 +62,6 @@
  {{- partial "search.html" . -}}
  {{ end }}
  </div>
+ {{ end }}
  </body>
 </html>
