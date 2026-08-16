@@ -18,23 +18,10 @@
   <section id="povestea-noastra" class="w-full bg-white dark:bg-neutral-900 py-16 sm:py-24 border-b border-slate-200/80 dark:border-neutral-800 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-        {{ range $index, $text := .paragraphs }}
+        {{ range .paragraphs }}
         <div class="flex flex-col group">
-          {{ if eq $index 0 }}
-          <div class="w-14 h-14 rounded-2xl bg-brand-gold/10 text-brand-gold flex items-center justify-center mb-6 shrink-0 group-hover:scale-110 group-hover:bg-brand-gold/20 transition-all duration-300">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-          </div>
-          {{ else if eq $index 1 }}
-          <div class="w-14 h-14 rounded-2xl bg-brand-green/10 text-brand-green flex items-center justify-center mb-6 shrink-0 group-hover:scale-110 group-hover:bg-brand-green/20 transition-all duration-300">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-          </div>
-          {{ else }}
-          <div class="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center mb-6 shrink-0 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-300">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          </div>
-          {{ end }}
           <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-normal">
-            {{ $text }}
+            {{ . }}
           </p>
         </div>
         {{ end }}
