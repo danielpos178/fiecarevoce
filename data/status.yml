@@ -1,0 +1,8 @@
+construction_banner:
+  enabled: true
+  text: "Acest site este în construcție. Anumite funcționalități ar putea fi indisponibile."
+
+maintenance_mode:
+  enabled: false
+  title: "Site în mentenanță"
+  message: "Revenim în curând. Vă mulțumim pentru răbdare!"
