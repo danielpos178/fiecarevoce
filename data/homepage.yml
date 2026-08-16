@@ -45,3 +45,16 @@ impact:
   cta:
     text: "Află mai multe despre noi"
     url: "/despre-noi/"
+
+cine_suntem:
+  title: "Cine suntem?"
+  description: "Fiecare Voce a luat naștere la 1 decembrie 2024, dintr-o realitate pe care am observat-o tot mai des: vocea elevilor nu este ascultată și luată în considerare atât de mult pe cât ar trebui. Astăzi, suntem o platformă independentă care susține și publică opiniile elevilor, fără filtre, și aduce în atenție problemele care afectează educația românească."
+  link_text: "Citește mai mult despre noi &rarr;"
+  link_url: "/despre-noi/"
+  image: "/images/echipa/echipa-fiecare-voce.jpg"
+
+proiecte:
+  title: "Proiecte din Trecut"
+  link_text: "Vezi toate <span aria-hidden=\"true\" class=\"text-2xl\">&rarr;</span>"
+  link_url: "/posts/"
+  empty_text: "Articolele vor fi publicate în curând."
