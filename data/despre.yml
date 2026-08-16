@@ -1,6 +1,22 @@
 hero:
   title: "Despre Noi"
-  subtitle: "Mai jos afli mai multe despre fondatori, structura internă și regulamentul de organizare și funcționare (ROF)."
+  subtitle: "Fiecare Voce a luat naștere la 1 decembrie 2024, dintr-o realitate pe care am observat-o tot mai des: vocea elevilor nu este ascultată și luată în considerare atât de mult pe cât ar trebui."
+  image: "/images/echipa/echipa-fiecare-voce.jpg"
+
+cine_suntem:
+  title: "Cine suntem?"
+  paragraphs:
+    - "La început, Fiecare Voce a fost un proiect construit în jurul ideii de a crea un spațiu în care elevii să poată vorbi liber despre lucrurile care îi afectează. În timp, ne-am conturat direcția și am ales să ne concentrăm tot mai mult pe educație și pe mediul preuniversitar din România. Astăzi, Fiecare Voce este o platformă independentă care susține și publică opiniile elevilor, fără filtre, și aduce în atenție problemele care afectează educația românească. Credem că problemele elevilor trebuie prezentate public, documentate și aduse în fața celor care pot contribui la schimbarea lor."
+    - "De aproximativ un an, redactăm și transmitem documente către Ministerul Educației și alte instituții, prin care formulăm propuneri, semnalăm probleme și susținem nevoile elevilor. În același timp, publicăm articole și materiale educaționale prin care explicăm și analizăm problemele din sistemul de învățământ."
+    - "Tot ceea ce facem este construit alături de o echipă de peste 30 de elevi din întreaga țară uniți de aceeași dorință, de a avea o voce, să fie ascultați și să contribuie la o educație mai bună pentru că fiecare voce contează și pentru că schimbarea începe atunci când alegem să o folosim."
+
+secretariat:
+  title: "Secretariat"
+  description: "Secretariatul este echipa care coordonează activitatea Fiecare Voce și contribuie la stabilirea direcției în care mergem. Este format din fondatori, coordonatorul principal, secretar, directorul de PR și coordonatorul de activitate al membrilor."
+
+social_media:
+  title: "Echipa de Social Media"
+  description: "Dincolo de Secretariat, Fiecare Voce are o echipă de social media care lucrează în grafică, redacție și web development și care transformă ideile noastre în materiale pe care le puteți vedea, citi și folosi."
 
 pillars:
   title: "smth like valori/obiective/domenii de actiune"
@@ -19,14 +35,15 @@ pillars:
       description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       icon: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>'
 
-
-
-
 structure:
   title: "Structura Internă și ROF"
   subtitle: "Cum funcționăm și cum suntem organizați"
   description: "Fiecare Voce este guvernată de un set clar de reguli și proceduri, detaliate în Regulamentul de Organizare și Funcționare (ROF)."
   rof:
     text: "Citește Regulamentul (ROF)"
-    url: "https://docs.google.com/document/d/1vSN4kOriZqW1tOvKcQyvI67Jl1DyNQ1z-MeKfLFMeog/edit?tab=t.0"
+    url: "https://docs.google.com/document/d/1vSN4kOriZqW1tOvKcQyvI67Jl1DyNQ1z-MeKfLFMeog/edit?usp=sharing"
     subcaption: "Document PDF public • Actualizat 2025/2026"
+  procedura:
+    text: "Procedura de Selecție 2026"
+    url: "https://docs.google.com/document/d/1X7XwvwxQ1oYxKQx2_75aERPQPonJ3fpr6RUJVwqwiRM/edit?usp=sharing"
+    subcaption: "Document PDF public • Actualizat iulie 2026"

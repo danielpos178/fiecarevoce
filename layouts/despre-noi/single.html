@@ -7,25 +7,45 @@
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white leading-tight tracking-tight mb-6 max-w-4xl">
         {{ .title }}
       </h1>
-      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed font-normal">
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed font-normal mb-10">
         {{ .subtitle }}
       </p>
+      {{ if .image }}
+      <div class="w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-xl">
+        <img src="{{ .image }}" alt="Echipa Fiecare Voce" class="w-full h-auto object-cover">
+      </div>
+      {{ end }}
     </div>
   </section>
   {{ end }}
 
-  {{ with hugo.Data.founders }}
-  <section id="fondatori" class="w-full bg-white dark:bg-neutral-950 py-16 sm:py-24 border-b border-slate-200/80 dark:border-neutral-800 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mb-12">
-        <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{{ .title }}</h2>
-        <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg mt-4 font-normal leading-relaxed">{{ .subtitle }}</p>
+  {{ with hugo.Data.despre.cine_suntem }}
+  <section id="cine-suntem" class="w-full bg-white dark:bg-neutral-950 py-16 sm:py-24 border-b border-slate-200/80 dark:border-neutral-800 transition-colors duration-300">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-8">{{ .title }}</h2>
+      <div class="space-y-6 text-slate-600 dark:text-slate-400 text-lg md:text-xl leading-relaxed text-left">
+        {{ range .paragraphs }}
+        <p>{{ . }}</p>
+        {{ end }}
       </div>
+    </div>
+  </section>
+  {{ end }}
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+  <section id="echipa" class="w-full bg-slate-50 dark:bg-neutral-900 py-16 sm:py-24 border-b border-slate-200/80 dark:border-neutral-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {{ with hugo.Data.despre.secretariat }}
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{{ .title }}</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg mt-4 font-normal leading-relaxed">{{ .description }}</p>
+      </div>
+      {{ end }}
+
+      {{ with hugo.Data.founders }}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mb-16">
         {{ range .items }}
-        <div class="flex flex-col bg-white dark:bg-neutral-900 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-
+        <div class="flex flex-col bg-white dark:bg-neutral-950 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
           <!-- Top Image Banner Area -->
           <div class="w-full aspect-[4/3] bg-slate-100 dark:bg-neutral-800 relative overflow-hidden group">
             {{ if .image }}
@@ -40,84 +60,75 @@
           </div>
 
           <!-- Card Content Area -->
-          <div class="flex flex-col flex-grow p-8 sm:p-10">
+          <div class="flex flex-col flex-grow p-6 sm:p-8">
             <div class="mb-4">
-              <span class="text-xs font-black tracking-widest uppercase text-[#4b923f] dark:text-[#5ac24b] mb-2 block">{{ .role }}</span>
-              <h3 class="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white leading-tight">{{ .name }}</h3>
+              <span class="text-xs font-black tracking-widest uppercase text-brand-green dark:text-emerald-400 mb-2 block">{{ .role }}</span>
+              <h3 class="font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white leading-tight">{{ .name }}</h3>
             </div>
 
-            <div class="mb-8">
-              <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-base">{{ .bio }}</p>
+            <div class="mb-6 flex-grow">
+              <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">{{ .bio }}</p>
             </div>
 
-            <div class="mt-auto bg-slate-50 dark:bg-neutral-800/60 rounded-2xl p-5">
-              <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide mb-4">{{ .achievements_title }}</h4>
-              <ul class="space-y-3">
+            <div class="mt-auto bg-slate-50 dark:bg-neutral-800/60 rounded-2xl p-4 sm:p-5">
+              <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide mb-3">{{ .achievements_title }}</h4>
+              <ul class="space-y-2">
                 {{ range .achievements }}
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-[#4b923f] dark:text-[#5ac24b] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                  <span class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">{{ . }}</span>
+                <li class="flex items-start gap-2">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-green dark:text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                  <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">{{ . }}</span>
                 </li>
                 {{ end }}
               </ul>
             </div>
-
           </div>
         </div>
         {{ end }}
       </div>
+      {{ end }}
+
+      {{ with hugo.Data.despre.social_media }}
+      <div class="max-w-3xl mx-auto text-center p-8 bg-brand-gold/10 rounded-3xl border border-brand-gold/20">
+        <h2 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight mb-4">{{ .title }}</h2>
+        <p class="text-slate-700 dark:text-slate-300 text-base md:text-lg font-medium leading-relaxed">{{ .description }}</p>
+      </div>
+      {{ end }}
+
     </div>
   </section>
-  {{ end }}
-
-  {{ with hugo.Data.despre.pillars }}
-  <section id="piloni" class="w-full bg-slate-50 dark:bg-neutral-900 py-16 sm:py-24 border-b border-slate-200/80 dark:border-neutral-800 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mb-12">
-        <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{{ .title }}</h2>
-        <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg mt-4 font-normal leading-relaxed">{{ .subtitle }}</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-        {{ range .items }}
-        <div class="flex flex-col rounded-xl space-y-4 relative group bg-white dark:bg-neutral-950 p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 p-3 rounded-xl bg-[#4b923f]/10 text-[#4b923f] dark:text-[#5ac24b] mt-1">
-              {{ .icon | safeHTML }}
-            </div>
-            <div>
-              <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">{{ .title }}</h3>
-              <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-normal">{{ .description }}</p>
-            </div>
-          </div>
-        </div>
-        {{ end }}
-      </div>
-    </div>
-  </section>
-  {{ end }}
 
   {{ with hugo.Data.despre.structure }}
   <section id="structura" class="w-full py-20 sm:py-32 bg-brand-green ">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-   <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-   <div class="space-y-6">
-   <h2 class="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
-   {{ .title }}
-   </h2>
-   <p class="text-emerald-100 text-md md:text-md font-normal leading-relaxed">
-   {{ .subtitle }}
-   </p>
-   <p class="text-white leading-relaxed max-w-xl text-base">{{ .description }}</p>
-   </div>
-   <div class="flex md:justify-end w-20">
-   <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="bg-[#ffbd59] hover:bg-[#f0ad42] text-slate-900 font-bold px-8 py-5 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3 text-base md:text-lg w-full sm:w-auto">
-     <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-     <span>{{ .rof.text }}</span>
-     <svg class="w-5 h-5 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-   </a>
-   </div>
-   </div>
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+       <div class="space-y-6">
+         <h2 class="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
+           {{ .title }}
+         </h2>
+         <p class="text-emerald-100 text-lg font-normal leading-relaxed">
+           {{ .subtitle }}
+         </p>
+         <p class="text-white leading-relaxed max-w-xl text-base">{{ .description }}</p>
+       </div>
+       <div class="flex flex-col sm:flex-row gap-4 lg:justify-end">
+         <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="bg-brand-gold hover:bg-amber-400 text-slate-900 font-bold px-6 py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center justify-center text-center">
+           <div class="flex items-center gap-2 mb-1">
+             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+             <span>{{ .rof.text }}</span>
+           </div>
+           <span class="text-xs font-medium opacity-80">{{ .rof.subcaption }}</span>
+         </a>
+         {{ if .procedura }}
+         <a href="{{ .procedura.url }}" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 border border-white/20 flex flex-col items-center justify-center text-center">
+           <div class="flex items-center gap-2 mb-1">
+             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+             <span>{{ .procedura.text }}</span>
+           </div>
+           <span class="text-xs font-medium opacity-80">{{ .procedura.subcaption }}</span>
+         </a>
+         {{ end }}
+       </div>
+     </div>
    </div>
   </section>
   {{ end }}
