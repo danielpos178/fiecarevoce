@@ -18,7 +18,21 @@
  </button>
  {{ end }}
 
-
+ {{ if .Site.Params.showAppearanceSwitcher | default true }}
+  <button
+    id="appearance-switcher"
+    type="button"
+    aria-label="Toggle theme"
+    class="flex items-center justify-center p-2 rounded-xl text-neutral-700 dark:text-neutral-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-green dark:focus:ring-brand-gold cursor-pointer"
+    title="Toggle light/dark theme (Right-click to follow system setting)">
+    <span class="dark:hidden flex items-center justify-center">
+      {{ partial "icon.html" "moon" }}
+    </span>
+    <span class="hidden dark:flex items-center justify-center text-brand-gold">
+      {{ partial "icon.html" "sun" }}
+    </span>
+  </button>
+  {{ end }}
 </nav>
 
 {{ define "DesktopMenu" }}
@@ -51,7 +65,7 @@
  </a>
  </div>
  <div class="menuhide">
- <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl bg-neutral/25 ">
+ <div class="pt-2 p-5 mt-2 rounded-xl shadow-2xl bg-neutral-50 border border-neutral-200">
  <div class="flex flex-col space-y-3">
  {{ range .Children }}
  <a
