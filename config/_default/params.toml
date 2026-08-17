@@ -1,7 +1,7 @@
 colorScheme = "custom"
 defaultAppearance = "light"
-autoSwitchAppearance = false
-showAppearanceSwitcher = false
+autoSwitchAppearance = true
+showAppearanceSwitcher = true
 enableSearch = true
 enableCodeCopy = true
 robots = "index, follow"
