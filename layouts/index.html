@@ -1,14 +1,14 @@
 {{ define "main" }}
-<section id="hero" class="w-full clear-both block bg-slate-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+<section id="hero" class="w-full clear-both block bg-neutral-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
  {{ with hugo.Data.homepage.hero }}
  <div class="lg:col-span-7">
- <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
+ <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 leading-[1.1] tracking-tight mb-6">
  {{ .title | markdownify }}
  </h1>
 
- <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mt-4 mb-8 leading-relaxed font-normal">
+ <p class="text-lg sm:text-xl text-neutral-600 max-w-2xl mt-4 mb-8 leading-relaxed font-normal">
  {{ .subtitle | markdownify }}
  </p>
 
@@ -33,11 +33,11 @@
 </section>
 
 {{ with hugo.Data.homepage.cine_suntem }}
-<section id="cine-suntem" class="w-full bg-white py-16 sm:py-24 border-b border-slate-200">
+<section id="cine-suntem" class="w-full bg-neutral py-16 sm:py-24 border-b border-neutral-200 transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-center">
    <div class="md:w-5/12 lg:w-2/5 md:pr-8 lg:pr-12">
-    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-6">{{ .title }}</h2>
-    <p class="text-lg text-slate-600 leading-relaxed mb-6 text-justify">{{ .description }}</p>
+    <h2 class="text-3xl md:text-4xl font-black text-neutral-900 tracking-tight mb-6">{{ .title }}</h2>
+    <p class="text-lg text-neutral-600 leading-relaxed mb-6 text-justify">{{ .description }}</p>
     <a href="{{ .link_url | relURL }}" class="text-brand-green font-bold hover:underline flex items-center gap-2">{{ .link_text | safeHTML }}</a>
    </div>
    <div class="md:w-7/12 lg:w-3/5">
@@ -47,20 +47,20 @@
  </section>
 {{ end }}
 
-<section id="impact" class="w-full border-y border-slate-200 bg-white py-16 sm:py-24">
+<section id="impact" class="w-full border-y border-neutral-200 bg-neutral py-16 sm:py-24 transition-colors duration-300">
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <h2 class="sr-only">Impactul Nostru</h2>
  {{ with hugo.Data.homepage.impact }}
  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
  <!-- 1. Feature Award Card -->
- <div class="md:col-span-1 md:row-span-2 bg-slate-100 rounded-3xl p-8 flex flex-col justify-end border border-slate-200 relative overflow-hidden group hover:border-brand-green/30 transition-colors">
+ <div class="md:col-span-1 md:row-span-2 bg-neutral-100 rounded-3xl p-8 flex flex-col justify-end border border-neutral-200 relative overflow-hidden group hover:border-brand-green/30 transition-colors">
  <div class="absolute -right-8 -top-8 text-brand-gold/20 group-hover:scale-110 transition-transform duration-500">
  <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4h7.6l-6.1 4.5 2.3 7.1-6.2-4.6-6.2 4.6 2.3-7.1-6.1-4.5h7.6z"/></svg>
  </div>
  <div class="relative z-10">
  <div class="text-xs font-bold text-brand-green tracking-widest uppercase mb-4">{{ .award.label | safeHTML }}</div>
- <h3 class="text-3xl font-black text-slate-900 leading-tight">{{ .award.title | markdownify }}</h3>
+ <h3 class="text-3xl font-black text-neutral-900 leading-tight">{{ .award.title | markdownify }}</h3>
  </div>
  </div>
 
@@ -75,10 +75,10 @@
  </div>
 
  <!-- 3. Impact Metric Card 2 -->
- <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col justify-between">
+ <div class="bg-neutral-50 border border-neutral-200 rounded-3xl p-8 flex flex-col justify-between">
  <div>
- <div class="text-5xl font-black text-slate-900 tracking-tight mb-2">{{ .stat2.value | safeHTML }}</div>
- <h3 class="text-xl font-bold text-slate-800 leading-snug">{{ .stat2.title }}</h3>
+ <div class="text-5xl font-black text-neutral-900 tracking-tight mb-2">{{ .stat2.value | safeHTML }}</div>
+ <h3 class="text-xl font-bold text-neutral-800 leading-snug">{{ .stat2.title }}</h3>
  </div>
  <a href="{{ .stat2.link }}" class="inline-block mtext-sm font-bold text-brand-green hover:underline mt-auto">Detalii &rarr;</a>
  </div>
@@ -93,7 +93,7 @@
  </div>
 
  <!-- 5. Community Dual-Stat Box -->
- <div class="md:col-span-2 lg:col-span-3 bg-slate-900 text-white rounded-3xl p-8 sm:p-10 border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-700/50">
+ <div class="md:col-span-2 lg:col-span-3 bg-neutral-900 text-white rounded-3xl p-8 sm:p-10 border border-neutral-700 grid grid-cols-1 sm:grid-cols-2 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-neutral-700/50">
  <div class="flex items-start gap-4">
  <div class="bg-brand-green/20 text-brand-green p-3 rounded-2xl shrink-0">
  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
@@ -101,7 +101,7 @@
  <div>
  <div class="text-4xl font-black tracking-tight mb-1">{{ .community1.value | safeHTML }}</div>
  <h3 class="text-lg font-bold">{{ .community1.title }}</h3>
- <p class="text-slate-400 text-sm mt-1">{{ .community1.description }}</p>
+ <p class="text-neutral-400 text-sm mt-1">{{ .community1.description }}</p>
  </div>
  </div>
  <div class="flex items-start gap-4 sm:pl-8 pt-8 sm:pt-0">
@@ -111,7 +111,7 @@
  <div>
  <div class="text-4xl font-black tracking-tight mb-1">{{ .community2.value | safeHTML }}</div>
  <h3 class="text-lg font-bold">{{ .community2.title }}</h3>
- <p class="text-slate-400 text-sm mt-1">{{ .community2.description }}</p>
+ <p class="text-neutral-400 text-sm mt-1">{{ .community2.description }}</p>
  </div>
  </div>
  </div>
@@ -126,13 +126,11 @@
  </div>
 </section>
 
-
-
-<section id="proiecte" class="w-full bg-white py-16 sm:py-24">
+<section id="proiecte" class="w-full bg-neutral py-16 sm:py-24 transition-colors duration-300">
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 {{ with hugo.Data.homepage.proiecte }}
-	 <div class="mb-12 border-b border-slate-200 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
-		 <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+	 <div class="mb-12 border-b border-neutral-200 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
+		 <h2 class="text-3xl md:text-4xl font-black text-neutral-900 tracking-tight">
 			 {{ .title }}
 		 </h2>
 		 <a href="{{ .link_url | relURL }}" class="text-brand-green font-bold text-lg md:text-xl whitespace-nowrap hover:underline flex items-center gap-2">
@@ -146,7 +144,7 @@
  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
  {{ range first 6 $posts }}
  <article class="flex flex-col space-y-4 group">
- <a href="{{ .RelPermalink }}" class="block overflow-hidden rounded-xl aspect-[16/9] bg-slate-100 relative">
+ <a href="{{ .RelPermalink }}" class="block overflow-hidden rounded-xl aspect-[16/9] bg-neutral-100 relative">
  {{ if .Params.image }}
  {{ partial "responsive-image.html" (dict "src" .Params.image "alt" $.Title "class" "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" "loading" "lazy") }}
  {{ else }}
@@ -156,11 +154,11 @@
  {{ end }}
  </a>
  <div class="flex flex-col items-start gap-2">
- <time class="text-sm font-semibold text-slate-500 ">{{ .Date.Format "02 Jan 2006" }}</time>
- <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-green transition-colors leading-tight">
+ <time class="text-sm font-semibold text-neutral-500">{{ .Date.Format "02 Jan 2006" }}</time>
+ <h3 class="text-xl font-bold text-neutral-900 group-hover:text-brand-green transition-colors leading-tight">
  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
  </h3>
- <p class="text-slate-600 line-clamp-2 text-sm leading-relaxed">
+ <p class="text-neutral-600 line-clamp-2 text-sm leading-relaxed">
  {{ .Summary }}
  </p>
  </div>
@@ -168,7 +166,7 @@
  {{ end }}
  </div>
  {{ else }}
- <div class="p-8 text-center text-slate-500 bg-slate-50 rounded-2xl border border-dashed border-slate-200 ">
+ <div class="p-8 text-center text-neutral-500 bg-neutral-50 rounded-2xl border border-dashed border-neutral-200">
   {{ hugo.Data.homepage.proiecte.empty_text }}
  </div>
  {{ end }}
@@ -176,23 +174,23 @@
 </section>
 
 {{ with hugo.Data.testimonials }}
-<section id="testimoniale" class="w-full bg-slate-50 py-16 sm:py-24 border-y border-slate-200/80 ">
+<section id="testimoniale" class="w-full bg-neutral-50 py-16 sm:py-24 border-y border-neutral-200 transition-colors duration-300">
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <div class="max-w-3xl mb-12">
- <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+ <h2 class="text-3xl md:text-4xl font-black text-neutral-900 tracking-tight">
  {{ .section_title }}
  </h2>
- <p class="text-slate-600 text-base md:text-lg mt-4 font-normal leading-relaxed">
+ <p class="text-neutral-600 text-base md:text-lg mt-4 font-normal leading-relaxed">
  {{ .section_subtitle }}
  </p>
  </div>
 
  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
  {{ range .testimonials }}
- <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col justify-between space-y-6 hover:shadow-sm transition-shadow">
+ <div class="bg-neutral border border-neutral-200 rounded-3xl p-8 flex flex-col justify-between space-y-6 hover:shadow-sm transition-all">
  <div>
 
- <blockquote class="text-slate-700 italic leading-relaxed text-lg font-medium">
+ <blockquote class="text-neutral-700 italic leading-relaxed text-lg font-medium">
  {{ .quote }}
  </blockquote>
  </div>
@@ -201,8 +199,8 @@
  {{ .initials }}
  </div>
  <div>
- <div class="font-bold text-base text-slate-900 ">{{ .author }}</div>
- <div class="text-sm text-slate-500 ">{{ .role }}</div>
+ <div class="font-bold text-base text-neutral-900">{{ .author }}</div>
+ <div class="text-sm text-neutral-500">{{ .role }}</div>
  </div>
  </div>
  </div>
@@ -213,7 +211,7 @@
 {{ end }}
 
 {{ with hugo.Data.homepage.cta }}
-<section id="implica-te" class="w-full py-20 sm:py-32 bg-brand-green ">
+<section id="implica-te" class="w-full py-20 sm:py-32 bg-brand-green">
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
  <div class="space-y-6">
@@ -239,3 +237,4 @@
 </section>
 {{ end }}
 {{ end }}
+
