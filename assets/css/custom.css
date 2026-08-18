@@ -38,8 +38,553 @@ button, a.btn, input, select, textarea {
   border-radius: 0.75rem;
 }
 
-article, .card {
-  border-radius: 1rem;
+/* Neo-Brutalist Zine Typography & Styling Utilities */
+.font-display {
+  font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
+.font-label, .font-mono-zine {
+  font-family: 'Archivo Narrow', 'Plus Jakarta Sans', system-ui, sans-serif;
+  letter-spacing: 0.03em;
+}
 
+.font-zine-body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.75;
+}
+
+.prose p {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+  font-size: 1.125rem !important;
+  line-height: 1.8 !important;
+  letter-spacing: -0.005em !important;
+}
+
+.sticker-shadow {
+  box-shadow: 4px 4px 0px 0px #1a1c19;
+}
+.dark .sticker-shadow {
+  box-shadow: 4px 4px 0px 0px #4b923f;
+}
+
+.sticker-shadow-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sticker-shadow-hover:hover {
+  box-shadow: 6px 6px 0px 0px #1a1c19;
+  transform: translateY(-2px);
+}
+.dark .sticker-shadow-hover:hover {
+  box-shadow: 6px 6px 0px 0px #ffbd59;
+  transform: translateY(-2px);
+}
+
+.tape-strip {
+  background-color: #ffbd59;
+  color: #1a1c19;
+  display: inline-block;
+  padding: 2px 8px;
+  transform: rotate(-1deg);
+  font-weight: 700;
+}
+
+.ink-grain {
+  position: relative;
+}
+.ink-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Single Post Layout Grid Rules */
+.post-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .post-layout-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 3rem;
+  }
+  .post-main-col {
+    grid-column: span 8 / span 8 !important;
+  }
+  .post-sidebar-col {
+    grid-column: span 4 / span 4 !important;
+  }
+}
+
+.post-main-col, .post-sidebar-col {
+  width: 100%;
+  min-width: 0;
+}
+
+@theme {
+  --color-brand-green: #4b923f;
+  --color-brand-gold: #ffbd59;
+  --color-primary-50: #f3f9f2;
+  --color-primary-100: #e3f2e1;
+  --color-primary-200: #c4e5c0;
+  --color-primary-300: #9bd295;
+  --color-primary-400: #71b769;
+  --color-primary-500: #4b923f;
+  --color-primary-600: #3a7830;
+  --color-primary-700: #2e5f26;
+  --color-primary-800: #264d20;
+  --color-primary-900: #21401c;
+  --color-secondary-50: #fffbee;
+  --color-secondary-100: #fff4d5;
+  --color-secondary-200: #ffe7a8;
+  --color-secondary-300: #ffd47a;
+  --color-secondary-400: #ffbd59;
+  --color-secondary-500: #f59e29;
+  --color-secondary-600: #d97e12;
+  --color-secondary-700: #b45d0e;
+  --color-secondary-800: #924811;
+  --color-secondary-900: #783c12;
+}
+
+/* Explicit Brand Color Utility Classes */
+:root {
+  --color-brand-green: #4b923f;
+  --color-brand-gold: #ffbd59;
+}
+
+.bg-brand-green { background-color: #4b923f !important; }
+.text-brand-green { color: #4b923f !important; }
+.border-brand-green { border-color: #4b923f !important; }
+
+.bg-brand-gold { background-color: #ffbd59 !important; }
+.text-brand-gold { color: #ffbd59 !important; }
+.border-brand-gold { border-color: #ffbd59 !important; }
+
+.dark .text-brand-green { color: #5cad4e !important; }
+.dark .border-brand-green { border-color: #5cad4e !important; }
+.dark .text-brand-gold { color: #ffbd59 !important; }
+.dark .border-brand-gold { border-color: #ffbd59 !important; }
+
+.bg-brand-green\/90:hover, .hover\:bg-brand-green\/90:hover { background-color: rgba(75, 146, 63, 0.9) !important; }
+.bg-brand-green\/30 { background-color: rgba(75, 146, 63, 0.3) !important; }
+.bg-brand-green\/20 { background-color: rgba(75, 146, 63, 0.2) !important; }
+.bg-brand-green\/10 { background-color: rgba(75, 146, 63, 0.1) !important; }
+.bg-brand-green\/5 { background-color: rgba(75, 146, 63, 0.05) !important; }
+
+.hover\:border-brand-green\/30:hover { border-color: rgba(75, 146, 63, 0.3) !important; }
+.hover\:text-brand-green:hover { color: #4b923f !important; }
+
+.bg-brand-gold\/90:hover, .hover\:bg-brand-gold\/90:hover { background-color: rgba(255, 189, 89, 0.9) !important; }
+.bg-brand-gold\/30 { background-color: rgba(255, 189, 89, 0.3) !important; }
+.bg-brand-gold\/20 { background-color: rgba(255, 189, 89, 0.2) !important; }
+.bg-brand-gold\/15 { background-color: rgba(255, 189, 89, 0.15) !important; }
+.bg-brand-gold\/10 { background-color: rgba(255, 189, 89, 0.1) !important; }
+
+.text-brand-gold\/20 { color: rgba(255, 189, 89, 0.2) !important; }
+
+.bg-primary, .bg-primary-500 { background-color: #4b923f !important; }
+.text-primary, .text-primary-500 { color: #4b923f !important; }
+.border-primary, .border-primary-500 { border-color: #4b923f !important; }
+
+.bg-secondary, .bg-secondary-400, .bg-secondary-container { background-color: #ffbd59 !important; }
+.text-secondary, .text-secondary-400 { color: #ffbd59 !important; }
+.border-secondary, .border-secondary-400 { border-color: #ffbd59 !important; }
+
+/* Table of Contents Neo-Brutalist Nav Styling */
+#TableOfContents ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+  padding-left: 0;
+}
+#TableOfContents ul ul {
+  padding-left: 1rem;
+  opacity: 0.85;
+}
+#TableOfContents a {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+#TableOfContents a:hover {
+  border-left-color: #4b923f;
+  color: #4b923f;
+  background-color: rgba(75, 146, 63, 0.08);
+}
+
+.dark #TableOfContents a {
+  color: #e5e5e5;
+}
+.dark #TableOfContents a:hover {
+  border-left-color: #5cad4e;
+  color: #5cad4e;
+  background-color: rgba(92, 173, 78, 0.15);
+}
+
+.bf-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.bf-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.bf-scrollbar::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 4px;
+}
+.dark .bf-scrollbar::-webkit-scrollbar-thumb {
+  background: #404040;
+}
+.dark .bf-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #525252;
+}
+
+/* Dark Mode Prose & Code High Contrast Overrides */
+.dark .prose pre {
+  background-color: #171717 !important;
+  border: 2px solid #404040 !important;
+  box-shadow: 4px 4px 0px 0px #4b923f !important;
+}
+.dark .prose code {
+  color: #5cad4e !important;
+  background-color: #262626 !important;
+}
+.dark .prose blockquote {
+  background-color: rgba(255, 189, 89, 0.08) !important;
+  border-left-color: #5cad4e !important;
+  color: #f5f5f5 !important;
+}
+.dark .prose a {
+  color: #5cad4e !important;
+}
+.dark .prose a:hover {
+  background-color: rgba(255, 189, 89, 0.2) !important;
+}
+
+/* ==========================================================================
+   Full Dark Mode High Contrast Overrides for Single Posts & Cards
+   ========================================================================== */
+
+html.dark body, body.dark, .dark body {
+  background-color: #121212 !important;
+  color: #f5f5f5 !important;
+}
+
+html.dark .bg-white, .dark .bg-white {
+  background-color: #18181b !important;
+  color: #f5f5f5 !important;
+}
+
+html.dark .bg-neutral-50, .dark .bg-neutral-50 {
+  background-color: #121212 !important;
+}
+
+html.dark .border-neutral-900, .dark .border-neutral-900 {
+  border-color: #3f3f46 !important;
+}
+
+html.dark .border-neutral-700, .dark .border-neutral-700 {
+  border-color: #52525b !important;
+}
+
+html.dark .text-neutral-900, .dark .text-neutral-900 {
+  color: #ffffff !important;
+}
+
+html.dark .text-neutral-800, .dark .text-neutral-800,
+html.dark .text-neutral-700, .dark .text-neutral-700,
+html.dark .text-neutral-600, .dark .text-neutral-600 {
+  color: #e4e4e7 !important;
+}
+
+html.dark .text-neutral-500, .dark .text-neutral-500,
+html.dark .text-neutral-400, .dark .text-neutral-400 {
+  color: #a1a1aa !important;
+}
+
+/* ==========================================================================
+   GOLD / YELLOW BACKGROUND HIGH CONTRAST PROTECTION
+   Any solid yellow element (bg-brand-gold, tape-strip) MUST maintain dark text (#1a1c19)
+   in both light mode AND dark mode.
+   ========================================================================== */
+
+.bg-brand-gold,
+.bg-brand-gold *,
+.bg-brand-gold a,
+.bg-brand-gold h3,
+.bg-brand-gold span,
+.bg-brand-gold p,
+.bg-brand-gold div,
+html.dark .bg-brand-gold,
+html.dark .bg-brand-gold *,
+html.dark .bg-brand-gold a,
+html.dark .bg-brand-gold h3,
+html.dark .bg-brand-gold span,
+html.dark .bg-brand-gold p,
+html.dark .bg-brand-gold div,
+.dark .bg-brand-gold,
+.dark .bg-brand-gold *,
+.dark .bg-brand-gold a,
+.dark .bg-brand-gold h3,
+.dark .bg-brand-gold span,
+.dark .bg-brand-gold p,
+.dark .bg-brand-gold div,
+.tape-strip,
+.tape-strip *,
+html.dark .tape-strip,
+html.dark .tape-strip *,
+.bg-amber-400,
+.bg-amber-400 *,
+html.dark .bg-amber-400,
+html.dark .bg-amber-400 * {
+  color: #1a1c19 !important;
+  background-color: #ffbd59 !important;
+}
+
+/* Single Post Specific Dark Mode Card Overrides */
+html.dark .post-sidebar-col > div, .dark .post-sidebar-col > div {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+html.dark .post-sidebar-col > div.bg-brand-gold\/10, .dark .post-sidebar-col > div.bg-brand-gold\/10 {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+}
+
+/* Article Body Typography Dark Mode High Contrast */
+html.dark .prose, .dark .prose,
+html.dark .prose p, .dark .prose p,
+html.dark .prose li, .dark .prose li,
+html.dark .prose span, .dark .prose span,
+html.dark .prose div, .dark .prose div {
+  color: #e4e4e7 !important;
+}
+
+html.dark .prose h1, .dark .prose h1,
+html.dark .prose h2, .dark .prose h2,
+html.dark .prose h3, .dark .prose h3,
+html.dark .prose h4, .dark .prose h4,
+html.dark .prose strong, .dark .prose strong {
+  color: #ffffff !important;
+}
+
+html.dark .prose a, .dark .prose a {
+  color: #5cad4e !important;
+}
+
+html.dark .prose blockquote, .dark .prose blockquote {
+  background-color: rgba(255, 189, 89, 0.1) !important;
+  border-left-color: #5cad4e !important;
+  color: #ffffff !important;
+}
+
+/* Sticker Shadow Dark Mode */
+html.dark .sticker-shadow, .dark .sticker-shadow {
+  box-shadow: 4px 4px 0px 0px #4b923f !important;
+}
+
+/* Share Bar & Bottom Navigation Cards Dark Mode */
+html.dark button.bg-neutral-100, .dark button.bg-neutral-100 {
+  background-color: #27272a !important;
+  color: #ffffff !important;
+  border-color: #3f3f46 !important;
+}
+
+html.dark .border-t-2.border-neutral-900 a, .dark .border-t-2.border-neutral-900 a {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   LIST PAGE POST CARDS DARK MODE HIGH CONTRAST RULES
+   ========================================================================== */
+
+/* Dark Mode Card Background & Borders */
+html.dark article.sticker-shadow,
+.dark article.sticker-shadow {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+/* Ensure inner card body container in dark mode is dark charcoal */
+html.dark article.sticker-shadow > div:not(.bg-brand-gold),
+.dark article.sticker-shadow > div:not(.bg-brand-gold) {
+  background-color: #18181b !important;
+  color: #ffffff !important;
+}
+
+/* Card titles in Dark Mode */
+html.dark article.sticker-shadow h2,
+html.dark article.sticker-shadow h2 a,
+html.dark article.sticker-shadow h3,
+html.dark article.sticker-shadow h3 a,
+.dark article.sticker-shadow h2,
+.dark article.sticker-shadow h2 a,
+.dark article.sticker-shadow h3,
+.dark article.sticker-shadow h3 a {
+  color: #ffffff !important;
+}
+
+html.dark article.sticker-shadow h2 a:hover,
+html.dark article.sticker-shadow h3 a:hover,
+.dark article.sticker-shadow h2 a:hover,
+.dark article.sticker-shadow h3 a:hover {
+  color: #5cad4e !important;
+}
+
+/* Card summaries in Dark Mode */
+html.dark article.sticker-shadow p,
+.dark article.sticker-shadow p {
+  color: #e4e4e7 !important;
+}
+
+/* Image Placeholder in Dark Mode */
+article .bg-gradient-to-br,
+html.dark article .bg-gradient-to-br,
+.dark article .bg-gradient-to-br {
+  background: linear-gradient(to bottom right, #171717, #262626, #171717) !important;
+  color: #ffffff !important;
+}
+
+html.dark article .bg-gradient-to-br *,
+.dark article .bg-gradient-to-br * {
+  color: #ffffff !important;
+}
+
+/* Highlight Dark Card (Card 3) Dark Mode Protection */
+article.bg-neutral-900,
+html.dark article.bg-neutral-900,
+.dark article.bg-neutral-900 {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+article.bg-neutral-900 *,
+html.dark article.bg-neutral-900 *,
+.dark article.bg-neutral-900 * {
+  color: #ffffff !important;
+}
+
+/* Sticker badges inside cards maintain dark text (#1a1c19) on gold background */
+article .bg-brand-gold,
+article .bg-brand-gold *,
+html.dark article .bg-brand-gold,
+html.dark article .bg-brand-gold *,
+.dark article .bg-brand-gold,
+.dark article .bg-brand-gold * {
+  color: #1a1c19 !important;
+  background-color: #ffbd59 !important;
+}
+
+/* ==========================================================================
+   IMPACT STATS SECTION LIGHT & DARK MODE CONTRAST OVERRIDES
+   ========================================================================== */
+
+.impact-card-award {
+  background-color: #ffffff !important;
+  border-color: #1a1c19 !important;
+  color: #1a1c19 !important;
+}
+html.dark .impact-card-award,
+.dark .impact-card-award {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+html.dark .impact-card-award h3,
+.dark .impact-card-award h3 {
+  color: #ffffff !important;
+}
+
+.impact-card-gold,
+html.dark .impact-card-gold,
+.dark .impact-card-gold {
+  background-color: #ffbd59 !important;
+  border-color: #1a1c19 !important;
+  color: #1a1c19 !important;
+}
+.impact-card-gold *,
+html.dark .impact-card-gold *,
+.dark .impact-card-gold * {
+  color: #1a1c19 !important;
+}
+
+.impact-card-stat2 {
+  background-color: #ffffff !important;
+  border-color: #1a1c19 !important;
+  color: #1a1c19 !important;
+}
+html.dark .impact-card-stat2,
+.dark .impact-card-stat2 {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+html.dark .impact-card-stat2 h3,
+.dark .impact-card-stat2 h3 {
+  color: #ffffff !important;
+}
+
+.impact-card-green,
+html.dark .impact-card-green,
+.dark .impact-card-green {
+  background-color: #236a1b !important;
+  border-color: #1a1c19 !important;
+  color: #ffffff !important;
+}
+html.dark .impact-card-green,
+.dark .impact-card-green {
+  border-color: #3f3f46 !important;
+}
+.impact-card-green .impact-val,
+html.dark .impact-card-green .impact-val,
+.dark .impact-card-green .impact-val {
+  color: #ffbd59 !important;
+}
+.impact-card-green .impact-desc,
+html.dark .impact-card-green .impact-desc,
+.dark .impact-card-green .impact-desc {
+  color: #ffffff !important;
+}
+
+.impact-card-dark,
+html.dark .impact-card-dark,
+.dark .impact-card-dark {
+  background-color: #18181b !important;
+  border-color: #1a1c19 !important;
+  color: #ffffff !important;
+}
+html.dark .impact-card-dark,
+.dark .impact-card-dark {
+  border-color: #3f3f46 !important;
+}
+.impact-card-dark .impact-val,
+html.dark .impact-card-dark .impact-val,
+.dark .impact-card-dark .impact-val {
+  color: #ffffff !important;
+}
+.impact-card-dark .impact-title,
+html.dark .impact-card-dark .impact-title,
+.dark .impact-card-dark .impact-title {
+  color: #ffbd59 !important;
+}
+.impact-card-dark .impact-desc,
+html.dark .impact-card-dark .impact-desc,
+.dark .impact-card-dark .impact-desc {
+  color: #e4e4e7 !important;
+}
