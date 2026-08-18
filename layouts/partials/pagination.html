@@ -1,0 +1,50 @@
+<nav class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-12 mb-8 font-label text-xs sm:text-sm uppercase font-bold" aria-label="Navigare Pagini">
+  
+  {{/* Previous Page Button */}}
+  {{ if .Paginator.HasPrev }}
+    <a
+      href="{{ .Paginator.Prev.URL }}"
+      class="flex items-center gap-1.5 px-4 py-2.5 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white sticker-shadow hover:bg-brand-gold hover:text-slate-900 transition-all cursor-pointer"
+      rel="prev">
+      <span class="material-symbols-outlined text-base">arrow_back</span>
+      <span>ANTERIOARĂ</span>
+    </a>
+  {{ else }}
+    <span class="flex items-center gap-1.5 px-4 py-2.5 border-2 border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 text-neutral-400 dark:text-neutral-600 opacity-60 cursor-not-allowed">
+      <span class="material-symbols-outlined text-base">arrow_back</span>
+      <span>ANTERIOARĂ</span>
+    </span>
+  {{ end }}
+
+  {{/* Page Numbers */}}
+  {{ range .Paginator.Pagers }}
+    {{ if eq . .Paginator }}
+      <span class="px-4 py-2.5 border-2 border-neutral-900 dark:border-neutral-100 bg-brand-gold text-slate-900 font-black sticker-shadow">
+        {{ .PageNumber }}
+      </span>
+    {{ else }}
+      <a
+        href="{{ .URL }}"
+        class="px-4 py-2.5 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white sticker-shadow hover:bg-brand-green hover:text-white transition-all cursor-pointer">
+        {{ .PageNumber }}
+      </a>
+    {{ end }}
+  {{ end }}
+
+  {{/* Next Page Button */}}
+  {{ if .Paginator.HasNext }}
+    <a
+      href="{{ .Paginator.Next.URL }}"
+      class="flex items-center gap-1.5 px-4 py-2.5 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white sticker-shadow hover:bg-brand-gold hover:text-slate-900 transition-all cursor-pointer"
+      rel="next">
+      <span>URMĂTOARE</span>
+      <span class="material-symbols-outlined text-base">arrow_forward</span>
+    </a>
+  {{ else }}
+    <span class="flex items-center gap-1.5 px-4 py-2.5 border-2 border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 text-neutral-400 dark:text-neutral-600 opacity-60 cursor-not-allowed">
+      <span>URMĂTOARE</span>
+      <span class="material-symbols-outlined text-base">arrow_forward</span>
+    </span>
+  {{ end }}
+
+</nav>
