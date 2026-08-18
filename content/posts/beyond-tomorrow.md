@@ -2,9 +2,13 @@
 title: "Beyond Tomorrow"
 date: 2025-05-31
 image: "/images/proiecte/beyond-tomorrow.jpg" 
+image_position: "center 30%"
+photo_credit: "Arhiva Fiecare Voce"
 summary: "Pe 31 mai am organizat primul nostru eveniment, la Ploiești, la Palatul Culturii, în colaborare cu echipele de robotică din oraș și Clubul de științe Fusion."
 author: "Echipa Fiecare Voce"
+authors: ["Echipa Fiecare Voce"]
 categories: ["Proiecte"]
+tags: ["olimpici", "evenimente", "burnout"]
 ---
 
 Pe 31 mai am organizat primul nostru eveniment, la Ploiești, la Palatul Culturii, în colaborare cu echipele de robotică din oraș și Clubul de științe Fusion. Evenimentul a fost unul unic prin inițiativa propusă, adunând 17 elevi olimpici din toată țara pentru a-și spune povestea și pentru a vorbi despre burnout și presiunea academică.
