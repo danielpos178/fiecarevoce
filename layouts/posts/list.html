@@ -1,106 +1,517 @@
 {{ define "main" }}
-<div class="bg-neutral-50 min-h-screen pb-16 transition-colors duration-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
-      <h1 class="text-4xl md:text-5xl font-black text-brand-green tracking-tight">
-        Blog
-      </h1>
-      <!-- Category Filter -->
-      <div class="flex items-center gap-2 bg-neutral rounded-full p-1 border border-neutral-200 shadow-sm overflow-x-auto max-w-full">
-        <a href="{{ "posts/" | relURL }}" class="px-6 py-2 rounded-full bg-brand-green text-white text-sm font-bold whitespace-nowrap transition-colors">Toate</a>
-        <!-- Mock categories for aesthetic -->
-        <a href="#" class="px-6 py-2 rounded-full text-neutral-600 hover:text-neutral-900 text-sm font-semibold whitespace-nowrap hover:bg-neutral-100 transition-colors">Noutăți</a>
-        <a href="#" class="px-6 py-2 rounded-full text-neutral-600 hover:text-neutral-900 text-sm font-semibold whitespace-nowrap hover:bg-neutral-100 transition-colors">Proiecte</a>
-        <a href="#" class="px-6 py-2 rounded-full text-neutral-600 hover:text-neutral-900 text-sm font-semibold whitespace-nowrap hover:bg-neutral-100 transition-colors">Echipă</a>
+<div class="bg-neutral-50 dark:bg-[#121212] text-neutral-900 dark:text-neutral-100 min-h-screen pb-24 transition-colors duration-300 w-full font-zine-body">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-8 md:pt-12">
+
+    <!-- Page Header, Instant Live Search & Filters -->
+    <section class="flex flex-col gap-4 mb-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-neutral-900 dark:border-neutral-700 pb-6">
+        <div>
+          <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase text-neutral-900 dark:text-white border-l-8 border-brand-green pl-4 sm:pl-6 leading-none tracking-tight">
+            {{ .Title | default "TRANSMISIUNI FIECARE VOCE" }}
+          </h1>
+        </div>
+        <div class="font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 shrink-0">
+          EXPLOREAZĂ POVEȘTILE TINERILOR DIN ROMÂNIA
+        </div>
+      </div>
+
+      <!-- Instant Live Search Bar -->
+      <div class="relative w-full max-w-3xl mt-4">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-brand-green dark:text-emerald-400 text-2xl pointer-events-none">search</span>
+        <input type="text" id="live-post-search" placeholder="Caută instant după titlu, autor, tag-uri, categorie sau conținut..." class="w-full pl-12 pr-12 py-3.5 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white font-zine-body text-base sticker-shadow focus:outline-none focus:border-brand-green transition-all" autocomplete="off">
+        <button id="clear-live-search" class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer" title="Șterge căutarea">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <!-- Category Filter Pills & Sort Selector -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-2">
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="{{ "posts/" | relURL }}" class="px-4 py-2 border-2 border-neutral-900 dark:border-neutral-100 font-label text-xs uppercase font-bold sticker-shadow transition-all bg-brand-green text-white">
+            TOATE
+          </a>
+          {{ range $name, $taxonomy := site.Taxonomies.categories }}
+            <a href="{{ printf "categories/%s/" ($name | urlize) | relURL }}" class="px-4 py-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 font-label text-xs uppercase font-bold sticker-shadow hover:bg-brand-gold hover:text-neutral-900 transition-all">
+              {{ $name }}
+            </a>
+          {{ end }}
+        </div>
+
+        <!-- Sort Order Selector -->
+        <div class="flex items-center gap-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 px-3.5 py-2 sticker-shadow shrink-0 self-start sm:self-auto">
+          <span class="material-symbols-outlined text-brand-green dark:text-emerald-400 text-lg">swap_vert</span>
+          <span class="font-label text-xs font-bold uppercase text-neutral-500 dark:text-neutral-400 hidden sm:inline">SORTARE:</span>
+          <select id="sort-order-select" class="bg-transparent font-label text-xs font-bold uppercase text-neutral-900 dark:text-white focus:outline-none cursor-pointer">
+            <option value="desc" class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">Noi → Vechi</option>
+            <option value="asc" class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">Vechi → Noi</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Container for Live Search Filter Results -->
+    <div id="live-search-results-container" class="hidden mb-16">
+      <div class="flex items-center justify-between border-b-2 border-neutral-900 dark:border-neutral-700 pb-3 mb-6">
+        <h2 id="live-search-title" class="font-display font-black text-2xl uppercase text-neutral-900 dark:text-white">
+          REZULTATE CĂUTARE
+        </h2>
+        <span id="live-search-count" class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400 bg-brand-green/10 px-3 py-1 border border-brand-green/30">
+          0 REZULTATE
+        </span>
+      </div>
+
+      <div id="live-search-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Live search cards dynamically injected here -->
+      </div>
+
+      <div id="live-search-empty" class="hidden p-12 text-center text-neutral-500 bg-white dark:bg-neutral-900 border-2 border-dashed border-neutral-300 dark:border-neutral-800 sticker-shadow font-zine-body text-lg">
+        Niciun articol nu a fost găsit pentru această căutare. Încearcă alți termeni.
       </div>
     </div>
 
-    {{ $posts := where site.RegularPages "Type" "posts" }}
-    {{ $paginator := .Paginate $posts }}
+    <!-- Default Hugo Paginated Grid Section -->
+    <div id="default-feed-section">
+      {{ $posts := (where site.RegularPages "Type" "posts").ByDate.Reverse }}
+      {{ $paginator := .Paginate $posts 6 }}
 
-    {{ if gt (len $posts) 0 }}
-      <!-- Featured Post -->
-      {{ if eq $paginator.PageNumber 1 }}
-        {{ $featured := index $posts 0 }}
-        <article class="w-full bg-brand-green rounded-[2rem] overflow-hidden flex flex-col lg:flex-row mb-16 shadow-lg group">
-          <div class="w-full lg:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-            <div class="text-brand-gold font-bold text-sm tracking-widest uppercase mb-4">{{ $featured.Date.Format "02 Jan 2006" }}</div>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight mb-6 group-hover:text-brand-gold transition-colors">
-              <a href="{{ $featured.RelPermalink }}">{{ $featured.Title }}</a>
-            </h2>
-            <p class="text-emerald-100 text-lg md:text-xl leading-relaxed mb-10 line-clamp-3">
-              {{ $featured.Summary }}
-            </p>
-            <div>
-              <a href="{{ $featured.RelPermalink }}" class="inline-flex items-center gap-3 bg-brand-gold hover:bg-amber-400 text-slate-900 font-bold px-6 py-3 rounded-xl transition-colors">
-                <span class="w-8 h-8 rounded-full bg-slate-900 text-brand-gold flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </span>
-                Citește articolul
-              </a>
-            </div>
-          </div>
-          <div class="w-full lg:w-1/2 relative min-h-[300px] lg:min-h-full bg-emerald-800 overflow-hidden">
-            {{ if $featured.Params.image }}
-              {{ partial "responsive-image.html" (dict "src" $featured.Params.image "alt" $featured.Title "class" "absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" "loading" "eager") }}
-            {{ else }}
-              <div class="absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-800 to-emerald-950 group-hover:scale-105 transition-transform duration-700">
-                <svg class="w-24 h-24 text-emerald-700/50" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5C3.89 3 3 3.9 3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
-              </div>
-            {{ end }}
-          </div>
-        </article>
-      {{ end }}
-
-      <!-- Remaining Posts Grid -->
-      {{ $remainingPosts := $paginator.Pages }}
-      {{ if eq $paginator.PageNumber 1 }}
-        {{ $remainingPosts = after 1 $paginator.Pages }}
-      {{ end }}
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        {{ range $remainingPosts }}
-          <article class="flex flex-col space-y-4 group bg-neutral p-4 rounded-3xl border border-neutral-200 shadow-sm hover:border-brand-green/30 hover:shadow-md transition-all">
-            <a href="{{ .RelPermalink }}" class="block overflow-hidden rounded-2xl aspect-[16/9] bg-neutral-100 relative">
-              {{ if .Params.image }}
-                {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" "loading" "lazy") }}
+      {{ if gt (len $posts) 0 }}
+        
+        <!-- Asymmetric Feed Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 auto-rows-min mb-16">
+          
+          {{ range $index, $element := $paginator.Pages }}
+            
+            {{/* Resolve Category */}}
+            {{ $category := "ARTICOL" }}
+            {{ if .Params.categories }}
+              {{ if reflect.IsSlice .Params.categories }}
+                {{ $category = index .Params.categories 0 }}
               {{ else }}
-                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-brand-green/10 to-brand-gold/10 group-hover:scale-105 transition-transform duration-500">
-                  <svg class="w-12 h-12 text-brand-green/30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5C3.89 3 3 3.9 3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
-                </div>
+                {{ $category = .Params.categories }}
               {{ end }}
-            </a>
-            <div class="flex flex-col items-start gap-2 px-2 pb-2 flex-grow">
-              <div class="flex justify-between items-center w-full mt-2">
-                <span class="text-xs font-bold text-brand-gold uppercase tracking-wider bg-brand-gold/10 px-3 py-1 rounded-full">{{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Articol{{ end }}</span>
-                <time class="text-sm font-semibold text-neutral-500">{{ .Date.Format "02 Jan 2006" }}</time>
-              </div>
-              <h3 class="text-xl font-bold text-neutral-900 group-hover:text-brand-green transition-colors leading-tight mt-2">
-                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-              </h3>
-              <div class="mt-auto pt-4 flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-neutral-200 overflow-hidden flex items-center justify-center text-neutral-600 font-bold text-sm shrink-0">
-                  {{ if .Params.author }}
-                    {{ substr .Params.author 0 1 }}
-                  {{ else }}
-                    FV
-                  {{ end }}
-                </div>
-                <span class="text-sm font-semibold text-neutral-700 truncate">{{ .Params.author | default "Echipa Fiecare Voce" }}</span>
-              </div>
-            </div>
-          </article>
-        {{ end }}
-      </div>
+            {{ end }}
 
-      <!-- Pagination -->
-      {{ partial "pagination.html" . }}
-    {{ else }}
-      <div class="p-12 text-center text-neutral-500 bg-neutral rounded-3xl border border-dashed border-neutral-300 shadow-sm">
-        Articolele vor fi publicate în curând.
-      </div>
-    {{ end }}
+            {{/* Resolve Author & Author URL */}}
+            {{ $author := .Params.author }}
+            {{ if not $author }}
+              {{ if .Params.authors }}
+                {{ if reflect.IsSlice .Params.authors }}
+                  {{ $author = delimit .Params.authors ", " }}
+                {{ else }}
+                  {{ $author = .Params.authors }}
+                {{ end }}
+              {{ else }}
+                {{ $author = "Echipa Fiecare Voce" }}
+              {{ end }}
+            {{ end }}
+            {{ $authorURL := printf "authors/%s/" ($author | urlize) | relURL }}
+
+            {{/* CARD 1: Large Featured Card (Index 0 - Spans 7 columns) */}}
+            {{ if eq $index 0 }}
+            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-7 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+              <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] -rotate-1">
+                {{ $category }}
+              </div>
+              
+              <a href="{{ .RelPermalink }}" class="h-64 md:h-96 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+                {{ if .Params.image }}
+                  {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+                  {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" $imgPos) "loading" "eager") }}
+                {{ else }}
+                  <div class="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-neutral-900 via-emerald-950 to-neutral-900 text-center relative overflow-hidden">
+                    <span class="font-display font-black text-3xl text-white uppercase">Fiecare Voce</span>
+                  </div>
+                {{ end }}
+              </a>
+
+              <div class="p-6 sm:p-8 flex flex-col gap-4 flex-grow">
+                <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+                  {{ .Date.Format "02 Ianuarie 2006" }}
+                </span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl md:text-4xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-tight">
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                <p class="font-zine-body text-base sm:text-lg text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+                  {{ .Summary }}
+                </p>
+                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                  <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
+                    <span class="material-symbols-outlined text-base text-brand-green">edit</span>
+                    <span>Scris de {{ $author }}</span>
+                  </a>
+                  <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    <span>Citește</span>
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+            {{ end }}
+
+            {{/* CARD 2: Medium Vertical Card (Index 1 - Spans 5 columns) */}}
+            {{ if eq $index 1 }}
+            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-5 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300 lg:mt-8">
+              <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] rotate-1">
+                {{ $category }}
+              </div>
+              
+              <a href="{{ .RelPermalink }}" class="h-48 md:h-64 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+                {{ if .Params.image }}
+                  {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+                  {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" $imgPos) "loading" "lazy") }}
+                {{ else }}
+                  <div class="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-center">
+                    <span class="font-display font-bold text-xl text-white uppercase">Fiecare Voce</span>
+                  </div>
+                {{ end }}
+              </a>
+
+              <div class="p-6 flex flex-col gap-4 flex-grow">
+                <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+                  {{ .Date.Format "02 Ianuarie 2006" }}
+                </span>
+                <h2 class="font-display font-black text-xl sm:text-2xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+                  {{ .Summary }}
+                </p>
+                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                  <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
+                    <span class="material-symbols-outlined text-base text-brand-green">person</span>
+                    <span>{{ $author }}</span>
+                  </a>
+                  <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    <span>Citește</span>
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+            {{ end }}
+
+            {{/* CARD 3: Highlight Dark Card (Index 2 - Spans 4 columns) */}}
+            {{ if eq $index 2 }}
+            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-4 bg-neutral-900 dark:bg-neutral-800 text-white border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+              <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
+                {{ $category }}
+              </div>
+
+              <a href="{{ .RelPermalink }}" class="h-48 sm:h-56 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block shrink-0">
+                {{ if .Params.image }}
+                  {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+                  {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" $imgPos) "loading" "lazy") }}
+                {{ else }}
+                  <div class="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-center">
+                    <div class="w-12 h-12 bg-brand-green text-brand-gold border-2 border-brand-gold flex items-center justify-center sticker-shadow mb-2">
+                      <span class="material-symbols-outlined text-2xl">auto_stories</span>
+                    </div>
+                    <span class="font-display font-bold text-lg text-white uppercase">Fiecare Voce</span>
+                  </div>
+                {{ end }}
+              </a>
+
+              <div class="p-6 flex flex-col gap-4 flex-grow bg-neutral-900 dark:bg-[#18181b] text-white">
+                <span class="font-label text-xs font-bold uppercase text-brand-gold">
+                  {{ .Date.Format "02 Ianuarie 2006" }}
+                </span>
+
+                <h2 class="font-display font-black text-xl sm:text-2xl uppercase text-white group-hover:text-brand-gold transition-colors leading-tight">
+                  <a href="{{ .RelPermalink }}" class="text-white hover:text-brand-gold">{{ .Title }}</a>
+                </h2>
+
+                <p class="font-zine-body text-base text-neutral-300 line-clamp-3 leading-relaxed">
+                  {{ .Summary }}
+                </p>
+
+                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-700 font-label text-xs uppercase font-bold text-neutral-300">
+                  <a href="{{ $authorURL }}" class="flex items-center gap-2 text-neutral-300 hover:text-brand-gold transition-colors">
+                    <span class="material-symbols-outlined text-base text-brand-gold">edit</span>
+                    <span>{{ $author }}</span>
+                  </a>
+                  <a href="{{ .RelPermalink }}" class="text-brand-gold font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    <span>Citește</span>
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+            {{ end }}
+
+            {{/* CARD 4: Horizontal Banner Card (Index 3 - Spans 8 columns) */}}
+            {{ if eq $index 3 }}
+            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-8 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col md:flex-row group hover:-translate-y-1 transition-transform duration-300">
+              <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] -rotate-1">
+                {{ $category }}
+              </div>
+
+              <a href="{{ .RelPermalink }}" class="h-48 md:h-auto md:w-2/5 border-b-2 md:border-b-0 md:border-r-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block shrink-0">
+                {{ if .Params.image }}
+                  {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+                  {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" $imgPos) "loading" "lazy") }}
+                {{ else }}
+                  <div class="w-full h-full flex items-center justify-center p-6 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-center">
+                    <span class="font-display font-bold text-xl text-white uppercase">Fiecare Voce</span>
+                  </div>
+                {{ end }}
+              </a>
+
+              <div class="p-6 md:p-8 flex flex-col gap-4 flex-grow md:w-3/5">
+                <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+                  {{ .Date.Format "02 Ianuarie 2006" }}
+                </span>
+                <h2 class="font-display font-black text-2xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-tight">
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+                  {{ .Summary }}
+                </p>
+                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                  <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
+                    <span class="material-symbols-outlined text-base text-brand-green">person</span>
+                    <span>{{ $author }}</span>
+                  </a>
+                  <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    <span>Citește</span>
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+            {{ end }}
+
+            {{/* CARDS >= 4: Standard Neo-Brutalist Grid Cards (Spans 6 columns) */}}
+            {{ if ge $index 4 }}
+            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-6 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+              <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
+                {{ $category }}
+              </div>
+
+              <a href="{{ .RelPermalink }}" class="h-48 sm:h-56 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+                {{ if .Params.image }}
+                  {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+                  {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" $imgPos) "loading" "lazy") }}
+                {{ else }}
+                  <div class="w-full h-full flex items-center justify-center p-6 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-center">
+                    <span class="font-display font-bold text-lg text-white uppercase">Fiecare Voce</span>
+                  </div>
+                {{ end }}
+              </a>
+
+              <div class="p-6 flex flex-col gap-3 flex-grow">
+                <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+                  {{ .Date.Format "02 Ianuarie 2006" }}
+                </span>
+                <h2 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+                  {{ .Summary }}
+                </p>
+                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                  <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
+                    <span class="material-symbols-outlined text-base text-brand-green">person</span>
+                    <span>{{ $author }}</span>
+                  </a>
+                  <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    <span>Citește</span>
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+            {{ end }}
+
+          {{ end }}
+
+        </section>
+
+        <!-- Neo-Brutalist Pagination Bar -->
+        <div class="flex justify-center mt-12 mb-8">
+          {{ partial "pagination.html" . }}
+        </div>
+
+      {{ else }}
+        <div class="p-12 text-center text-neutral-500 bg-white dark:bg-neutral-900 border-2 border-dashed border-neutral-300 dark:border-neutral-800 sticker-shadow font-zine-body text-lg">
+          Articolele vor fi publicate în curând.
+        </div>
+      {{ end }}
+    </div>
+
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const liveSearchInput = document.getElementById('live-post-search');
+    const clearSearchBtn = document.getElementById('clear-live-search');
+    const resultsContainer = document.getElementById('live-search-results-container');
+    const resultsGrid = document.getElementById('live-search-grid');
+    const resultsCount = document.getElementById('live-search-count');
+    const searchEmpty = document.getElementById('live-search-empty');
+    const defaultFeedSection = document.getElementById('default-feed-section');
+    const sortSelect = document.getElementById('sort-order-select');
+    
+    let searchDataCache = null;
+
+    function normalizeText(str) {
+      if (!str) return '';
+      return str
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/ă|â/g, 'a')
+        .replace(/î/g, 'i')
+        .replace(/ș|ş/g, 's')
+        .replace(/ț|ţ/g, 't');
+    }
+
+    async function loadIndexData() {
+      if (!searchDataCache) {
+        try {
+          const res = await fetch('{{ "index.json" | relURL }}');
+          searchDataCache = await res.json();
+        } catch (e) {
+          console.error("Error fetching live search index:", e);
+          searchDataCache = [];
+        }
+      }
+    }
+
+    // Sort order handler
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function() {
+        const order = this.value; // 'desc' or 'asc'
+
+        // 1. Re-sort feed grid DOM elements
+        const feedGrid = document.querySelector('#default-feed-section section');
+        if (feedGrid) {
+          const articles = Array.from(feedGrid.querySelectorAll('article[data-date]'));
+          articles.sort((a, b) => {
+            const dateA = new Date(a.getAttribute('data-date'));
+            const dateB = new Date(b.getAttribute('data-date'));
+            return order === 'asc' ? dateA - dateB : dateB - dateA;
+          });
+          articles.forEach(art => feedGrid.appendChild(art));
+        }
+
+        // 2. Re-trigger search if user typed a query
+        if (liveSearchInput && liveSearchInput.value.trim().length > 0) {
+          liveSearchInput.dispatchEvent(new Event('input'));
+        }
+      });
+    }
+
+    if (liveSearchInput) {
+      liveSearchInput.addEventListener('input', async function() {
+        const rawQuery = this.value.trim();
+        const query = normalizeText(rawQuery);
+        
+        if (query.length > 0) {
+          if (clearSearchBtn) clearSearchBtn.classList.remove('hidden');
+        } else {
+          if (clearSearchBtn) clearSearchBtn.classList.add('hidden');
+          if (resultsContainer) resultsContainer.classList.add('hidden');
+          if (defaultFeedSection) defaultFeedSection.classList.remove('hidden');
+          return;
+        }
+
+        await loadIndexData();
+        if (!searchDataCache) return;
+
+        let filtered = searchDataCache.filter(item => {
+          const title = normalizeText(item.title);
+          const author = normalizeText(item.author);
+          const summary = normalizeText(item.summary);
+          const content = normalizeText(item.content);
+          const cats = normalizeText((item.categories || []).join(' '));
+          const tags = normalizeText((item.tags || []).join(' '));
+
+          return title.includes(query) || 
+                 author.includes(query) || 
+                 cats.includes(query) || 
+                 tags.includes(query) || 
+                 summary.includes(query) || 
+                 content.includes(query);
+        });
+
+        // Apply sort selection to search results
+        const currentOrder = sortSelect ? sortSelect.value : 'desc';
+        filtered.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return currentOrder === 'asc' ? dateA - dateB : dateB - dateA;
+        });
+
+        if (defaultFeedSection) defaultFeedSection.classList.add('hidden');
+        if (resultsContainer) resultsContainer.classList.remove('hidden');
+
+        if (resultsCount) {
+          resultsCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'REZULTAT' : 'REZULTATE'}`;
+        }
+
+        if (filtered.length === 0) {
+          if (searchEmpty) searchEmpty.classList.remove('hidden');
+          if (resultsGrid) resultsGrid.innerHTML = '';
+        } else {
+          if (searchEmpty) searchEmpty.classList.add('hidden');
+          
+          let cardsHTML = '';
+          filtered.forEach(item => {
+            const catLabel = item.categories && item.categories.length > 0 ? item.categories[0] : 'ARTICOL';
+            
+            let snippet = item.summary || '';
+            if (item.content) {
+              const normContent = normalizeText(item.content);
+              const idx = normContent.indexOf(query);
+              if (idx !== -1) {
+                const start = Math.max(0, idx - 40);
+                const end = Math.min(item.content.length, idx + 120);
+                snippet = (start > 0 ? '...' : '') + item.content.substring(start, end) + (end < item.content.length ? '...' : '');
+              }
+            }
+
+            cardsHTML += `
+              <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+                <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
+                  ${catLabel}
+                </div>
+
+                <div class="p-6 flex flex-col gap-3 flex-grow mt-2">
+                  <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+                    ${item.date} • ${item.readingTime}
+                  </span>
+                  <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                    <a href="${item.permalink}">${item.title}</a>
+                  </h3>
+                  <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+                    ${snippet}
+                  </p>
+                  <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                    <span>Autor: ${item.author}</span>
+                    <a href="${item.permalink}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                      <span>Citește</span>
+                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            `;
+          });
+
+          if (resultsGrid) resultsGrid.innerHTML = cardsHTML;
+        }
+      });
+
+      if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', function() {
+          if (liveSearchInput) {
+            liveSearchInput.value = '';
+            liveSearchInput.dispatchEvent(new Event('input'));
+          }
+        });
+      }
+    }
+  });
+</script>
 {{ end }}
