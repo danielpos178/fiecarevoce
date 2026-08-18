@@ -6,6 +6,16 @@ defaultContentLanguage = 'ro'
 enableRobotsTXT = true
 summaryLength = 25
 disableHugoGeneratorInject = true
+paginate = 6
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  author = "authors"
 
 [sitemap]
   changefreq = "weekly"
