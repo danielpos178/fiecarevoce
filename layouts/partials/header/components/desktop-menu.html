@@ -1,113 +1,109 @@
-<nav class="flex items-center gap-x-5 h-12">
- {{ if .Site.Menus.main }}
- {{ range .Site.Menus.main }}
- {{ template "DesktopMenu" . }}
- {{ end }}
- {{ end }}
+<nav id="desktop-nav-menu" class="flex items-center gap-6 font-label text-xs sm:text-sm uppercase font-bold">
+  
+  {{ $page := . }}
+  {{ range .Site.Menus.main }}
+    {{ $url := .URL | relURL }}
+    {{ $isCurrent := false }}
+    {{ if and (ne $url "/") (not (hasPrefix $url "/#")) }}
+      {{ if or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) (eq $page.RelPermalink $url) (hasPrefix $page.RelPermalink $url) }}
+        {{ $isCurrent = true }}
+      {{ end }}
+    {{ end }}
 
+    <a href="{{ $url }}" data-nav-href="{{ $url }}" class="nav-link-item {{ if $isCurrent }}is-active text-brand-green dark:text-emerald-400 font-black border-b-2 border-brand-green dark:border-emerald-400 py-1 px-2 bg-brand-green/10 dark:bg-brand-green/20 flex items-center gap-1.5{{ else }}text-neutral-900 dark:text-neutral-100 hover:text-brand-green dark:hover:text-emerald-400 border-b-2 border-transparent hover:border-brand-green dark:hover:border-emerald-400 py-1{{ end }} transition-all">
+      <span>{{ .Name }}</span>
+      <span class="active-dot w-1.5 h-1.5 rounded-full bg-brand-green dark:bg-emerald-400 {{ if not $isCurrent }}hidden{{ end }}"></span>
+    </a>
+  {{ end }}
 
-
-
- {{ if .Site.Params.enableSearch | default false }}
- <button
- id="search-button"
- aria-label="Search"
- class="text-base bf-icon-color-hover"
- title="{{ i18n "search.open_button_title" }}">
- {{ partial "icon.html" "search" }}
- </button>
- {{ end }}
-
- {{ if .Site.Params.showAppearanceSwitcher | default true }}
+  <!-- Theme Appearance Switcher (Light / Dark Mode) -->
+  {{ if .Site.Params.showAppearanceSwitcher | default true }}
   <button
     id="appearance-switcher"
     type="button"
     aria-label="Toggle theme"
-    class="flex items-center justify-center p-2 rounded-xl text-neutral-700 dark:text-neutral-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-green dark:focus:ring-brand-gold cursor-pointer"
-    title="Toggle light/dark theme (Right-click to follow system setting)">
+    class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white sticker-shadow hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center"
+    title="Comută modul întunecat/luminos">
     <span class="dark:hidden flex items-center justify-center">
-      {{ partial "icon.html" "moon" }}
+      <span class="material-symbols-outlined text-lg">dark_mode</span>
     </span>
     <span class="hidden dark:flex items-center justify-center text-brand-gold">
-      {{ partial "icon.html" "sun" }}
+      <span class="material-symbols-outlined text-lg">light_mode</span>
     </span>
   </button>
   {{ end }}
+
+  <!-- Main CTA Button -->
+  <a href="{{ "/#implica-te" | relURL }}" class="bg-brand-gold text-neutral-900 border-2 border-neutral-900 px-4 py-2 font-label text-xs uppercase font-black sticker-shadow sticker-shadow-hover transition-all inline-flex items-center gap-1.5">
+    <span>ALĂTURĂ-TE</span>
+    <span class="material-symbols-outlined text-base">arrow_forward</span>
+  </a>
+
 </nav>
 
-{{ define "DesktopMenu" }}
- {{ if .HasChildren }}
- <div class="nested-menu">
- <div class="cursor-pointer flex items-center">
- <a
- {{ if .URL }}
- href="{{ .URL }}"
- {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
- target="_blank"
- {{ end }}
- {{ else }}
- tabindex="0"
- {{ end }}
- {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
- class="flex items-center text-base font-medium bf-icon-color-hover"
- title="{{ .Title }}">
- {{ if .Pre }}
- <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
- {{ partial "icon.html" .Pre }}
- </span>
- {{ end }}
- <span class="text-bg font-bg break-normal" title="{{ .Title }}">
- {{ .Name | markdownify }}
- </span>
- <span>
- {{ partial "icon.html" "chevron-down" }}
- </span>
- </a>
- </div>
- <div class="menuhide">
- <div class="pt-2 p-5 mt-2 rounded-xl shadow-2xl bg-neutral-50 border border-neutral-200">
- <div class="flex flex-col space-y-3">
- {{ range .Children }}
- <a
- href="{{ .URL }}"
- {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
- target="_blank"
- {{ end }}
- {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
- class="flex items-center bf-icon-color-hover">
- {{ if .Pre }}
- <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
- {{ partial "icon.html" .Pre }}
- </span>
- {{ end }}
- <span class="text-sm font-sm" title="{{ .Title }}">
- {{ .Name | markdownify }}
- </span>
- </a>
- {{ end }}
- </div>
- </div>
- </div>
- </div>
- {{ else }}
- <a
- href="{{ .URL }}"
- {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
- target="_blank"
- {{ end }}
- class="flex items-center bf-icon-color-hover"
- {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
- title="{{ .Title }}">
- {{ if .Pre }}
- <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
- {{ partial "icon.html" .Pre }}
- </span>
- {{ end }}
- {{ if .Name }}
- <span class="text-base font-medium break-normal">
- {{ .Name | markdownify }}
- </span>
- {{ end }}
- </a>
- {{ end }}
-{{ end }}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
+    
+    if (isHomepage) {
+      const anchorLinks = document.querySelectorAll('#desktop-nav-menu a[data-nav-href*="#"]');
+      const sections = [];
+      
+      anchorLinks.forEach(link => {
+        const href = link.getAttribute('data-nav-href');
+        const hashIndex = href.indexOf('#');
+        if (hashIndex !== -1) {
+          const targetId = href.substring(hashIndex + 1);
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            sections.push({ id: targetId, section: targetSection, link: link });
+          }
+        }
+      });
+
+      function activateLink(activeLink) {
+        anchorLinks.forEach(link => {
+          const dot = link.querySelector('.active-dot');
+          if (link === activeLink) {
+            link.classList.add('text-brand-green', 'dark:text-emerald-400', 'font-black', 'border-brand-green', 'dark:border-emerald-400', 'bg-brand-green/10', 'dark:bg-brand-green/20', 'px-2');
+            link.classList.remove('border-transparent', 'text-neutral-900', 'dark:text-neutral-100');
+            if (dot) dot.classList.remove('hidden');
+          } else {
+            link.classList.remove('text-brand-green', 'dark:text-emerald-400', 'font-black', 'border-brand-green', 'dark:border-emerald-400', 'bg-brand-green/10', 'dark:bg-brand-green/20', 'px-2');
+            link.classList.add('border-transparent', 'text-neutral-900', 'dark:text-neutral-100');
+            if (dot) dot.classList.add('hidden');
+          }
+        });
+      }
+
+      function checkScroll() {
+        const currentHash = window.location.hash.replace('#', '');
+        let found = false;
+
+        if (currentHash) {
+          const match = sections.find(s => s.id === currentHash);
+          if (match) {
+            activateLink(match.link);
+            found = true;
+          }
+        }
+
+        if (!found) {
+          const scrollPosition = window.scrollY + 250;
+          sections.forEach(s => {
+            const top = s.section.offsetTop;
+            const height = s.section.offsetHeight;
+            if (scrollPosition >= top && scrollPosition < top + height) {
+              activateLink(s.link);
+              found = true;
+            }
+          });
+        }
+      }
+
+      window.addEventListener('scroll', checkScroll, { passive: true });
+      window.addEventListener('hashchange', checkScroll);
+      checkScroll();
+    }
+  });
+</script>
