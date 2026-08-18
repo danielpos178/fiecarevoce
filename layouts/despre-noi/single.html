@@ -1,159 +1,229 @@
 {{ define "main" }}
-<div class="relative flex flex-col grow w-full">
+<div class="bg-neutral-50 dark:bg-[#121212] text-neutral-900 dark:text-neutral-100 min-h-screen pb-20 transition-colors duration-300 w-full font-zine-body overflow-x-hidden">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-6 md:pt-10">
 
-  {{ with hugo.Data.despre.hero }}
-  <section class="w-full bg-neutral-50 py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-b border-neutral-200 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 leading-tight tracking-tight mb-6 max-w-4xl">
-        {{ .title }}
-      </h1>
-      <p class="text-lg sm:text-xl text-neutral-600 max-w-3xl leading-relaxed font-normal">
-        {{ .subtitle }}
-      </p>
-      {{ if .image }}
-      <div class="mt-12 w-full max-w-5xl mx-auto">
-        {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "rounded-3xl shadow-xl w-full h-auto object-cover aspect-video" "loading" "eager") }}
-      </div>
-      {{ end }}
-    </div>
-  </section>
-  {{ end }}
+    <!-- HERO SECTION -->
+    {{ with hugo.Data.despre.hero }}
+    <section id="hero" class="w-full my-6 border-b-2 border-neutral-900 dark:border-neutral-700 pb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <!-- Left: Headline & Subtitle -->
+        <div class="lg:col-span-7 flex flex-col items-start">
+          <div class="inline-block bg-brand-gold text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-3.5 py-1.5 mb-6 border-2 border-neutral-900 shadow-[3px_3px_0px_0px_#1a1c19] transform -rotate-2">
+            DESPRE FIECARE VOCE
+          </div>
 
-  {{ with hugo.Data.despre.cine_suntem }}
-  <section id="povestea-noastra" class="w-full bg-white py-20 sm:py-32 border-b border-neutral-200/80 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 class="font-display font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-neutral-900 dark:text-white leading-[1.05] tracking-tight mb-6">
+            <span class="relative inline-block z-10">
+              OAMENII
+              <span class="absolute bottom-2 left-0 w-full h-4 bg-brand-gold -z-10 skew-x-[-12deg] opacity-90"></span>
+            </span><br>
+            DIN SPATELE VOCII.
+          </h1>
 
-      <!-- The Narrative Flow Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-
-        <!-- Narrative Block 01 -->
-        <div class="md:col-span-5 flex flex-col">
-          <p class="text-neutral-800 text-lg lg:text-xl leading-relaxed font-medium">
-            {{ index .paragraphs 0 }}
+          <p class="font-zine-body text-lg sm:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl border-l-4 border-brand-green pl-4 sm:pl-6 leading-relaxed">
+            {{ .subtitle }}
           </p>
         </div>
 
-        <!-- Narrative Block 02 (Shifted down) -->
-        <div class="md:col-span-7 md:col-start-6 mt-12 md:mt-32">
-          <h3 class="font-black uppercase text-2xl md:text-3xl lg:text-4xl text-neutral-900 leading-tight">
-            {{ index .paragraphs 1 }}
-          </h3>
+        <!-- Right: Team Hero Image Card -->
+        {{ if .image }}
+        <div class="lg:col-span-5 relative">
+          <div class="absolute inset-0 bg-brand-green translate-x-4 translate-y-4 border-2 border-neutral-900 dark:border-neutral-100 -z-10"></div>
+          
+          <div class="relative border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow overflow-hidden bg-white dark:bg-neutral-900 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+            {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "w-full h-auto aspect-[4/3] object-cover filter contrast-110 cursor-pointer" "loading" "eager") }}
+            <div class="p-4 bg-white dark:bg-neutral-900 border-t-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-between">
+              <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">ECHIPA FIECARE VOCE</span>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- MISSION & NARRATIVE SECTION -->
+    {{ with hugo.Data.despre.cine_suntem }}
+    <section id="povestea-noastra" class="w-full py-12 md:py-16 border-b-2 border-neutral-900 dark:border-neutral-700">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        
+        <div class="lg:col-span-4">
+          <div class="inline-block bg-brand-gold text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-3.5 py-1.5 border-2 border-neutral-900 shadow-[3px_3px_0px_0px_#1a1c19] mb-4 transform -rotate-1">
+            MISIUNEA NOASTRĂ
+          </div>
+          <h2 class="font-display font-black text-3xl sm:text-4xl uppercase text-neutral-900 dark:text-white leading-tight">
+            {{ .title }}
+          </h2>
         </div>
 
-        <!-- Narrative Block 03 (Offset) -->
-        <div class="md:col-span-8 mt-16 md:mt-24">
-          <div class="border-l-[6px] border-brand-green pl-8 py-2">
-            <p class="text-neutral-800 text-xl lg:text-2xl font-medium leading-relaxed">
-              {{ index .paragraphs 2 }}
-            </p>
+        <div class="lg:col-span-8 flex flex-col gap-6">
+          {{ if index .paragraphs 0 }}
+          <p class="font-zine-body text-lg sm:text-xl text-neutral-800 dark:text-neutral-200 leading-relaxed font-semibold">
+            {{ index .paragraphs 0 }}
+          </p>
+          {{ end }}
+
+          {{ if index .paragraphs 1 }}
+          <div class="p-6 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 border-l-8 border-l-brand-gold sticker-shadow">
+            <h3 class="font-display font-black text-xl sm:text-2xl uppercase text-neutral-900 dark:text-white leading-snug">
+              {{ index .paragraphs 1 }}
+            </h3>
           </div>
+          {{ end }}
+
+          {{ if index .paragraphs 2 }}
+          <p class="font-zine-body text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed border-l-4 border-brand-green pl-6 py-1">
+            {{ index .paragraphs 2 }}
+          </p>
+          {{ end }}
         </div>
 
       </div>
-    </div>
-  </section>
-  {{ end }}
+    </section>
+    {{ end }}
 
-  <section id="echipa" class="w-full bg-neutral-50 py-16 sm:py-24 border-b border-neutral-200/80 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
+    <!-- TEAM & SECRETARIAT SECTION -->
+    <section id="echipa" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
+      
       {{ with hugo.Data.despre.secretariat }}
-      <div class="max-w-3xl mx-auto text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-black text-neutral-900 tracking-tight">{{ .title }}</h2>
-        <p class="text-neutral-600 text-base md:text-lg mt-4 font-normal leading-relaxed">{{ .description }}</p>
+      <div class="flex flex-col items-start border-b-2 border-neutral-900 dark:border-neutral-700 pb-6 mb-12">
+        <div class="inline-block bg-brand-gold text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-3.5 py-1.5 border-2 border-neutral-900 shadow-[3px_3px_0px_0px_#1a1c19] mb-3 transform -rotate-1">
+          ECHIPA DE CONDUCERE
+        </div>
+        <h2 class="font-display font-black text-3xl sm:text-4xl lg:text-5xl uppercase text-neutral-900 dark:text-white mb-3">
+          {{ .title }}
+        </h2>
+        <p class="font-zine-body text-base sm:text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl leading-relaxed">
+          {{ .description }}
+        </p>
       </div>
       {{ end }}
 
+      <!-- Founders & Co-ordinators Grid -->
       {{ with hugo.Data.founders }}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 mb-16">
         {{ range .items }}
-        <div class="flex flex-col bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-neutral-200">
-          <!-- Top Image Banner Area -->
-          <div class="w-full aspect-[4/3] bg-neutral-100 relative overflow-hidden group">
+        <div class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow flex flex-col justify-between relative transition-transform hover:-translate-y-2 duration-300">
+          
+          <!-- Member Role Badge -->
+          <div class="absolute -top-3.5 -left-3.5 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 shadow-[2px_2px_0px_0px_#1a1c19] z-20 font-label text-xs uppercase font-black transform -rotate-2">
+            {{ .role }}
+          </div>
+
+          <!-- Photo Container -->
+          <div class="w-full aspect-[4/3] bg-neutral-900 border-b-2 border-neutral-900 dark:border-neutral-100 relative overflow-hidden">
             {{ if .image }}
-              {{ partial "responsive-image.html" (dict "src" .image "alt" .name "class" "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" "style" (printf "object-position: %s;" (.image_position | default "50% 50%"))) }}
+              {{ partial "responsive-image.html" (dict "src" .image "alt" .name "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" (.image_position | default "50% 25%"))) }}
             {{ else }}
-              <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200">
-                 <div class="w-24 h-24 rounded-full bg-neutral-100 flex items-center justify-center">
-                   <svg class="w-12 h-12 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                 </div>
+              <div class="w-full h-full flex items-center justify-center bg-brand-green text-white font-display font-black text-3xl uppercase">
+                {{ .name }}
               </div>
             {{ end }}
           </div>
 
-          <!-- Card Content Area -->
-          <div class="flex flex-col flex-grow p-6 sm:p-8">
-            <div class="mb-4">
-              <span class="text-xs font-black tracking-widest uppercase text-brand-green mb-2 block">{{ .role }}</span>
-              <h3 class="font-extrabold text-2xl sm:text-3xl text-neutral-900 leading-tight">{{ .name }}</h3>
-            </div>
+          <!-- Content Details -->
+          <div class="p-6 sm:p-8 flex flex-col grow">
+            <h3 class="font-display font-black text-2xl sm:text-3xl uppercase text-neutral-900 dark:text-white mb-3">
+              {{ .name }}
+            </h3>
 
-            <div class="mb-6 flex-grow">
-              <p class="text-neutral-600 leading-relaxed text-sm sm:text-base">{{ .bio }}</p>
-            </div>
+            <p class="font-zine-body text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6 grow">
+              {{ .bio }}
+            </p>
 
-            <div class="mt-auto bg-neutral-50 rounded-2xl p-4 sm:p-5 border border-neutral-200">
-              <h4 class="text-xs sm:text-sm font-bold text-neutral-900 uppercase tracking-wide mb-3">{{ .achievements_title }}</h4>
-              <ul class="space-y-2">
+            {{ if .achievements }}
+            <div class="bg-neutral-50 dark:bg-neutral-950 p-4 border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow mt-auto">
+              <h4 class="font-label text-xs uppercase font-bold text-brand-green dark:text-emerald-400 mb-2">
+                {{ .achievements_title | default "Realizări & Activități" }}
+              </h4>
+              <ul class="space-y-1.5">
                 {{ range .achievements }}
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                  <span class="text-xs sm:text-sm text-neutral-700 leading-relaxed font-medium">{{ . }}</span>
+                <li class="flex items-start gap-2 text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-200">
+                  <span class="text-brand-green dark:text-emerald-400 shrink-0 font-black">✦</span>
+                  <span>{{ . }}</span>
                 </li>
                 {{ end }}
               </ul>
             </div>
+            {{ end }}
+
           </div>
+
         </div>
         {{ end }}
       </div>
       {{ end }}
 
+      <!-- Social Media Team Callout -->
       {{ with hugo.Data.despre.social_media }}
-      <div class="max-w-3xl mx-auto text-center p-8 bg-brand-gold/10 rounded-3xl border border-brand-gold/20">
-        <h2 class="text-2xl md:text-3xl font-black text-neutral-900 tracking-tight mb-4">{{ .title }}</h2>
-        <p class="text-neutral-700 text-base md:text-lg font-medium leading-relaxed">{{ .description }}</p>
+      <div class="w-full max-w-4xl mx-auto bg-brand-green text-white border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <span class="font-label text-xs uppercase font-bold text-brand-gold tracking-widest block mb-1">ECHIPA EXTINSĂ</span>
+          <h3 class="font-display font-black text-2xl sm:text-3xl uppercase leading-tight text-white mb-2">
+            {{ .title }}
+          </h3>
+          <p class="font-zine-body text-base text-emerald-100 max-w-2xl leading-relaxed">
+            {{ .description }}
+          </p>
+        </div>
+        <a href="https://instagram.com/fiecarevoce" target="_blank" rel="noopener noreferrer" class="bg-brand-gold text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-6 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover shrink-0 transition-all">
+          <span>DESCHIDE INSTAGRAM</span>
+        </a>
       </div>
       {{ end }}
 
-    </div>
-  </section>
+    </section>
 
-  {{ with hugo.Data.despre.structure }}
-  <section id="structura" class="w-full py-20 sm:py-32 bg-brand-green ">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-       <div class="space-y-6">
-         <h2 class="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
-           {{ .title }}
-         </h2>
-         <p class="text-emerald-100 text-lg font-normal leading-relaxed">
-           {{ .subtitle }}
-         </p>
-         <p class="text-white leading-relaxed max-w-xl text-base">{{ .description }}</p>
-       </div>
-       <div class="flex flex-col sm:flex-row gap-4 lg:justify-end">
-         <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="bg-brand-gold hover:bg-amber-400 text-slate-900 font-bold px-6 py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center justify-center text-center">
-           <div class="flex items-center gap-2 mb-1">
-             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-             <span>{{ .rof.text }}</span>
-           </div>
-           <span class="text-xs font-medium opacity-80">{{ .rof.subcaption }}</span>
-         </a>
-         {{ if .procedura }}
-         <a href="{{ .procedura.url }}" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 border border-white/20 flex flex-col items-center justify-center text-center">
-           <div class="flex items-center gap-2 mb-1">
-             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-             <span>{{ .procedura.text }}</span>
-           </div>
-           <span class="text-xs font-medium opacity-80">{{ .procedura.subcaption }}</span>
-         </a>
-         {{ end }}
-       </div>
-     </div>
-   </div>
-  </section>
-  {{ end }}
+    <!-- INTERNAL STRUCTURE & ROF SECTION -->
+    {{ with hugo.Data.despre.structure }}
+    <section id="structura" class="w-full py-12 md:py-16">
+      <div class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow p-8 sm:p-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-7 flex flex-col items-start">
+            <div class="inline-block bg-brand-gold text-slate-900 font-label text-xs uppercase font-black px-3 py-1 border border-neutral-900 mb-4 shadow-[2px_2px_0px_0px_#1a1c19]">
+              DOCUMENTE OFICIALE
+            </div>
+            <h2 class="font-display font-black text-3xl sm:text-4xl uppercase text-neutral-900 dark:text-white leading-tight mb-3">
+              {{ .title }}
+            </h2>
+            <p class="font-label text-sm uppercase font-bold text-brand-green dark:text-emerald-400 mb-4">
+              {{ .subtitle }}
+            </p>
+            <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-xl">
+              {{ .description }}
+            </p>
+          </div>
 
+          <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-4">
+            {{ if .rof }}
+            <a href="{{ .rof.url }}" target="_blank" rel="noopener noreferrer" class="bg-brand-gold text-slate-900 font-label text-xs sm:text-sm font-black uppercase p-5 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover flex flex-col items-start gap-1 transition-all">
+              <div class="flex items-center justify-between w-full">
+                <span>{{ .rof.text }}</span>
+                <span class="material-symbols-outlined text-lg">open_in_new</span>
+              </div>
+              <span class="font-zine-body text-[11px] font-semibold text-slate-800 opacity-90 lowercase font-normal">{{ .rof.subcaption }}</span>
+            </a>
+            {{ end }}
+
+            {{ if .procedura }}
+            <a href="{{ .procedura.url }}" target="_blank" rel="noopener noreferrer" class="bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-white font-label text-xs sm:text-sm font-black uppercase p-5 border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow sticker-shadow-hover flex flex-col items-start gap-1 transition-all">
+              <div class="flex items-center justify-between w-full">
+                <span>{{ .procedura.text }}</span>
+                <span class="material-symbols-outlined text-lg">open_in_new</span>
+              </div>
+              <span class="font-zine-body text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 lowercase font-normal">{{ .procedura.subcaption }}</span>
+            </a>
+            {{ end }}
+          </div>
+
+        </div>
+      </div>
+    </section>
+    {{ end }}
+
+  </div>
 </div>
 {{ end }}
