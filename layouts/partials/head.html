@@ -30,8 +30,13 @@
   {{ with $metaDescription }}
     <meta name="description" content="{{ . | plainify }}">
   {{ end }}
-  {{ with  .Params.Tags | default .Site.Params.keywords }}
-    <meta name="keywords" content="{{ range . }}{{ . }},{{ end }}">
+  {{ $keywords := .Params.keywords | default .Params.tags | default .Params.Tags | default .Site.Params.keywords }}
+  {{ with $keywords }}
+    {{ if reflect.IsSlice . }}
+      <meta name="keywords" content="{{ delimit . ", " }}">
+    {{ else }}
+      <meta name="keywords" content="{{ . }}">
+    {{ end }}
   {{ end }}
   {{ with .Site.Params.robots }}
     <meta name="robots" content="{{ . }}">
