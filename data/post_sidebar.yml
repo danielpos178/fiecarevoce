@@ -1,0 +1,15 @@
+title: "CUPRINS ARTICOL"
+badge_label: "Subtitluri Navigare"
+empty_toc_message: "Navighează prin secțiunile acestui articol."
+author_box:
+  title: "Despre Autor"
+  role: "Jurnalism Comunitar"
+  description: "Echipa Fiecare Voce aduce în prim-plan poveștile, inițiativele și drepturile elevilor din toată România."
+recent_posts:
+  title: "ALTE ARTICOLE"
+navigation:
+  prev_label: "ARTICOLUL ANTERIOR"
+  next_label: "URMĂTORUL ARTICOL"
+  first_post_label: "Primul articol din această serie"
+  explore_all_title: "BLOG FIECARE VOCE"
+  explore_all_label: "Explorează Toate Articolele"
