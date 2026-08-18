@@ -1,140 +1,69 @@
-<div class="flex items-center h-14 gap-4">
- {{ if .Site.Params.enableSearch | default false }}
- <button
- id="search-button-mobile"
- aria-label="Search"
- class="flex items-center justify-center bf-icon-color-hover"
- title="{{ i18n "search.open_button_title" }}">
- {{ partial "icon.html" "search" }}
- </button>
- {{ end }}
-
- {{ if .Site.Params.showAppearanceSwitcher | default true }}
+<div class="flex items-center gap-3">
+  
+  <!-- Theme Appearance Switcher for Mobile -->
+  {{ if .Site.Params.showAppearanceSwitcher | default true }}
   <button
     id="appearance-switcher-mobile"
     type="button"
     aria-label="Toggle theme"
-    class="flex items-center justify-center p-2 rounded-xl text-neutral-700 dark:text-neutral-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors focus:outline-none cursor-pointer"
-    title="Toggle light/dark theme">
+    class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white sticker-shadow hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center"
+    title="Comută modul întunecat/luminos">
     <span class="dark:hidden flex items-center justify-center">
-      {{ partial "icon.html" "moon" }}
+      <span class="material-symbols-outlined text-lg">dark_mode</span>
     </span>
     <span class="hidden dark:flex items-center justify-center text-brand-gold">
-      {{ partial "icon.html" "sun" }}
+      <span class="material-symbols-outlined text-lg">light_mode</span>
     </span>
   </button>
   {{ end }}
 
- {{ if or
- .Site.Menus.main
- .Site.Menus.subnavigation
- .Site.Params.enableA11y
- }}
- <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
- <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
- {{ partial "icon.html" "bars" }}
- </label>
+  <!-- Mobile Hamburger Menu Button -->
+  <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
+  <label for="mobile-menu-toggle" class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-brand-gold text-slate-900 sticker-shadow cursor-pointer flex items-center justify-center select-none" aria-label="Deschide Meniul">
+    <span class="material-symbols-outlined text-2xl font-bold">menu</span>
+  </label>
 
- <div
- role="dialog"
- aria-modal="true"
- style="scrollbar-gutter: stable;"
- class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50
- {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
- <label
- for="mobile-menu-toggle"
- class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-800">
- {{ partial "icon.html" "xmark" }}
- </label>
- <nav class="mx-auto max-w-md space-y-6">
- {{ template "mobile-main-menu" . }}
- {{ template "mobile-subnavigation" . }}
- {{ template "mobile-footer-components" . }}
- </nav>
- </div>
- {{ end }}
+  <!-- Fullscreen Neo-Brutalist Mobile Menu Drawer -->
+  <div role="dialog" aria-modal="true" class="fixed inset-0 z-50 invisible opacity-0 transition-all duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50 dark:bg-[#121212] flex flex-col justify-between p-6 sm:p-10 font-zine-body">
+    
+    <!-- Drawer Top Header Bar -->
+    <div class="flex items-center justify-between border-b-2 border-neutral-900 dark:border-neutral-700 pb-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 bg-brand-green border-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-center sticker-shadow shrink-0 p-1">
+          <img src="{{ "images/logo1000.webp" | relURL }}" alt="Logo" class="w-full h-full object-contain filter brightness-0 invert nozoom">
+        </div>
+        <span class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white">
+          FIECARE VOCE
+        </span>
+      </div>
+
+      <label for="mobile-menu-toggle" class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white sticker-shadow cursor-pointer flex items-center justify-center" aria-label="Închide Meniul">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </label>
+    </div>
+
+    <!-- Navigation Links List -->
+    <nav class="flex flex-col gap-6 py-8 my-auto font-display font-black text-2xl sm:text-3xl uppercase">
+      {{ range .Site.Menus.main }}
+        <a href="{{ .URL | relURL }}" onclick="document.getElementById('mobile-menu-toggle').checked = false;" class="text-neutral-900 dark:text-white hover:text-brand-green dark:hover:text-brand-gold flex items-center justify-between border-b-2 border-neutral-200 dark:border-neutral-800 pb-3 transition-colors">
+          <span>{{ .Name }}</span>
+          <span class="material-symbols-outlined text-xl">arrow_forward</span>
+        </a>
+      {{ end }}
+    </nav>
+
+    <!-- Mobile Drawer Footer CTA -->
+    <div class="flex flex-col gap-4 border-t-2 border-neutral-900 dark:border-neutral-700 pt-6">
+      <a href="{{ "/#implica-te" | relURL }}" onclick="document.getElementById('mobile-menu-toggle').checked = false;" class="w-full bg-brand-gold text-slate-900 border-2 border-neutral-900 py-4 font-label text-sm uppercase font-black sticker-shadow sticker-shadow-hover text-center flex items-center justify-center gap-2 transition-all">
+        <span>ALĂTURĂ-TE CAUZEI</span>
+        <span class="material-symbols-outlined text-base">arrow_forward</span>
+      </a>
+
+      <div class="font-label text-xs uppercase text-neutral-500 dark:text-neutral-400 text-center pt-2">
+        © {{ now.Year }} FIECARE VOCE INDEPENDENT PRESS
+      </div>
+    </div>
+
+  </div>
+
 </div>
-
-{{ define "mobile-main-menu" }}
- {{ range .Site.Menus.main }}
- {{ $submenuId := printf "fullscreen-submenu-%s" (.Identifier | default .Name | anchorize) }}
- <div class="px-2">
- <a
- href="{{ .URL }}"
- {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
- {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
- target="_blank"
- {{ end }}
- class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
- {{ if .Pre }}
- <span class="flex items-center justify-center h-8 w-8 text-2xl">
- {{ partial "icon.html" .Pre }}
- </span>
- {{ end }}
- <span title="{{ .Title }}" class="text-2xl font-bold tracking-tight">
- {{ .Name | markdownify }}
- </span>
- {{ if .HasChildren }}
- <label
- for="{{ $submenuId }}"
- class="ms-auto flex items-center justify-center h-10 w-10 cursor-pointer rounded-lg bf-icon-color-hover border bf-border-color bf-border-color-hover">
- {{ partial "icon.html" "chevron-down" }}
- </label>
- {{ end }}
- </a>
-
- {{ if .HasChildren }}
- <input checked type="checkbox" id="{{ $submenuId }}" autocomplete="off" class="hidden peer/full">
-
- <div
- class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 peer-checked/full:grid-rows-[1fr]">
- <div class="overflow-hidden">
- <div class="ms-7 mt-4">
- {{ range .Children }}
- <a
- href="{{ .URL }}"
- {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
- {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
- target="_blank"
- {{ end }}
- class="flex items-center gap-3 p-2 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
- {{ if .Pre }}
- <span class="flex items-center justify-center h-5 w-5">
- {{ partial "icon.html" .Pre }}
- </span>
- {{ end }}
- <span title="{{ .Title }}" class="text-lg">
- {{ .Name | markdownify }}
- </span>
- </a>
- {{ end }}
- </div>
- </div>
- </div>
- {{ end }}
- </div>
- {{ end }}
-{{ end }}
-
-{{ define "mobile-subnavigation" }}
- {{ if .Site.Menus.subnavigation }}
- <div class="flex flex-wrap gap-4 mt-8 pt-8 border-t bf-border-color">
- {{ range .Site.Menus.subnavigation }}
- <a
- href="{{ .URL }}"
- {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
- class="inline-flex items-center gap-2 px-2 py-2 bf-icon-color-hover rounded-full text-sm">
- {{ if .Pre }}
- <span class="flex items-center justify-center h-4 w-4">
- {{ partial "icon.html" .Pre }}
- </span>
- {{ end }}
- <span title="{{ .Title }}">{{ .Name | markdownify }}</span>
- </a>
- {{ end }}
- </div>
- {{ end }}
-{{ end }}
-
-{{ define "mobile-footer-components" }}
-{{ end }}
