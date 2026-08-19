@@ -21,3 +21,12 @@ paginate = 6
   changefreq = "weekly"
   priority = 0.5
   filename = "sitemap.xml"
+
+[imaging]
+  quality = 85
+  hint = "photo"
+  anchor = "smart"
+
+[imaging.exif]
+  disableDate = false
+  disableLatLong = true

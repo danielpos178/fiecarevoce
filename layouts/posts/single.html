@@ -102,10 +102,14 @@
       </div>
 
       <!-- Hero Image Container with Neo-Brutalist Frame & Sticker Badge -->
-      <div class="w-full h-[35vh] sm:h-[45vh] md:h-[55vh] min-h-[300px] max-h-[550px] border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow relative mt-4 overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+      <div class="w-full h-[35vh] sm:h-[45vh] md:h-[55vh] min-h-[300px] max-h-[550px] border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow relative mt-4 overflow-hidden bg-neutral-100 dark:bg-[#121212]">
         {{ if .Params.image }}
           {{ $imgPos := .Params.image_position | default .Params.object_position | default .Params.image_focus | default .Params.image_offset | default "50% 50%" }}
-          {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover" "style" (printf "object-position: %s;" $imgPos) "loading" "eager") }}
+          {{ $imgFit := "object-cover" }}
+          {{ if eq .Params.image_fit "contain" }}
+            {{ $imgFit = "object-contain p-2 sm:p-4 bg-neutral-100 dark:bg-[#121212]" }}
+          {{ end }}
+          {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" (printf "w-full h-full %s" $imgFit) "style" (printf "object-position: %s;" $imgPos) "loading" "eager") }}
           <div class="absolute -bottom-3 -right-3 sm:bottom-4 sm:right-4 bg-brand-gold border-2 border-neutral-900 text-neutral-900 px-3 sm:px-4 py-1.5 sm:py-2 rotate-2 sticker-shadow z-20 font-label text-xs sm:text-sm font-bold uppercase tracking-wider">
             Foto: {{ $photoCredit }}
           </div>
