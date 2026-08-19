@@ -85,7 +85,7 @@ module.exports = {
             "--tw-prose-invert-headings": theme("colors.neutral.50 / 1"),
             "--tw-prose-invert-lead": theme("colors.neutral.500 / 1"),
             "--tw-prose-invert-links": theme("colors.primary.400 / 1"),
-            "--tw-prose-invert-bold": theme("colors.neutral.DEFAULT / 1"),
+            "--tw-prose-invert-bold": theme("colors.neutral.200 / 1"),
             "--tw-prose-invert-counters": theme("colors.neutral.400 / 1"),
             "--tw-prose-invert-bullets": theme("colors.neutral.600 / 1"),
             "--tw-prose-invert-quotes": theme("colors.neutral.200 / 1"),
@@ -178,6 +178,12 @@ module.exports = {
             },
             hr: {
               border: '0.8px solid theme("colors.neutral.500 / 1")',
+            },
+            th: {
+              color: theme("colors.neutral.200 / 1"),
+            },
+            thead: {
+              color: theme("colors.neutral.200 / 1"),
             },
           },
         },
