@@ -3,10 +3,11 @@ title: "Revista Fiecare Voce"
 date: 2025-08-01T12:00:00Z
 lastmod: 2026-08-19T15:45:00Z
 image: "/images/proiecte/revista-cover-1.jpg"
+image_fit: "contain"
 summary: "Revista Fiecare Voce a debutat în vara anului 2025, odată cu apariția revistei „Arhiva Sirenei”, care a ajuns la peste 160.000 de vizualizări. Acesta este un articol demonstrativ (Proof of Concept) pentru funcționalitățile blogului."
 description: "Un articol detaliat și un proof of concept (PoC) care demonstrează capabilitățile platformei noastre de blogging, incluzând SEO, tag-uri, categorii și formatare avansată Markdown."
 author: "Redacția Fiecare Voce"
-authors: ["Redacția Fiecare Voce", "Daniel"]
+authors: ["Redacția Fiecare Voce"]
 categories: ["Revistă", "Anunțuri", "Tutoriale"]
 tags: ["arhiva-sirenei", "redactie", "publicatii", "poc", "markdown", "seo"]
 keywords: ["revista fiecare voce", "arhiva sirenei", "elevi", "drepturile elevilor", "educatie", "blogging", "markdown"]
