@@ -1,11 +1,29 @@
+{{/* DNS prefetch for 3rd-party origins */}}
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+{{/* Preconnect to Google Fonts for faster connection */}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap&subset=latin,latin-ext" as="style">
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" as="style">
+
+{{/* Preload the logo image with high priority (LCP element) */}}
 <link rel="preload" href="{{ "images/logo1000.webp" | relURL }}" as="image" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap&subset=latin,latin-ext" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+{{/*
+  Non-blocking font loading strategy using media="print" trick:
+  - The browser loads print stylesheets without blocking rendering.
+  - onload switches media to "all", applying styles once loaded.
+  - This prevents render-blocking CSS.
+*/}}
+
+{{/* Text fonts - non-blocking load */}}
+<link
+  rel="stylesheet"
+  media="print"
+  onload="this.media='all'"
+  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap&subset=latin,latin-ext">
+
+{{/* Fallback for no-JS environments */}}
 <noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap&subset=latin,latin-ext" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap&subset=latin,latin-ext">
 </noscript>
