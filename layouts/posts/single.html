@@ -1,64 +1,483 @@
 {{ define "main" }}
-<div class="bg-slate-50 min-h-screen pb-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24">
-    
-    <!-- Hero / Header mimicking the featured post on list.html -->
-    <article class="w-full bg-brand-green rounded-[2.5rem] overflow-hidden flex flex-col lg:flex-row mb-16 md:mb-24 shadow-lg">
-      <div class="w-full lg:w-1/2 p-10 md:p-16 lg:p-24 flex flex-col justify-center">
-        
-        <!-- Back link & Category -->
-        <div class="flex items-center gap-4 mb-10">
-          <a href="{{ "posts/" | relURL }}" class="text-emerald-100 hover:text-white flex items-center gap-2 text-sm font-bold transition-colors">
-            <span aria-hidden="true">&larr;</span> Înapoi la Blog
-          </a>
-          <span class="text-emerald-300/50">•</span>
-          <span class="text-brand-gold font-bold text-sm tracking-widest uppercase">{{ if .Params.categories }}{{ index .Params.categories 0 }}{{ else }}Articol{{ end }}</span>
-        </div>
 
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-10">
+{{/* 1. Author Resolution & URL Slug */}}
+{{ $authorName := .Params.author }}
+{{ if not $authorName }}
+  {{ if .Params.authors }}
+    {{ if reflect.IsSlice .Params.authors }}
+      {{ $authorName = delimit .Params.authors ", " }}
+    {{ else }}
+      {{ $authorName = .Params.authors }}
+    {{ end }}
+  {{ else }}
+    {{ $authorName = "Echipa Fiecare Voce" }}
+  {{ end }}
+{{ end }}
+{{ $authorSlug := $authorName | urlize }}
+{{ $authorURL := printf "authors/%s/" $authorSlug | relURL }}
+
+{{/* 2. Photo Credit Resolution */}}
+{{ $photoCredit := .Params.photo_credit | default .Params.photo_source | default .Params.image_source | default .Params.photo | default .Params.image_credit }}
+{{ if not $photoCredit }}
+  {{ $photoCredit = $authorName }}
+{{ end }}
+
+{{/* 3. Category Resolution */}}
+{{ $categories := .Params.categories | default .Params.category | default .Params.tags }}
+
+{{/* 4. Reading Time Resolution */}}
+{{ $readingTime := .Params.reading_time | default .Params.read_time | default .Params.readingtime | default .ReadingTime }}
+
+{{/* 5. Date Resolution & Romanian Formatting */}}
+{{ $months := dict "1" "Ianuarie" "2" "Februarie" "3" "Martie" "4" "Aprilie" "5" "Mai" "6" "Iunie" "7" "Iulie" "8" "August" "9" "Septembrie" "10" "Octombrie" "11" "Noiembrie" "12" "Decembrie" }}
+{{ $pubDate := .PublishDate | default .Date }}
+{{ $formattedDate := "" }}
+{{ if $pubDate }}
+  {{ $monthNum := printf "%d" $pubDate.Month }}
+  {{ $formattedDate = printf "%02d %s %d" $pubDate.Day (index $months $monthNum) $pubDate.Year }}
+{{ else }}
+  {{ $formattedDate = "Dată recentă" }}
+{{ end }}
+
+<div class="bg-neutral-50 dark:bg-[#121212] text-neutral-900 dark:text-neutral-100 min-h-screen pb-24 transition-colors duration-300 w-full font-zine-body">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-8 md:pt-12">
+    
+    <!-- Navigation & Category Header Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8 border-b-2 border-neutral-900 dark:border-neutral-700 pb-4">
+      <a href="{{ "posts/" | relURL }}" class="inline-flex items-center gap-2 font-label text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:text-brand-green dark:hover:text-emerald-400 transition-colors group">
+        <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+        <span>Înapoi la Blog</span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        {{ if $categories }}
+          {{ if reflect.IsSlice $categories }}
+            {{ range $categories }}
+            <span class="bg-brand-gold text-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 font-label text-xs font-black uppercase px-3 py-1 shadow-[2px_2px_0px_0px_#1a1c19] dark:shadow-[2px_2px_0px_0px_#4b923f] -rotate-1 inline-block">
+              {{ . }}
+            </span>
+            {{ end }}
+          {{ else }}
+            <span class="bg-brand-gold text-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 font-label text-xs font-black uppercase px-3 py-1 shadow-[2px_2px_0px_0px_#1a1c19] dark:shadow-[2px_2px_0px_0px_#4b923f] -rotate-1 inline-block">
+              {{ $categories }}
+            </span>
+          {{ end }}
+        {{ else }}
+          <span class="bg-brand-gold text-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 font-label text-xs font-black uppercase px-3 py-1 shadow-[2px_2px_0px_0px_#1a1c19] dark:shadow-[2px_2px_0px_0px_#4b923f] -rotate-1 inline-block">
+            Articol
+          </span>
+        {{ end }}
+        
+        <span class="font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 hidden sm:inline-block">
+          • {{ $readingTime }} MIN READ
+        </span>
+      </div>
+    </div>
+
+    <!-- Article Header & Hero Title -->
+    <article class="flex flex-col gap-6 mb-10">
+      <div class="max-w-5xl">
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase text-neutral-900 dark:text-white leading-[1.08] tracking-tight mb-6 break-words">
           {{ .Title }}
         </h1>
         
-        <div class="flex items-center gap-5 mt-auto pt-8 border-t border-emerald-700/50">
-          <div class="w-14 h-14 rounded-full bg-slate-900 overflow-hidden flex items-center justify-center text-brand-gold font-bold text-xl shrink-0 shadow-md">
-            {{ if .Params.author }}
-              {{ substr .Params.author 0 1 }}
-            {{ else }}
-              FV
-            {{ end }}
+        <div class="flex flex-wrap items-center gap-4 sm:gap-6 border-l-4 border-brand-green pl-4 sm:pl-6 py-1">
+          <!-- Clickable Author Header Element (Place 1) -->
+          <div class="flex items-center gap-3">
+            <a href="{{ $authorURL }}" class="w-10 h-10 rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-white font-label font-bold text-base flex items-center justify-center shadow-[2px_2px_0px_0px_#1a1c19] dark:shadow-[2px_2px_0px_0px_#ffbd59] shrink-0 hover:scale-105 transition-transform" title="Vezi pagina autorului">
+              {{ substr $authorName 0 1 }}
+            </a>
+            <span class="font-label text-xs sm:text-sm uppercase font-bold text-neutral-900 dark:text-neutral-100">
+              Scris de <a href="{{ $authorURL }}" class="text-brand-green dark:text-emerald-400 hover:underline underline-offset-4 transition-all">{{ $authorName }}</a>
+            </span>
           </div>
-          <div>
-            <div class="text-lg font-bold text-white mb-1">{{ .Params.author | default "Echipa Fiecare Voce" }}</div>
-            <div class="text-sm font-medium text-emerald-200">{{ .Date.Format "02 Jan 2006" }}</div>
+
+          <span class="font-label text-neutral-400 dark:text-neutral-600 font-bold">|</span>
+
+          <div class="flex items-center gap-2 font-label text-xs sm:text-sm uppercase font-bold text-neutral-600 dark:text-neutral-400">
+            <span class="material-symbols-outlined text-base text-brand-green">calendar_today</span>
+            <span>{{ $formattedDate }}</span>
           </div>
         </div>
       </div>
 
-      <div class="w-full lg:w-1/2 relative min-h-[400px] lg:min-h-full bg-emerald-800 overflow-hidden">
+      <!-- Hero Image Container with Neo-Brutalist Frame & Sticker Badge -->
+      <div class="w-full h-[35vh] sm:h-[45vh] md:h-[55vh] min-h-[300px] max-h-[550px] border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow relative mt-4 overflow-hidden bg-neutral-100 dark:bg-neutral-800">
         {{ if .Params.image }}
-          {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "absolute inset-0 w-full h-full object-cover" "loading" "eager") }}
+          {{ $imgPos := .Params.image_position | default .Params.object_position | default .Params.image_focus | default .Params.image_offset | default "50% 50%" }}
+          {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover" "style" (printf "object-position: %s;" $imgPos) "loading" "eager") }}
+          <div class="absolute -bottom-3 -right-3 sm:bottom-4 sm:right-4 bg-brand-gold border-2 border-neutral-900 text-neutral-900 px-3 sm:px-4 py-1.5 sm:py-2 rotate-2 sticker-shadow z-20 font-label text-xs sm:text-sm font-bold uppercase tracking-wider">
+            Foto: {{ $photoCredit }}
+          </div>
         {{ else }}
-          <div class="absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-800 to-emerald-950">
-            <svg class="w-24 h-24 text-emerald-700/50" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5C3.89 3 3 3.9 3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+          <!-- Neo-Brutalist Graphic Fallback Hero -->
+          <div class="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-neutral-900 via-emerald-950 to-neutral-900 text-center relative overflow-hidden">
+            <div class="absolute -right-12 -bottom-12 text-emerald-900/30 font-display font-black text-8xl md:text-9xl select-none uppercase tracking-tighter">
+              VOICE
+            </div>
+            <div class="z-10 flex flex-col items-center gap-4">
+              <div class="w-16 h-16 rounded-none border-2 border-brand-gold bg-brand-green text-brand-gold flex items-center justify-center sticker-shadow">
+                <span class="material-symbols-outlined text-3xl">record_voice_over</span>
+              </div>
+              <span class="font-display font-black text-2xl md:text-4xl text-white uppercase tracking-tight">Fiecare Voce</span>
+              <span class="font-label text-xs uppercase tracking-widest text-brand-gold border-b-2 border-brand-gold pb-1">Jurnalism & Implicare Tineri</span>
+            </div>
+            <div class="absolute bottom-4 right-4 bg-brand-gold border-2 border-neutral-900 text-neutral-900 px-3 py-1.5 rotate-1 sticker-shadow font-label text-xs font-bold uppercase">
+              Foto: {{ $photoCredit }}
+            </div>
           </div>
         {{ end }}
       </div>
     </article>
 
-    <!-- Content Area matching the white cards style -->
-    <div class="w-full bg-white rounded-[2.5rem] p-10 md:p-16 lg:p-24 shadow-sm border border-slate-200 mb-12">
-      <div class="max-w-3xl mx-auto">
-        <div class="prose prose-slate prose-lg md:prose-xl max-w-none 
-                    prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
-                    prose-a:text-brand-green prose-a:font-semibold hover:prose-a:text-brand-green/80 
-                    prose-img:rounded-3xl prose-img:shadow-md
-                    prose-blockquote:border-l-brand-gold prose-blockquote:bg-brand-gold/10 prose-blockquote:py-3 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-medium prose-blockquote:text-slate-700
-                    prose-strong:text-slate-900 prose-strong:font-bold">
+    <!-- Main Content Layout Grid -->
+    <div class="post-layout-grid">
+      
+      <!-- Article Body Column -->
+      <main class="post-main-col flex flex-col gap-8">
+        
+        <!-- Summary / Lead Section (if summary present) -->
+        {{ if .Params.summary }}
+        <div class="font-zine-body text-xl md:text-2xl text-neutral-800 dark:text-neutral-200 leading-relaxed font-semibold border-l-4 border-brand-green pl-5 py-3 pr-4 bg-brand-green/5 dark:bg-brand-green/10 rounded-r-xl">
+          {{ .Params.summary }}
+        </div>
+        {{ end }}
+
+        <!-- Mobile Table of Contents (Visible on Mobile/Tablets < 1024px, Hidden on Desktop) -->
+        <div class="block lg:hidden border-2 border-neutral-900 dark:border-neutral-100 p-5 bg-white dark:bg-neutral-900 sticker-shadow relative my-2 z-10">
+          {{ $sidebarData := site.Data.post_sidebar }}
+          <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-0.5 border-2 border-neutral-900 font-label text-xs uppercase font-black -rotate-1 shadow-[2px_2px_0px_0px_#1a1c19]">
+            {{ $sidebarData.badge_label | default "Subtitluri Navigare" }}
+          </div>
+
+          <details open class="group">
+            <summary class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white mt-1 flex items-center justify-between cursor-pointer select-none">
+              <span class="flex items-center gap-2">
+                <span>{{ $sidebarData.title | default "CUPRINS ARTICOL" }}</span>
+                <span class="material-symbols-outlined text-brand-green text-xl">menu_book</span>
+              </span>
+              <span class="material-symbols-outlined text-xl transition-transform group-open:rotate-180">expand_more</span>
+            </summary>
+
+            <nav id="custom-toc-nav-mobile" class="flex flex-col gap-2 max-h-[40vh] overflow-y-auto pr-1 bf-scrollbar mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-800">
+              {{ if .TableOfContents }}
+                <div class="toc-container text-xs font-label font-bold uppercase tracking-wide">
+                  {{ .TableOfContents }}
+                </div>
+              {{ else }}
+                <div class="flex flex-col gap-2">
+                  <p class="font-zine-body text-sm text-neutral-500 italic">
+                    {{ $sidebarData.empty_toc_message | default "Navighează prin secțiunile acestui articol." }}
+                  </p>
+                </div>
+              {{ end }}
+            </nav>
+          </details>
+        </div>
+
+        <!-- Main Hugo Article Content -->
+        <div class="prose prose-neutral dark:prose-invert prose-lg md:prose-xl max-w-none 
+                    prose-headings:font-display prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight prose-headings:text-neutral-900 dark:prose-headings:text-neutral-50 prose-headings:scroll-mt-28
+                    prose-p:leading-relaxed prose-p:text-neutral-800 dark:prose-p:text-neutral-200 prose-p:font-zine-body
+                    prose-a:text-brand-green dark:prose-a:text-emerald-400 prose-a:font-bold hover:prose-a:bg-brand-gold/30 prose-a:transition-all
+                    prose-img:border-2 prose-img:border-neutral-900 dark:prose-img:border-neutral-100 prose-img:shadow-[6px_6px_0px_0px_#1a1c19] dark:prose-img:shadow-[6px_6px_0px_0px_#ffbd59] prose-img:my-8 prose-img:w-full prose-img:object-cover
+                    prose-blockquote:border-l-4 prose-blockquote:border-brand-green prose-blockquote:bg-brand-gold/15 dark:prose-blockquote:bg-brand-gold/10 prose-blockquote:p-6 sm:prose-blockquote:p-8 prose-blockquote:my-8 prose-blockquote:rounded-r-xl prose-blockquote:font-display prose-blockquote:font-bold prose-blockquote:not-italic prose-blockquote:text-neutral-900 dark:prose-blockquote:text-neutral-100 prose-blockquote:relative
+                    prose-strong:font-bold prose-strong:text-neutral-900 dark:prose-strong:text-white">
           {{ .Content }}
         </div>
+
+        <!-- Article Bottom Share & Engagement Bar -->
+        <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-white dark:bg-neutral-900 sticker-shadow mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="font-label text-xs uppercase font-black text-neutral-900 dark:text-neutral-100 tracking-wider">
+              DISTRIBUIE POVESTEA:
+            </span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button onclick="copyPostLink()" class="bg-neutral-100 dark:bg-neutral-800 hover:bg-brand-gold text-neutral-900 dark:text-white dark:hover:text-neutral-900 px-4 py-2 border-2 border-neutral-900 dark:border-neutral-100 font-label text-xs uppercase font-bold flex items-center gap-2 sticker-shadow sticker-shadow-hover transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-base">link</span> Copiază Link
+            </button>
+            
+            <a href="{{ (printf "https://api.whatsapp.com/send?text=%s%%20%s" (.Title | urlquery) .Permalink) | safeURL }}" target="_blank" rel="noopener noreferrer" class="bg-brand-green hover:bg-emerald-600 text-white px-4 py-2 border-2 border-neutral-900 dark:border-neutral-100 font-label text-xs uppercase font-bold flex items-center gap-2 sticker-shadow sticker-shadow-hover transition-all">
+              <span class="material-symbols-outlined text-base">send</span> WhatsApp
+            </a>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Sidebar Column (Visible on Desktop >= 1024px) -->
+      <aside class="post-sidebar-col flex flex-col gap-8 relative">
+        
+        <!-- Author Card from Markdown Data (Place 2) -->
+        <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-brand-gold/10 dark:bg-neutral-900 sticker-shadow">
+          <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400 tracking-wider block mb-2">{{ site.Data.post_sidebar.author_box.title | default "Despre Autor" }}</span>
+          <div class="flex items-center gap-4 mb-3">
+            <a href="{{ $authorURL }}" class="w-12 h-12 rounded-none border-2 border-neutral-900 bg-brand-green text-brand-gold font-label font-bold text-xl flex items-center justify-center shrink-0 sticker-shadow hover:scale-105 transition-transform" title="Vezi pagina autorului">
+              {{ substr $authorName 0 1 }}
+            </a>
+            <div>
+              <h4 class="font-display font-bold text-lg text-neutral-900 dark:text-white uppercase leading-tight">
+                <a href="{{ $authorURL }}" class="hover:text-brand-green dark:hover:text-emerald-400 transition-colors">{{ $authorName }}</a>
+              </h4>
+              <span class="font-label text-xs text-neutral-500 dark:text-neutral-400">{{ site.Data.post_sidebar.author_box.role | default "Jurnalism Comunitar" }}</span>
+            </div>
+          </div>
+          <p class="font-zine-body text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+            {{ site.Data.post_sidebar.author_box.description | default "Echipa Fiecare Voce aduce în prim-plan poveștile, inițiativele și drepturile elevilor din toată România." }}
+          </p>
+        </div>
+
+        <!-- Recent Posts Widget -->
+        <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-white dark:bg-neutral-900 sticker-shadow">
+          <h3 class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white mb-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-2">
+            {{ site.Data.post_sidebar.recent_posts.title | default "ALTE ARTICOLE" }}
+          </h3>
+          <div class="flex flex-col gap-4">
+            {{ $current := . }}
+            {{ range first 3 (where (where site.RegularPages "Type" "posts") "Permalink" "!=" $current.Permalink) }}
+            <a href="{{ .RelPermalink }}" class="group flex flex-col gap-1 pb-3 border-b border-neutral-200 dark:border-neutral-800 last:border-0 last:pb-0">
+              <span class="font-label text-[11px] font-bold uppercase text-brand-green dark:text-emerald-400">{{ .Date.Format "02 Jan 2006" }}</span>
+              <h4 class="font-display font-bold text-base text-neutral-900 dark:text-neutral-100 group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors uppercase leading-snug">
+                {{ .Title }}
+              </h4>
+            </a>
+            {{ end }}
+          </div>
+        </div>
+
+        <!-- Sticky Table of Contents (Desktop Only >= 1024px) -->
+        <div class="hidden lg:block sticky top-[22vh] border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-white dark:bg-neutral-900 sticker-shadow relative z-10 transition-all">
+          
+          {{ $sidebarData := site.Data.post_sidebar }}
+          <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black -rotate-2 shadow-[2px_2px_0px_0px_#1a1c19]">
+            {{ $sidebarData.badge_label | default "Subtitluri Navigare" }}
+          </div>
+
+          <h3 class="font-display font-black text-2xl uppercase tracking-tight text-neutral-900 dark:text-white mt-2 mb-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-3 flex items-center justify-between">
+            <span>{{ $sidebarData.title | default "CUPRINS ARTICOL" }}</span>
+            <span class="material-symbols-outlined text-brand-green text-2xl">menu_book</span>
+          </h3>
+
+          <!-- Table of Contents Navigation List -->
+          <nav id="custom-toc-nav" class="flex flex-col gap-2 max-h-[45vh] overflow-y-auto pr-1 bf-scrollbar my-4">
+            {{ if .TableOfContents }}
+              <div class="toc-container text-xs font-label font-bold uppercase tracking-wide">
+                {{ .TableOfContents }}
+              </div>
+            {{ else }}
+              <div id="dynamic-toc-list" class="flex flex-col gap-2">
+                <p class="font-zine-body text-sm text-neutral-500 italic">
+                  {{ $sidebarData.empty_toc_message | default "Navighează prin secțiunile acestui articol." }}
+                </p>
+              </div>
+            {{ end }}
+          </nav>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- Next & Previous Story Navigation Divider & Cards -->
+    <div class="w-full border-t-2 border-neutral-900 dark:border-neutral-100 mt-16 pt-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        {{ $navData := site.Data.post_sidebar.navigation }}
+
+        <!-- Previous Story -->
+        {{ with .PrevInSection }}
+        <a href="{{ .RelPermalink }}" class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-white dark:bg-neutral-900 sticker-shadow sticker-shadow-hover flex flex-col justify-between group cursor-pointer transition-all">
+          <span class="font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 mb-2 flex items-center gap-1">
+            <span class="material-symbols-outlined text-base group-hover:-translate-x-1 transition-transform">arrow_back</span>
+            {{ $navData.prev_label | default "ARTICOLUL ANTERIOR" }}
+          </span>
+          <h3 class="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors line-clamp-2">
+            {{ .Title }}
+          </h3>
+        </a>
+        {{ else }}
+        <div class="border-2 border-dashed border-neutral-300 dark:border-neutral-800 p-6 flex flex-col justify-center">
+          <span class="font-label text-xs uppercase font-bold text-neutral-400">{{ $navData.first_post_label | default "Primul articol din această serie" }}</span>
+        </div>
+        {{ end }}
+
+        <!-- Next Story -->
+        {{ with .NextInSection }}
+        <a href="{{ .RelPermalink }}" class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-white dark:bg-neutral-900 sticker-shadow sticker-shadow-hover flex flex-col justify-between items-end text-right group cursor-pointer transition-all">
+          <span class="font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 mb-2 flex items-center gap-1">
+            {{ $navData.next_label | default "URMĂTORUL ARTICOL" }}
+            <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </span>
+          <h3 class="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors line-clamp-2">
+            {{ .Title }}
+          </h3>
+        </a>
+        {{ else }}
+        <a href="{{ "posts/" | relURL }}" class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-brand-gold text-slate-900 sticker-shadow sticker-shadow-hover flex flex-col justify-between items-end text-right group cursor-pointer transition-all">
+          <span class="font-label text-xs uppercase font-bold text-neutral-900 mb-2 flex items-center gap-1">
+            {{ $navData.explore_all_label | default "Explorează Toate Articolele" }}
+            <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </span>
+          <h3 class="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-neutral-900">
+            {{ $navData.explore_all_title | default "BLOG FIECARE VOCE" }}
+          </h3>
+        </a>
+        {{ end }}
+
       </div>
     </div>
 
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Dynamic Table of Contents & Subtitle Smooth Scroll
+    const prose = document.querySelector('.prose');
+    const tocNavDesktop = document.getElementById('custom-toc-nav');
+    const tocNavMobile = document.getElementById('custom-toc-nav-mobile');
+    
+    if (prose && (tocNavDesktop || tocNavMobile)) {
+      const headings = prose.querySelectorAll('h1, h2, h3, h4, p strong');
+      
+      // Filter headings or strong text elements that look like subtitles
+      const validElements = Array.from(headings).filter(el => {
+        if (el.tagName.startsWith('H')) return true;
+        return el.textContent.length > 5 && el.textContent.length < 80;
+      });
+
+      function slugify(text) {
+        if (!text) return '';
+        return text
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/ă|â/g, 'a')
+          .replace(/î/g, 'i')
+          .replace(/ș|ş/g, 's')
+          .replace(/ț|ţ/g, 't')
+          .replace(/[^a-z0-9]/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '');
+      }
+
+      if (validElements.length > 0) {
+        let tocHTML = '<ul class="flex flex-col gap-2 font-label text-xs uppercase font-bold tracking-wider">';
+        
+        validElements.forEach((heading, index) => {
+          const cleanSlug = slugify(heading.textContent).substring(0, 35).replace(/-$/, '');
+          heading.id = 'subtitle-' + (index + 1) + (cleanSlug ? '-' + cleanSlug : '');
+          
+          const num = (index + 1 < 10 ? '0' : '') + (index + 1);
+          const isSub = heading.tagName === 'H3' || heading.tagName === 'H4' || heading.tagName === 'STRONG';
+          const indentClass = isSub ? 'pl-3 text-[11px] opacity-90' : 'pl-0';
+          
+          tocHTML += `
+            <li>
+              <a href="#${heading.id}" data-target="${heading.id}" class="toc-item flex items-start gap-2 py-1.5 px-2.5 rounded-none border-l-2 border-transparent text-neutral-700 dark:text-neutral-300 hover:border-brand-green hover:bg-brand-green/10 hover:text-brand-green dark:hover:text-emerald-400 transition-all ${indentClass}">
+                <span class="text-brand-green dark:text-emerald-400 font-mono font-black shrink-0">${num}.</span>
+                <span class="truncate leading-tight">${heading.textContent}</span>
+              </a>
+            </li>
+          `;
+        });
+        
+        tocHTML += '</ul>';
+        if (tocNavDesktop) tocNavDesktop.innerHTML = tocHTML;
+        if (tocNavMobile) tocNavMobile.innerHTML = tocHTML;
+
+        // Smooth scrolling click handler
+        const allTocLinks = document.querySelectorAll('.toc-item');
+        
+        allTocLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+              const offset = 120; // Header navbar height offset
+              const bodyRect = document.body.getBoundingClientRect().top;
+              const elementRect = targetEl.getBoundingClientRect().top;
+              const elementPosition = elementRect - bodyRect;
+              const offsetPosition = elementPosition - offset;
+
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
+          });
+        });
+
+        // Scrollspy active item highlight with requestAnimationFrame throttling & passive listener
+        let ticking = false;
+        function updateScrollspy() {
+          let current = '';
+          validElements.forEach(heading => {
+            const headingTop = heading.getBoundingClientRect().top;
+            if (headingTop <= 160) {
+              current = heading.getAttribute('id');
+            }
+          });
+
+          allTocLinks.forEach(link => {
+            if (link.getAttribute('data-target') === current) {
+              link.classList.remove('border-transparent');
+              link.classList.add('border-brand-green', 'bg-brand-green/10', 'text-brand-green', 'dark:text-emerald-400');
+            } else {
+              link.classList.remove('border-brand-green', 'bg-brand-green/10', 'text-brand-green', 'dark:text-emerald-400');
+              link.classList.add('border-transparent');
+            }
+          });
+        }
+
+        window.addEventListener('scroll', function() {
+          if (!ticking) {
+            window.requestAnimationFrame(function() {
+              updateScrollspy();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+    }
+  });
+</script>
+
+<!-- Neo-Brutalist Non-Blocking Toast Notification -->
+<div id="copy-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+  <div class="bg-brand-gold text-slate-900 border-2 border-neutral-900 px-5 py-3 font-label text-xs sm:text-sm font-black uppercase flex items-center gap-2.5 shadow-[4px_4px_0px_0px_#1a1c19]">
+    <span class="material-symbols-outlined text-xl">check_circle</span>
+    <span>LINK COPIAT ÎN CLIPBOARD!</span>
+  </div>
+</div>
+
+<script>
+  function copyPostLink() {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(window.location.href);
+    } else {
+      const textArea = document.createElement('textarea');
+      textArea.value = window.location.href;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+    
+    const toast = document.getElementById('copy-toast');
+    if (toast) {
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      
+      setTimeout(function() {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+  }
+</script>
 {{ end }}

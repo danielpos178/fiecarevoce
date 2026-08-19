@@ -6,6 +6,7 @@ module.exports = {
     "./layouts/**/*.html",
     "./content/**/*.md",
     "./content/**/*.html",
+    "./themes/blowfish/layouts/**/*.html",
   ],
   darkMode: "class",
   theme: {

@@ -1,0 +1,48 @@
+{{ define "main" }}
+<div class="bg-neutral-50 dark:bg-[#121212] text-neutral-900 dark:text-neutral-100 min-h-[75vh] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-12 py-16 relative overflow-hidden font-zine-body">
+  
+  <!-- Background Noise/Texture Overlay -->
+  <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #1a1c19 10px), repeating-linear-gradient(#1a1c1955, #1a1c19);"></div>
+
+  <div class="relative z-10 w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+    
+    <!-- Left side / Large 404 Number Graphic -->
+    <div class="md:col-span-5 flex justify-center md:justify-end relative">
+      <div class="absolute -top-4 -left-4 bg-brand-gold text-slate-900 px-3.5 py-1 border-2 border-neutral-900 shadow-[3px_3px_0px_0px_#1a1c19] z-20 font-label text-xs uppercase font-black transform -rotate-2">
+        EROARE 404
+      </div>
+      <h1 class="font-display text-[110px] sm:text-[140px] md:text-[180px] font-black text-neutral-900 dark:text-white leading-none tracking-tighter select-none">
+        404
+      </h1>
+    </div>
+
+    <!-- Right side / Content Card -->
+    <div class="md:col-span-7 flex flex-col gap-6 relative bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 p-6 sm:p-10 sticker-shadow">
+      
+      <div class="flex flex-col gap-3">
+        <span class="font-label text-xs uppercase font-bold text-brand-green dark:text-emerald-400 tracking-widest">FIECARE VOCE</span>
+        <h2 class="font-display font-black text-3xl sm:text-4xl uppercase text-neutral-900 dark:text-white border-b-4 border-brand-green pb-3 leading-tight">
+          PAGINA NU A FOST GĂSITĂ
+        </h2>
+        <p class="font-zine-body text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
+          Hopa! Se pare că adresa accesată nu există sau a fost mutată. Te invităm să te întorci pe prima pagină sau să explorezi articolele scrise de tinerii din comunitatea noastră.
+        </p>
+      </div>
+
+      <div class="mt-2 flex flex-wrap gap-4">
+        <a href="{{ "" | relURL }}" class="inline-flex items-center justify-center gap-2 bg-brand-green text-white font-label text-xs sm:text-sm uppercase font-black px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover transition-all">
+          <span class="material-symbols-outlined text-lg">arrow_back</span>
+          <span>PAGINA PRINCIPALĂ</span>
+        </a>
+
+        <a href="{{ "posts/" | relURL }}" class="inline-flex items-center justify-center gap-2 bg-brand-gold text-slate-900 font-label text-xs sm:text-sm uppercase font-black px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover transition-all">
+          <span>VEZI ARTICOLELE</span>
+          <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{{ end }}

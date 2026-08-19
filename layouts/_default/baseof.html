@@ -1,55 +1,56 @@
 <!doctype html>
 <html
- lang="{{ with site.Params.isoCode | default (site.Language.Locale | default `en`) }}{{- . -}}{{ end }}"
- dir="{{ cond (site.Params.rtl | default false) `rtl` `ltr` }}"
- class="scroll-smooth"
- data-default-appearance="{{ site.Params.defaultAppearance | default `light` }}"
- data-auto-appearance="{{ site.Params.autoSwitchAppearance | default `true` }}">
- {{- partial "head.html" . -}}
- {{- partialCached "init.html" . -}}
+  lang="{{ with site.Params.isoCode | default (site.Language.Locale | default `ro`) }}{{- . -}}{{ end }}"
+  dir="{{ cond (site.Params.rtl | default false) `rtl` `ltr` }}"
+  class="scroll-smooth"
+  data-default-appearance="{{ site.Params.defaultAppearance | default `light` }}"
+  data-auto-appearance="{{ site.Params.autoSwitchAppearance | default `true` }}">
+  {{- partial "head.html" . -}}
+  {{- partialCached "init.html" . -}}
 
- {{ $bodyLayout := "flex flex-col min-h-screen w-full leading-7" }}
- {{ $bodyColor := "text-lg bg-slate-50 text-slate-900" }}
- <body class="{{ $bodyLayout }} {{ $bodyColor }} {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
- <div id="the-top" class="absolute flex self-center">
- <a
- class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0"
- href="#main-content">
- <span class="font-bold text-primary-600 pe-2">&darr;</span>
- {{ i18n "nav.skip_to_main" }}
- </a>
- </div>
+  <body class="bg-neutral-50 text-neutral-900 dark:bg-[#121212] dark:text-neutral-100 min-h-screen flex flex-col font-zine-body transition-colors duration-300 {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
+    
+    <!-- Top Construction Banner (if enabled in data/status.yml) -->
+    {{ if site.Data.status.construction_banner.enabled }}
+      <div class="bg-brand-gold text-slate-900 border-b-2 border-neutral-900 px-4 py-2 font-label text-xs sm:text-sm uppercase font-bold text-center flex items-center justify-center gap-2 sticker-shadow relative z-50">
+        <span class="material-symbols-outlined text-base">construction</span>
+        <span>{{ site.Data.status.construction_banner.text | default "Acest site este în construcție." }}</span>
+      </div>
+    {{ end }}
 
- <!-- Sticky Header Wrapper -->
- <div class="sticky top-0 z-50 w-full bg-slate-50 shadow-sm border-b border-slate-200 transition-colors duration-300">
- <!-- Under Construction Banner -->
- <div class="w-full bg-[#ffbd59] text-[#0f172a] text-center py-2 px-4 text-sm font-bold flex items-center justify-center gap-2 relative">
- <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
- <span>Acest site este în construcție. Anumite funcționalități ar putea fi indisponibile.</span>
- </div>
+    <!-- Maintenance Mode Override (if maintenance_mode.enabled: true in data/status.yml) -->
+    {{ if site.Data.status.maintenance_mode.enabled }}
+      {{ partial "maintenance-view.html" . }}
+    {{ else }}
+      <div id="the-top" class="absolute flex self-center">
+        <a
+          class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+          href="#main-content">
+          <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+          {{ i18n "nav.skip_to_main" }}
+        </a>
+      </div>
+      
+      {{ $header := print "header/" site.Params.header.layout ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $header ) }}
+        {{ partial $header . }}
+      {{ else }}
+        {{ partial "header/basic.html" . }}
+      {{ end }}
 
- <div class="w-full max-w-7xl mx-auto px-6 py-1">
- {{ $header := print "header/" site.Params.header.layout ".html" }}
- {{ if templates.Exists ( printf "partials/%s" $header ) }}
- {{ partial $header . }}
- {{ else }}
- {{ partial "header/basic.html" . }}
- {{ end }}
- </div>
- </div>
- <div class="relative flex flex-col grow w-full">
- <main id="main-content" class="grow w-full">
- {{ block "main" . }}{{ end }}
- {{ if and (site.Params.footer.showScrollToTop | default true) }}
- {{- partial "scroll-to-top.html" . -}}
- {{ end }}
- </main>
- <div class="w-full max-w-7xl mx-auto px-6">
- {{- partial "footer.html" . -}}
- </div>
- {{ if site.Params.enableSearch | default false }}
- {{- partial "search.html" . -}}
- {{ end }}
- </div>
- </body>
+      <div class="relative flex flex-col grow w-full">
+        <main id="main-content" class="grow w-full">
+          {{ block "main" . }}{{ end }}
+          {{ if and (site.Params.footer.showScrollToTop | default true) }}
+            {{- partial "scroll-to-top.html" . -}}
+          {{ end }}
+        </main>
+        {{- partial "footer.html" . -}}
+        {{ if site.Params.enableSearch | default false }}
+          {{- partial "search.html" . -}}
+        {{ end }}
+      </div>
+    {{ end }}
+
+  </body>
 </html>

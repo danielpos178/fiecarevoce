@@ -35,19 +35,24 @@
 }
 
 html.dark, :root.dark {
-  --color-neutral: 15, 23, 42;
-  --color-neutral-50: 30, 41, 59;
-  --color-neutral-100: 51, 65, 85;
-  --color-neutral-200: 71, 85, 105;
-  --color-neutral-300: 100, 116, 139;
-  --color-neutral-400: 148, 163, 184;
-  --color-neutral-500: 203, 213, 225;
-  --color-neutral-600: 226, 232, 240;
-  --color-neutral-700: 241, 245, 249;
-  --color-neutral-800: 248, 250, 252;
+  --color-neutral: 9, 18, 10;
+  --color-neutral-50: 18, 32, 19;
+  --color-neutral-100: 26, 45, 28;
+  --color-neutral-200: 38, 64, 40;
+  --color-neutral-300: 52, 84, 55;
+  --color-neutral-400: 126, 167, 129;
+  --color-neutral-500: 162, 202, 165;
+  --color-neutral-600: 195, 224, 198;
+  --color-neutral-700: 222, 237, 224;
+  --color-neutral-800: 240, 247, 241;
   --color-neutral-900: 255, 255, 255;
 
   --color-primary-300: 163, 222, 157;
   --color-primary-400: 119, 194, 111;
   --color-primary-500: 75, 146, 63;
+  --color-primary-600: 58, 120, 48;
+
+  --color-secondary-300: 255, 212, 122;
+  --color-secondary-400: 255, 189, 89;
+  --color-secondary-500: 245, 158, 41;
 }

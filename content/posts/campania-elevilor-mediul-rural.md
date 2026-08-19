@@ -1,9 +1,13 @@
 ---
 title: "Campania elevilor din mediul rural"
 date: 2025-12-25
+image: "/images/proiecte/campanie-mediul-rural/whatsapp-image-2026-08-14-132401.jpeg"
+image_position: "center 30%"
 summary: "În decembrie 2025 am început Campania elevilor din mediul rural, prin care am încercat să aducem în atenția publicului, zi de zi până în ziua de Crăciun, realitatea cu care se confruntă, din păcate, mulți elevi din mediul rural."
 author: "Echipa Fiecare Voce"
+authors: ["Echipa Fiecare Voce"]
 categories: ["Advocacy"]
+tags: ["mediul-rural", "donatii", "drepturile-elevilor"]
 ---
 
 În decembrie 2025 am început Campania elevilor din mediul rural, prin care am încercat să aducem în atenția publicului, zi de zi până în ziua de Crăciun, realitatea cu care se confruntă, din păcate, mulți elevi din mediul rural. 

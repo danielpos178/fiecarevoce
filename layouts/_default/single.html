@@ -1,0 +1,116 @@
+{{ define "main" }}
+
+{{/* Date Resolution & Romanian Formatting */}}
+{{ $pubDate := .PublishDate | default .Date }}
+{{ $months := dict "1" "Ianuarie" "2" "Februarie" "3" "Martie" "4" "Aprilie" "5" "Mai" "6" "Iunie" "7" "Iulie" "8" "August" "9" "Septembrie" "10" "Octombrie" "11" "Noiembrie" "12" "Decembrie" }}
+{{ $formattedDate := "" }}
+{{ if $pubDate }}
+  {{ $monthNum := printf "%d" $pubDate.Month }}
+  {{ $formattedDate = printf "%02d %s %d" $pubDate.Day (index $months $monthNum) $pubDate.Year }}
+{{ end }}
+
+<div class="bg-neutral-50 dark:bg-[#121212] text-neutral-900 dark:text-neutral-100 min-h-screen pb-24 transition-colors duration-300 w-full font-zine-body">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-8 md:pt-12">
+    
+    <!-- Top Navigation Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8 border-b-2 border-neutral-900 dark:border-neutral-700 pb-4">
+      <a href="{{ site.Home.RelPermalink }}" class="inline-flex items-center gap-2 font-label text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:text-brand-green dark:hover:text-emerald-400 transition-colors group">
+        <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+        <span>Acasă</span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <span class="bg-brand-gold text-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 font-label text-xs font-black uppercase px-3 py-1 shadow-[2px_2px_0px_0px_#1a1c19] dark:shadow-[2px_2px_0px_0px_#4b923f] -rotate-1 inline-block">
+          {{ .Section | default "Pagină" | upper }}
+        </span>
+        {{ if $formattedDate }}
+        <span class="font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 hidden sm:inline-block">
+          • {{ $formattedDate }}
+        </span>
+        {{ end }}
+      </div>
+    </div>
+
+    <!-- Page Header & Title -->
+    <article class="flex flex-col gap-6 mb-10">
+      <div class="max-w-5xl">
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase text-neutral-900 dark:text-white leading-[1.08] tracking-tight mb-6 break-words">
+          {{ .Title }}
+        </h1>
+        
+        {{ if or .Params.description .Params.summary }}
+        <div class="font-zine-body text-xl md:text-2xl text-neutral-800 dark:text-neutral-200 leading-relaxed font-semibold border-l-4 border-brand-green pl-5 py-3 pr-4 bg-brand-green/5 dark:bg-brand-green/10 rounded-r-xl">
+          {{ .Params.description | default .Params.summary }}
+        </div>
+        {{ end }}
+      </div>
+
+      <!-- Optional Hero Image Container -->
+      {{ if .Params.image }}
+      <div class="w-full h-[30vh] sm:h-[40vh] md:h-[45vh] min-h-[260px] max-h-[480px] border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow relative mt-4 overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+        {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+        {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover" "style" (printf "object-position: %s;" $imgPos) "loading" "eager") }}
+      </div>
+      {{ end }}
+    </article>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 {{ if .TableOfContents }}lg:grid-cols-12{{ end }} gap-8 lg:gap-12 items-start">
+      
+      <!-- Content Body Column -->
+      <main class="{{ if .TableOfContents }}lg:col-span-8{{ else }}max-w-5xl{{ end }} w-full flex flex-col gap-8">
+        
+        <!-- Mobile Table of Contents (if present) -->
+        {{ if .TableOfContents }}
+        <div class="block lg:hidden border-2 border-neutral-900 dark:border-neutral-100 p-5 bg-white dark:bg-neutral-900 sticker-shadow relative my-2 z-10">
+          <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-0.5 border-2 border-neutral-900 font-label text-xs uppercase font-black -rotate-1 shadow-[2px_2px_0px_0px_#1a1c19]">
+            Navigare Pagina
+          </div>
+          <details open class="group">
+            <summary class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white mt-1 flex items-center justify-between cursor-pointer select-none">
+              <span class="flex items-center gap-2">
+                <span>CUPRINS</span>
+                <span class="material-symbols-outlined text-brand-green text-xl">menu_book</span>
+              </span>
+              <span class="material-symbols-outlined text-xl transition-transform group-open:rotate-180">expand_more</span>
+            </summary>
+            <nav class="flex flex-col gap-2 max-h-[40vh] overflow-y-auto pr-1 bf-scrollbar mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-800 toc-container text-xs font-label font-bold uppercase tracking-wide">
+              {{ .TableOfContents }}
+            </nav>
+          </details>
+        </div>
+        {{ end }}
+
+        <!-- Main Hugo Content -->
+        <div class="prose prose-neutral dark:prose-invert prose-lg md:prose-xl max-w-none 
+                    prose-headings:font-display prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight prose-headings:text-neutral-900 dark:prose-headings:text-neutral-50 prose-headings:scroll-mt-28
+                    prose-p:leading-relaxed prose-p:text-neutral-800 dark:prose-p:text-neutral-200 prose-p:font-zine-body
+                    prose-a:text-brand-green dark:prose-a:text-emerald-400 prose-a:font-bold hover:prose-a:bg-brand-gold/30 prose-a:transition-all
+                    prose-img:border-2 prose-img:border-neutral-900 dark:prose-img:border-neutral-100 prose-img:shadow-[6px_6px_0px_0px_#1a1c19] dark:prose-img:shadow-[6px_6px_0px_0px_#ffbd59] prose-img:my-8 prose-img:w-full prose-img:object-cover
+                    prose-blockquote:border-l-4 prose-blockquote:border-brand-green prose-blockquote:bg-brand-gold/15 dark:prose-blockquote:bg-brand-gold/10 prose-blockquote:p-6 sm:prose-blockquote:p-8 prose-blockquote:my-8 prose-blockquote:rounded-r-xl prose-blockquote:font-display prose-blockquote:font-bold prose-blockquote:not-italic prose-blockquote:text-neutral-900 dark:prose-blockquote:text-neutral-100 prose-blockquote:relative
+                    prose-strong:font-bold prose-strong:text-neutral-900 dark:prose-strong:text-white">
+          {{ .Content }}
+        </div>
+      </main>
+
+      <!-- Desktop Sidebar Column (if TableOfContents present) -->
+      {{ if .TableOfContents }}
+      <aside class="hidden lg:block lg:col-span-4 sticky top-[22vh] border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-white dark:bg-neutral-900 sticker-shadow relative z-10">
+        <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black -rotate-2 shadow-[2px_2px_0px_0px_#1a1c19]">
+          Navigare
+        </div>
+        <h3 class="font-display font-black text-2xl uppercase tracking-tight text-neutral-900 dark:text-white mt-2 mb-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-3 flex items-center justify-between">
+          <span>CUPRINS</span>
+          <span class="material-symbols-outlined text-brand-green text-2xl">menu_book</span>
+        </h3>
+        <nav class="flex flex-col gap-2 max-h-[45vh] overflow-y-auto pr-1 bf-scrollbar my-4 toc-container text-xs font-label font-bold uppercase tracking-wide">
+          {{ .TableOfContents }}
+        </nav>
+      </aside>
+      {{ end }}
+
+    </div>
+
+  </div>
+</div>
+{{ end }}

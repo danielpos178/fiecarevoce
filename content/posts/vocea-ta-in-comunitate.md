@@ -4,10 +4,11 @@ date: 2026-08-12T14:30:00+03:00
 draft: true
 summary: "Ghid practic pentru tinerii care vor să participe la luarea deciziilor locale și să dezvolte inițiative de advocacy."
 description: "Ghid practic pentru tinerii care vor să participe la luarea deciziilor locale și să dezvolte inițiative de advocacy în comunitatea lor."
-image: "images/placeholder-card.jpg"
+image: "/images/proiecte/revista-cover-2.jpg"
+image_position: "center 25%"
 authors: ["Fiecare Voce"]
-categories: ["Ateliere"]
-tags: ["Educație", "Civic", "Leadership"]
+categories: ["Educație"]
+tags: ["civic", "leadership", "comunitate"]
 ---
 
 Implicarea civică nu începe la 18 ani. Credem cu tărie că fiecare tânăr are idei valoroase care pot contribui la dezvoltarea orașului sau satului în care trăiește.

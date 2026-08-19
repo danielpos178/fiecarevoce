@@ -1,0 +1,240 @@
+<!-- Neo-Brutalist Global Search Modal Overlay -->
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-950/70 p-4 sm:p-6 md:p-[8vh] lg:p-[10vh] z-[1000] backdrop-blur-sm transition-opacity duration-200">
+  
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-4xl min-h-0 mx-auto border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 sticker-shadow relative overflow-hidden my-auto max-h-[85vh]">
+    
+    <!-- Modal Header with Input Field -->
+    <header class="relative z-10 flex items-center justify-between p-4 md:p-6 border-b-2 border-neutral-900 dark:border-neutral-700 bg-neutral-50 dark:bg-[#151515]">
+      <div class="flex items-center gap-3 w-full mr-4">
+        <span class="material-symbols-outlined text-brand-green dark:text-emerald-400 text-2xl shrink-0">search</span>
+        <input
+          type="search"
+          id="search-query"
+          class="w-full bg-transparent border-0 text-neutral-900 dark:text-white font-display font-bold text-lg md:text-xl placeholder:text-neutral-400 focus:outline-none uppercase"
+          placeholder="Caută articole, autori, teme, tag-uri sau conținut..."
+          tabindex="0"
+          autocomplete="off">
+      </div>
+
+      <button
+        id="close-search-button"
+        class="bg-brand-gold text-slate-900 border-2 border-neutral-900 font-label text-xs font-black uppercase px-3 py-1.5 sticker-shadow hover:scale-105 transition-transform cursor-pointer shrink-0"
+        title="Închide căutarea (Esc)">
+        ESC ✕
+      </button>
+    </header>
+
+    <!-- Filter Pills Bar in Search Modal -->
+    <div class="flex items-center gap-2 px-6 py-3 border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 overflow-x-auto font-label text-xs">
+      <span class="font-bold text-neutral-500 uppercase shrink-0">CAUTĂ ÎN:</span>
+      <span class="bg-brand-green/10 text-brand-green dark:text-emerald-400 px-2 py-0.5 border border-brand-green/30">Titlu</span>
+      <span class="bg-brand-green/10 text-brand-green dark:text-emerald-400 px-2 py-0.5 border border-brand-green/30">Autor</span>
+      <span class="bg-brand-green/10 text-brand-green dark:text-emerald-400 px-2 py-0.5 border border-brand-green/30">Categorii</span>
+      <span class="bg-brand-green/10 text-brand-green dark:text-emerald-400 px-2 py-0.5 border border-brand-green/30">Conținut Integral</span>
+    </div>
+
+    <!-- Search Results Container -->
+    <section class="flex-auto p-4 md:p-6 overflow-y-auto bf-scrollbar bg-neutral-50/50 dark:bg-[#121212]">
+      <div id="search-initial-msg" class="text-center py-12">
+        <span class="material-symbols-outlined text-4xl text-brand-green mb-2">find_in_page</span>
+        <p class="font-display font-bold text-lg text-neutral-800 dark:text-neutral-200 uppercase">Începe să tastezi pentru a căuta</p>
+        <p class="font-zine-body text-sm text-neutral-500 dark:text-neutral-400">Căutarea funcționează și fără diacritice (ex. "educatie", "romania", "stiri").</p>
+      </div>
+
+      <div id="search-no-results" class="hidden text-center py-12">
+        <span class="material-symbols-outlined text-4xl text-neutral-400 mb-2">search_off</span>
+        <p class="font-display font-bold text-lg text-neutral-800 dark:text-neutral-200 uppercase">Niciun rezultat găsit</p>
+        <p class="font-zine-body text-sm text-neutral-500 dark:text-neutral-400">Încearcă alți termeni sau verifică ortografia.</p>
+      </div>
+
+      <ul id="search-results" class="flex flex-col gap-4">
+        <!-- Results injected dynamically via JavaScript -->
+      </ul>
+    </section>
+
+    <!-- Modal Footer -->
+    <footer class="p-3 border-t-2 border-neutral-900 dark:border-neutral-700 bg-white dark:bg-neutral-900 font-label text-[11px] uppercase font-bold text-neutral-500 dark:text-neutral-400 flex items-center justify-between">
+      <span>Motor de Căutare Insensibil la Diacritice</span>
+      <span class="hidden sm:inline">Apasă <kbd class="px-1.5 py-0.5 border border-neutral-400 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white rounded">ESC</kbd> pentru închidere</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchWrapper = document.getElementById('search-wrapper');
+    const searchInput = document.getElementById('search-query');
+    const closeBtn = document.getElementById('close-search-button');
+    const searchResults = document.getElementById('search-results');
+    const initialMsg = document.getElementById('search-initial-msg');
+    const noResultsMsg = document.getElementById('search-no-results');
+    const searchButtons = document.querySelectorAll('#search-button, #search-button-mobile, [data-search-trigger]');
+    
+    let searchData = null;
+
+    // Helper: Normalize text for diacritic-insensitive matching
+    function normalizeText(str) {
+      if (!str) return '';
+      return str
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/ă|â/g, 'a')
+        .replace(/î/g, 'i')
+        .replace(/ș|ş/g, 's')
+        .replace(/ț|ţ/g, 't');
+    }
+
+    // Load search index
+    async function loadSearchIndex() {
+      if (!searchData) {
+        try {
+          const res = await fetch('{{ "index.json" | relURL }}');
+          searchData = await res.json();
+        } catch (e) {
+          console.error("Error loading search index:", e);
+          searchData = [];
+        }
+      }
+    }
+
+    // Open Search Modal
+    function openSearch() {
+      loadSearchIndex();
+      if (searchWrapper) {
+        searchWrapper.classList.remove('invisible');
+        searchWrapper.classList.add('opacity-100');
+        setTimeout(() => searchInput && searchInput.focus(), 100);
+      }
+    }
+
+    // Close Search Modal
+    function closeSearch() {
+      if (searchWrapper) {
+        searchWrapper.classList.add('invisible');
+        searchWrapper.classList.remove('opacity-100');
+      }
+    }
+
+    // Attach open triggers
+    searchButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        openSearch();
+      });
+    });
+
+    // Attach close trigger
+    if (closeBtn) closeBtn.addEventListener('click', closeSearch);
+
+    // Keyboard Shortcuts: Cmd+K / Ctrl+K / Esc
+    window.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (searchWrapper && searchWrapper.classList.contains('invisible')) {
+          openSearch();
+        } else {
+          closeSearch();
+        }
+      }
+      if (e.key === 'Escape' && searchWrapper && !searchWrapper.classList.contains('invisible')) {
+        closeSearch();
+      }
+    });
+
+    // Perform Search Query (Diacritic-Insensitive)
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        const rawQuery = this.value.trim();
+        const query = normalizeText(rawQuery);
+        
+        if (!query) {
+          if (initialMsg) initialMsg.classList.remove('hidden');
+          if (noResultsMsg) noResultsMsg.classList.add('hidden');
+          if (searchResults) searchResults.innerHTML = '';
+          return;
+        }
+
+        if (initialMsg) initialMsg.classList.add('hidden');
+        if (!searchData || searchData.length === 0) return;
+
+        const results = searchData.filter(item => {
+          const title = normalizeText(item.title);
+          const author = normalizeText(item.author);
+          const summary = normalizeText(item.summary);
+          const content = normalizeText(item.content);
+          const cats = normalizeText((item.categories || []).join(' '));
+          const tags = normalizeText((item.tags || []).join(' '));
+
+          return title.includes(query) || 
+                 author.includes(query) || 
+                 cats.includes(query) || 
+                 tags.includes(query) || 
+                 summary.includes(query) || 
+                 content.includes(query);
+        });
+
+        if (results.length === 0) {
+          if (noResultsMsg) noResultsMsg.classList.remove('hidden');
+          if (searchResults) searchResults.innerHTML = '';
+        } else {
+          if (noResultsMsg) noResultsMsg.classList.add('hidden');
+          
+          let html = '';
+          results.forEach(item => {
+            // Snippet extraction using normalized search index
+            let snippet = item.summary || '';
+            if (item.content) {
+              const normContent = normalizeText(item.content);
+              const idx = normContent.indexOf(query);
+              if (idx !== -1) {
+                const start = Math.max(0, idx - 40);
+                const end = Math.min(item.content.length, idx + 120);
+                snippet = (start > 0 ? '...' : '') + item.content.substring(start, end) + (end < item.content.length ? '...' : '');
+              }
+            }
+
+            const catLabel = item.categories && item.categories.length > 0 ? item.categories[0] : 'ARTICOL';
+
+            html += `
+              <li>
+                <a href="${item.permalink}" class="block border-2 border-neutral-900 dark:border-neutral-100 p-4 sm:p-5 bg-white dark:bg-neutral-900 sticker-shadow sticker-shadow-hover group transition-all">
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <span class="bg-brand-gold text-slate-900 font-label text-[11px] font-black uppercase px-2.5 py-0.5 border border-neutral-900">
+                      ${catLabel}
+                    </span>
+                    <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+                      ${item.date} • ${item.readingTime}
+                    </span>
+                  </div>
+
+                  <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-tight mb-2">
+                    ${item.title}
+                  </h3>
+
+                  <p class="font-zine-body text-sm text-neutral-700 dark:text-neutral-300 line-clamp-2 leading-relaxed mb-3">
+                    ${snippet}
+                  </p>
+
+                  <div class="flex items-center justify-between font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+                    <span>Autor: ${item.author}</span>
+                    <span class="text-brand-green dark:text-emerald-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                      Deschide <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </span>
+                  </div>
+                </a>
+              </li>
+            `;
+          });
+
+          if (searchResults) searchResults.innerHTML = html;
+        }
+      });
+    }
+  });
+</script>

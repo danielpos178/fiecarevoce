@@ -1,0 +1,32 @@
+[
+  {{- $posts := where site.RegularPages "Type" "posts" -}}
+  {{- range $i, $p := $posts -}}
+    {{- if $i -}},{{- end -}}
+    {{- $author := $p.Params.author -}}
+    {{- if not $author -}}
+      {{- if $p.Params.authors -}}
+        {{- if reflect.IsSlice $p.Params.authors -}}
+          {{- $author = delimit $p.Params.authors ", " -}}
+        {{- else -}}
+          {{- $author = $p.Params.authors -}}
+        {{- end -}}
+      {{- else -}}
+        {{- $author = "Echipa Fiecare Voce" -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $cats := $p.Params.categories | default (slice "Articol") -}}
+    {{- $tags := $p.Params.tags | default (slice) -}}
+    {
+      "title": {{ $p.Title | jsonify }},
+      "permalink": {{ $p.RelPermalink | jsonify }},
+      "date": {{ ($p.Date.Format "02 Jan 2006") | jsonify }},
+      "summary": {{ $p.Summary | plainify | jsonify }},
+      "content": {{ $p.Plain | jsonify }},
+      "author": {{ $author | jsonify }},
+      "categories": {{ $cats | jsonify }},
+      "tags": {{ $tags | jsonify }},
+      "readingTime": {{ (printf "%d MIN READ" ($p.Params.reading_time | default $p.ReadingTime)) | jsonify }},
+      "image": {{ ($p.Params.image | default "") | jsonify }}
+    }
+  {{- end -}}
+]

@@ -1,8 +1,8 @@
 colorScheme = "custom"
 defaultAppearance = "light"
-autoSwitchAppearance = false
-showAppearanceSwitcher = false
-enableSearch = true
+autoSwitchAppearance = true
+showAppearanceSwitcher = true
+enableSearch = false
 enableCodeCopy = true
 robots = "index, follow"
 description = "Fiecare Voce este o platformă independentă care susține și publică opiniile elevilor, fără filtre, și aduce în atenție problemele care afectează educația românească."
