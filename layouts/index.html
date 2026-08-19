@@ -26,7 +26,7 @@
           <div class="flex flex-col sm:flex-row gap-4 mt-4">
             <a href="{{ .primary_cta.url }}" class="bg-brand-gold text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center gap-2 transition-all">
               <span>{{ .primary_cta.text }}</span>
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
+              {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
             </a>
 
             <a href="{{ .secondary_cta.url }}" class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center transition-all">
@@ -75,7 +75,7 @@
 
           <a href="{{ .link_url | relURL }}" class="group flex items-center gap-2 font-label text-xs sm:text-sm font-bold uppercase text-neutral-900 dark:text-white border-b-2 border-brand-green pb-1 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
             <span>{{ .link_text | safeHTML }}</span>
-            <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+            {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4 group-hover:translate-x-2 transition-transform") }}
           </a>
         </div>
 
@@ -156,7 +156,7 @@
           
           <div class="flex items-start gap-4">
             <div class="w-12 h-12 bg-brand-green text-brand-gold border-2 border-brand-gold flex items-center justify-center sticker-shadow shrink-0">
-              <span class="material-symbols-outlined text-2xl">groups</span>
+              {{ partial "icon.html" (dict "name" "groups" "class" "w-6 h-6") }}
             </div>
             <div>
               <div class="font-display font-black text-4xl impact-val tracking-tight mb-1">{{ .community1.value | safeHTML }}</div>
@@ -167,7 +167,7 @@
 
           <div class="flex items-start gap-4 sm:pl-8 pt-8 sm:pt-0">
             <div class="w-12 h-12 bg-brand-gold text-slate-900 border-2 border-neutral-900 flex items-center justify-center sticker-shadow shrink-0">
-              <span class="material-symbols-outlined text-2xl">volunteer_activism</span>
+              {{ partial "icon.html" (dict "name" "volunteer_activism" "class" "w-6 h-6") }}
             </div>
             <div>
               <div class="font-display font-black text-4xl impact-val tracking-tight mb-1">{{ .community2.value | safeHTML }}</div>
@@ -183,7 +183,7 @@
       <div class="mt-10 flex justify-center w-full">
         <a href="{{ .cta.url | relURL }}" class="bg-brand-gold text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center gap-2 transition-all">
           <span>{{ .cta.text }}</span>
-          <span class="material-symbols-outlined text-base">arrow_forward</span>
+          {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
         </a>
       </div>
 
@@ -202,7 +202,7 @@
         </div>
         <a href="{{ .link_url | relURL }}" class="font-label text-xs sm:text-sm uppercase font-bold text-brand-green dark:text-emerald-400 hover:underline flex items-center gap-2">
           <span>{{ .link_text | safeHTML }}</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
         </a>
       </div>
 
@@ -285,7 +285,7 @@
               <span>Autor: {{ $author }}</span>
               <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                 <span>Citește</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
               </a>
             </div>
           </div>
@@ -314,7 +314,7 @@
         </div>
         <a href="{{ .link_url | relURL }}" class="font-label text-xs sm:text-sm uppercase font-bold text-brand-green dark:text-emerald-400 hover:underline flex items-center gap-2">
           <span>{{ .link_text | safeHTML }}</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
         </a>
       </div>
 
@@ -373,7 +373,7 @@
 
             <span class="mt-auto pt-4 border-t border-neutral-200 dark:border-neutral-800 text-brand-green dark:text-emerald-400 font-label text-xs font-bold uppercase flex items-center gap-1 group-hover:translate-x-1 transition-transform">
               <span>Citește</span>
-              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
             </span>
           </a>
 
@@ -401,7 +401,7 @@
         </div>
         <a href="{{ "categories/proiecte/" | relURL }}" class="font-label text-xs sm:text-sm uppercase font-bold text-brand-green dark:text-emerald-400 hover:underline flex items-center gap-2">
           <span>{{ .link_text | safeHTML }}</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
         </a>
       </div>
 
@@ -480,7 +480,7 @@
               <span>Autor: {{ $author }}</span>
               <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                 <span>Citește</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
               </a>
             </div>
           </div>
@@ -570,13 +570,13 @@
           <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-xl">
             <a href="{{ .button_url }}" class="bg-brand-green text-white font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center gap-2 transition-all w-full sm:w-auto">
               <span>{{ .button_text }}</span>
-              <span class="material-symbols-outlined text-base">mail</span>
+              {{ partial "icon.html" (dict "name" "mail" "class" "w-4 h-4") }}
             </a>
 
             {{ if .instagram_url }}
             <a href="{{ .instagram_url }}" target="_blank" rel="noopener noreferrer" class="bg-white text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center gap-2 transition-all w-full sm:w-auto">
               <span>{{ .instagram_text }}</span>
-              <span class="material-symbols-outlined text-base">open_in_new</span>
+              {{ partial "icon.html" (dict "name" "open_in_new" "class" "w-4 h-4") }}
             </a>
             {{ end }}
           </div>
