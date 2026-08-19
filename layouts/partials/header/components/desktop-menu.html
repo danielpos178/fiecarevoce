@@ -25,10 +25,10 @@
     class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white sticker-shadow hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center"
     title="Comută modul întunecat/luminos">
     <span class="dark:hidden flex items-center justify-center">
-      <span class="material-symbols-outlined text-lg">dark_mode</span>
+      {{ partial "icon.html" (dict "name" "dark_mode" "class" "w-5 h-5") }}
     </span>
     <span class="hidden dark:flex items-center justify-center text-brand-gold">
-      <span class="material-symbols-outlined text-lg">light_mode</span>
+      {{ partial "icon.html" (dict "name" "light_mode" "class" "w-5 h-5") }}
     </span>
   </button>
   {{ end }}
@@ -36,7 +36,7 @@
   <!-- Main CTA Button -->
   <a href="{{ "/#implica-te" | relURL }}" class="bg-brand-gold text-neutral-900 border-2 border-neutral-900 px-4 py-2 font-label text-xs uppercase font-black sticker-shadow sticker-shadow-hover transition-all inline-flex items-center gap-1.5">
     <span>ALĂTURĂ-TE</span>
-    <span class="material-symbols-outlined text-base">arrow_forward</span>
+    {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
   </a>
 
 </nav>

@@ -4,21 +4,25 @@
 {{ $style := .style | default "" }}
 {{ $loading := .loading | default "lazy" }}
 {{ $fetchpriority := .fetchpriority | default "auto" }}
+{{ $sizes := .sizes | default "(max-width: 600px) 100vw, (max-width: 1200px) 100vw, 100vw" }}
 
 {{ $cleanSrc := strings.TrimPrefix "/" $src }}
 {{ $img := resources.Get $cleanSrc }}
 
 {{ if $img }}
- {{ $w600 := $img.Resize "600x webp" }}
- {{ $w1200 := $img.Resize "1200x webp" }}
- {{ $w1800 := $img.Resize "1800x webp" }}
- {{ $fallback := $img.Resize (printf "%dx%d webp" $img.Width $img.Height) }}
+ {{ $w600 := $img.Resize "600x webp q85" }}
+ {{ $w1200 := $img.Resize "1200x webp q85" }}
+ {{ $w1800 := $img.Resize "1800x webp q80" }}
+ {{/* Fallback at native size, capped to avoid massive images */}}
+ {{ $fallbackWidth := $img.Width }}
+ {{ if gt $fallbackWidth 1800 }}{{ $fallbackWidth = 1800 }}{{ end }}
+ {{ $fallback := $img.Resize (printf "%dx webp q85" $fallbackWidth) }}
 
  <picture class="block {{ $class }}">
  <source
  type="image/webp"
  srcset="{{ $w600.RelPermalink }} 600w, {{ $w1200.RelPermalink }} 1200w, {{ $w1800.RelPermalink }} 1800w"
- sizes="(max-width: 768px) 100vw, 100vw"
+ sizes="{{ $sizes }}"
  />
  <img
  src="{{ $fallback.RelPermalink }}"
