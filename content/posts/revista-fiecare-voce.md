@@ -23,7 +23,7 @@ Acest articol servește nu doar ca o prezentare a proiectului nostru de suflet, 
 
 ---
 
-## 1. Misiunea și Viziunea Noastră
+## Misiunea și Viziunea Noastră
 
 Revista a venit ca o extensie naturală a proiectului **Fiecare Voce**, oferindu-le elevilor posibilitatea de a se exprima mai liber și de a aborda, în articole mai ample, subiecte importante. 
 
@@ -47,7 +47,7 @@ Am încercat să acoperim o plajă largă de interese și probleme cu care se co
 
 ---
 
-## 2. Statistici și Impact (Exemplu de Tabel)
+## Statistici și Impact (Exemplu de Tabel)
 
 Proiectul a adunat peste 20 de elevi din toată țara în echipa de redactare. Iată un scurt rezumat al impactului pe care l-am avut:
 
@@ -59,7 +59,7 @@ Proiectul a adunat peste 20 de elevi din toată țara în echipa de redactare. I
 
 ---
 
-## 3. Echipa și Organizarea (Liste și Task-uri)
+## Echipa și Organizarea (Liste și Task-uri)
 
 Pentru a lansa fiecare număr, am urmat un proces riguros de organizare editorială:
 
@@ -75,7 +75,7 @@ Pentru a lansa fiecare număr, am urmat un proces riguros de organizare editoria
 
 ---
 
-## 4. Aspecte Tehnice (Exemplu de Code Block)
+## Aspecte Tehnice (Exemplu de Code Block)
 
 Pentru a ne asigura că revista ajunge la cât mai mulți tineri, am optimizat modul în care distribuim conținutul. De exemplu, platforma noastră web folosește un sistem modern pentru generarea de conținut:
 
@@ -93,7 +93,7 @@ console.log(calculeazaImpact(160000, 3200));
 
 ---
 
-## 5. Galeria Vizuală (Imagini)
+## Galeria Vizuală (Imagini)
 
 Coperta revistei noastre reflectă spiritul creativ al echipei. Mai jos regăsiți coperțile primelor două ediții:
 
@@ -103,7 +103,7 @@ Coperta revistei noastre reflectă spiritul creativ al echipei. Mai jos regăsi�
 
 ---
 
-## 6. Concluzii și Gânduri de Viitor
+## Concluzii și Gânduri de Viitor
 
 Acest spațiu ne-a demonstrat că vocile tinerilor sunt puternice și merită ascultate.[^1] Vom continua să ducem mai departe conversațiile care merită purtate și dincolo de băncile școlii. 
 

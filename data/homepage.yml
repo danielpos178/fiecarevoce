@@ -53,8 +53,20 @@ cine_suntem:
   link_url: "/despre-noi/"
   image: "/images/echipa/echipa-fiecare-voce.jpg"
 
+ultimele_articole:
+  title: "Ultimele Articole"
+  link_text: "Vezi toate articolele →"
+  link_url: "/posts/"
+  empty_text: "Articolele vor fi publicate în curând."
+
 proiecte:
   title: "Proiecte din Trecut"
   link_text: "Vezi toate"
   link_url: "/categories/proiecte/"
+  empty_text: "Articolele vor fi publicate în curând."
+
+articole_recente:
+  title: "Ultimele Articole"
+  link_text: "Vezi toate articolele"
+  link_url: "/posts/"
   empty_text: "Articolele vor fi publicate în curând."

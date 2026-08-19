@@ -190,6 +190,205 @@
     </section>
     {{ end }}
 
+    <!-- ULTIMELE ARTICOLE FEED (OTHER CATEGORIES) -->
+    {{ with hugo.Data.homepage.articole_recente }}
+    <section id="articole-recente" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
+      
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 mb-10">
+        <div>
+          <h2 class="font-display font-black text-3xl sm:text-4xl uppercase text-neutral-900 dark:text-white">
+            {{ .title }}
+          </h2>
+        </div>
+        <a href="{{ .link_url | relURL }}" class="font-label text-xs sm:text-sm uppercase font-bold text-brand-green dark:text-emerald-400 hover:underline flex items-center gap-2">
+          <span>{{ .link_text | safeHTML }}</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+
+      {{ $allPosts := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
+      {{ $otherPosts := slice }}
+      {{ range $allPosts }}
+        {{ $isProiecte := false }}
+        {{ if .Params.tags }}
+          {{ range .Params.tags }}
+            {{ if eq (lower .) "proiecte" }}
+              {{ $isProiecte = true }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ if .Params.categories }}
+          {{ range .Params.categories }}
+            {{ if eq (lower .) "proiecte" }}
+              {{ $isProiecte = true }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ if not $isProiecte }}
+          {{ $otherPosts = $otherPosts | append . }}
+        {{ end }}
+      {{ end }}
+
+      {{ if gt (len $otherPosts) 0 }}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {{ range first 3 $otherPosts }}
+        
+        {{ $category := "ARTICOL" }}
+        {{ if .Params.categories }}
+          {{ if reflect.IsSlice .Params.categories }}
+            {{ $category = index .Params.categories 0 }}
+          {{ else }}
+            {{ $category = .Params.categories }}
+          {{ end }}
+        {{ end }}
+
+        {{ $author := .Params.author | default "Echipa Fiecare Voce" }}
+
+        <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow sticker-shadow-hover hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full cursor-pointer">
+          
+          <!-- Category Sticker Badge -->
+          <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
+            {{ $category }}
+          </div>
+
+          <!-- Article Cover Image -->
+          <a href="{{ .RelPermalink }}" class="h-48 sm:h-56 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+            {{ if .Params.image }}
+              {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+              {{ $imgFit := "object-cover nozoom" }}
+              {{ if eq .Params.image_fit "contain" }}
+                {{ $imgFit = "object-contain p-2 sm:p-4 bg-neutral-100 dark:bg-[#18181b] nozoom" }}
+              {{ end }}
+              {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" (printf "w-full h-full %s" $imgFit) "style" (printf "object-position: %s;" $imgPos) "loading" "lazy") }}
+            {{ else }}
+              <div class="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-center">
+                <span class="font-display font-bold text-lg text-white uppercase">Fiecare Voce</span>
+              </div>
+            {{ end }}
+          </a>
+
+          <!-- Article Details -->
+          <div class="p-6 flex flex-col gap-3 flex-grow">
+            <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+              {{ .Date.Format "02 Ianuarie 2006" }}
+            </span>
+
+            <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+
+            <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+              {{ .Summary }}
+            </p>
+
+            <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+              <span>Autor: {{ $author }}</span>
+              <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                <span>Citește</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+        </article>
+        {{ end }}
+      </div>
+      {{ else }}
+      <div class="p-12 text-center text-neutral-500 bg-white dark:bg-neutral-900 border-2 border-dashed border-neutral-300 dark:border-neutral-800 sticker-shadow font-zine-body text-lg">
+        {{ .empty_text }}
+      </div>
+      {{ end }}
+
+    </section>
+    {{ end }}
+
+    <!-- ULTIMELE ARTICOLE (TITLE-ONLY CARDS, NON-PROIECTE) -->
+    {{ with hugo.Data.homepage.ultimele_articole }}
+    <section id="ultimele-articole" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
+
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 mb-10">
+        <div>
+          <h2 class="font-display font-black text-3xl sm:text-4xl uppercase text-neutral-900 dark:text-white">
+            {{ .title }}
+          </h2>
+        </div>
+        <a href="{{ .link_url | relURL }}" class="font-label text-xs sm:text-sm uppercase font-bold text-brand-green dark:text-emerald-400 hover:underline flex items-center gap-2">
+          <span>{{ .link_text | safeHTML }}</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+
+      {{ $allPosts := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
+      {{ $otherPosts := slice }}
+      {{ range $allPosts }}
+        {{ $isProiecte := false }}
+        {{ if .Params.categories }}
+          {{ range .Params.categories }}
+            {{ if eq (lower .) "proiecte" }}
+              {{ $isProiecte = true }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ if .Params.tags }}
+          {{ range .Params.tags }}
+            {{ if eq (lower .) "proiecte" }}
+              {{ $isProiecte = true }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ if not $isProiecte }}
+          {{ $otherPosts = $otherPosts | append . }}
+        {{ end }}
+      {{ end }}
+
+      {{ if gt (len $otherPosts) 0 }}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {{ range first 3 $otherPosts }}
+
+        {{ $category := "ARTICOL" }}
+        {{ if .Params.categories }}
+          {{ if reflect.IsSlice .Params.categories }}
+            {{ $category = index .Params.categories 0 }}
+          {{ else }}
+            {{ $category = .Params.categories }}
+          {{ end }}
+        {{ end }}
+
+        <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow sticker-shadow-hover hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full cursor-pointer">
+
+          <!-- Category Sticker Badge -->
+          <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
+            {{ $category }}
+          </div>
+
+          <!-- Title-only card body -->
+          <a href="{{ .RelPermalink }}" class="p-6 pt-8 flex flex-col gap-3 flex-grow">
+            <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+              {{ .Date.Format "02 Ianuarie 2006" }}
+            </span>
+
+            <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+              {{ .Title }}
+            </h3>
+
+            <span class="mt-auto pt-4 border-t border-neutral-200 dark:border-neutral-800 text-brand-green dark:text-emerald-400 font-label text-xs font-bold uppercase flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              <span>Citește</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </span>
+          </a>
+
+        </article>
+        {{ end }}
+      </div>
+      {{ else }}
+      <div class="p-12 text-center text-neutral-500 bg-white dark:bg-neutral-900 border-2 border-dashed border-neutral-300 dark:border-neutral-800 sticker-shadow font-zine-body text-lg">
+        {{ .empty_text }}
+      </div>
+      {{ end }}
+
+    </section>
+    {{ end }}
+
     <!-- PROIECTE & RECENT TRANSMISSIONS FEED -->
     {{ with hugo.Data.homepage.proiecte }}
     <section id="proiecte" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
