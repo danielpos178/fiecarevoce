@@ -10,7 +10,7 @@
     <!-- Modal Header with Input Field -->
     <header class="relative z-10 flex items-center justify-between p-4 md:p-6 border-b-2 border-neutral-900 dark:border-neutral-700 bg-neutral-50 dark:bg-[#151515]">
       <div class="flex items-center gap-3 w-full mr-4">
-        <span class="material-symbols-outlined text-brand-green dark:text-emerald-400 text-2xl shrink-0">search</span>
+        {{ partial "icon.html" (dict "name" "search" "class" "w-6 h-6 text-brand-green dark:text-emerald-400 shrink-0") }}
         <input
           type="search"
           id="search-query"
@@ -39,14 +39,14 @@
 
     <!-- Search Results Container -->
     <section class="flex-auto p-4 md:p-6 overflow-y-auto bf-scrollbar bg-neutral-50/50 dark:bg-[#121212]">
-      <div id="search-initial-msg" class="text-center py-12">
-        <span class="material-symbols-outlined text-4xl text-brand-green mb-2">find_in_page</span>
+      <div id="search-initial-msg" class="text-center py-12 flex flex-col items-center">
+        {{ partial "icon.html" (dict "name" "find_in_page" "class" "w-10 h-10 text-brand-green mb-2") }}
         <p class="font-display font-bold text-lg text-neutral-800 dark:text-neutral-200 uppercase">Începe să tastezi pentru a căuta</p>
         <p class="font-zine-body text-sm text-neutral-500 dark:text-neutral-400">Căutarea funcționează și fără diacritice (ex. "educatie", "romania", "stiri").</p>
       </div>
 
-      <div id="search-no-results" class="hidden text-center py-12">
-        <span class="material-symbols-outlined text-4xl text-neutral-400 mb-2">search_off</span>
+      <div id="search-no-results" class="hidden text-center py-12 flex flex-col items-center">
+        {{ partial "icon.html" (dict "name" "search_off" "class" "w-10 h-10 text-neutral-400 mb-2") }}
         <p class="font-display font-bold text-lg text-neutral-800 dark:text-neutral-200 uppercase">Niciun rezultat găsit</p>
         <p class="font-zine-body text-sm text-neutral-500 dark:text-neutral-400">Încearcă alți termeni sau verifică ortografia.</p>
       </div>
@@ -224,7 +224,7 @@
                   <div class="flex items-center justify-between font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 pt-2 border-t border-neutral-200 dark:border-neutral-800">
                     <span>Autor: ${item.author}</span>
                     <span class="text-brand-green dark:text-emerald-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                      Deschide <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                      Deschide {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
                     </span>
                   </div>
                 </a>

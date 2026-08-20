@@ -62,7 +62,7 @@
           <div class="mt-auto pt-4 flex items-center justify-end border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
             <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
               <span>Vezi Detalii</span>
-              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
             </a>
           </div>
         </div>

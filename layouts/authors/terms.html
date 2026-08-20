@@ -4,7 +4,7 @@
     
     <!-- Back to blog navigation -->
     <a href="{{ "posts/" | relURL }}" class="inline-flex items-center gap-2 font-label text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:text-brand-green dark:hover:text-emerald-400 mb-8 transition-colors group">
-      <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+      {{ partial "icon.html" (dict "name" "arrow_back" "class" "w-4 h-4 group-hover:-translate-x-1 transition-transform") }}
       <span>Înapoi la Toate Articolele</span>
     </a>
 
@@ -76,7 +76,7 @@
             <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
               <a href="{{ $authorPage.RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform ml-auto">
                 <span>Vezi articolele</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
               </a>
             </div>
           </div>

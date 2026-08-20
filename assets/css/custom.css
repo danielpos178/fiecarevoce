@@ -177,7 +177,10 @@ button, a.btn, input, select, textarea {
 .bg-brand-green\/5 { background-color: rgba(75, 146, 63, 0.05) !important; }
 
 .hover\:border-brand-green\/30:hover { border-color: rgba(75, 146, 63, 0.3) !important; }
-.hover\:text-brand-green:hover { color: #4b923f !important; }
+.hover\:text-brand-green:hover, .group:hover .group-hover\:text-brand-green { color: #4b923f !important; }
+.dark .hover\:text-brand-green:hover, .dark .group:hover .group-hover\:text-brand-green { color: #5cad4e !important; }
+.hover\:border-brand-green:hover { border-color: #4b923f !important; }
+.dark .hover\:border-brand-green:hover { border-color: #5cad4e !important; }
 
 .bg-brand-gold\/90:hover, .hover\:bg-brand-gold\/90:hover { background-color: rgba(255, 189, 89, 0.9) !important; }
 .bg-brand-gold\/30 { background-color: rgba(255, 189, 89, 0.3) !important; }

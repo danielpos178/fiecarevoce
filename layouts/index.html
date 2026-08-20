@@ -190,10 +190,10 @@
     </section>
     {{ end }}
 
-    <!-- ULTIMELE ARTICOLE FEED (OTHER CATEGORIES) -->
-    {{ with hugo.Data.homepage.articole_recente }}
-    <section id="articole-recente" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
-      
+    <!-- ULTIMELE ARTICOLE (LATEST NON-PROIECTE ARTICLES WITH COVERS) -->
+    {{ with hugo.Data.homepage.ultimele_articole }}
+    <section id="ultimele-articole" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
+
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 mb-10">
         <div>
           <h2 class="font-display font-black text-3xl sm:text-4xl uppercase text-neutral-900 dark:text-white">
@@ -206,19 +206,21 @@
         </a>
       </div>
 
-      {{ $allPosts := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
+      {{ $featuredPosts := (where (where site.RegularPages "Type" "in" site.Params.mainSections) "Params.featured" true).ByDate.Reverse }}
+      {{ $normalPosts := (where (where site.RegularPages "Type" "in" site.Params.mainSections) "Params.featured" "!=" true).ByDate.Reverse }}
+      {{ $allPosts := $featuredPosts | append $normalPosts }}
       {{ $otherPosts := slice }}
       {{ range $allPosts }}
         {{ $isProiecte := false }}
-        {{ if .Params.tags }}
-          {{ range .Params.tags }}
+        {{ if .Params.categories }}
+          {{ range .Params.categories }}
             {{ if eq (lower .) "proiecte" }}
               {{ $isProiecte = true }}
             {{ end }}
           {{ end }}
         {{ end }}
-        {{ if .Params.categories }}
-          {{ range .Params.categories }}
+        {{ if .Params.tags }}
+          {{ range .Params.tags }}
             {{ if eq (lower .) "proiecte" }}
               {{ $isProiecte = true }}
             {{ end }}
@@ -232,7 +234,7 @@
       {{ if gt (len $otherPosts) 0 }}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {{ range first 3 $otherPosts }}
-        
+
         {{ $category := "ARTICOL" }}
         {{ if .Params.categories }}
           {{ if reflect.IsSlice .Params.categories }}
@@ -245,7 +247,7 @@
         {{ $author := .Params.author | default "Echipa Fiecare Voce" }}
 
         <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow sticker-shadow-hover hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full cursor-pointer">
-          
+
           <!-- Category Sticker Badge -->
           <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
             {{ $category }}
@@ -289,93 +291,6 @@
               </a>
             </div>
           </div>
-
-        </article>
-        {{ end }}
-      </div>
-      {{ else }}
-      <div class="p-12 text-center text-neutral-500 bg-white dark:bg-neutral-900 border-2 border-dashed border-neutral-300 dark:border-neutral-800 sticker-shadow font-zine-body text-lg">
-        {{ .empty_text }}
-      </div>
-      {{ end }}
-
-    </section>
-    {{ end }}
-
-    <!-- ULTIMELE ARTICOLE (TITLE-ONLY CARDS, NON-PROIECTE) -->
-    {{ with hugo.Data.homepage.ultimele_articole }}
-    <section id="ultimele-articole" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
-
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 mb-10">
-        <div>
-          <h2 class="font-display font-black text-3xl sm:text-4xl uppercase text-neutral-900 dark:text-white">
-            {{ .title }}
-          </h2>
-        </div>
-        <a href="{{ .link_url | relURL }}" class="font-label text-xs sm:text-sm uppercase font-bold text-brand-green dark:text-emerald-400 hover:underline flex items-center gap-2">
-          <span>{{ .link_text | safeHTML }}</span>
-          {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
-        </a>
-      </div>
-
-      {{ $allPosts := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
-      {{ $otherPosts := slice }}
-      {{ range $allPosts }}
-        {{ $isProiecte := false }}
-        {{ if .Params.categories }}
-          {{ range .Params.categories }}
-            {{ if eq (lower .) "proiecte" }}
-              {{ $isProiecte = true }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-        {{ if .Params.tags }}
-          {{ range .Params.tags }}
-            {{ if eq (lower .) "proiecte" }}
-              {{ $isProiecte = true }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-        {{ if not $isProiecte }}
-          {{ $otherPosts = $otherPosts | append . }}
-        {{ end }}
-      {{ end }}
-
-      {{ if gt (len $otherPosts) 0 }}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {{ range first 3 $otherPosts }}
-
-        {{ $category := "ARTICOL" }}
-        {{ if .Params.categories }}
-          {{ if reflect.IsSlice .Params.categories }}
-            {{ $category = index .Params.categories 0 }}
-          {{ else }}
-            {{ $category = .Params.categories }}
-          {{ end }}
-        {{ end }}
-
-        <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow sticker-shadow-hover hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full cursor-pointer">
-
-          <!-- Category Sticker Badge -->
-          <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
-            {{ $category }}
-          </div>
-
-          <!-- Title-only card body -->
-          <a href="{{ .RelPermalink }}" class="p-6 pt-8 flex flex-col gap-3 flex-grow">
-            <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-              {{ .Date.Format "02 Ianuarie 2006" }}
-            </span>
-
-            <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
-              {{ .Title }}
-            </h3>
-
-            <span class="mt-auto pt-4 border-t border-neutral-200 dark:border-neutral-800 text-brand-green dark:text-emerald-400 font-label text-xs font-bold uppercase flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              <span>Citește</span>
-              {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
-            </span>
-          </a>
 
         </article>
         {{ end }}
@@ -519,7 +434,7 @@
           
           <div class="flex items-center justify-between mb-4">
             <svg class="w-7 h-7 shrink-0 {{ if $isEven }}text-brand-green dark:text-emerald-400{{ else }}text-brand-gold{{ end }}" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-            <span class="font-label text-[11px] font-bold uppercase {{ if $isEven }}bg-brand-green/10 text-brand-green dark:text-emerald-400 border-brand-green/30{{ else }}bg-brand-gold/15 text-slate-900 dark:text-brand-gold border-brand-gold/40{{ end }} px-2.5 py-0.5 border">
+            <span class="font-label text-[11px] font-black uppercase bg-brand-gold text-slate-900 border border-neutral-900 px-2.5 py-0.5 shadow-[2px_2px_0px_0px_#1a1c19]">
               TESTIMONIAL
             </span>
           </div>
@@ -576,7 +491,7 @@
             {{ if .instagram_url }}
             <a href="{{ .instagram_url }}" target="_blank" rel="noopener noreferrer" class="bg-white text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center gap-2 transition-all w-full sm:w-auto">
               <span>{{ .instagram_text }}</span>
-              {{ partial "icon.html" (dict "name" "open_in_new" "class" "w-4 h-4") }}
+              {{ partial "icon.html" (dict "name" "instagram" "class" "w-4 h-4") }}
             </a>
             {{ end }}
           </div>
