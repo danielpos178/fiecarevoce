@@ -206,7 +206,9 @@
         </a>
       </div>
 
-      {{ $allPosts := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
+      {{ $featuredPosts := (where (where site.RegularPages "Type" "in" site.Params.mainSections) "Params.featured" true).ByDate.Reverse }}
+      {{ $normalPosts := (where (where site.RegularPages "Type" "in" site.Params.mainSections) "Params.featured" "!=" true).ByDate.Reverse }}
+      {{ $allPosts := $featuredPosts | append $normalPosts }}
       {{ $otherPosts := slice }}
       {{ range $allPosts }}
         {{ $isProiecte := false }}

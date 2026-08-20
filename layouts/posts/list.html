@@ -71,7 +71,9 @@
 
     <!-- Default Hugo Paginated Grid Section -->
     <div id="default-feed-section">
-      {{ $posts := (where site.RegularPages "Type" "posts").ByDate.Reverse }}
+      {{ $featuredPosts := (where (where site.RegularPages "Type" "posts") "Params.featured" true).ByDate.Reverse }}
+      {{ $normalPosts := (where (where site.RegularPages "Type" "posts") "Params.featured" "!=" true).ByDate.Reverse }}
+      {{ $posts := $featuredPosts | append $normalPosts }}
       {{ $paginator := .Paginate $posts 6 }}
 
       {{ if gt (len $posts) 0 }}
@@ -112,6 +114,11 @@
               <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] -rotate-1">
                 {{ $category }}
               </div>
+              {{ if .Params.featured }}
+              <div class="absolute -top-3.5 right-4 bg-brand-green text-white px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] rotate-1">
+                ★ RECOMANDAT
+              </div>
+              {{ end }}
               
               <a href="{{ .RelPermalink }}" class="h-64 md:h-96 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
                 {{ if .Params.image }}
