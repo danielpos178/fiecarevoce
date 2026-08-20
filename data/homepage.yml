@@ -65,8 +65,3 @@ proiecte:
   link_url: "/categories/proiecte/"
   empty_text: "Articolele vor fi publicate în curând."
 
-articole_recente:
-  title: "Ultimele Articole"
-  link_text: "Vezi toate articolele"
-  link_url: "/posts/"
-  empty_text: "Articolele vor fi publicate în curând."
