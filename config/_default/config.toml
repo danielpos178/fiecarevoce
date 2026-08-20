@@ -11,11 +11,14 @@ paginate = 6
 [outputs]
   home = ["HTML", "RSS", "JSON"]
   section = ["HTML", "RSS", "JSON"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]
 
 [taxonomies]
   category = "categories"
   tag = "tags"
   author = "authors"
+  authors = "authors"
 
 [sitemap]
   changefreq = "weekly"
