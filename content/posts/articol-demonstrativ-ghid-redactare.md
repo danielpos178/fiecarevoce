@@ -2,7 +2,7 @@
 title: "Ghid de Redactare & Articol Model Fiecare Voce" # [OBLIGATORIU] Titlul principal al articolului afișat în antet și pe carduri
 date: 2026-08-20 # [OBLIGATORIU] Data publicării articolului (format: AAAA-LL-ZZ, ex: 2026-08-20)
 lastmod: 2026-08-20 # [OPȚIONAL] Data ultimei actualizări/revizuiri (format: AAAA-LL-ZZ)
-draft: true # [OBLIGATORIU] Starea publicării: false = vizibil pe site, true = ciornă ascunsă
+draft: false # [OBLIGATORIU] Starea publicării: false = vizibil pe site, true = ciornă ascunsă
 summary: "Ghidul tehnic complet și articolul model de referință care exemplifică toate câmpurile de date meta, formatările și shortcode-urile disponibile pe platforma Fiecare Voce." # [OBLIGATORIU] Rezumat scurt (1-2 fraze) afișat pe prima pagină, la căutare și în liste
 description: "Ghid complet pentru redactarea articolelor pe platforma Fiecare Voce cu toate câmpurile meta și shortcode-ul de galerie foto." # [OPȚIONAL] Descriere utilizată pentru optimizarea SEO și distribuire (Open Graph/Twitter)
 author: "Echipa Fiecare Voce" # [OBLIGATORIU] Numele autorului principal
@@ -70,7 +70,7 @@ Platforma utilizează o tipografie **Neo-Brutalistă** cu contraste puternice ș
 <!-- SHORTCODE GALERIE FOTO: Se specifica folderul cu imagini din static/images/evenimente/ -->
 Pentru articolele care conțin mai multe imagini de la evenimente, se folosește shortcode-ul intuitiv `{{</* gallery */>}}`. Acesta generează automat un slider orizontal compact, cu contor live, navigare prin touch/swipe și modul zoom pe tot ecranul (Lightbox Modal).
 
-{{< gallery folder="images/evenimente/demo-gallery" title="Galerie Foto — Atelierul de Jurnalism și Inovare 2026" caption="Instantanee din cadrul atelierelor practice organizate cu elevii din redacție." />}}
+{{< gallery folder="images/evenimente/demo-gallery" title="Galerie Foto test" caption="imagini, imagini, imagini, etc." />}}
 
 ### Cum se inserează galeria în alte articole:
 Este suficient să adăugați următoarea linie în fișierul Markdown, indicând calea către folderul cu imagini:
