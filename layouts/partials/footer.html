@@ -7,7 +7,12 @@
       <!-- Brand Logo & Title -->
       <div class="flex items-center gap-4">
         <a href="{{ site.Home.RelPermalink }}" class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-green border-2 border-neutral-100 flex items-center justify-center sticker-shadow shrink-0 transition-transform hover:-rotate-3 p-1.5" title="Pagina principală">
-          <img src="{{ "images/logo1000.webp" | relURL }}" alt="Fiecare Voce Logo" class="w-full h-full object-contain filter brightness-0 invert nozoom">
+          {{ $logo := resources.Get "images/logo1000.webp" }}
+          {{ $logoSrc := "images/logo1000.webp" | relURL }}
+          {{ if $logo }}
+            {{ $logoSrc = ($logo.Resize "120x webp q85").RelPermalink }}
+          {{ end }}
+          <img src="{{ $logoSrc }}" alt="Fiecare Voce Logo" width="48" height="48" loading="lazy" decoding="async" class="w-full h-full object-contain filter brightness-0 invert nozoom">
         </a>
         <div>
           <h2 class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-white leading-none">

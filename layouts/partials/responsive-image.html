@@ -9,16 +9,15 @@
 {{ $cleanSrc := strings.TrimPrefix "/" $src }}
 {{ $img := resources.Get $cleanSrc }}
 
-{{ if $img }}
- {{ $w600 := $img.Resize "600x webp q85" }}
- {{ $w1200 := $img.Resize "1200x webp q85" }}
+{{ if and $img (ne $img.MediaType.SubType "svg") }}
+ {{ $w600 := $img.Resize "600x webp q82" }}
+ {{ $w1200 := $img.Resize "1200x webp q82" }}
  {{ $w1800 := $img.Resize "1800x webp q80" }}
- {{/* Fallback at native size, capped to avoid massive images */}}
  {{ $fallbackWidth := $img.Width }}
  {{ if gt $fallbackWidth 1800 }}{{ $fallbackWidth = 1800 }}{{ end }}
- {{ $fallback := $img.Resize (printf "%dx webp q85" $fallbackWidth) }}
+ {{ $fallback := $img.Resize (printf "%dx webp q82" $fallbackWidth) }}
 
- <picture class="block {{ $class }}">
+ <picture class="{{ $class }}">
  <source
  type="image/webp"
  srcset="{{ $w600.RelPermalink }} 600w, {{ $w1200.RelPermalink }} 1200w, {{ $w1800.RelPermalink }} 1800w"
@@ -47,3 +46,4 @@
  {{ with $style }}style="{{ . | safeCSS }}"{{ end }}
  />
 {{ end }}
+
