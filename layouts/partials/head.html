@@ -139,12 +139,8 @@
   {{ if not .Site.Params.disableImageZoom | default true }}
     {{ $cssResources = $cssResources | append (resources.Get "lib/zoom/style.css") }}
   {{ end }}
-  {{ $bundleCSS := $cssResources | resources.Concat "css/main.bundle.css" | resources.Minify | resources.Fingerprint $alg }}
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="{{ $bundleCSS.RelPermalink }}"
-    integrity="{{ $bundleCSS.Data.Integrity }}">
+  {{ $bundleCSS := $cssResources | resources.Concat "css/main.bundle.css" | resources.Minify }}
+  <style>{{ $bundleCSS.Content | safeCSS }}</style>
 
   {{/* JS loaded immediately (inlined to eliminate render-blocking request & FOUC) */}}
   {{ $jsAppearance := resources.Get "js/appearance.js" | resources.ExecuteAsTemplate "js/appearance.js" . | resources.Minify }}
