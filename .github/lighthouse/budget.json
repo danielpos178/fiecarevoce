@@ -1,0 +1,33 @@
+[
+  {
+    "path": "/*",
+    "assertions": {
+      "categories:performance":    ["error", { "minScore": 0.85 }],
+      "categories:accessibility":  ["error", { "minScore": 0.90 }],
+      "categories:best-practices": ["error", { "minScore": 0.90 }],
+      "categories:seo":            ["error", { "minScore": 0.90 }],
+
+      "first-contentful-paint":    ["warn",  { "maxNumericValue": 2000 }],
+      "largest-contentful-paint":  ["error", { "maxNumericValue": 3000 }],
+      "total-blocking-time":       ["error", { "maxNumericValue": 300  }],
+      "cumulative-layout-shift":   ["error", { "maxNumericValue": 0.1  }],
+      "speed-index":               ["warn",  { "maxNumericValue": 3500 }],
+
+      "uses-responsive-images":    ["warn",  {}],
+      "uses-optimized-images":     ["warn",  {}],
+      "render-blocking-resources": ["warn",  {}],
+      "unused-javascript":         ["warn",  {}],
+      "unused-css-rules":          ["warn",  {}],
+      "uses-text-compression":     ["warn",  {}],
+
+      "color-contrast":            ["error", {}],
+      "image-alt":                 ["error", {}],
+      "document-title":            ["error", {}],
+      "html-has-lang":             ["error", {}],
+      "meta-description":          ["error", {}],
+
+      "is-on-https":               ["warn",  {}],
+      "no-vulnerable-libraries":   ["warn",  {}]
+    }
+  }
+]
