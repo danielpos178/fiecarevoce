@@ -2,7 +2,7 @@
 title: "Ghid de Redactare & Articol Model Fiecare Voce" # [OBLIGATORIU] Titlul principal al articolului afișat în antet și pe carduri
 date: 2026-08-20 # [OBLIGATORIU] Data publicării articolului (format: AAAA-LL-ZZ, ex: 2026-08-20)
 lastmod: 2026-08-20 # [OPȚIONAL] Data ultimei actualizări/revizuiri (format: AAAA-LL-ZZ)
-draft: false # [OBLIGATORIU] Starea publicării: false = vizibil pe site, true = ciornă ascunsă
+draft: true # [OBLIGATORIU] Starea publicării: false = vizibil pe site, true = ciornă ascunsă
 summary: "Ghidul tehnic complet și articolul model de referință care exemplifică toate câmpurile de date meta, formatările și shortcode-urile disponibile pe platforma Fiecare Voce." # [OBLIGATORIU] Rezumat scurt (1-2 fraze) afișat pe prima pagină, la căutare și în liste
 description: "Ghid complet pentru redactarea articolelor pe platforma Fiecare Voce cu toate câmpurile meta și shortcode-urile interactive." # [OPȚIONAL] Descriere utilizată pentru optimizarea SEO și distribuire (Open Graph/Twitter)
 author: "Echipa Fiecare Voce" # [OBLIGATORIU] Numele autorului principal (ex: "Luca Georgescu" sau "Echipa Fiecare Voce")
@@ -97,17 +97,6 @@ Generează un temporizator live pentru evenimente viitoare (Gale, conferințe, l
 ```
 
 ---
-
-<!-- SECTIUNEA 6: SONDAJ INTERACTIV (POLL) -->
-## 6. Sondaj de Opinie Interactiv (`{{</* poll */>}}`)
-
-Permite elevilor și cititorilor să voteze direct în articol, salvând votul în browser (`localStorage`) și afișând procentele live cu animație.
-
-{{< poll id="bursa-2026" question="Ce domeniu considerați cel mai important pentru dezvoltarea tinerilor?" options="Jurnalism Comunitar | Robotica & STEM | Dezbateri & Advocacy | Voluntariat" votes="145 | 98 | 210 | 76" />}}
-
-```markdown
-{{</* poll id="id-unic" question="Întrebarea sondajului?" options="Opțiunea 1 | Opțiunea 2 | Opțiunea 3" votes="100 | 50 | 75" */>}}
-```
 
 ---
 

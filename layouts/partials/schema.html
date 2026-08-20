@@ -1,0 +1,62 @@
+{{ if .IsHome -}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": {{ site.Home.Permalink | safeURL }},
+    "name": "{{ .Site.Title | safeJS }}",
+    "description": "{{ .Site.Params.description | safeJS }}",
+    "inLanguage": "ro-RO",
+    "url": {{ site.Home.Permalink | safeURL }},
+    "publisher" : {
+      "@type": "Organization",
+      "name": "Fiecare Voce",
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ "images/logo1000.webp" | absURL }}
+      }
+    }
+  }
+  </script>
+{{ else if .IsPage }}
+  {{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
+  {{- $authorName := .Params.author | default "Echipa Fiecare Voce" -}}
+  {{- $imageURL := "" -}}
+  {{- with .Params.image -}}
+    {{- $imageURL = . | absURL -}}
+  {{- end -}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ .Permalink }}
+    },
+    "headline": "{{ .Title | safeJS }}",
+    "name": "{{ .Title | safeJS }}",
+    "description": "{{ .Params.description | default .Params.summary | default .Summary | safeJS }}",
+    "inLanguage": "ro-RO",
+    "url": {{ .Permalink }},
+    {{ with $imageURL }}"image": ["{{ . }}"],{{ end }}
+    "author": {
+      "@type": "Person",
+      "name": "{{ $authorName | safeJS }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Fiecare Voce",
+      "url": {{ site.Home.Permalink | safeURL }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ "images/logo1000.webp" | absURL }}
+      }
+    },
+    "datePublished": "{{ (.PublishDate | default .Date).Format $iso8601 }}",
+    "dateModified": "{{ (.Lastmod | default .Date).Format $iso8601 }}",
+    "articleSection": "{{ with .Params.categories }}{{ if reflect.IsSlice . }}{{ index . 0 }}{{ else }}{{ . }}{{ end }}{{ else }}Educație{{ end }}",
+    "keywords": "{{ with .Params.tags }}{{ if reflect.IsSlice . }}{{ delimit . ", " }}{{ else }}{{ . }}{{ end }}{{ end }}",
+    "wordCount": "{{ .WordCount }}"
+  }
+  </script>
+{{ end }}
