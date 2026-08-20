@@ -29,13 +29,13 @@
     <!-- Drawer Top Header Bar -->
     <div class="flex items-center justify-between border-b-2 border-neutral-900 dark:border-neutral-700 pb-4">
       <div class="flex items-center gap-3">
-        <div class="w-11 h-11 bg-brand-green border-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-center sticker-shadow shrink-0 p-1">
+        <div class="w-11 h-11 bg-brand-green border-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-center sticker-shadow shrink-0 p-0 overflow-hidden">
           {{ $logo := resources.Get "images/logo1000.webp" }}
           {{ $logoSrc := "images/logo1000.webp" | relURL }}
           {{ if $logo }}
             {{ $logoSrc = ($logo.Resize "100x webp q85").RelPermalink }}
           {{ end }}
-          <img src="{{ $logoSrc }}" alt="Logo" width="44" height="44" loading="lazy" decoding="async" class="w-full h-full object-contain filter brightness-0 invert nozoom">
+          <img src="{{ $logoSrc }}" alt="Logo" width="44" height="44" loading="lazy" decoding="async" class="w-full h-full object-contain filter brightness-0 invert nozoom scale-125">
         </div>
         <span class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white">
           FIECARE VOCE
