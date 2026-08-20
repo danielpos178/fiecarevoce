@@ -130,6 +130,9 @@
   {{ $cssScheme := resources.Get (printf "css/schemes/%s.css" (lower $schemeName)) | default (resources.Get "css/schemes/blowfish.css") }}
   {{ $cssResources = $cssResources | append $cssScheme }}
   {{ $cssResources = $cssResources | append (resources.Get "css/compiled/main.css") }}
+  {{ with resources.Get "css/fonts.css" }}
+    {{ $cssResources = $cssResources | append . }}
+  {{ end }}
   {{ with resources.Get "css/custom.css" }}
     {{ $cssResources = $cssResources | append . }}
   {{ end }}
@@ -143,30 +146,28 @@
     href="{{ $bundleCSS.RelPermalink }}"
     integrity="{{ $bundleCSS.Data.Integrity }}">
 
-  {{/* JS loaded immediately */}}
-  {{ $jsAppearance := resources.Get "js/appearance.js" | resources.ExecuteAsTemplate "js/appearance.js" . | resources.Minify | resources.Fingerprint $alg }}
-  <script
-    type="text/javascript"
-    src="{{ $jsAppearance.RelPermalink }}"
-    integrity="{{ $jsAppearance.Data.Integrity }}"></script>
+  {{/* JS loaded immediately (inlined to eliminate render-blocking request & FOUC) */}}
+  {{ $jsAppearance := resources.Get "js/appearance.js" | resources.ExecuteAsTemplate "js/appearance.js" . | resources.Minify }}
+  <script type="text/javascript">{{ $jsAppearance.Content | safeJS }}</script>
   {{ partial "language-redirect.html" . }}
   {{ $enableA11y := .Site.Params.enableA11y | default false }}
   {{ if $enableA11y }}
     {{ $jsA11y := resources.Get "js/a11y.js" | resources.Minify | resources.Fingerprint $alg }}
-    <script src="{{ $jsA11y.RelPermalink }}" integrity="{{ $jsA11y.Data.Integrity }}"></script>
+    <script defer src="{{ $jsA11y.RelPermalink }}" integrity="{{ $jsA11y.Data.Integrity }}"></script>
   {{ end }}
   {{ $showZenMode := .Params.showZenMode | default (.Site.Params.article.showZenMode | default false) }}
   {{ $shouldIncludeZenMode := or $enableA11y $showZenMode }}
   {{ if and .IsPage $shouldIncludeZenMode }}
     {{ $jsZenMode := resources.Get "js/zen-mode.js" | resources.Minify | resources.Fingerprint $alg }}
     <script
+      defer
       type="text/javascript"
       src="{{ $jsZenMode.RelPermalink }}"
       integrity="{{ $jsZenMode.Data.Integrity }}"></script>
   {{ end }}
   {{ if not .Site.Params.disableImageZoom | default true }}
     {{ $zoomJS := resources.Get "lib/zoom/zoom.min.umd.js" | resources.Fingerprint $alg }}
-    <script src="{{ $zoomJS.RelPermalink }}" integrity="{{ $zoomJS.Data.Integrity }}"></script>
+    <script defer src="{{ $zoomJS.RelPermalink }}" integrity="{{ $zoomJS.Data.Integrity }}"></script>
   {{ end }}
 
   {{/* JS deferred */}}

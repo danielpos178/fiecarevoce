@@ -3,8 +3,13 @@
     
     <!-- Brand Logo & Title -->
     <a href="{{ "" | relLangURL }}" class="flex items-center gap-3.5 group">
-      <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-green border-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-center sticker-shadow shrink-0 transition-transform group-hover:-rotate-3 p-1.5">
-        <img src="{{ "images/logo1000.webp" | relURL }}" alt="Fiecare Voce Logo" class="w-full h-full object-contain filter brightness-0 invert nozoom">
+      <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-green border-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-center sticker-shadow shrink-0 transition-transform group-hover:-rotate-3 p-0 overflow-hidden">
+        {{ $logo := resources.Get "images/logo1000.webp" }}
+        {{ $logoSrc := "images/logo1000.webp" | relURL }}
+        {{ if $logo }}
+          {{ $logoSrc = ($logo.Resize "120x webp q85").RelPermalink }}
+        {{ end }}
+        <img src="{{ $logoSrc }}" alt="Fiecare Voce Logo" width="48" height="48" loading="eager" fetchpriority="high" decoding="async" class="w-full h-full object-contain filter brightness-0 invert nozoom scale-125">
       </div>
       <div class="flex flex-col">
         <span class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-900 dark:text-white leading-none">

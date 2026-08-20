@@ -9,9 +9,8 @@
 {{ with .Get "folder" }}
   {{ $folderPath := strings.TrimPrefix "/" . }}
   {{ $staticPath := printf "static/%s" $folderPath }}
-  {{ if fileExists $staticPath }}
-    {{ $files := readDir $staticPath }}
-    {{ range $files }}
+  {{ with readDir $staticPath }}
+    {{ range . }}
       {{ if not .IsDir }}
         {{ $ext := lower (path.Ext .Name) }}
         {{ if in (slice ".jpg" ".jpeg" ".png" ".webp" ".gif" ".avif") $ext }}

@@ -1,0 +1,62 @@
+{{ $dummy := .Inner }}
+{{ $url := .Get "url" | default (.Get "file") | default (.Get 0) }}
+{{ $title := .Get "title" | default "Document Oficial de Descărcat" }}
+{{ $description := .Get "description" | default "Apasă pe butonul de mai jos pentru a descărca fișierul pe dispozitivul tău." }}
+{{ $size := .Get "size" | default "" }}
+{{ $format := .Get "format" | default "PDF" }}
+
+<div class="not-prose my-8 w-full font-zine-body select-none">
+  <div class="border-2 border-neutral-900 dark:border-neutral-100 p-5 sm:p-6 bg-white dark:bg-neutral-900 sticker-shadow flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+    
+    <!-- Left Icon & File Information -->
+    <div class="flex items-start gap-4 flex-grow">
+      
+      <!-- Document File Sticker Icon -->
+      <div class="w-12 h-12 bg-brand-green border-2 border-neutral-900 text-white flex items-center justify-center sticker-shadow shrink-0 mt-0.5">
+        <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      </div>
+
+      <!-- Details -->
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-1">
+          <span class="font-label text-[11px] font-black uppercase px-2.5 py-0.5 sticker-shadow" style="background-color: #ffbd59 !important; color: #18181b !important; border: 2px solid #18181b !important;">
+            {{ $format }}
+          </span>
+          {{ with $size }}
+          <span class="font-mono text-xs font-bold text-neutral-600 dark:text-neutral-300">
+            {{ . }}
+          </span>
+          {{ end }}
+        </div>
+
+        <h4 class="font-display font-black text-lg sm:text-xl uppercase text-neutral-900 dark:text-white leading-tight">
+          {{ $title }}
+        </h4>
+
+        {{ with $description }}
+        <p class="font-zine-body text-xs sm:text-sm text-neutral-700 dark:text-neutral-200 mt-1 max-w-xl leading-relaxed">
+          {{ . }}
+        </p>
+        {{ end }}
+      </div>
+
+    </div>
+
+    <!-- Download Button (High Contrast Neo-Brutalist Sticker Button) -->
+    {{ if $url }}
+    <a 
+      href="{{ $url | relURL }}" 
+      download 
+      class="font-label text-xs uppercase font-black px-5 py-3 sticker-shadow hover:scale-105 transition-all shrink-0 self-stretch sm:self-center flex items-center justify-center gap-2"
+      style="background-color: #ffbd59 !important; color: #18181b !important; border: 2px solid #18181b !important;">
+      <svg class="w-4 h-4 shrink-0 text-slate-900" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+      <span>DESCARCĂ FIȘIERUL</span>
+    </a>
+    {{ end }}
+
+  </div>
+</div>

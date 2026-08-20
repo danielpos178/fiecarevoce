@@ -1,0 +1,57 @@
+{{ $dummy := .Inner }}
+{{ $url := .Get "url" | default (.Get 0) | default "https://www.instagram.com/p/DF3a-vstkK1/" }}
+{{ $id := .Get "id" }}
+{{ $caption := .Get "caption" }}
+
+{{ if and (not $id) $url }}
+  {{ $matches := findRESubmatch `instagram\.com/(?:p|reel|tv)/([^/?#&]+)` $url }}
+  {{ if gt (len $matches) 0 }}
+    {{ $id = index (index $matches 0) 1 }}
+  {{ end }}
+{{ end }}
+
+<div class="not-prose my-8 w-full max-w-lg mx-auto font-zine-body select-none">
+  <div class="border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 sticker-shadow overflow-hidden">
+    
+    <!-- Instagram Embed Top Header -->
+    <div class="flex items-center justify-between p-3.5 border-b-2 border-neutral-900 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800">
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 bg-brand-green text-white border border-neutral-900 flex items-center justify-center sticker-shadow shrink-0">
+          {{ partial "icon.html" (dict "name" "instagram" "class" "w-4 h-4") }}
+        </div>
+        <span class="font-label text-xs uppercase font-black tracking-wider text-neutral-900 dark:text-white">
+          POSTARE INSTAGRAM
+        </span>
+      </div>
+
+      <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="font-label text-xs uppercase font-black px-3 py-1 sticker-shadow hover:scale-105 transition-transform inline-flex items-center gap-1.5" style="background-color: #ffbd59 !important; color: #18181b !important; border: 2px solid #18181b !important;">
+        <span>VEZI PE INSTAGRAM</span>
+        {{ partial "icon.html" (dict "name" "open_in_new" "class" "w-3.5 h-3.5 text-slate-900") }}
+      </a>
+    </div>
+
+    <!-- Official Instagram Embed Container -->
+    <div class="w-full flex justify-center p-2 bg-neutral-50 dark:bg-neutral-950 overflow-hidden min-h-[400px]">
+      <blockquote 
+        class="instagram-media w-full" 
+        data-instgrm-captioned 
+        data-instgrm-permalink="{{ $url }}" 
+        data-instgrm-version="14" 
+        style="background: transparent; border: 0; margin: 0; width: 100%; min-width: 280px; max-width: 540px;">
+        <div class="p-6 text-center">
+          <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="font-label text-xs font-black uppercase text-brand-green dark:text-emerald-400 hover:underline">
+            Se încarcă postarea Instagram...
+          </a>
+        </div>
+      </blockquote>
+      <script async src="//www.instagram.com/embed.js"></script>
+    </div>
+
+    {{ with $caption }}
+    <div class="p-3.5 border-t-2 border-neutral-900 dark:border-neutral-700 font-zine-body text-xs text-neutral-700 dark:text-neutral-200 italic bg-neutral-100 dark:bg-neutral-900">
+      {{ . }}
+    </div>
+    {{ end }}
+
+  </div>
+</div>

@@ -37,7 +37,12 @@
 
         <!-- Hero Graphic Logo Accent (Pure White - Neo-Brutalist Angle) -->
         <div class="hidden lg:flex absolute bottom-2 right-6 w-[340px] lg:w-[450px] max-h-[85%] items-center justify-center pointer-events-none z-10 transform -rotate-6">
-          <img src="{{ "images/logo1000.webp" | relURL }}" alt="Fiecare Voce Logo" class="w-full h-auto object-contain filter brightness-0 invert drop-shadow-[6px_6px_0px_rgba(26,28,25,0.5)]">
+          {{ $heroLogo := resources.Get "images/logo1000.webp" }}
+          {{ $heroLogoSrc := "images/logo1000.webp" | relURL }}
+          {{ if $heroLogo }}
+            {{ $heroLogoSrc = ($heroLogo.Resize "600x webp q85").RelPermalink }}
+          {{ end }}
+          <img src="{{ $heroLogoSrc }}" alt="Fiecare Voce Logo" width="450" height="450" loading="eager" fetchpriority="high" decoding="async" class="w-full h-auto object-contain filter brightness-0 invert drop-shadow-[6px_6px_0px_rgba(26,28,25,0.5)]">
         </div>
       </div>
     </section>
