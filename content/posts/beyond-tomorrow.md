@@ -19,4 +19,4 @@ Pentru prima oară, am oferit acestor elevi șansa de a împărtăși și experi
 
 Evenimentul a avut un real succes, cu peste 100 de persoane în public, și a adunat elevi precum Aida Mitroi și Carina Viespescu, olimpice internaționale la matematică, Teodor Bichir și Bogdan Ciocârlan, la fizică, și mulți alții.
 
-[Poze Beyond (Google Drive)](https://drive.google.com/drive/u/1/folders/1P2Do9CluBzS_43Y7EMp-GLlPrcT_pvL0)
+{{< gallery folder="images/evenimente/beyond-tomorrow" title="Galerie Foto Eveniment — Beyond Tomorrow" caption="Evenimentul organizat la Palatul Culturii din Ploiești pe 31 mai 2025" />}}
