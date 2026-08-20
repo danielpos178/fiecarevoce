@@ -38,6 +38,7 @@ Bursa socială nu trebuie privită ca un privilegiu sau ca o pomană, ci ca o **
 > Deci decizia de a tăia bursa socială din vacanțe ne afectează direct, pentru că pentru mulți dintre noi cheltuielile pentru școală nu iau pauză odată cu aceasta."  
 > — **Lavinia**, elevă de liceu
 
+
 ## Sistemul de acordare al burselor nu mai este în interesul elevilor
 
 Aceasta nu este prima dată când Ministerul Educației adoptă măsuri bugetare cu impact negativ direct asupra elevilor. Din ce în ce mai multe decizii administrative sunt luate fără ca binele superior al elevului să reprezinte criteriul principal.
@@ -55,3 +56,5 @@ Bursele sociale reprezintă o formă minimă de protecție socială. Nevoile ele
 Pentru a construi o școală echitabilă și orientată către viitor, trebuie să investim în elevi, nu să îi transformăm în amortizor pentru problemele financiare ale statului. Educația nu intra în vacanță, iar nevoile elevilor cu atât mai puțin.
 
 ---
+
+{{< instagram-embed url="https://www.instagram.com/p/DcRKzLhjF0k" caption="Urmărește postarea și reacțiile comunității Fiecare Voce pe Instagram!" />}}
