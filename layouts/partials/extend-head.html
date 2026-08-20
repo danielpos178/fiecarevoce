@@ -1,29 +1,13 @@
-{{/* DNS prefetch for 3rd-party origins */}}
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
-<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+{{/* Preload primary body and display fonts for instant zero-latency rendering */}}
+<link rel="preload" href="{{ "fonts/plus-jakarta-sans-400-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/plus-jakarta-sans-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 
-{{/* Preconnect to Google Fonts for faster connection */}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+{{/* Preload optimized logo image with high priority */}}
+{{ $logo := resources.Get "images/logo1000.webp" }}
+{{ $logoSrc := "images/logo1000.webp" | relURL }}
+{{ if $logo }}
+  {{ $logoSrc = ($logo.Resize "600x webp q85").RelPermalink }}
+{{ end }}
+<link rel="preload" href="{{ $logoSrc }}" as="image" fetchpriority="high">
 
-{{/* Preload the logo image with high priority (LCP element) */}}
-<link rel="preload" href="{{ "images/logo1000.webp" | relURL }}" as="image" fetchpriority="high">
-
-{{/*
-  Non-blocking font loading strategy using media="print" trick:
-  - The browser loads print stylesheets without blocking rendering.
-  - onload switches media to "all", applying styles once loaded.
-  - This prevents render-blocking CSS.
-*/}}
-
-{{/* Text fonts - non-blocking load */}}
-<link
-  rel="stylesheet"
-  media="print"
-  onload="this.media='all'"
-  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap&subset=latin,latin-ext">
-
-{{/* Fallback for no-JS environments */}}
-<noscript>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap&subset=latin,latin-ext">
-</noscript>
