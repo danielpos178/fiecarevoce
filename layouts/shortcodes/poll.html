@@ -1,0 +1,205 @@
+{{ $dummy := .Inner }}
+{{ $pollId := .Get "id" | default (delimit (slice "poll" (partial "functions/uid.html" . | default (now.UnixNano))) "-") }}
+{{ $question := .Get "question" | default "Sondaj de Opinie" }}
+{{ $optionsRaw := .Get "options" | default "Da | Nu | Nu știu / Abținere" }}
+{{ $votesRaw := .Get "votes" | default "145 | 98 | 210 | 76" }}
+
+{{ $optionsList := split $optionsRaw "|" }}
+{{ $votesList := split $votesRaw "|" }}
+
+<div class="not-prose my-8 w-full font-zine-body select-none" id="{{ $pollId }}">
+  <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 sm:p-8 bg-white dark:bg-neutral-900 sticker-shadow relative">
+    
+    <!-- Top Header Badge -->
+    <div class="flex items-center justify-between border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 mb-5">
+      <div class="flex items-center gap-2">
+        <span class="font-label text-xs font-black uppercase px-3 py-1 sticker-shadow" style="background-color: #ffbd59 !important; color: #18181b !important; border: 2px solid #18181b !important;">
+          SONDAJ DE OPINIE
+        </span>
+        <span class="font-label text-xs uppercase font-bold text-brand-green dark:text-emerald-400">
+          FIECARE VOCE
+        </span>
+      </div>
+
+      <span id="{{ $pollId }}-total-votes" class="font-mono text-xs font-bold text-neutral-800 dark:text-neutral-200">
+        -- VOTURI
+      </span>
+    </div>
+
+    <!-- Question Title -->
+    <h3 class="font-display font-black text-xl sm:text-2xl uppercase text-neutral-900 dark:text-white leading-tight mb-6">
+      {{ $question }}
+    </h3>
+
+    <!-- Options Container -->
+    <form id="{{ $pollId }}-form" onsubmit="submitPollVote(event, '{{ $pollId }}')" class="flex flex-col gap-3">
+      {{ range $idx, $opt := $optionsList }}
+      {{ $optClean := trim $opt " \n\r\t" }}
+      {{ $initialVote := 20 }}
+      {{ if lt $idx (len $votesList) }}
+        {{ $initialVote = int (trim (index $votesList $idx) " \n\r\t") }}
+      {{ end }}
+      
+      <label data-index="{{ $idx }}" data-initial-votes="{{ $initialVote }}" class="poll-option-card border-2 border-neutral-900 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-800 p-4 flex items-center justify-between cursor-pointer hover:border-brand-green transition-all relative overflow-hidden group">
+        
+        <div class="flex items-center gap-3 relative z-10 w-full pr-16">
+          <input type="radio" name="{{ $pollId }}-input" value="{{ $idx }}" class="accent-brand-green w-4 h-4 shrink-0 cursor-pointer" required>
+          <span class="font-zine-body text-base font-bold text-neutral-900 dark:text-white">
+            {{ $optClean }}
+          </span>
+        </div>
+
+        <!-- Animated Percentage Fill Bar -->
+        <div class="poll-fill-bar absolute top-0 left-0 bottom-0 bg-brand-green/30 dark:bg-emerald-500/30 transition-all duration-700 w-0 z-0"></div>
+
+        <!-- Percentage Label (High Contrast Black on Yellow Badge) -->
+        <span class="poll-percentage-badge hidden font-mono text-xs font-black px-2.5 py-1 z-10 shrink-0 sticker-shadow" style="background-color: #ffbd59 !important; color: #18181b !important; border: 2px solid #18181b !important;">
+          0%
+        </span>
+      </label>
+      {{ end }}
+
+      <!-- Form Actions -->
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <button type="submit" id="{{ $pollId }}-submit-btn" class="bg-brand-green hover:bg-emerald-600 text-white font-label text-xs uppercase font-black px-6 py-3 border-2 border-neutral-900 sticker-shadow hover:-translate-y-0.5 transition-all cursor-pointer inline-flex items-center gap-2">
+          <span>VOTEAZĂ ACUM</span>
+          {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
+        </button>
+
+        <div id="{{ $pollId }}-voted-actions" class="hidden flex items-center gap-3">
+          <span class="font-label text-xs uppercase font-black text-brand-green dark:text-emerald-400">
+            ✓ VOTUL TĂU A FOST ÎNREGISTRAT
+          </span>
+          <button type="button" onclick="resetPollVote('{{ $pollId }}')" class="font-label text-[11px] uppercase font-bold text-neutral-600 dark:text-neutral-300 underline hover:text-brand-green dark:hover:text-emerald-400 cursor-pointer">
+            Schimbă votul
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <script>
+    (function() {
+      const pollId = "{{ $pollId }}";
+      
+      // Default initial votes from Hugo frontmatter parameters
+      const defaultVotes = [
+        {{ range $idx, $opt := $optionsList }}
+        {{ $v := 20 }}
+        {{ if lt $idx (len $votesList) }}{{ $v = int (trim (index $votesList $idx) " \n\r\t") }}{{ end }}
+        {{ $v }},
+        {{ end }}
+      ];
+
+      function getPollState(id) {
+        const stored = localStorage.getItem('poll_state_' + id);
+        if (stored) {
+          try { return JSON.parse(stored); } catch(e) {}
+        }
+        return { votes: [...defaultVotes], userVote: null };
+      }
+
+      function savePollState(id, state) {
+        localStorage.setItem('poll_state_' + id, JSON.stringify(state));
+      }
+
+      window.submitPollVote = function(event, id) {
+        event.preventDefault();
+        if (id !== pollId) return;
+
+        const form = document.getElementById(pollId + '-form');
+        const selected = form.querySelector('input[name="' + pollId + '-input"]:checked');
+        if (!selected) return;
+
+        const selectedIndex = parseInt(selected.value);
+        const state = getPollState(pollId);
+
+        // Remove previous vote if exists
+        if (state.userVote !== null && state.userVote !== selectedIndex) {
+          state.votes[state.userVote] = Math.max(0, state.votes[state.userVote] - 1);
+        }
+
+        // Add new vote if not voted on same option
+        if (state.userVote !== selectedIndex) {
+          state.votes[selectedIndex] += 1;
+          state.userVote = selectedIndex;
+        }
+
+        savePollState(pollId, state);
+        renderPollUI(pollId, state);
+      };
+
+      window.resetPollVote = function(id) {
+        if (id !== pollId) return;
+        const state = getPollState(pollId);
+        if (state.userVote !== null) {
+          state.votes[state.userVote] = Math.max(0, state.votes[state.userVote] - 1);
+          state.userVote = null;
+          savePollState(pollId, state);
+        }
+        renderPollUI(pollId, state);
+      };
+
+      function renderPollUI(id, state) {
+        const form = document.getElementById(id + '-form');
+        const submitBtn = document.getElementById(id + '-submit-btn');
+        const votedActions = document.getElementById(id + '-voted-actions');
+        const totalVotesEl = document.getElementById(id + '-total-votes');
+        if (!form) return;
+
+        const optionCards = form.querySelectorAll('.poll-option-card');
+        const totalVotes = state.votes.reduce((a, b) => a + b, 0);
+
+        if (totalVotesEl) {
+          totalVotesEl.textContent = totalVotes + ' VOTURI';
+        }
+
+        const hasVoted = state.userVote !== null;
+
+        optionCards.forEach((card, idx) => {
+          const count = state.votes[idx] || 0;
+          const pct = totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
+
+          const fillBar = card.querySelector('.poll-fill-bar');
+          const pctBadge = card.querySelector('.poll-percentage-badge');
+          const radio = card.querySelector('input[type="radio"]');
+
+          if (radio) {
+            radio.checked = (state.userVote === idx);
+          }
+
+          if (hasVoted) {
+            if (fillBar) fillBar.style.width = pct + '%';
+            if (pctBadge) {
+              pctBadge.textContent = pct + '% (' + count + ')';
+              pctBadge.classList.remove('hidden');
+            }
+            if (state.userVote === idx) {
+              card.classList.add('border-brand-green', 'dark:border-emerald-400');
+            } else {
+              card.classList.remove('border-brand-green', 'dark:border-emerald-400');
+            }
+          } else {
+            if (fillBar) fillBar.style.width = '0%';
+            if (pctBadge) pctBadge.classList.add('hidden');
+            card.classList.remove('border-brand-green', 'dark:border-emerald-400');
+          }
+        });
+
+        if (hasVoted) {
+          if (submitBtn) submitBtn.classList.add('hidden');
+          if (votedActions) votedActions.classList.remove('hidden');
+        } else {
+          if (submitBtn) submitBtn.classList.remove('hidden');
+          if (votedActions) votedActions.classList.add('hidden');
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const state = getPollState(pollId);
+        renderPollUI(pollId, state);
+      });
+    })();
+  </script>
+</div>

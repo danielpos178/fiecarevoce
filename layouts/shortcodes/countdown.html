@@ -1,0 +1,109 @@
+{{ $dummy := .Inner }}
+{{ $countdownId := delimit (slice "countdown" (partial "functions/uid.html" . | default (now.UnixNano))) "-" }}
+{{ $targetDate := .Get "date" | default (.Get 0) | default "2026-12-31T23:59:59" }}
+{{ $title := .Get "title" | default "Numărătoare Inversă Eveniment" }}
+{{ $expiredMsg := .Get "expired_message" | default "EVENIMENTUL A ÎNCEPUT!" }}
+
+<div class="not-prose my-8 w-full font-zine-body select-none" id="{{ $countdownId }}">
+  <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 sm:p-8 bg-white dark:bg-neutral-900 sticker-shadow relative overflow-hidden text-center">
+    
+    <!-- Top Header Badge (Maximum Contrast Black-on-Yellow Sticker) -->
+    <div class="inline-flex items-center gap-2 font-label text-xs font-black uppercase px-3.5 py-1 sticker-shadow mb-4" style="background-color: #ffbd59 !important; color: #18181b !important; border: 2px solid #18181b !important;">
+      <span>NUMĂRĂTOARE INVERSĂ</span>
+    </div>
+
+    <!-- Title -->
+    <h3 class="font-display font-black text-2xl sm:text-3xl uppercase text-neutral-900 dark:text-white leading-tight mb-6">
+      {{ $title }}
+    </h3>
+
+    <!-- Active Timer Grid -->
+    <div id="{{ $countdownId }}-timer" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto mb-2">
+      
+      <!-- Days Card -->
+      <div class="flex flex-col items-center p-3 sm:p-4 bg-neutral-900 dark:bg-black border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow">
+        <span id="{{ $countdownId }}-days" class="font-display font-black text-3xl sm:text-5xl leading-none mb-1" style="color: #ffbd59 !important;">
+          00
+        </span>
+        <span class="font-label text-[11px] font-black uppercase tracking-wider text-neutral-300">
+          ZILE
+        </span>
+      </div>
+
+      <!-- Hours Card -->
+      <div class="flex flex-col items-center p-3 sm:p-4 bg-neutral-900 dark:bg-black border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow">
+        <span id="{{ $countdownId }}-hours" class="font-display font-black text-3xl sm:text-5xl leading-none mb-1" style="color: #ffbd59 !important;">
+          00
+        </span>
+        <span class="font-label text-[11px] font-black uppercase tracking-wider text-neutral-300">
+          ORE
+        </span>
+      </div>
+
+      <!-- Minutes Card -->
+      <div class="flex flex-col items-center p-3 sm:p-4 bg-neutral-900 dark:bg-black border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow">
+        <span id="{{ $countdownId }}-minutes" class="font-display font-black text-3xl sm:text-5xl leading-none mb-1" style="color: #ffbd59 !important;">
+          00
+        </span>
+        <span class="font-label text-[11px] font-black uppercase tracking-wider text-neutral-300">
+          MINUTE
+        </span>
+      </div>
+
+      <!-- Seconds Card -->
+      <div class="flex flex-col items-center p-3 sm:p-4 bg-neutral-900 dark:bg-black border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow">
+        <span id="{{ $countdownId }}-seconds" class="font-display font-black text-3xl sm:text-5xl leading-none mb-1" style="color: #5cad4e !important;">
+          00
+        </span>
+        <span class="font-label text-[11px] font-black uppercase tracking-wider text-neutral-300">
+          SECUNDE
+        </span>
+      </div>
+
+    </div>
+
+    <!-- Expired Message Container -->
+    <div id="{{ $countdownId }}-expired" class="hidden p-4 bg-brand-green text-white font-display font-black text-xl uppercase border-2 border-neutral-900 sticker-shadow mt-4">
+      {{ $expiredMsg }}
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      const targetDate = new Date("{{ $targetDate }}").getTime();
+      const countdownId = "{{ $countdownId }}";
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        const daysEl = document.getElementById(countdownId + '-days');
+        const hoursEl = document.getElementById(countdownId + '-hours');
+        const minutesEl = document.getElementById(countdownId + '-minutes');
+        const secondsEl = document.getElementById(countdownId + '-seconds');
+        const timerEl = document.getElementById(countdownId + '-timer');
+        const expiredEl = document.getElementById(countdownId + '-expired');
+
+        if (difference <= 0) {
+          if (timerEl) timerEl.classList.add('hidden');
+          if (expiredEl) expiredEl.classList.remove('hidden');
+          return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        if (daysEl) daysEl.textContent = days < 10 ? '0' + days : days;
+        if (hoursEl) hoursEl.textContent = hours < 10 ? '0' + hours : hours;
+        if (minutesEl) minutesEl.textContent = minutes < 10 ? '0' + minutes : minutes;
+        if (secondsEl) secondsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
+  </script>
+</div>
