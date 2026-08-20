@@ -55,7 +55,3 @@ Bursele sociale reprezintă o formă minimă de protecție socială. Nevoile ele
 Pentru a construi o școală echitabilă și orientată către viitor, trebuie să investim în elevi, nu să îi transformăm în amortizor pentru problemele financiare ale statului. Educația nu intra în vacanță, iar nevoile elevilor cu atât mai puțin.
 
 ---
-
-**Articol realizat de:**  
-✍️ **Alexandra Stanciu**, redactor & 🎨 **Eliza Geotti**, grafician  
-*Redacția [Fiecare Voce](https://fiecarevoce.com/)*
