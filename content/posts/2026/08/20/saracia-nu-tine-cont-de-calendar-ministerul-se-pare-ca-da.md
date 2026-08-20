@@ -11,7 +11,7 @@ categories: ["Educație", "Analize"]
 tags: ["bursa sociala", "bursa sociala vacanta", "Ministerul Educatiei", "burse elevi", "drepturile elevilor", "vacanta scolara", "HG 732/2025", "analiza educatie", "marturie elev", "egalitate de sanse"]
 keywords: ["bursa sociala", "bursa sociala vacanta 2026", "Ministerul Educatiei", "proiect HG burse", "HG 732/2025", "taiere burse sociale", "drepturile elevilor", "analiza educatie", "marturie elev", "egalitate de sanse", "Fiecare Voce"]
 image: "/images/posts/bursa_sociala_cover.jpg"
-image_position: "center 40%"
+image_position: "50% 50%"
 image_fit: "cover"
 photo_credit: "Eliza Geotti"
 featured: true

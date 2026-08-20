@@ -101,8 +101,8 @@
         </div>
       </div>
 
-      <!-- Hero Image Container with Neo-Brutalist Frame & Sticker Badge -->
-      <div class="w-full h-[35vh] sm:h-[45vh] md:h-[55vh] min-h-[300px] max-h-[550px] border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow relative mt-4 overflow-hidden bg-neutral-100 dark:bg-[#121212]">
+      <!-- Hero Image Container with Neo-Brutalist Frame & Sticker Badge (Strict 16:9 Aspect Ratio) -->
+      <div class="w-full aspect-video border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow relative mt-4 overflow-hidden bg-neutral-100 dark:bg-[#121212]">
         {{ if .Params.image }}
           {{ $imgPos := .Params.image_position | default .Params.object_position | default .Params.image_focus | default .Params.image_offset | default "50% 50%" }}
           {{ $imgFit := "object-cover" }}
