@@ -17,10 +17,10 @@
 
       <!-- Instant Live Search Bar -->
       <div class="relative w-full max-w-3xl mt-4">
-        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-brand-green dark:text-emerald-400 text-2xl pointer-events-none">search</span>
+        {{ partial "icon.html" (dict "name" "search" "class" "w-6 h-6 absolute left-4 top-1/2 -translate-y-1/2 text-brand-green dark:text-emerald-400 pointer-events-none") }}
         <input type="text" id="live-post-search" placeholder="Caută instant după titlu, autor, tag-uri, categorie sau conținut..." class="w-full pl-12 pr-12 py-3.5 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white font-zine-body text-base sticker-shadow focus:outline-none focus:border-brand-green transition-all" autocomplete="off">
         <button id="clear-live-search" class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer" title="Șterge căutarea">
-          <span class="material-symbols-outlined text-xl">close</span>
+          {{ partial "icon.html" (dict "name" "close" "class" "w-5 h-5") }}
         </button>
       </div>
 
@@ -39,7 +39,7 @@
 
         <!-- Sort Order Selector -->
         <div class="flex items-center gap-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 px-3.5 py-2 sticker-shadow shrink-0 self-start sm:self-auto">
-          <span class="material-symbols-outlined text-brand-green dark:text-emerald-400 text-lg">swap_vert</span>
+          {{ partial "icon.html" (dict "name" "swap_vert" "class" "w-5 h-5 text-brand-green dark:text-emerald-400") }}
           <span class="font-label text-xs font-bold uppercase text-neutral-500 dark:text-neutral-400 hidden sm:inline">SORTARE:</span>
           <select id="sort-order-select" class="bg-transparent font-label text-xs font-bold uppercase text-neutral-900 dark:text-white focus:outline-none cursor-pointer">
             <option value="desc" class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">Noi → Vechi</option>
@@ -137,15 +137,14 @@
                 </h2>
                 <p class="font-zine-body text-base sm:text-lg text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
                   {{ .Summary }}
-                </p>
-                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                  <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
                   <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
-                    <span class="material-symbols-outlined text-base text-brand-green">edit</span>
+                    {{ partial "icon.html" (dict "name" "edit" "class" "w-4 h-4 text-brand-green") }}
                     <span>Scris de {{ $author }}</span>
                   </a>
                   <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Citește</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
                   </a>
                 </div>
               </div>
@@ -186,12 +185,12 @@
                 </p>
                 <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
                   <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
-                    <span class="material-symbols-outlined text-base text-brand-green">person</span>
+                    {{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}
                     <span>{{ $author }}</span>
                   </a>
                   <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Citește</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
                   </a>
                 </div>
               </div>
@@ -216,7 +215,7 @@
                 {{ else }}
                   <div class="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-center">
                     <div class="w-12 h-12 bg-brand-green text-brand-gold border-2 border-brand-gold flex items-center justify-center sticker-shadow mb-2">
-                      <span class="material-symbols-outlined text-2xl">auto_stories</span>
+                      {{ partial "icon.html" (dict "name" "auto_stories" "class" "w-6 h-6") }}
                     </div>
                     <span class="font-display font-bold text-lg text-white uppercase">Fiecare Voce</span>
                   </div>
@@ -238,12 +237,12 @@
 
                 <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-700 font-label text-xs uppercase font-bold text-neutral-300">
                   <a href="{{ $authorURL }}" class="flex items-center gap-2 text-neutral-300 hover:text-brand-gold transition-colors">
-                    <span class="material-symbols-outlined text-base text-brand-gold">edit</span>
+                    {{ partial "icon.html" (dict "name" "edit" "class" "w-4 h-4 text-brand-gold") }}
                     <span>{{ $author }}</span>
                   </a>
                   <a href="{{ .RelPermalink }}" class="text-brand-gold font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Citește</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
                   </a>
                 </div>
               </div>
@@ -284,12 +283,12 @@
                 </p>
                 <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
                   <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
-                    <span class="material-symbols-outlined text-base text-brand-green">person</span>
+                    {{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}
                     <span>{{ $author }}</span>
                   </a>
                   <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Citește</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
                   </a>
                 </div>
               </div>
@@ -330,12 +329,12 @@
                 </p>
                 <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
                   <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
-                    <span class="material-symbols-outlined text-base text-brand-green">person</span>
+                    {{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}
                     <span>{{ $author }}</span>
                   </a>
                   <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Citește</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
                   </a>
                 </div>
               </div>
@@ -511,7 +510,7 @@
                     <span>Autor: ${item.author}</span>
                     <a href="${item.permalink}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                       <span>Citește</span>
-                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                      {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
                     </a>
                   </div>
                 </div>

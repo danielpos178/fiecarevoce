@@ -4,7 +4,7 @@
     
     <!-- Back to blog navigation -->
     <a href="{{ "posts/" | relURL }}" class="inline-flex items-center gap-2 font-label text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:text-brand-green dark:hover:text-emerald-400 mb-8 transition-colors group">
-      <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+      {{ partial "icon.html" (dict "name" "arrow_back" "class" "w-4 h-4 group-hover:-translate-x-1 transition-transform") }}
       <span>Înapoi la Blog</span>
     </a>
 
@@ -46,9 +46,7 @@
               {{ .Title }}
             </h3>
           </div>
-          <span class="material-symbols-outlined text-neutral-400 group-hover:text-brand-green dark:group-hover:text-emerald-400 group-hover:translate-x-1 transition-all self-end sm:self-center">
-            arrow_forward
-          </span>
+          {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-5 h-5 text-neutral-400 group-hover:text-brand-green dark:group-hover:text-emerald-400 group-hover:translate-x-1 transition-all self-end sm:self-center") }}
         </a>
         {{ else }}
         <div class="p-8 border-2 border-dashed border-neutral-300 dark:border-neutral-800 text-center font-zine-body text-neutral-500">

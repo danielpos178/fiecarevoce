@@ -15,7 +15,7 @@
     <!-- Top Navigation Bar -->
     <div class="flex flex-wrap items-center justify-between gap-4 mb-8 border-b-2 border-neutral-900 dark:border-neutral-700 pb-4">
       <a href="{{ site.Home.RelPermalink }}" class="inline-flex items-center gap-2 font-label text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:text-brand-green dark:hover:text-emerald-400 transition-colors group">
-        <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+        {{ partial "icon.html" (dict "name" "arrow_back" "class" "w-4 h-4 group-hover:-translate-x-1 transition-transform") }}
         <span>Acasă</span>
       </a>
 
@@ -70,9 +70,9 @@
             <summary class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white mt-1 flex items-center justify-between cursor-pointer select-none">
               <span class="flex items-center gap-2">
                 <span>CUPRINS</span>
-                <span class="material-symbols-outlined text-brand-green text-xl">menu_book</span>
+                {{ partial "icon.html" (dict "name" "menu_book" "class" "w-5 h-5 text-brand-green") }}
               </span>
-              <span class="material-symbols-outlined text-xl transition-transform group-open:rotate-180">expand_more</span>
+              {{ partial "icon.html" (dict "name" "expand_more" "class" "w-5 h-5 transition-transform group-open:rotate-180") }}
             </summary>
             <nav class="flex flex-col gap-2 max-h-[40vh] overflow-y-auto pr-1 bf-scrollbar mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-800 toc-container text-xs font-label font-bold uppercase tracking-wide">
               {{ .TableOfContents }}
@@ -102,7 +102,7 @@
         </div>
         <h3 class="font-display font-black text-2xl uppercase tracking-tight text-neutral-900 dark:text-white mt-2 mb-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-3 flex items-center justify-between">
           <span>CUPRINS</span>
-          <span class="material-symbols-outlined text-brand-green text-2xl">menu_book</span>
+          {{ partial "icon.html" (dict "name" "menu_book" "class" "w-6 h-6 text-brand-green") }}
         </h3>
         <nav class="flex flex-col gap-2 max-h-[45vh] overflow-y-auto pr-1 bf-scrollbar my-4 toc-container text-xs font-label font-bold uppercase tracking-wide">
           {{ .TableOfContents }}
