@@ -2,7 +2,6 @@
 title: "Termeni și Condiții"
 date: 2026-08-21T18:00:00Z
 draft: false
-layout: "simple"
 ---
 
 ## 1. Acceptarea termenilor
