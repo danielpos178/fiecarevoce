@@ -8,8 +8,8 @@ robots = "index, follow"
 siteSubtitle = "Platformă Independentă a Elevilor din România"
 description = "Fiecare Voce este o platformă independentă care susține și publică opiniile elevilor, fără filtre, și aduce în atenție problemele care afectează educația românească."
 keywords = ["Fiecare Voce", "blog elevi", "educatie Romania", "drepturile elevilor", "burse scolare", "ONG tineret", "voluntariat", "lideri comunitari", "advocacy", "jurnalism elevi", "opinii elevi"]
-defaultSocialImage = "images/logo1000.webp"
-images = ["images/logo1000.webp"]
+defaultSocialImage = "images/og-logo.webp"
+images = ["images/og-logo.webp"]
 
 [author]
   name = "Fiecare Voce"
