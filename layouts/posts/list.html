@@ -129,9 +129,7 @@
                   {{ end }}
                   {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" (printf "w-full h-full %s" $imgFit) "style" (printf "object-position: %s;" $imgPos) "loading" "eager") }}
                 {{ else }}
-                  <div class="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-neutral-900 via-emerald-950 to-neutral-900 text-center relative overflow-hidden">
-                    <span class="font-display font-black text-3xl text-white uppercase">Fiecare Voce</span>
-                  </div>
+                  {{ partial "responsive-image.html" (dict "src" "/images/default-cover.webp" "alt" .Title "class" "w-full h-full object-cover nozoom" "loading" "lazy") }}
                 {{ end }}
               </a>
 
