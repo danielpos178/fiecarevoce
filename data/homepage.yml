@@ -59,9 +59,9 @@ ultimele_articole:
   link_url: "/posts/"
   empty_text: "Articolele vor fi publicate în curând."
 
-proiecte:
-  title: "Proiecte din Trecut"
+realizari:
+  title: "Realizări"
   link_text: "Vezi toate"
-  link_url: "/categories/proiecte/"
+  link_url: "/categories/realizari/"
   empty_text: "Articolele vor fi publicate în curând."
 

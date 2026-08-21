@@ -7,7 +7,7 @@ summary: "În iulie 2026, un grup de lucru intern al echipei Fiecare Voce a reda
 description: "Documentul de poziție redactat de Grupul de Lucru Fiecare Voce privind standardele naționale de evaluare și consultarea publică a Ministerului Educației."
 author: "Grupul de Lucru FV"
 authors: ["Grupul de Lucru FV", "Redacția Fiecare Voce"]
-categories: ["Proiecte"]
+categories: ["Realizari"]
 tags: ["standarde evaluare", "grup de lucru", "Ministerul Educatiei", "consultare publica", "Fiecare Voce"]
 keywords: ["standarde nationale evaluare", "punct de vedere fiecare voce", "consultare publica educatie", "Fiecare Voce"]
 image: "/images/default-cover.webp"

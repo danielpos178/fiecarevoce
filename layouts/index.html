@@ -215,22 +215,22 @@
       {{ $allPosts := $featuredPosts | append $normalPosts }}
       {{ $otherPosts := slice }}
       {{ range $allPosts }}
-        {{ $isProiecte := false }}
+        {{ $isRealizari := false }}
         {{ if .Params.categories }}
           {{ range .Params.categories }}
-            {{ if eq (lower .) "proiecte" }}
-              {{ $isProiecte = true }}
+            {{ if eq (lower .) "realizari" }}
+              {{ $isRealizari = true }}
             {{ end }}
           {{ end }}
         {{ end }}
         {{ if .Params.tags }}
           {{ range .Params.tags }}
-            {{ if eq (lower .) "proiecte" }}
-              {{ $isProiecte = true }}
+            {{ if eq (lower .) "realizari" }}
+              {{ $isRealizari = true }}
             {{ end }}
           {{ end }}
         {{ end }}
-        {{ if not $isProiecte }}
+        {{ if not $isRealizari }}
           {{ $otherPosts = $otherPosts | append . }}
         {{ end }}
       {{ end }}
@@ -308,9 +308,9 @@
     </section>
     {{ end }}
 
-    <!-- PROIECTE & RECENT TRANSMISSIONS FEED -->
-    {{ with hugo.Data.homepage.proiecte }}
-    <section id="proiecte" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
+    <!-- REALIZARI & RECENT TRANSMISSIONS FEED -->
+    {{ with hugo.Data.homepage.realizari }}
+    <section id="realizari" class="w-full py-12 md:py-20 border-b-2 border-neutral-900 dark:border-neutral-700">
       
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 mb-10">
         <div>
@@ -318,38 +318,38 @@
             {{ .title }}
           </h2>
         </div>
-        <a href="{{ "categories/proiecte/" | relURL }}" class="font-label text-xs sm:text-sm uppercase font-bold text-brand-green dark:text-emerald-400 hover:underline flex items-center gap-2">
+        <a href="{{ "categories/realizari/" | relURL }}" class="font-label text-xs sm:text-sm uppercase font-bold text-brand-green dark:text-emerald-400 hover:underline flex items-center gap-2">
           <span>{{ .link_text | safeHTML }}</span>
           {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
         </a>
       </div>
 
       {{ $allPosts := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
-      {{ $proiectePosts := slice }}
+      {{ $realizariPosts := slice }}
       {{ range $allPosts }}
         {{ $hasTag := false }}
         {{ if .Params.tags }}
           {{ range .Params.tags }}
-            {{ if eq (lower .) "proiecte" }}
+            {{ if eq (lower .) "realizari" }}
               {{ $hasTag = true }}
             {{ end }}
           {{ end }}
         {{ end }}
         {{ if .Params.categories }}
           {{ range .Params.categories }}
-            {{ if eq (lower .) "proiecte" }}
+            {{ if eq (lower .) "realizari" }}
               {{ $hasTag = true }}
             {{ end }}
           {{ end }}
         {{ end }}
         {{ if $hasTag }}
-          {{ $proiectePosts = $proiectePosts | append . }}
+          {{ $realizariPosts = $realizariPosts | append . }}
         {{ end }}
       {{ end }}
 
-      {{ if gt (len $proiectePosts) 0 }}
+      {{ if gt (len $realizariPosts) 0 }}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {{ range first 3 $proiectePosts }}
+        {{ range first 3 $realizariPosts }}
         
         {{ $category := "ARTICOL" }}
         {{ if .Params.categories }}
