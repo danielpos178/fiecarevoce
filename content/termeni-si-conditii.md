@@ -1,6 +1,9 @@
 ---
 title: "Termeni și Condiții"
-date: 2026-08-20T00:00:00Z
+date: 2026-08-20
+lastmod: 2026-08-21
+description: "Termenii și condițiile de utilizare a platformei Fiecare Voce, drepturi de autor, reguli comunitare și politici editoriale."
+keywords: ["termeni si conditii", "politica editoriala", "drepturi autor", "Fiecare Voce"]
 draft: false
 ---
 
