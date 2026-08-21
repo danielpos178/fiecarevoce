@@ -45,7 +45,7 @@ Datele colectate vor fi centralizate, analizate și utilizate în cadrul unui ma
 ## Cum poți completa chestionarul?
 
 Dacă ești elev și dorești să îți exprimi părerea sau să împărtășești experiența ta legată de stresul școlar, poți accesa formularul direct mai jos:
-{{< embed-link url="forms.gle/TxCAEBWLpjzmUVZq7" title="Chestionar Anonim: Stresul Școlar & Presiunea Academică în România" description="Formular anonim dedicat elevilor. Completarea durează 5–7 minute." site="GOOGLE FORMS" image="/images/posts/stres_scolar_cover.jpg" />}}
+{{< embed-link url="https://forms.gle/TxCAEBWLpjzmUVZq7" title="Chestionar Anonim: Stresul Școlar & Presiunea Academică în România" description="Formular anonim dedicat elevilor. Completarea durează 5–7 minute." site="GOOGLE FORMS" image="/images/posts/2026/08/19/stres_scolar_cover.webp" />}}
 
 
 Fiecare răspuns este valoros și contribuie la o mai bună înțelegere a provocărilor cu care se confruntă elevii români, ajutându-ne să aducem în atenția publică și a decidenților problemele din educație.

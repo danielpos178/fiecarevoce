@@ -1,9 +1,27 @@
 {{ $dummy := .Inner }}
 {{ $url := .Get "url" | default (.Get 0) }}
+{{ if and $url (not (hasPrefix $url "http://")) (not (hasPrefix $url "https://")) (not (hasPrefix $url "/")) }}
+  {{ $url = printf "https://%s" $url }}
+{{ end }}
+
 {{ $title := .Get "title" | default "Resursă Externă Recomandată" }}
 {{ $description := .Get "description" | default "Apasă pe acest card pentru a accesa resursa completă pe site-ul partener." }}
 {{ $site := .Get "site" | default "RESURSĂ EXTERNĂ" }}
 {{ $image := .Get "image" }}
+
+{{ if $image }}
+  {{ if hasSuffix $image ".jpg" }}
+    {{ $webpImage := replace $image ".jpg" ".webp" }}
+    {{ if fileExists (printf "static%s" $webpImage) }}
+      {{ $image = $webpImage }}
+    {{ end }}
+  {{ else if hasSuffix $image ".png" }}
+    {{ $webpImage := replace $image ".png" ".webp" }}
+    {{ if fileExists (printf "static%s" $webpImage) }}
+      {{ $image = $webpImage }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 
 <div class="not-prose my-8 w-full font-zine-body select-none">
   <a 
@@ -50,9 +68,10 @@
 
       </div>
 
-      <!-- Thumbnail Preview Image (If Provided) -->
+      <!-- Thumbnail Preview Image (If Provided and File Exists) -->
       {{ with $image }}
-      <div class="sm:w-48 md:w-56 lg:w-64 h-48 sm:h-auto shrink-0 border-t-2 sm:border-t-0 sm:border-l-2 border-neutral-900 dark:border-neutral-700 overflow-hidden relative bg-neutral-900">
+      {{ if fileExists (printf "static%s" .) }}
+      <div class="sm:w-44 md:w-48 lg:w-52 h-44 sm:h-auto shrink-0 border-t-2 sm:border-t-0 sm:border-l-2 border-neutral-900 dark:border-neutral-700 overflow-hidden relative bg-neutral-100 dark:bg-neutral-800">
         <img 
           src="{{ . | relURL }}" 
           alt="{{ $title }}" 
@@ -60,6 +79,7 @@
           decoding="async"
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 !my-0 !border-0 !shadow-none nozoom">
       </div>
+      {{ end }}
       {{ end }}
 
     </div>
