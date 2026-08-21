@@ -591,3 +591,41 @@ html.dark .impact-card-dark .impact-desc,
 .dark .impact-card-dark .impact-desc {
   color: #e4e4e7 !important;
 }
+
+/* ==========================================================================
+   Link Bookmark / Embed Link Shortcode Card Styling & High Contrast Rules
+   ========================================================================== */
+
+.embed-link-card {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+html.dark .embed-link-card,
+.dark .embed-link-card {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #f5f5f5 !important;
+}
+
+html.dark .embed-link-card h4,
+.dark .embed-link-card h4 {
+  color: #ffffff !important;
+}
+
+html.dark .embed-link-card p,
+.dark .embed-link-card p {
+  color: #e4e4e7 !important;
+}
+
+html.dark .embed-link-card .bg-brand-gold,
+.dark .embed-link-card .bg-brand-gold {
+  background-color: #ffbd59 !important;
+  color: #1a1c19 !important;
+  border-color: #18181b !important;
+}
+
+html.dark .embed-link-card .bg-brand-gold *,
+.dark .embed-link-card .bg-brand-gold * {
+  color: #1a1c19 !important;
+}
+
