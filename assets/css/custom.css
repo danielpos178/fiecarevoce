@@ -629,3 +629,37 @@ html.dark .embed-link-card .bg-brand-gold *,
   color: #1a1c19 !important;
 }
 
+.instagram-embed-card {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+html.dark .instagram-embed-card,
+.dark .instagram-embed-card {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #f5f5f5 !important;
+}
+
+html.dark .instagram-embed-card h4,
+.dark .instagram-embed-card h4 {
+  color: #ffffff !important;
+}
+
+html.dark .instagram-embed-card p,
+.dark .instagram-embed-card p {
+  color: #e4e4e7 !important;
+}
+
+html.dark .instagram-embed-card .bg-brand-gold,
+.dark .instagram-embed-card .bg-brand-gold {
+  background-color: #ffbd59 !important;
+  color: #1a1c19 !important;
+  border-color: #18181b !important;
+}
+
+html.dark .instagram-embed-card .bg-brand-gold *,
+.dark .instagram-embed-card .bg-brand-gold * {
+  color: #1a1c19 !important;
+}
+
+
