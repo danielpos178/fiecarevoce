@@ -1,5 +1,5 @@
 construction_banner:
-  enabled: true
+  enabled: false
   text: "Acest site este în construcție. Anumite funcționalități sau pagini ar putea fi indisponibile."
 
 maintenance_mode:

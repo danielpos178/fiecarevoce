@@ -1,7 +1,7 @@
 ---
 title: "Fiecare Voce lansează un chestionar despre stresul școlar: Cum resimt elevii din România presiunea academică?"
-date: 2026-08-20
-lastmod: 2026-08-20
+date: 2026-08-19
+lastmod: 2026-08-19
 draft: false
 summary: "Fiecare Voce a lansat un chestionar național anonim dedicat elevilor din România, prin care își propune să identifice sursele de presiune academică, anxietate și oboseală școlară. Completează chestionarul și contribuie la studiul nostru!"
 description: "Fiecare Voce lansează un chestionar anonim despre stresul școlar în România, pentru a înțelege presiunea academică resimțită de elevi, examenele, temele și sănătatea mintală."
