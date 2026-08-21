@@ -662,10 +662,38 @@ html.dark .instagram-embed-card .bg-brand-gold *,
   color: #1a1c19 !important;
 }
 
-.instagram-gradient-box {
-  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+/* Instagram Embed Preview Box: Green in Light Theme, Yellow in Dark Theme */
+.instagram-preview-box {
+  background-color: #4b923f !important;
   color: #ffffff !important;
 }
+
+.instagram-preview-box .instagram-preview-icon-box {
+  background-color: #18181b !important;
+  border-color: #18181b !important;
+}
+
+.instagram-preview-box .instagram-preview-icon {
+  color: #ffbd59 !important;
+}
+
+html.dark .instagram-preview-box,
+.dark .instagram-preview-box {
+  background-color: #ffbd59 !important;
+  color: #1a1c19 !important;
+}
+
+html.dark .instagram-preview-box .instagram-preview-icon-box,
+.dark .instagram-preview-box .instagram-preview-icon-box {
+  background-color: #18181b !important;
+  border-color: #18181b !important;
+}
+
+html.dark .instagram-preview-box .instagram-preview-icon,
+.dark .instagram-preview-box .instagram-preview-icon {
+  color: #ffbd59 !important;
+}
+
 
 
 
