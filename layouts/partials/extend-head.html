@@ -3,18 +3,11 @@
 <link rel="preload" href="{{ "fonts/plus-jakarta-sans-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 
-{{/* Preload optimized logo image with high priority */}}
-{{ $logo := resources.Get "images/logo1000.webp" }}
-{{ $logoSrc := "images/logo1000.webp" | relURL }}
-{{ if $logo }}
-  {{ $logoSrc = ($logo.Resize "600x webp q85").RelPermalink }}
-{{ end }}
-
-
-
-{{/* Preload key LCP section image */}}
-{{ $lcpImg := resources.Get "images/echipa/echipa-fiecare-voce.jpg" }}
-{{ if $lcpImg }}
-  {{ $lcpSrc := ($lcpImg.Resize "600x webp q82").RelPermalink }}
-  <link rel="preload" href="{{ $lcpSrc }}" as="image" fetchpriority="high">
+{{/* Preload key section image only on homepage */}}
+{{ if .IsHome }}
+  {{ $lcpImg := resources.Get "images/echipa/echipa-fiecare-voce.jpg" }}
+  {{ if $lcpImg }}
+    {{ $lcpSrc := ($lcpImg.Resize "600x webp q82").RelPermalink }}
+    <link rel="preload" href="{{ $lcpSrc }}" as="image" fetchpriority="high">
+  {{ end }}
 {{ end }}

@@ -10,20 +10,34 @@
 
     <!-- Author Header Card -->
     <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 sm:p-8 bg-white dark:bg-neutral-900 sticker-shadow mb-10">
-      <div class="flex items-center gap-4 mb-3">
-        <div class="w-14 h-14 rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-brand-gold font-label font-bold text-2xl flex items-center justify-center shrink-0 sticker-shadow">
-          {{ substr .Title 0 1 }}
-        </div>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-4">
+        {{ if .Params.image }}
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-none border-2 border-neutral-900 dark:border-neutral-100 overflow-hidden sticker-shadow shrink-0">
+            <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="w-full h-full object-cover nozoom">
+          </div>
+        {{ else }}
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-brand-gold font-label font-bold text-3xl flex items-center justify-center shrink-0 sticker-shadow">
+            {{ substr .Title 0 1 }}
+          </div>
+        {{ end }}
         <div>
-          <span class="font-label text-xs uppercase font-bold text-brand-green dark:text-emerald-400 tracking-widest block">PAGINĂ AUTOR</span>
+          <span class="font-label text-xs uppercase font-bold text-brand-green dark:text-emerald-400 tracking-widest block mb-1">
+            {{ .Params.role | default "PAGINĂ AUTOR" }}
+          </span>
           <h1 class="font-display text-2xl sm:text-3xl md:text-4xl font-black uppercase text-neutral-900 dark:text-white leading-tight">
             {{ .Title }}
           </h1>
         </div>
       </div>
-      <p class="font-zine-body text-base text-neutral-600 dark:text-neutral-400 mt-2">
-        Toate articolele publicate de <strong class="text-neutral-900 dark:text-white">{{ .Title }}</strong> pe blogul Fiecare Voce.
-      </p>
+      {{ if .Params.bio }}
+        <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 leading-relaxed border-l-4 border-brand-green pl-4 py-1 mt-2">
+          {{ .Params.bio }}
+        </p>
+      {{ else }}
+        <p class="font-zine-body text-base text-neutral-600 dark:text-neutral-400 mt-2">
+          Toate articolele publicate de <strong class="text-neutral-900 dark:text-white">{{ .Title }}</strong> pe platforma independentă Fiecare Voce.
+        </p>
+      {{ end }}
     </div>
 
     <!-- Plain List of Articles Written by Author -->

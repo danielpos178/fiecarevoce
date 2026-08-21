@@ -54,14 +54,17 @@
     <!-- Middle Row: Navigation Links & Manifesto Statement -->
     <div class="py-8 border-b-2 border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-6">
 
-      <nav class="flex flex-wrap justify-center md:justify-start gap-x-8 gap-y-3 font-label text-xs sm:text-sm uppercase font-bold text-neutral-100">
+      <nav class="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 font-label text-xs sm:text-sm uppercase font-bold text-neutral-100">
         <a href="{{ "despre-noi/" | relURL }}" class="hover:text-brand-gold transition-colors">Despre Noi</a>
-        <a href="{{ site.Home.RelPermalink }}#impact" class="hover:text-brand-gold transition-colors">Impact</a>
         <a href="{{ "posts/" | relURL }}" class="hover:text-brand-gold transition-colors">Articole</a>
+        <a href="{{ "categories/educație/" | relURL }}" class="hover:text-brand-gold transition-colors">Educație</a>
+        <a href="{{ "categories/analize/" | relURL }}" class="hover:text-brand-gold transition-colors">Analize</a>
         <a href="{{ "categories/proiecte/" | relURL }}" class="hover:text-brand-gold transition-colors">Proiecte</a>
+        <a href="{{ "categories/realizari/" | relURL }}" class="hover:text-brand-gold transition-colors">Realizări</a>
+        <a href="{{ "authors/" | relURL }}" class="hover:text-brand-gold transition-colors">Autori</a>
+        <a href="{{ site.Home.RelPermalink }}#impact" class="hover:text-brand-gold transition-colors">Impact</a>
         <a href="{{ site.Home.RelPermalink }}#implica-te" class="hover:text-brand-gold transition-colors">Implică-te</a>
-        <a href="{{ "despre-noi/#structura" | relURL }}" class="hover:text-brand-gold transition-colors">ROF & Regulamente</a>
-        <a href="{{ "termeni-si-conditii/" | relURL }}" class="hover:text-brand-gold transition-colors">Termeni & Condiții</a>
+        <a href="{{ "termeni-si-conditii/" | relURL }}" class="hover:text-brand-gold transition-colors">Termeni &amp; Condiții</a>
       </nav>
 
       <p class="font-zine-body text-xs sm:text-sm text-white/60 max-w-sm text-center md:text-right leading-relaxed italic">
@@ -73,7 +76,7 @@
     <!-- Bottom Row: Copyright & Open Source Repository -->
     <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-label text-xs uppercase font-bold text-white dark:text-white">
       <div>
-        &copy; {{ now.Format "2026" }} FIECARE VOCE. TOATE DREPTURILE REZERVATE.
+        &copy; {{ now.Format "2006" }} FIECARE VOCE. TOATE DREPTURILE REZERVATE.
       </div>
       <div class="flex flex-wrap items-center justify-end gap-2 text-xs">
         <a href="https://github.com/danielpos178" target="_blank" rel="noopener noreferrer" class="bg-neutral-800 text-white border-2 border-neutral-700 hover:border-brand-gold hover:bg-brand-gold hover:text-slate-900 px-3.5 py-1.5 text-[11px] font-black uppercase sticker-shadow hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
