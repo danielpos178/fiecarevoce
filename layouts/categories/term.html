@@ -56,7 +56,7 @@
             {{ $.Title }}
           </div>
 
-          <a href="{{ .RelPermalink }}" class="h-48 sm:h-56 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+          <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
             {{ if .Params.image }}
               {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
               {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" $imgPos) "loading" "lazy") }}
@@ -69,7 +69,7 @@
 
           <div class="p-6 flex flex-col gap-3 flex-grow">
             <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-              {{ .Date.Format "02 Ianuarie 2006" }}
+              {{ partial "format-date.html" . }}
             </span>
             <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
               <a href="{{ .RelPermalink }}">{{ .Title }}</a>

@@ -137,7 +137,7 @@
 
               <div class="p-6 sm:p-8 flex flex-col gap-4 flex-grow">
                 <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-                  {{ .Date.Format "02 Ianuarie 2006" }}
+                  {{ partial "format-date.html" . }}
                 </span>
                 <h2 class="font-display font-black text-2xl sm:text-3xl md:text-4xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-tight">
                   <a href="{{ .RelPermalink }}">{{ .Title }}</a>
@@ -146,8 +146,8 @@
                   {{ .Summary }}
                   <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
                   <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
-                    {{ partial "icon.html" (dict "name" "edit" "class" "w-4 h-4 text-brand-green") }}
-                    <span>Scris de {{ $author }}</span>
+                    {{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}
+                    <span>{{ $author }}</span>
                   </a>
                   <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Citește</span>
@@ -165,7 +165,7 @@
                 {{ $category }}
               </div>
               
-              <a href="{{ .RelPermalink }}" class="h-48 md:h-64 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+              <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
                 {{ if .Params.image }}
                   {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
                   {{ $imgFit := "object-cover nozoom" }}
@@ -182,7 +182,7 @@
 
               <div class="p-6 flex flex-col gap-4 flex-grow">
                 <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-                  {{ .Date.Format "02 Ianuarie 2006" }}
+                  {{ partial "format-date.html" . }}
                 </span>
                 <h2 class="font-display font-black text-xl sm:text-2xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
                   <a href="{{ .RelPermalink }}">{{ .Title }}</a>
@@ -204,14 +204,14 @@
             </article>
             {{ end }}
 
-            {{/* CARD 3: Highlight Dark Card (Index 2 - Spans 4 columns) */}}
+            {{/* CARD 3: Neo-Brutalist Grid Card (Index 2 - Spans 4 columns) */}}
             {{ if eq $index 2 }}
-            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-4 bg-neutral-900 dark:bg-neutral-800 text-white border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-4 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
               <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
                 {{ $category }}
               </div>
 
-              <a href="{{ .RelPermalink }}" class="h-48 sm:h-56 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block shrink-0">
+              <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block shrink-0">
                 {{ if .Params.image }}
                   {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
                   {{ $imgFit := "object-cover nozoom" }}
@@ -229,25 +229,25 @@
                 {{ end }}
               </a>
 
-              <div class="p-6 flex flex-col gap-4 flex-grow bg-neutral-900 dark:bg-[#18181b] text-white">
-                <span class="font-label text-xs font-bold uppercase text-brand-gold">
-                  {{ .Date.Format "02 Ianuarie 2006" }}
+              <div class="p-6 flex flex-col gap-4 flex-grow">
+                <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+                  {{ partial "format-date.html" . }}
                 </span>
 
-                <h2 class="font-display font-black text-xl sm:text-2xl uppercase text-white group-hover:text-brand-gold transition-colors leading-tight">
-                  <a href="{{ .RelPermalink }}" class="text-white hover:text-brand-gold">{{ .Title }}</a>
+                <h2 class="font-display font-black text-xl sm:text-2xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-tight">
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
                 </h2>
 
-                <p class="font-zine-body text-base text-neutral-300 line-clamp-3 leading-relaxed">
+                <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
                   {{ .Summary }}
                 </p>
 
-                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-700 font-label text-xs uppercase font-bold text-neutral-300">
-                  <a href="{{ $authorURL }}" class="flex items-center gap-2 text-neutral-300 hover:text-brand-gold transition-colors">
-                    {{ partial "icon.html" (dict "name" "edit" "class" "w-4 h-4 text-brand-gold") }}
+                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                  <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
+                    {{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}
                     <span>{{ $author }}</span>
                   </a>
-                  <a href="{{ .RelPermalink }}" class="text-brand-gold font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Citește</span>
                     {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
                   </a>
@@ -256,14 +256,14 @@
             </article>
             {{ end }}
 
-            {{/* CARD 4: Horizontal Banner Card (Index 3 - Spans 8 columns) */}}
+            {{/* CARD 4: Neo-Brutalist Grid Card (Index 3 - Spans 8 columns) */}}
             {{ if eq $index 3 }}
-            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-8 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col md:flex-row group hover:-translate-y-1 transition-transform duration-300">
+            <article data-date="{{ .Date.Format "2006-01-02" }}" class="lg:col-span-8 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
               <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] -rotate-1">
                 {{ $category }}
               </div>
 
-              <a href="{{ .RelPermalink }}" class="h-48 md:h-auto md:w-2/5 border-b-2 md:border-b-0 md:border-r-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block shrink-0">
+              <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
                 {{ if .Params.image }}
                   {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
                   {{ $imgFit := "object-cover nozoom" }}
@@ -278,9 +278,9 @@
                 {{ end }}
               </a>
 
-              <div class="p-6 md:p-8 flex flex-col gap-4 flex-grow md:w-3/5">
+              <div class="p-6 md:p-8 flex flex-col gap-4 flex-grow">
                 <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-                  {{ .Date.Format "02 Ianuarie 2006" }}
+                  {{ partial "format-date.html" . }}
                 </span>
                 <h2 class="font-display font-black text-2xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-tight">
                   <a href="{{ .RelPermalink }}">{{ .Title }}</a>
@@ -309,7 +309,7 @@
                 {{ $category }}
               </div>
 
-              <a href="{{ .RelPermalink }}" class="h-48 sm:h-56 w-full border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+              <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
                 {{ if .Params.image }}
                   {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
                   {{ $imgFit := "object-cover nozoom" }}
@@ -326,7 +326,7 @@
 
               <div class="p-6 flex flex-col gap-3 flex-grow">
                 <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-                  {{ .Date.Format "02 Ianuarie 2006" }}
+                  {{ partial "format-date.html" . }}
                 </span>
                 <h2 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
                   <a href="{{ .RelPermalink }}">{{ .Title }}</a>
