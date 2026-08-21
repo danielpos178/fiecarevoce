@@ -322,28 +322,37 @@ html.dark .text-neutral-400, .dark .text-neutral-400 {
    ========================================================================== */
 
 .bg-brand-gold,
-.tape-strip,
-.bg-amber-400,
+.bg-brand-gold *,
+.bg-brand-gold a,
+.bg-brand-gold h3,
+.bg-brand-gold span,
+.bg-brand-gold p,
+.bg-brand-gold div,
 html.dark .bg-brand-gold,
-html.dark .tape-strip,
-html.dark .bg-amber-400,
+html.dark .bg-brand-gold *,
+html.dark .bg-brand-gold a,
+html.dark .bg-brand-gold h3,
+html.dark .bg-brand-gold span,
+html.dark .bg-brand-gold p,
+html.dark .bg-brand-gold div,
 .dark .bg-brand-gold,
-.dark .tape-strip,
-.dark .bg-amber-400 {
+.dark .bg-brand-gold *,
+.dark .bg-brand-gold a,
+.dark .bg-brand-gold h3,
+.dark .bg-brand-gold span,
+.dark .bg-brand-gold p,
+.dark .bg-brand-gold div,
+.tape-strip,
+.tape-strip *,
+html.dark .tape-strip,
+html.dark .tape-strip *,
+.bg-amber-400,
+.bg-amber-400 *,
+html.dark .bg-amber-400,
+html.dark .bg-amber-400 * {
+  color: #1a1c19 !important;
   background-color: #ffbd59 !important;
-  color: #1a1c19 !important;
 }
-
-.bg-brand-gold > span,
-.bg-brand-gold > a:not(.bg-white):not(.bg-brand-green),
-.bg-brand-gold > p,
-.bg-brand-gold > h2,
-.bg-brand-gold > h3,
-.tape-strip span,
-.tape-strip p {
-  color: #1a1c19 !important;
-}
-
 
 /* Single Post Specific Dark Mode Card Overrides */
 html.dark .post-sidebar-col > div, .dark .post-sidebar-col > div {
@@ -652,5 +661,11 @@ html.dark .instagram-embed-card .bg-brand-gold *,
 .dark .instagram-embed-card .bg-brand-gold * {
   color: #1a1c19 !important;
 }
+
+.instagram-gradient-box {
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+  color: #ffffff !important;
+}
+
 
 

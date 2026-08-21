@@ -60,9 +60,9 @@
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 !my-0 !border-0 !shadow-none nozoom">
       </div>
       {{ else }}
-      <div class="sm:w-44 md:w-48 lg:w-52 h-36 sm:h-auto shrink-0 border-t-2 sm:border-t-0 sm:border-l-2 border-neutral-900 dark:border-neutral-700 overflow-hidden relative bg-gradient-to-br from-amber-400 via-rose-500 to-purple-600 flex items-center justify-center p-6 text-white group-hover:scale-105 transition-transform duration-300">
-        <div class="w-14 h-14 rounded-2xl bg-black/30 backdrop-blur-sm border-2 border-white/90 flex items-center justify-center shadow-lg shrink-0">
-          {{ partial "icon.html" (dict "name" "instagram" "class" "w-7 h-7 text-white shrink-0") }}
+      <div class="instagram-gradient-box sm:w-44 md:w-48 lg:w-52 h-36 sm:h-auto shrink-0 border-t-2 sm:border-t-0 sm:border-l-2 border-neutral-900 dark:border-neutral-700 overflow-hidden relative flex items-center justify-center p-6 text-white group-hover:scale-105 transition-transform duration-300">
+        <div class="w-14 h-14 rounded-2xl bg-neutral-900 border-2 border-neutral-900 flex items-center justify-center sticker-shadow shrink-0">
+          {{ partial "icon.html" (dict "name" "instagram" "class" "w-7 h-7 text-brand-gold shrink-0") }}
         </div>
       </div>
       {{ end }}
