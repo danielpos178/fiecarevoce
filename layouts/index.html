@@ -494,9 +494,9 @@
             </a>
 
             {{ if .instagram_url }}
-            <a href="{{ .instagram_url }}" target="_blank" rel="noopener noreferrer" class="bg-white text-slate-900 font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center gap-2 transition-all w-full sm:w-auto">
+            <a href="{{ .instagram_url }}" target="_blank" rel="noopener noreferrer" class="bg-white text-neutral-900 font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center gap-2 transition-all w-full sm:w-auto">
               <span>{{ .instagram_text }}</span>
-              {{ partial "icon.html" (dict "name" "instagram" "class" "w-4 h-4") }}
+              {{ partial "icon.html" (dict "name" "instagram" "class" "w-4 h-4 text-neutral-900") }}
             </a>
             {{ end }}
           </div>

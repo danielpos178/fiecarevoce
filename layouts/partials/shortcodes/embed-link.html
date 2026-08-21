@@ -1,0 +1,68 @@
+{{ $dummy := .Inner }}
+{{ $url := .Get "url" | default (.Get 0) }}
+{{ $title := .Get "title" | default "Resursă Externă Recomandată" }}
+{{ $description := .Get "description" | default "Apasă pe acest card pentru a accesa resursa completă pe site-ul partener." }}
+{{ $site := .Get "site" | default "RESURSĂ EXTERNĂ" }}
+{{ $image := .Get "image" }}
+
+<div class="not-prose my-8 w-full font-zine-body select-none">
+  <a 
+    href="{{ $url }}" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    class="embed-link-card group block bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 sticker-shadow hover:-translate-y-1 hover:border-brand-green dark:hover:border-emerald-400 transition-all duration-200 overflow-hidden">
+    
+    <div class="flex flex-col sm:flex-row items-stretch min-h-[140px]">
+      
+      <!-- Card Content Body -->
+      <div class="p-5 sm:p-6 flex flex-col justify-between gap-3 flex-1 min-w-0">
+        
+        <!-- Top Row: Domain Badge & Action Indicator -->
+        <div class="flex items-center justify-between gap-3">
+          <span class="bg-brand-gold text-neutral-900 border-2 border-neutral-900 font-label text-xs uppercase font-black px-3 py-1 shadow-[2px_2px_0px_0px_#1a1c19] inline-flex items-center gap-1.5 shrink-0">
+            {{ partial "icon.html" (dict "name" "link" "class" "w-3.5 h-3.5 text-neutral-900") }}
+            <span>{{ $site }}</span>
+          </span>
+
+          <span class="font-label text-xs font-black uppercase text-brand-green dark:text-emerald-400 group-hover:underline flex items-center gap-1 shrink-0">
+            <span>DESCHIDE LINK</span>
+            {{ partial "icon.html" (dict "name" "open_in_new" "class" "w-3.5 h-3.5") }}
+          </span>
+        </div>
+
+        <!-- Title -->
+        <h4 class="font-display font-black text-lg sm:text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+          {{ $title }}
+        </h4>
+
+        <!-- Description -->
+        {{ with $description }}
+        <p class="font-zine-body text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed line-clamp-2 sm:line-clamp-3">
+          {{ . }}
+        </p>
+        {{ end }}
+
+        <!-- Footer URL -->
+        <div class="pt-3 border-t border-neutral-200 dark:border-neutral-800 flex items-center gap-2 font-mono text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors">
+          {{ partial "icon.html" (dict "name" "language" "class" "w-3.5 h-3.5 shrink-0 text-brand-green dark:text-emerald-400") }}
+          <span class="truncate">{{ $url }}</span>
+        </div>
+
+      </div>
+
+      <!-- Thumbnail Preview Image (If Provided) -->
+      {{ with $image }}
+      <div class="sm:w-48 md:w-56 lg:w-64 h-48 sm:h-auto shrink-0 border-t-2 sm:border-t-0 sm:border-l-2 border-neutral-900 dark:border-neutral-700 overflow-hidden relative bg-neutral-900">
+        <img 
+          src="{{ . | relURL }}" 
+          alt="{{ $title }}" 
+          loading="lazy" 
+          decoding="async"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 !my-0 !border-0 !shadow-none nozoom">
+      </div>
+      {{ end }}
+
+    </div>
+
+  </a>
+</div>
