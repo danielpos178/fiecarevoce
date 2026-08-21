@@ -10,7 +10,7 @@ authors: ["Luca Georgescu", "Eliza Geotti", "Echipa Fiecare Voce"]
 categories: ["Sănătate mintală", "Educație", "Analize"]
 tags: ["stres scolar", "chestionar", "sanatate mintala", "elevi", "presiune academica", "anxietate scolara", "teme si examene", "educatie romania", "Fiecare Voce"]
 keywords: ["stres scolar", "chestionar stres scolar", "sanatate mintala elevi", "presiune academica romania", "anxietate scolara", "teme examen elevi", "Fiecare Voce", "educatie romania 2026"]
-image: "/images/posts/stres_scolar_cover.webp"
+image: "/images/posts/2026/08/19/stres_scolar_cover.webp"
 image_position: "center 40%"
 image_fit: "cover"
 photo_credit: "Eliza Geotti"
@@ -45,7 +45,7 @@ Datele colectate vor fi centralizate, analizate și utilizate în cadrul unui ma
 ## Cum poți completa chestionarul?
 
 Dacă ești elev și dorești să îți exprimi părerea sau să împărtășești experiența ta legată de stresul școlar, poți accesa formularul direct mai jos:
-{{< embed-link url="https://forms.gle/FahWWJfhXdmQCHKy7" title="Chestionar Anonim: Stresul Școlar & Presiunea Academică în România" description="Formular anonim dedicat elevilor. Completarea durează 5–7 minute." site="GOOGLE FORMS" image="/images/posts/stres_scolar_cover.jpg" />}}
+{{< embed-link url="forms.gle/TxCAEBWLpjzmUVZq7" title="Chestionar Anonim: Stresul Școlar & Presiunea Academică în România" description="Formular anonim dedicat elevilor. Completarea durează 5–7 minute." site="GOOGLE FORMS" image="/images/posts/stres_scolar_cover.jpg" />}}
 
 
 Fiecare răspuns este valoros și contribuie la o mai bună înțelegere a provocărilor cu care se confruntă elevii români, ajutându-ne să aducem în atenția publică și a decidenților problemele din educație.
