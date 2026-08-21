@@ -10,7 +10,7 @@ authors: ["Luca Georgescu", "Eliza Geotti", "Echipa Fiecare Voce"]
 categories: ["Sănătate mintală", "Educație", "Analize"]
 tags: ["stres scolar", "chestionar", "sanatate mintala", "elevi", "presiune academica", "anxietate scolara", "teme si examene", "educatie romania", "Fiecare Voce"]
 keywords: ["stres scolar", "chestionar stres scolar", "sanatate mintala elevi", "presiune academica romania", "anxietate scolara", "teme examen elevi", "Fiecare Voce", "educatie romania 2026"]
-image: "/images/posts/stres_scolar_cover.jpg"
+image: "/images/posts/stres_scolar_cover.webp"
 image_position: "center 40%"
 image_fit: "cover"
 photo_credit: "Eliza Geotti"
