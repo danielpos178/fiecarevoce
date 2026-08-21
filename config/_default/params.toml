@@ -5,16 +5,18 @@ showAppearanceSwitcher = true
 enableSearch = false
 enableCodeCopy = true
 robots = "index, follow"
+siteSubtitle = "Platformă Independentă a Elevilor din România"
 description = "Fiecare Voce este o platformă independentă care susține și publică opiniile elevilor, fără filtre, și aduce în atenție problemele care afectează educația românească."
-keywords = ["ONG", "tineret", "voluntariat", "lideri comunitari", "advocacy", "sustenabilitate", "schimbare sociala"]
-defaultSocialImage = "images/og-logo.webp"
-images = ["images/og-logo.webp"]
+keywords = ["Fiecare Voce", "blog elevi", "educatie Romania", "drepturile elevilor", "burse scolare", "ONG tineret", "voluntariat", "lideri comunitari", "advocacy", "jurnalism elevi", "opinii elevi"]
+defaultSocialImage = "images/logo1000.webp"
+images = ["images/logo1000.webp"]
 
 [author]
   name = "Fiecare Voce"
   email = "fiecarevoce@gmail.com"
   links = [
-    { instagram = "https://www.instagram.com/fiecarevoce" }
+    { instagram = "https://www.instagram.com/fiecarevoce" },
+    { tiktok = "https://www.tiktok.com/@fiecarevoce" }
   ]
 
 [header]
@@ -34,7 +36,8 @@ images = ["images/og-logo.webp"]
   showRecentItems = 3
 
 [seo]
-  metaDescriptionOrder = ["summary", "description", "site"]
+  metaDescriptionOrder = ["description", "summary", "site"]
 
 [sitemap]
   excludedKinds = ["taxonomy", "term"]
+
