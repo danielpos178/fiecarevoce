@@ -36,15 +36,15 @@ jobs:
       - name: Install Pillow
         run: python -m pip install --upgrade Pillow
 
-      - name: Run Image Compression Script
+      - name: Run High Quality Image Compression Script
         run: |
           python3 -c "
           import os
           from PIL import Image, ImageOps
 
           target_dirs = ['static/images', 'assets/images']
-          max_dim = 1600
-          quality = 82
+          max_dim = 2400
+          quality = 95
 
           for d in target_dirs:
               if not os.path.exists(d):
@@ -67,10 +67,10 @@ jobs:
                                   if ext in ['.jpg', '.jpeg']:
                                       if img.mode != 'RGB':
                                           img = img.convert('RGB')
-                                      img.save(fpath, 'JPEG', quality=quality, optimize=True)
+                                      img.save(fpath, 'JPEG', quality=quality, optimize=True, subsampling=0)
                                   elif ext == '.png':
-                                      if img.mode != 'RGBA':
-                                          img = img.convert('RGB')
+                                      if img.mode != 'RGBA' and img.mode != 'RGB':
+                                          img = img.convert('RGBA')
                                       img.save(fpath, 'PNG', optimize=True)
                                   elif ext == '.webp':
                                       img.save(fpath, 'WEBP', quality=quality, method=6)
@@ -85,5 +85,5 @@ jobs:
       - name: Commit & Push Optimized Images
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore(ci): auto-compress and optimize images [skip ci]"
+          commit_message: "chore(ci): auto-compress images with high-quality settings [skip ci]"
           file_pattern: 'static/images/* assets/images/*'
