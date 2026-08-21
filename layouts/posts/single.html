@@ -153,7 +153,7 @@
 
         <!-- Mobile Table of Contents (Visible on Mobile/Tablets < 1024px, Hidden on Desktop) -->
         <div class="block lg:hidden border-2 border-neutral-900 dark:border-neutral-100 p-5 bg-white dark:bg-neutral-900 sticker-shadow relative my-2 z-10">
-          {{ $sidebarData := site.Data.post_sidebar }}
+          {{ $sidebarData := hugo.Data.post_sidebar }}
           <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-0.5 border-2 border-neutral-900 font-label text-xs uppercase font-black -rotate-1 shadow-[2px_2px_0px_0px_#1a1c19]">
             {{ $sidebarData.badge_label | default "Subtitluri Navigare" }}
           </div>
@@ -221,7 +221,7 @@
 
         <!-- Author Card from Markdown Data (Place 2) -->
         <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-brand-gold/10 dark:bg-neutral-900 sticker-shadow">
-          <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400 tracking-wider block mb-2">{{ site.Data.post_sidebar.author_box.title | default "Despre Autor" }}</span>
+          <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400 tracking-wider block mb-2">{{ hugo.Data.post_sidebar.author_box.title | default "Despre Autor" }}</span>
           <div class="flex items-center gap-4 mb-3">
             <a href="{{ $authorURL }}" class="w-12 h-12 rounded-none border-2 border-neutral-900 bg-brand-green text-brand-gold font-label font-bold text-xl flex items-center justify-center shrink-0 sticker-shadow hover:scale-105 transition-transform" title="Vezi pagina autorului">
               {{ substr $authorName 0 1 }}
@@ -233,14 +233,14 @@
             </div>
           </div>
           <p class="font-zine-body text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-            {{ site.Data.post_sidebar.author_box.description | default "Echipa Fiecare Voce aduce în prim-plan poveștile, inițiativele și drepturile elevilor din toată România." }}
+            {{ hugo.Data.post_sidebar.author_box.description | default "Echipa Fiecare Voce aduce în prim-plan poveștile, inițiativele și drepturile elevilor din toată România." }}
           </p>
         </div>
 
         <!-- Recent Posts Widget -->
         <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-white dark:bg-neutral-900 sticker-shadow">
           <h3 class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white mb-4 border-b-2 border-neutral-900 dark:border-neutral-700 pb-2">
-            {{ site.Data.post_sidebar.recent_posts.title | default "ALTE ARTICOLE" }}
+            {{ hugo.Data.post_sidebar.recent_posts.title | default "ALTE ARTICOLE" }}
           </h3>
           <div class="flex flex-col gap-4">
             {{ $current := . }}
@@ -258,7 +258,7 @@
         <!-- Sticky Table of Contents (Desktop Only >= 1024px) -->
         <div class="hidden lg:block sticky top-[22vh] border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-white dark:bg-neutral-900 sticker-shadow relative z-10 transition-all">
 
-          {{ $sidebarData := site.Data.post_sidebar }}
+          {{ $sidebarData := hugo.Data.post_sidebar }}
           <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black -rotate-2 shadow-[2px_2px_0px_0px_#1a1c19]">
             {{ $sidebarData.badge_label | default "Subtitluri Navigare" }}
           </div>
@@ -292,7 +292,7 @@
     <div class="w-full border-t-2 border-neutral-900 dark:border-neutral-100 mt-16 pt-10">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        {{ $navData := site.Data.post_sidebar.navigation }}
+        {{ $navData := hugo.Data.post_sidebar.navigation }}
 
         <!-- Previous Story -->
         {{ with .PrevInSection }}

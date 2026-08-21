@@ -11,15 +11,15 @@
   <body class="bg-neutral-50 text-neutral-900 dark:bg-[#121212] dark:text-neutral-100 min-h-screen flex flex-col font-zine-body transition-colors duration-300 {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
     
     <!-- Top Construction Banner (if enabled in data/status.yml) -->
-    {{ if site.Data.status.construction_banner.enabled }}
+    {{ if hugo.Data.status.construction_banner.enabled }}
       <div class="bg-brand-gold text-slate-900 border-b-2 border-neutral-900 px-4 py-2 font-label text-xs sm:text-sm uppercase font-bold text-center flex items-center justify-center gap-2 sticker-shadow relative z-50">
         {{ partial "icon.html" (dict "name" "construction" "class" "w-4 h-4") }}
-        <span>{{ site.Data.status.construction_banner.text | default "Acest site este în construcție." }}</span>
+        <span>{{ hugo.Data.status.construction_banner.text | default "Acest site este în construcție." }}</span>
       </div>
     {{ end }}
 
     <!-- Maintenance Mode Override (if maintenance_mode.enabled: true in data/status.yml) -->
-    {{ if site.Data.status.maintenance_mode.enabled }}
+    {{ if hugo.Data.status.maintenance_mode.enabled }}
       {{ partial "maintenance-view.html" . }}
     {{ else }}
       <div id="the-top" class="absolute flex self-center">
