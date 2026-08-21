@@ -1,4 +1,4 @@
-{{ $galleryId := delimit (slice "gallery" (partial "functions/uid.html" . | default (now.UnixNano))) "-" }}
+{{ $galleryId := .Get "id" | default (delimit (slice "gallery" (partial "functions/uid.html" . | default (now.UnixNano))) "-") }}
 {{ $title := .Get "title" | default "Galerie Foto" }}
 {{ $caption := .Get "caption" | default "" }}
 

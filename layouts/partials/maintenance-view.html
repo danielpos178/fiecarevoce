@@ -14,11 +14,11 @@
       </div>
 
       <h1 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase text-neutral-900 dark:text-white leading-[1.05] mb-6">
-        {{ site.Data.status.maintenance_mode.title | default "SITE ÎN MENTENANȚĂ" }}
+        {{ hugo.Data.status.maintenance_mode.title | default "SITE ÎN MENTENANȚĂ" }}
       </h1>
 
       <p class="font-zine-body text-base sm:text-xl text-neutral-700 dark:text-neutral-300 max-w-lg mb-8 border-l-4 border-brand-green pl-4 sm:pl-6 leading-relaxed">
-        {{ site.Data.status.maintenance_mode.message | default "Revenim în curând. Vă mulțumim pentru răbdare!" }}
+        {{ hugo.Data.status.maintenance_mode.message | default "Revenim în curând. Vă mulțumim pentru răbdare!" }}
       </p>
 
       <!-- Instagram Community Card -->
