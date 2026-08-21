@@ -1,46 +1,77 @@
-{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+{{ printf "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml"
-  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-{{ range .Data.Pages }}{{ if and (not .Sitemap.Disable) (not (in .Site.Params.sitemap.excludedKinds .Kind)) }}{{ if and (.Param "xml" | default true) (or (not .Params.externalUrl) (and (.Params.externalUrl) (and (not (hasPrefix .Params.externalUrl "http://")) (not (hasPrefix .Params.externalUrl "https://"))))) (not .Params.excludeFromSearch) }}
-{{- if .Permalink -}}{{ $link := .Permalink }}{{ if .Params.externalUrl }}{{ $link = printf "%s%s" .Site.BaseURL (substr .Params.externalUrl 1) }}{{ end }}
-  <url>
-    <loc>{{ $link }}</loc>{{ if not .Lastmod.IsZero }}
-    <lastmod>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>{{ end }}{{ with .Sitemap.ChangeFreq }}
-    <changefreq>{{ . }}</changefreq>{{ end }}{{ if ge .Sitemap.Priority 0.0 }}
-    <priority>{{ .Sitemap.Priority }}</priority>{{ end }}{{ if .IsTranslated }}{{ range .Translations }}
-    <xhtml:link
-      rel="alternate"
-      hreflang="{{ .Language.Locale }}"
-      href="{{ .Permalink }}"
-    />{{ end }}
-    <xhtml:link
-      rel="alternate"
-      hreflang="{{ .Language.Locale }}"
-      href="{{ $link }}"
-    />{{ end }}
-    {{- /* Image SEO support */ -}}
-    {{- $featureImage := "" -}}
-    {{- $pageImages := .Resources.ByType "image" -}}
-    {{- range slice "*featured*" "*cover*" "*thumbnail*" -}}
-      {{- if not $featureImage -}}
-        {{- $featureImage = $pageImages.GetMatch . -}}
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+{{- range .Data.Pages -}}
+  {{- $p := . -}}
+  {{- $skip := false -}}
+  {{- if or $p.Draft $p.Sitemap.Disable (in site.Params.sitemap.excludedKinds $p.Kind) $p.Params.excludeFromSearch -}}
+    {{- $skip = true -}}
+  {{- end -}}
+  {{- if or (eq $p.RelPermalink "/mentenanta/") (strings.Contains (lower (string $p.Params.robots)) "noindex") -}}
+    {{- $skip = true -}}
+  {{- end -}}
+  {{- if not $skip -}}
+    {{- if $p.Permalink -}}
+      {{- $lastmod := $p.Lastmod -}}
+      {{- if $lastmod.IsZero -}}
+        {{- $lastmod = $p.PublishDate | default $p.Date | default now -}}
       {{- end -}}
-    {{- end -}}
-    {{- if not $featureImage -}}
-      {{- with .Site.Params.defaultSocialImage -}}
-        {{- $socialImage := resources.Get . -}}
-        {{- if $socialImage -}}
-          <image:image>
-            <image:loc>{{ $socialImage.RelPermalink | absURL }}</image:loc>
-          </image:image>
+      {{- $priority := "0.5" -}}
+      {{- $changefreq := "monthly" -}}
+      {{- if $p.IsHome -}}
+        {{- $priority = "1.0" -}}
+        {{- $changefreq = "daily" -}}
+      {{- else if and $p.IsSection (eq $p.Type "posts") -}}
+        {{- $priority = "0.9" -}}
+        {{- $changefreq = "daily" -}}
+      {{- else if and $p.IsPage (or (eq $p.Type "posts") (eq $p.Section "posts")) -}}
+        {{- $priority = "0.8" -}}
+        {{- $changefreq = "weekly" -}}
+      {{- else if $p.IsPage -}}
+        {{- $priority = "0.7" -}}
+        {{- $changefreq = "monthly" -}}
+      {{- end -}}
+      {{- with $p.Params.sitemap_priority -}}
+        {{- $priority = . -}}
+      {{- end -}}
+      {{- with $p.Params.sitemap_changefreq -}}
+        {{- $changefreq = . -}}
+      {{- end -}}
+  <url>
+    <loc>{{ $p.Permalink }}</loc>
+    <lastmod>{{ safeHTML ( $lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>
+    <changefreq>{{ $changefreq }}</changefreq>
+    <priority>{{ $priority }}</priority>
+    {{- /* Specific Article / Page Image SEO Resolution */ -}}
+    {{- $pageImage := "" -}}
+    {{- if $p.Params.image -}}
+      {{- if or (strings.HasPrefix $p.Params.image "http://") (strings.HasPrefix $p.Params.image "https://") -}}
+        {{- $pageImage = $p.Params.image -}}
+      {{- else -}}
+        {{- $pageImage = $p.Params.image | absURL -}}
+      {{- end -}}
+    {{- else if $p.IsHome -}}
+      {{- $pageImage = "images/logo1000.webp" | absURL -}}
+    {{- else -}}
+      {{- $resources := $p.Resources.ByType "image" -}}
+      {{- range slice "*featured*" "*cover*" "*thumbnail*" -}}
+        {{- if not $pageImage -}}
+          {{- with $resources.GetMatch . -}}
+            {{- $pageImage = .RelPermalink | absURL -}}
+          {{- end -}}
         {{- end -}}
       {{- end -}}
-    {{- else -}}
-      <image:image>
-        <image:loc>{{ $featureImage.RelPermalink | absURL }}</image:loc>
-      </image:image>
+    {{- end -}}
+    {{- with $pageImage -}}
+    <image:image>
+      <image:loc>{{ . }}</image:loc>
+      {{- with $p.Title -}}
+      <image:title>{{ . | plainify | htmlEscape }}</image:title>
+      {{- end -}}
+    </image:image>
     {{- end -}}
   </url>
-{{- end -}}{{ end }}{{ end }}{{ end }}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 </urlset>

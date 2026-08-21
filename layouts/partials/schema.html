@@ -1,62 +1,391 @@
-{{ if .IsHome -}}
+{{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
+{{- $siteLogo := "images/logo1000.webp" | absURL -}}
+
+{{ if .IsHome }}
+  {{/* Homepage WebSite, NewsMediaOrganization & SiteNavigationElement (Google Sitelinks) Schema */}}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": {{ site.Home.Permalink | safeURL }},
-    "name": "{{ .Site.Title | safeJS }}",
-    "description": "{{ .Site.Params.description | safeJS }}",
-    "inLanguage": "ro-RO",
-    "url": {{ site.Home.Permalink | safeURL }},
-    "publisher" : {
-      "@type": "Organization",
-      "name": "Fiecare Voce",
-      "logo": {
-        "@type": "ImageObject",
-        "url": {{ "images/logo1000.webp" | absURL }}
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.Home.Permalink }}#website",
+        "url": "{{ site.Home.Permalink }}",
+        "name": "{{ .Site.Title }}",
+        "alternateName": ["FiecareVoce", "Fiecare Voce România"],
+        "description": "{{ .Site.Params.description }}",
+        "inLanguage": "ro-RO",
+        "publisher": {
+          "@id": "{{ site.Home.Permalink }}#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "{{ "posts/" | absURL }}?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "NewsMediaOrganization",
+        "@id": "{{ site.Home.Permalink }}#organization",
+        "name": "{{ .Site.Title }}",
+        "alternateName": "FiecareVoce",
+        "url": "{{ site.Home.Permalink }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ $siteLogo }}",
+          "width": 1000,
+          "height": 1000
+        },
+        "image": "{{ $siteLogo }}",
+        "sameAs": [
+          "https://www.instagram.com/fiecarevoce",
+          "https://www.tiktok.com/@fiecarevoce"
+        ],
+        "description": "{{ .Site.Params.description }}",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "fiecarevoce@gmail.com",
+          "contactType": "editorial"
+        }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "{{ site.Home.Permalink }}#navigation",
+        "name": "Meniu Navigare Fiecare Voce",
+        "itemListElement": [
+          {
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "Articole & Blog",
+            "description": "Cele mai recente articole, analize și opinii ale elevilor din România",
+            "url": "{{ "posts/" | absURL }}"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 2,
+            "name": "Despre Noi",
+            "description": "Misiunea, fondatorii și structura organizațională Fiecare Voce",
+            "url": "{{ "despre-noi/" | absURL }}"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "Educație",
+            "description": "Analize și perspective despre sistemul de învățământ și drepturile elevilor",
+            "url": "{{ "categories/educație/" | absURL }}"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 4,
+            "name": "Analize",
+            "description": "Investigații critice privind bursele, evaluarea națională și politicile școlare",
+            "url": "{{ "categories/analize/" | absURL }}"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 5,
+            "name": "Proiecte",
+            "description": "Inițiativele comunitare, conferințele Beyond Tomorrow și revistele Fiecare Voce",
+            "url": "{{ "categories/proiecte/" | absURL }}"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 6,
+            "name": "Realizări",
+            "description": "Impactul civic și rezultatele obținute de tineri pentru comunitate",
+            "url": "{{ "categories/realizari/" | absURL }}"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 7,
+            "name": "Autori & Redacție",
+            "description": "Echipa de redactori și contributori din spatele articolelor Fiecare Voce",
+            "url": "{{ "authors/" | absURL }}"
+          }
+        ]
       }
-    }
+    ]
   }
   </script>
-{{ else if .IsPage }}
-  {{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
-  {{- $authorName := .Params.author | default "Echipa Fiecare Voce" -}}
+
+{{ else if and .IsPage (or (eq .Type "posts") (eq .Section "posts")) }}
+  {{/* Single Post / Article Schema + Breadcrumbs */}}
+  {{- $postAuthors := slice -}}
+  {{- if .Params.authors -}}
+    {{- if reflect.IsSlice .Params.authors -}}
+      {{- $postAuthors = .Params.authors -}}
+    {{- else -}}
+      {{- $postAuthors = slice .Params.authors -}}
+    {{- end -}}
+  {{- else if .Params.author -}}
+    {{- $postAuthors = slice .Params.author -}}
+  {{- else -}}
+    {{- $postAuthors = slice "Echipa Fiecare Voce" -}}
+  {{- end -}}
+
   {{- $imageURL := "" -}}
   {{- with .Params.image -}}
-    {{- $imageURL = . | absURL -}}
+    {{- if or (strings.HasPrefix . "http://") (strings.HasPrefix . "https://") -}}
+      {{- $imageURL = . -}}
+    {{- else -}}
+      {{- $imageURL = . | absURL -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $imageURL = $siteLogo -}}
+  {{- end -}}
+
+  {{- $primaryCategory := "Educație" -}}
+  {{- with .Params.categories -}}
+    {{- if reflect.IsSlice . -}}
+      {{- $primaryCategory = index . 0 -}}
+    {{- else -}}
+      {{- $primaryCategory = . -}}
+    {{- end -}}
+  {{- end -}}
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "NewsArticle",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": {{ .Permalink }}
+        },
+        "headline": "{{ .Title | plainify }}",
+        "name": "{{ .Title | plainify }}",
+        "description": "{{ .Params.description | default .Params.summary | default .Summary | plainify }}",
+        "inLanguage": "ro-RO",
+        "url": {{ .Permalink }},
+        "image": [
+          "{{ $imageURL }}"
+        ],
+        "author": [
+          {{- range $i, $name := $postAuthors -}}
+            {{- if gt $i 0 }},{{ end }}
+            {
+              "@type": "Person",
+              "name": "{{ $name }}",
+              "url": "{{ printf "authors/%s/" ($name | urlize) | absURL }}",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Fiecare Voce"
+              }
+            }
+          {{- end -}}
+        ],
+        "publisher": {
+          "@type": "NewsMediaOrganization",
+          "name": "Fiecare Voce",
+          "url": {{ site.Home.Permalink }},
+          "logo": {
+            "@type": "ImageObject",
+            "url": "{{ $siteLogo }}",
+            "width": 1000,
+            "height": 1000
+          }
+        },
+        "datePublished": "{{ (.PublishDate | default .Date).Format $iso8601 }}",
+        "dateModified": "{{ (.Lastmod | default .Date).Format $iso8601 }}",
+        "articleSection": "{{ $primaryCategory }}",
+        "keywords": "{{ with .Params.tags }}{{ if reflect.IsSlice . }}{{ delimit . ", " }}{{ else }}{{ . }}{{ end }}{{ end }}",
+        "isAccessibleForFree": true,
+        "wordCount": {{ .WordCount }}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Acasă",
+            "item": "{{ site.Home.Permalink }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "{{ "posts/" | absURL }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ .Title | plainify }}",
+            "item": "{{ .Permalink }}"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+{{ else if eq .Type "authors" }}
+  {{/* Author ProfilePage Schema + Breadcrumbs */}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        "mainEntity": {
+          "@type": "Person",
+          "name": "{{ .Title | plainify }}",
+          "description": "{{ .Params.bio | default (printf "Redactor și autor pe platforma comunitară independentă Fiecare Voce.") }}",
+          "jobTitle": "{{ .Params.role | default "Redactor Fiecare Voce" }}",
+          "url": "{{ .Permalink }}",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Fiecare Voce",
+            "url": "{{ site.Home.Permalink }}"
+          }
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Acasă",
+            "item": "{{ site.Home.Permalink }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Autori",
+            "item": "{{ "authors/" | absURL }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ .Title | plainify }}",
+            "item": "{{ .Permalink }}"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+{{ else if eq .Type "categories" }}
+  {{/* Category CollectionPage Schema + Breadcrumbs */}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "name": "{{ .Title | plainify }}",
+        "description": "Articole, analize și perspective din categoria {{ .Title | plainify }} pe blogul Fiecare Voce.",
+        "url": "{{ .Permalink }}",
+        "inLanguage": "ro-RO"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Acasă",
+            "item": "{{ site.Home.Permalink }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "{{ "posts/" | absURL }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ .Title | plainify }}",
+            "item": "{{ .Permalink }}"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+{{ else if or (eq .Type "despre-noi") (eq .RelPermalink "/despre-noi/") }}
+  {{/* AboutPage Schema + Breadcrumbs */}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "name": "{{ .Title | plainify }}",
+        "description": "{{ .Params.description | default .Site.Params.description }}",
+        "url": "{{ .Permalink }}",
+        "inLanguage": "ro-RO",
+        "mainEntity": {
+          "@type": "NewsMediaOrganization",
+          "name": "{{ .Site.Title }}",
+          "url": "{{ site.Home.Permalink }}"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Acasă",
+            "item": "{{ site.Home.Permalink }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ .Title | plainify }}",
+            "item": "{{ .Permalink }}"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+{{ else }}
+  {{/* Section / General Static Pages (Terms, Blog list, etc.) */}}
+  {{- $pageSchemaType := "WebPage" -}}
+  {{- if and .IsSection (eq .Type "posts") -}}
+    {{- $pageSchemaType = "CollectionPage" -}}
   {{- end -}}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": {{ .Permalink }}
-    },
-    "headline": "{{ .Title | safeJS }}",
-    "name": "{{ .Title | safeJS }}",
-    "description": "{{ .Params.description | default .Params.summary | default .Summary | safeJS }}",
-    "inLanguage": "ro-RO",
-    "url": {{ .Permalink }},
-    {{ with $imageURL }}"image": ["{{ . }}"],{{ end }}
-    "author": {
-      "@type": "Person",
-      "name": "{{ $authorName | safeJS }}"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Fiecare Voce",
-      "url": {{ site.Home.Permalink | safeURL }},
-      "logo": {
-        "@type": "ImageObject",
-        "url": {{ "images/logo1000.webp" | absURL }}
+    "@graph": [
+      {
+        "@type": "{{ $pageSchemaType }}",
+        "name": "{{ .Title | plainify }}",
+        "description": "{{ .Params.description | default .Site.Params.description }}",
+        "url": "{{ .Permalink }}",
+        "inLanguage": "ro-RO"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Acasă",
+            "item": "{{ site.Home.Permalink }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ .Title | plainify }}",
+            "item": "{{ .Permalink }}"
+          }
+        ]
       }
-    },
-    "datePublished": "{{ (.PublishDate | default .Date).Format $iso8601 }}",
-    "dateModified": "{{ (.Lastmod | default .Date).Format $iso8601 }}",
-    "articleSection": "{{ with .Params.categories }}{{ if reflect.IsSlice . }}{{ index . 0 }}{{ else }}{{ . }}{{ end }}{{ else }}Educație{{ end }}",
-    "keywords": "{{ with .Params.tags }}{{ if reflect.IsSlice . }}{{ delimit . ", " }}{{ else }}{{ . }}{{ end }}{{ end }}",
-    "wordCount": "{{ .WordCount }}"
+    ]
   }
   </script>
 {{ end }}
+
