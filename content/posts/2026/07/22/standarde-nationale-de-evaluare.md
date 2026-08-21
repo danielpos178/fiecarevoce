@@ -10,7 +10,7 @@ authors: ["Grupul de Lucru FV", "Redacția Fiecare Voce"]
 categories: ["Proiecte"]
 tags: ["standarde evaluare", "grup de lucru", "Ministerul Educatiei", "consultare publica", "Fiecare Voce"]
 keywords: ["standarde nationale evaluare", "punct de vedere fiecare voce", "consultare publica educatie", "Fiecare Voce"]
-image: "/images/posts/2026/07/22/standarde-nationale-de-evaluare.webp"
+image: "/images/default-cover.webp"
 image_position: "center 40%"
 image_fit: "cover"
 photo_credit: "Arhiva Fiecare Voce"

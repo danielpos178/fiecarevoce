@@ -15,7 +15,7 @@ Tot conținutul prezentat pe acest site (texte, imagini, logo-uri, design, etc.)
 - Modificarea sau utilizarea materialelor noastre în scopuri comerciale fără acordul scris este strict interzisă.
 
 ## 3. Comentarii și interacțiunile utilizatorilor
-Ne dorim ca platforma "Fiecare Voce" să fie un spațiu sigur pentru exprimare și dezbateri constructive. Ne rezervăm dreptul de a modera și șterge orice comentarii sau interacțiuni care:
+Ne dorim ca platforma "Fiecare Voce" să fie un spațiu sigur pentru exprimare și dezbateri constructive. Ne rezervăm dreptul de a modera și șterge orice comentarii sau interacțiuni pe toate platformele digitale care:
 - Conțin limbaj licențios, instigă la ură, violență sau discriminare;
 - Sunt considerate spam sau promovează servicii/produse comerciale;
 - Încalcă drepturile altor persoane.
