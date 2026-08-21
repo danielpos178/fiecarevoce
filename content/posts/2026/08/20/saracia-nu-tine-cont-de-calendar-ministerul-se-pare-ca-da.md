@@ -37,6 +37,7 @@ Fiecare Voce a consultat mai mulți elevi care beneficiază de această bursă p
 >
 > Deci decizia de a tăia bursa socială din vacanțe ne afectează, pentru că pentru mulți dintre noi cheltuielile pentru școală nu iau pauză odată cu aceasta." — Lavinia, elevă
 
+
 ## Sistemul de acordare al burselor nu mai este în interesul elevilor
 
 Aceasta nu e prima dată când Ministerul Educației decide să ia măsuri care afectează în mod direct elevii. Tot mai multe decizii sunt adoptate fără ca binele lor să reprezinte interesul principal.
@@ -54,3 +55,5 @@ Bursele sociale nu sunt o recompensă sau un privilegiu, sunt o formă de spriji
 Ca să construim un sistem educațional care să fie în interesul elevilor, trebuie să investim în ei, nu să-i facem să acopere problemele financiare ale țării. Educația nu intră în vacanță, iar nevoile elevilor cu atât mai puțin.
 
 ---
+
+{{< instagram-embed url="https://www.instagram.com/p/DcRKzLhjF0k" caption="Urmărește postarea și reacțiile comunității Fiecare Voce pe Instagram!" />}}
