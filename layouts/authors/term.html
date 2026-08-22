@@ -50,11 +50,11 @@
       </h2>
 
       <div class="flex flex-col gap-4 mt-2">
-        {{ range .Pages }}
+        {{ range .Pages.ByDate.Reverse }}
         <a href="{{ .RelPermalink }}" class="border-2 border-neutral-900 dark:border-neutral-100 p-5 bg-white dark:bg-neutral-900 sticker-shadow sticker-shadow-hover flex flex-col sm:flex-row sm:items-center justify-between gap-3 group transition-all">
           <div class="flex flex-col gap-1">
             <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-              {{ .Date.Format "02 Jan 2006" }}
+              {{ partial "format-date.html" . }}
             </span>
             <h3 class="font-display font-bold text-lg sm:text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors">
               {{ .Title }}
