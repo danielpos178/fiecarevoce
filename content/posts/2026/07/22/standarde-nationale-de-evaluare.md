@@ -1,5 +1,6 @@
 ---
 title: "Standarde naționale de evaluare"
+slug: "standarde-nationale-de-evaluare"
 date: 2026-07-22
 lastmod: 2026-08-21
 draft: false

@@ -1,5 +1,6 @@
 ---
 title: "Despre Noi"
+slug: "despre-noi"
 date: 2026-08-21
 lastmod: 2026-08-21
 type: "despre-noi"

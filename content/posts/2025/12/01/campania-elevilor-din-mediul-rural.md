@@ -1,5 +1,6 @@
 ---
 title: "Campania elevilor din mediul rural"
+slug: "campania-elevilor-din-mediul-rural"
 date: 2025-12-01
 lastmod: 2026-08-21
 draft: false

@@ -1,5 +1,6 @@
 ---
 title: "Mai puține premii, mai multă „economie”"
+slug: "mai-putine-premii-mai-multa-economie"
 date: 2026-07-15
 lastmod: 2026-07-15
 draft: false

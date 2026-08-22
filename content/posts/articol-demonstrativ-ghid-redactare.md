@@ -1,5 +1,6 @@
 ---
 title: "Ghid de Redactare & Articol Model Fiecare Voce" # [OBLIGATORIU] Titlul principal al articolului afișat în antet și pe carduri
+slug: "articol-demonstrativ-ghid-redactare"
 date: 2026-08-20 # [OBLIGATORIU] Data publicării articolului (format: AAAA-LL-ZZ, ex: 2026-08-20)
 lastmod: 2026-08-20 # [OPȚIONAL] Data ultimei actualizări/revizuiri (format: AAAA-LL-ZZ)
 draft: true # [OBLIGATORIU] Starea publicării: false = vizibil pe site, true = ciornă ascunsă
@@ -29,6 +30,7 @@ Fiecare fișier Markdown din folderul `content/posts/` începe cu un antet YAML 
 ```yaml
 ---
 title: "Ghid de Redactare & Articol Model Fiecare Voce" # [OBLIGATORIU] Titlul principal al articolului
+slug: "ghid-redactare-articol-model" # [OBLIGATORIU/RECOMANDAT] Identificator URL curat în caractere ASCII (ex: educatie în loc de educație)
 date: 2026-08-20 # [OBLIGATORIU] Data publicării (AAAA-LL-ZZ)
 lastmod: 2026-08-20 # [OPȚIONAL] Data ultimei revizuiri (AAAA-LL-ZZ)
 draft: false # [OBLIGATORIU] false = vizibil pe site, true = ciornă

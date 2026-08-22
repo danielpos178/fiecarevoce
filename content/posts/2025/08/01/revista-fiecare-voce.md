@@ -1,5 +1,6 @@
 ---
 title: "Revista Fiecare Voce"
+slug: "revista-fiecare-voce"
 date: 2025-08-01
 lastmod: 2026-08-21
 draft: false

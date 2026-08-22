@@ -1,5 +1,6 @@
 ---
 title: "Monica Anisie: Loteria miniștrilor educației"
+slug: "monica-anisie-loteria-ministrilor-educatiei"
 date: 2026-07-02
 lastmod: 2026-07-02
 draft: false

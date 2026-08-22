@@ -1,5 +1,6 @@
 ---
 title: "Gala Tineretului Prahovean"
+slug: "gala-tineretului-prahovean"
 date: 2025-11-15
 lastmod: 2026-08-21
 draft: false

@@ -1,5 +1,6 @@
 ---
 title: "Dezbaterile cu Ministerul Educației"
+slug: "dezbaterile-cu-ministerul-educatiei"
 date: 2025-07-15
 lastmod: 2026-08-21
 draft: false

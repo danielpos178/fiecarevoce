@@ -1,5 +1,6 @@
 ---
 title: "Aur la olimpiadă, dar nu și la medicina?"
+slug: "aur-la-olimpiada-dar-nu-si-la-medicina"
 date: 2026-07-31
 lastmod: 2026-07-31
 draft: false

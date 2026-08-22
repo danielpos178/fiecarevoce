@@ -1,5 +1,6 @@
 ---
 title: "De ce nota ta de 10 nu înseamnă același lucru în două școli diferite?"
+slug: "de-ce-nota-ta-de-10-nu-inseamna-acelasi-lucru-in-doua-scoli-diferite"
 date: 2026-08-05
 lastmod: 2026-08-05
 draft: false

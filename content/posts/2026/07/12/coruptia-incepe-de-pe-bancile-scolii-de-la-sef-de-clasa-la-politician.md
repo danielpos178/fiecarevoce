@@ -1,5 +1,6 @@
 ---
 title: "Corupția începe de pe băncile școlii - de la șef de clasă la politician"
+slug: "coruptia-incepe-de-pe-bancile-scolii-de-la-sef-de-clasa-la-politician"
 date: 2026-07-12
 lastmod: 2026-07-12
 draft: false

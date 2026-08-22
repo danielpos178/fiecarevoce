@@ -1,5 +1,6 @@
 ---
 title: "Fiecare Voce lansează un chestionar despre stresul școlar: Cum resimt elevii din România presiunea academică?"
+slug: "fiecare-voce-lanseaza-un-chestionar-despre-stresul-scolar"
 date: 2026-08-19
 lastmod: 2026-08-19
 draft: false

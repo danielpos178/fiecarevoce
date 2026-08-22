@@ -1,5 +1,6 @@
 ---
 title: "Sărăcia nu ține cont de calendar. Ministerul, se pare că da."
+slug: "saracia-nu-tine-cont-de-calendar-ministerul-se-pare-ca-da"
 date: 2026-08-20
 lastmod: 2026-08-20
 draft: false

@@ -1,5 +1,6 @@
 ---
 title: "Cine își permite să fie pregătit?"
+slug: "cine-isi-permite-sa-fie-pregatit"
 date: 2026-08-16
 lastmod: 2026-08-16
 draft: false

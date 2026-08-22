@@ -1,5 +1,6 @@
 ---
 title: "Țapul ispășitor al educației: părinții sau sistemul?"
+slug: "tapul-ispasitor-al-educatiei-parintii-sau-sistemul"
 date: 2026-07-18
 lastmod: 2026-07-18
 draft: false

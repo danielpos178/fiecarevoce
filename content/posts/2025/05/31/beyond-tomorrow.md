@@ -1,5 +1,6 @@
 ---
 title: "Beyond Tomorrow"
+slug: "beyond-tomorrow"
 date: 2025-05-31
 lastmod: 2026-08-21
 draft: false
