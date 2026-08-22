@@ -20,14 +20,15 @@
   {{ if .Site.Params.showAppearanceSwitcher | default true }}
   <button
     id="appearance-switcher"
+    data-theme-switcher
     type="button"
     aria-label="Toggle theme"
-    class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white sticker-shadow hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center"
+    class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white sticker-shadow hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center relative z-10"
     title="Comută modul întunecat/luminos">
-    <span class="dark:hidden flex items-center justify-center">
+    <span class="dark:hidden flex items-center justify-center pointer-events-none">
       {{ partial "icon.html" (dict "name" "dark_mode" "class" "w-5 h-5") }}
     </span>
-    <span class="hidden dark:flex items-center justify-center text-brand-gold">
+    <span class="hidden dark:flex items-center justify-center text-brand-gold pointer-events-none">
       {{ partial "icon.html" (dict "name" "light_mode" "class" "w-5 h-5") }}
     </span>
   </button>

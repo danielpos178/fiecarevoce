@@ -1,8 +1,28 @@
 const sitePreference = document.documentElement.getAttribute("data-default-appearance") || "light";
 const autoAppearance = document.documentElement.getAttribute("data-auto-appearance") !== "false";
 
+function getStoredAppearance() {
+  try {
+    return localStorage.getItem("appearance");
+  } catch (e) {
+    return null;
+  }
+}
+
+function setStoredAppearance(val) {
+  try {
+    if (val) {
+      localStorage.setItem("appearance", val);
+    } else {
+      localStorage.removeItem("appearance");
+    }
+  } catch (e) {
+    // Ignore private browsing storage quota / security errors
+  }
+}
+
 function applyInitialTheme() {
-  const userPreference = localStorage.getItem("appearance");
+  const userPreference = getStoredAppearance();
   if (userPreference === "dark") {
     document.documentElement.classList.add("dark");
   } else if (userPreference === "light") {
@@ -20,7 +40,7 @@ applyInitialTheme();
 
 if (window.matchMedia) {
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-    if (!localStorage.getItem("appearance")) {
+    if (!getStoredAppearance()) {
       if (event.matches) {
         document.documentElement.classList.add("dark");
       } else {
@@ -47,49 +67,48 @@ function updateMeta() {
 }
 
 function initAppearanceSwitcher() {
-  const switcher = document.getElementById("appearance-switcher");
-  const switcherMobile = document.getElementById("appearance-switcher-mobile");
+  const switchers = document.querySelectorAll(
+    "#appearance-switcher, #appearance-switcher-mobile, #appearance-switcher-drawer, [data-theme-switcher]"
+  );
 
-  const updateTooltip = (targetAppearance) => {
+  const updateTooltips = (targetAppearance) => {
     const label = targetAppearance === "dark" ? "Switch to light mode" : "Switch to dark mode";
-    if (switcher) {
-      switcher.setAttribute("aria-label", label);
-      switcher.setAttribute("title", label);
-    }
-    if (switcherMobile) {
-      switcherMobile.setAttribute("aria-label", label);
-      switcherMobile.setAttribute("title", label);
-    }
+    switchers.forEach((btn) => {
+      btn.setAttribute("aria-label", label);
+      btn.setAttribute("title", label);
+    });
   };
 
   updateMeta();
-  updateTooltip(getTargetAppearance());
+  updateTooltips(getTargetAppearance());
 
-  const handleToggle = () => {
+  const handleToggle = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     document.documentElement.classList.toggle("dark");
     const newAppearance = getTargetAppearance();
-    localStorage.setItem("appearance", newAppearance);
+    setStoredAppearance(newAppearance);
     updateMeta();
-    updateTooltip(newAppearance);
+    updateTooltips(newAppearance);
   };
 
   const handleResetToSystem = (event) => {
     event.preventDefault();
-    localStorage.removeItem("appearance");
+    setStoredAppearance(null);
     applyInitialTheme();
     updateMeta();
-    updateTooltip(getTargetAppearance());
+    updateTooltips(getTargetAppearance());
   };
 
-  if (switcher) {
-    switcher.addEventListener("click", handleToggle);
-    switcher.addEventListener("contextmenu", handleResetToSystem);
-  }
+  switchers.forEach((btn) => {
+    if (btn.dataset.themeBound) return;
+    btn.dataset.themeBound = "true";
 
-  if (switcherMobile) {
-    switcherMobile.addEventListener("click", handleToggle);
-    switcherMobile.addEventListener("contextmenu", handleResetToSystem);
-  }
+    btn.addEventListener("click", handleToggle);
+    btn.addEventListener("contextmenu", handleResetToSystem);
+  });
 }
 
 if (document.readyState === "loading") {
