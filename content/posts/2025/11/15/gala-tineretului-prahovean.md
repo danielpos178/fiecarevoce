@@ -4,7 +4,7 @@ date: 2025-11-15
 lastmod: 2026-08-21
 draft: false
 summary: "În noiembrie 2025, proiectul Fiecare Voce a primit premiul pentru „Cel mai de impact proiect din mediul preuniversitar” la Gala Tineretului Prahovean, oferit de Consiliul Județean Prahova."
-description: "Fiecare Voce premiată la Gala Tineretului Prahovean pentru cel mai de impact proiect din mediul preuniversitar. Confirmarea implicării civice a elevilor."
+description: "Fiecare Voce a fost premiată la Gala Tineretului Prahovean pentru cel mai de impact proiect din mediul preuniversitar."
 author: "Redacția Fiecare Voce"
 authors: ["Redacția Fiecare Voce"]
 categories: ["Realizari"]

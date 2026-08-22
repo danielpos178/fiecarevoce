@@ -4,7 +4,7 @@ date: 2025-07-15
 lastmod: 2026-08-21
 draft: false
 summary: "În vara anului 2025, echipa Fiecare Voce a participat la două dezbateri la Ministerul Educației pe tema burselor școlare, obținând modificarea Hotărârii de Guvern pentru acordarea burselor de merit elevilor de clasa a IX-a."
-description: "Participarea echipei Fiecare Voce la dezbaterile Ministerului Educației privind bursele școlare de excelență olimpică și bursele elevilor de clasa a IX-a."
+description: "Poziția Fiecare Voce la dezbaterile Ministerului Educației privind bursele școlare de excelență și bursele de merit."
 author: "Redacția Fiecare Voce"
 authors: ["Redacția Fiecare Voce"]
 categories: ["Realizari"]

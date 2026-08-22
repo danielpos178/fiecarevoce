@@ -2,6 +2,6 @@
 title: "Educație"
 date: 2026-08-21
 lastmod: 2026-08-21
-description: "Articole, analize și poziții oficiale despre sistemul educațional din România, burse școlare, examene naționale și drepturile elevilor."
+description: "Articole și analize despre sistemul educațional din România, bursele școlare, examenele și drepturile elevilor."
 keywords: ["educatie", "burse elevi", "drepturile elevilor", "examene", "Fiecare Voce"]
 ---

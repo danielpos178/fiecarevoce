@@ -4,7 +4,7 @@ date: 2026-07-18
 lastmod: 2026-07-18
 draft: false
 summary: "Analiză privind rezultatele la simularea Evaluării Naționale și tendința de a arunca vina pe părinți sau elevi, în loc să abordăm problemele structurale din sistemul de învățământ."
-description: "Cine poartă responsabilitatea pentru notele de la simulările naționale: părinții, elevii sau deficiențele sistemului de educație? O analiză Fiecare Voce."
+description: "Cine poartă responsabilitatea pentru notele mici de la simulări: părinții, elevii sau sistemul? O analiză Fiecare Voce."
 author: "Daria Apalane"
 authors: ["Daria Apalane", "Alesia Diniță", "Echipa Fiecare Voce"]
 categories: ["Educație", "Analize"]

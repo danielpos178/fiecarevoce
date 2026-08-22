@@ -4,7 +4,7 @@ date: 2026-07-12
 lastmod: 2026-07-12
 draft: false
 summary: "O analiză critică despre modul în care jocurile de putere, șefia clasei și structurile de reprezentare ale elevilor reflectă și formează comportamentele politice de mai târziu."
-description: "Cum se manifestă mirajul puterii în școală: de la alegerea șefului de clasă la Consiliul Elevilor și reproducerea dinamicilor din politica pentru adulți."
+description: "Cum se manifestă mirajul puterii în școală: de la alegerea șefului de clasă până la structurile de reprezentare a elevilor."
 author: "Echipa de Social Media Fiecare Voce"
 authors: ["Echipa de Social Media Fiecare Voce", "Echipa Fiecare Voce"]
 categories: ["Educație", "Opinii"]

@@ -4,7 +4,7 @@ date: 2026-07-31
 lastmod: 2026-07-31
 draft: false
 summary: "O elevă medaliată cu aur la Olimpiada Internațională de Chimie Aplicată a fost refuzată de UMFCD pe locurile speciale de olimpici. Analizăm incoerențele din metodologiile de admitere universitară."
-description: "Cazul elevei laureate cu aur la chimie aplicată refuzată la buget la UMF Carol Davila: problemele din metodologiile de admitere la facultate pentru olimpici internaționali."
+description: "Cazul elevei medaliate cu aur refuzate la buget la medicină: inadvertențele din metodologiile de admitere la facultate."
 author: "Alexandra Jigău"
 authors: ["Alexandra Jigău", "Raluca Sandu", "Echipa Fiecare Voce"]
 categories: ["Educație", "Analize"]

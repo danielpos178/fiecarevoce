@@ -4,7 +4,7 @@ date: 2026-07-02
 lastmod: 2026-07-02
 draft: false
 summary: "Analiză a parcursului politic și decizional al Monicăi Anisie la conducerea Ministerului Educației și ce înseamnă instabilitatea cronică de la vârful învățământului românesc."
-description: "Analiză privind mandatul și propunerea Monicăi Anisie la Ministerul Educației: efectele schimbărilor frecvente de miniștri asupra predictibilității în educație."
+description: "Analiză despre schimbările frecvente de miniștri la Educație și impactul lipsei de predictibilitate asupra elevilor."
 author: "Maria Sbîrneciu"
 authors: ["Maria Sbîrneciu", "Alesia Diniță", "Echipa Fiecare Voce"]
 categories: ["Educație", "Analize"]

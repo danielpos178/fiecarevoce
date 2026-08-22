@@ -4,7 +4,7 @@ date: 2025-08-01
 lastmod: 2026-08-21
 draft: false
 summary: "Revista Fiecare Voce a debutat în vara anului 2025 odată cu apariția revistei „Arhiva Sirenei”, atingând peste 160.000 de vizualizări pe platforma Yumpu și strângând peste 20 de elevi din toată țara în echipa de redactare."
-description: "Povestea Revistei Fiecare Voce și a numerelor 'Arhiva Sirenei': spațiul în care elevii scriu liber despre egalitate, sănătate mintală, drepturi și povești de viață."
+description: "Povestea Revistei Fiecare Voce: spațiul în care elevii scriu liber despre sănătate mintală, drepturi și egalitate."
 author: "Redacția Fiecare Voce"
 authors: ["Redacția Fiecare Voce"]
 categories: ["Realizari"]

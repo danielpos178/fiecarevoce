@@ -4,7 +4,7 @@ date: 2025-05-31
 lastmod: 2026-08-21
 draft: false
 summary: "Pe 31 mai 2025, Fiecare Voce a organizat la Palatul Culturii din Ploiești primul său eveniment major, Beyond Tomorrow, adunând 17 elevi olimpici din toată țara pentru a vorbi despre burnout și presiunea academică."
-description: "Primul eveniment Fiecare Voce la Ploiești: conferință cu elevi olimpici internaționali și profesori de excelență despre burnout, performanță și drepturile elevilor."
+description: "Conferința Beyond Tomorrow la Ploiești: dezbateri cu olimpici și profesori despre burnout și drepturile elevilor."
 author: "Redacția Fiecare Voce"
 authors: ["Redacția Fiecare Voce", "Luca Georgescu", "Iulia Geambazu"]
 categories: ["Realizari"]

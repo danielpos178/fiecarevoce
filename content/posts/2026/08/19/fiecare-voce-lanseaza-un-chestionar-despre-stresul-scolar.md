@@ -4,7 +4,7 @@ date: 2026-08-19
 lastmod: 2026-08-19
 draft: false
 summary: "Fiecare Voce a lansat un chestionar național anonim dedicat elevilor din România, prin care își propune să identifice sursele de presiune academică, anxietate și oboseală școlară. Completează chestionarul și contribuie la studiul nostru!"
-description: "Fiecare Voce lansează un chestionar anonim despre stresul școlar în România, pentru a înțelege presiunea academică resimțită de elevi, examenele, temele și sănătatea mintală."
+description: "Chestionar anonim Fiecare Voce despre stresul școlar: analizăm presiunea academică, temele și sănătatea mintală a elevilor."
 author: "Luca Georgescu"
 authors: ["Luca Georgescu", "Eliza Geotti", "Echipa Fiecare Voce"]
 categories: ["Sănătate mintală", "Educație", "Analize"]

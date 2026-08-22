@@ -4,7 +4,7 @@ date: 2025-12-01
 lastmod: 2026-08-21
 draft: false
 summary: "O campanie desfășurată în luna decembrie 2025 pentru a aduce în atenția publicului realitățile și lipsurile cu care se confruntă elevii din mediul rural, promovând implicarea comunității și donațiile."
-description: "Campania Fiecare Voce din decembrie 2025 dedicată elevilor din mediul rural: sensibilizare, solidaritate și articolul final 'Sub bradul fără cadouri'."
+description: "Campania Fiecare Voce dedicată elevilor din mediul rural: solidaritate, sprijin și articolul 'Sub bradul fără cadouri'."
 author: "Redacția Fiecare Voce"
 authors: ["Redacția Fiecare Voce"]
 categories: ["Realizari"]

@@ -4,7 +4,7 @@ date: 2026-08-05
 lastmod: 2026-08-05
 draft: false
 summary: "Ministerul Educației propune noi standarde naționale de evaluare pentru clasele I-VIII. Analizăm de ce nota 10 variază drastic între școli și ce presupune uniformizarea criteriilor de notare."
-description: "Despre standardele naționale de evaluare în școlile din România: cum diferă notarea între unitățile de învățământ și ce se schimbă din anul școlar 2026-2027."
+description: "Standardele naționale de evaluare în școli: de ce diferă notarea între licee și ce schimbări sunt pregătite pentru elevi."
 author: "Yali Ionescu"
 authors: ["Yali Ionescu", "Delia Florescu", "Echipa Fiecare Voce"]
 categories: ["Educație", "Analize"]

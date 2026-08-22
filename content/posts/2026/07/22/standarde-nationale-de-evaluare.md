@@ -4,7 +4,7 @@ date: 2026-07-22
 lastmod: 2026-08-21
 draft: false
 summary: "În iulie 2026, un grup de lucru intern al echipei Fiecare Voce a redactat un document de poziție privind standardele naționale de evaluare, transmis Ministerului Educației în consultare publică."
-description: "Documentul de poziție redactat de Grupul de Lucru Fiecare Voce privind standardele naționale de evaluare și consultarea publică a Ministerului Educației."
+description: "Poziția oficială a Grupului de Lucru Fiecare Voce privind noile standarde naționale de evaluare propuse de minister."
 author: "Grupul de Lucru FV"
 authors: ["Grupul de Lucru FV", "Redacția Fiecare Voce"]
 categories: ["Realizari"]
