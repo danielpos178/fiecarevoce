@@ -1,5 +1,6 @@
 ---
 title: "Categorii Articole"
+slug: "categories"
 date: 2026-08-21
 lastmod: 2026-08-21
 description: "Răsfoiește analizele și opiniile publicate pe Fiecare Voce: Educație, Analize, Realizări, Proiecte și Opinii."

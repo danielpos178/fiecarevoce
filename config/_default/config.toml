@@ -7,6 +7,7 @@ enableRobotsTXT = true
 summaryLength = 25
 disableHugoGeneratorInject = true
 paginate = 6
+removePathAccents = true
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]

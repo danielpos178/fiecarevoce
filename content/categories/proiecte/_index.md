@@ -1,5 +1,6 @@
 ---
 title: "Proiecte"
+slug: "proiecte"
 date: 2026-08-21
 lastmod: 2026-08-21
 description: "Proiectele, conferințele Beyond Tomorrow, publicațiile și inițiativele organizate de asociația de tineret Fiecare Voce."
