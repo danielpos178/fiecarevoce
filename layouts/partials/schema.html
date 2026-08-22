@@ -12,9 +12,18 @@
         "@id": "{{ site.Home.Permalink }}#website",
         "url": "{{ site.Home.Permalink }}",
         "name": "{{ .Site.Title }}",
-        "alternateName": ["FiecareVoce", "Fiecare Voce România"],
+        "alternateName": ["FiecareVoce", "Fiecare Voce România", "Asociația Fiecare Voce"],
         "description": "{{ .Site.Params.description }}",
         "inLanguage": "ro-RO",
+        "about": [
+          "Educație România",
+          "Drepturile Elevilor",
+          "Ministerul Educației",
+          "Burse Școlare",
+          "Statutul Elevului",
+          "Sănătate Mintală Elevi",
+          "Tineret România"
+        ],
         "publisher": {
           "@id": "{{ site.Home.Permalink }}#organization"
         },
@@ -28,11 +37,27 @@
         }
       },
       {
-        "@type": "NewsMediaOrganization",
+        "@type": ["NewsMediaOrganization", "NGO"],
         "@id": "{{ site.Home.Permalink }}#organization",
         "name": "{{ .Site.Title }}",
         "alternateName": "FiecareVoce",
         "url": "{{ site.Home.Permalink }}",
+        "foundingDate": "2024-12-01",
+        "areaServed": {
+          "@type": "Country",
+          "name": "România"
+        },
+        "knowsAbout": [
+          "Educație România",
+          "Drepturile Elevilor",
+          "Statutul Elevului",
+          "Ministerul Educației",
+          "Burse Școlare",
+          "Evaluare Națională",
+          "Bacalaureat",
+          "Sănătate Mintală Elevi",
+          "Advocacy Tineret"
+        ],
         "logo": {
           "@type": "ImageObject",
           "url": "{{ $siteLogo }}",
@@ -160,6 +185,23 @@
         "name": "{{ .Title | plainify }}",
         "description": "{{ .Params.description | default .Params.summary | default .Summary | plainify }}",
         "inLanguage": "ro-RO",
+        "about": [
+          "Educație România",
+          "{{ $primaryCategory }}"
+        ],
+        {{- with .Params.tags -}}
+          {{- if reflect.IsSlice . -}}
+          "mentions": [
+            {{- range $i, $t := . -}}
+              {{- if gt $i 0 }},{{ end }}
+              {
+                "@type": "Thing",
+                "name": "{{ $t }}"
+              }
+            {{- end -}}
+          ],
+          {{- end -}}
+        {{- end -}}
         "url": {{ .Permalink }},
         "image": [
           "{{ $imageURL }}"
@@ -237,6 +279,12 @@
           "description": "{{ .Params.bio | default (printf "Redactor și autor pe platforma comunitară independentă Fiecare Voce.") }}",
           "jobTitle": "{{ .Params.role | default "Redactor Fiecare Voce" }}",
           "url": "{{ .Permalink }}",
+          "knowsAbout": [
+            "Educație România",
+            "Drepturile Elevilor",
+            "Jurnalism Comunitar",
+            "Opinii Tineret"
+          ],
           "worksFor": {
             "@type": "Organization",
             "name": "Fiecare Voce",
@@ -282,7 +330,25 @@
         "name": "{{ .Title | plainify }}",
         "description": "Articole, analize și perspective din categoria {{ .Title | plainify }} pe blogul Fiecare Voce.",
         "url": "{{ .Permalink }}",
-        "inLanguage": "ro-RO"
+        "inLanguage": "ro-RO",
+        "about": [
+          "Educație România",
+          "{{ .Title | plainify }}"
+        ],
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {{- range $i, $page := .Pages -}}
+              {{- if gt $i 0 }},{{ end }}
+              {
+                "@type": "ListItem",
+                "position": {{ add $i 1 }},
+                "url": {{ $page.Permalink }},
+                "name": "{{ $page.Title | plainify }}"
+              }
+            {{- end -}}
+          ]
+        }
       },
       {
         "@type": "BreadcrumbList",

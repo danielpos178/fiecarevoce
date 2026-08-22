@@ -24,8 +24,14 @@
       {{- else if and $p.IsSection (eq $p.Type "posts") -}}
         {{- $priority = "0.9" -}}
         {{- $changefreq = "daily" -}}
+      {{- else if or (eq $p.Type "categories") (eq $p.Kind "taxonomy") (eq $p.Kind "term") -}}
+        {{- $priority = "0.85" -}}
+        {{- $changefreq = "weekly" -}}
       {{- else if and $p.IsPage (or (eq $p.Type "posts") (eq $p.Section "posts")) -}}
         {{- $priority = "0.8" -}}
+        {{- $changefreq = "weekly" -}}
+      {{- else if eq $p.Type "authors" -}}
+        {{- $priority = "0.75" -}}
         {{- $changefreq = "weekly" -}}
       {{- else if $p.IsPage -}}
         {{- $priority = "0.7" -}}

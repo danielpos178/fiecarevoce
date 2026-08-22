@@ -1,8 +1,8 @@
 <head>
   <meta charset="utf-8">
-  {{ with .Site.Language.Params.htmlCode | default .Site.Language.Locale }}
-    <meta http-equiv="content-language" content="{{ . }}">
-  {{ end }}
+  <meta http-equiv="content-language" content="ro-RO">
+  <meta name="geo.region" content="RO">
+  <meta name="geo.placename" content="România">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -166,6 +166,8 @@
 
   {{/* 8. Twitter / X Cards Meta Tags (Strict summary_large_image) */}}
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@fiecarevoce">
+  <meta name="twitter:creator" content="@fiecarevoce">
   <meta name="twitter:title" content="{{ $pageTitle }}">
   {{ with $metaDescription }}
     <meta name="twitter:description" content="{{ . | plainify }}">
@@ -215,7 +217,7 @@
 
   {{/* JS loaded immediately (inlined to eliminate render-blocking request & FOUC) */}}
   {{ $jsAppearance := resources.Get "js/appearance.js" | resources.ExecuteAsTemplate "js/appearance.js" . | resources.Minify }}
-  <script type="text/javascript">{{ $jsAppearance.Content | safeJS }}</script>
+  <script data-cfasync="false" type="text/javascript">{{ $jsAppearance.Content | safeJS }}</script>
   {{ partial "language-redirect.html" . }}
   {{ $enableA11y := .Site.Params.enableA11y | default false }}
   {{ if $enableA11y }}

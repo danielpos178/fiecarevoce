@@ -4,10 +4,34 @@ autoSwitchAppearance = true
 showAppearanceSwitcher = true
 enableSearch = false
 enableCodeCopy = true
-robots = "index, follow"
+robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
 siteSubtitle = "Platformă Independentă a Elevilor din România"
-description = "Fiecare Voce este o platformă independentă care susține și publică opiniile elevilor, fără filtre, și aduce în atenție problemele care afectează educația românească."
-keywords = ["Fiecare Voce", "blog elevi", "educatie Romania", "drepturile elevilor", "burse scolare", "ONG tineret", "voluntariat", "lideri comunitari", "advocacy", "jurnalism elevi", "opinii elevi"]
+description = "Platformă independentă a elevilor din România. Publicăm fără filtre opinii, investigații și analize despre educație."
+keywords = [
+  "Fiecare Voce",
+  "elevi Romania",
+  "Ministerul Educatiei",
+  "drepturile elevilor",
+  "statutul elevului",
+  "burse scolare 2026",
+  "burse de merit",
+  "bursa sociala",
+  "bursa de excelenta",
+  "educatie Romania",
+  "evaluare nationala",
+  "bacalaureat",
+  "admitere liceu",
+  "ONG tineret",
+  "voluntariat elevi",
+  "sanatate mintala elevi",
+  "stres scolar",
+  "analize educatie",
+  "opinii elevi",
+  "revista elevi",
+  "olimpiade scolare",
+  "dezbateri educatie",
+  "comunitate tineri"
+]
 defaultSocialImage = "images/og-logo.webp"
 images = ["images/og-logo.webp"]
 
@@ -39,5 +63,6 @@ images = ["images/og-logo.webp"]
   metaDescriptionOrder = ["description", "summary", "site"]
 
 [sitemap]
-  excludedKinds = ["taxonomy", "term"]
+  excludedKinds = []
+
 
