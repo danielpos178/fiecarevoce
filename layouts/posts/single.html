@@ -322,7 +322,7 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  function initSinglePostToc() {
     // Dynamic Table of Contents & Subtitle Smooth Scroll
     const prose = document.querySelector('.prose');
     const tocNavDesktop = document.getElementById('custom-toc-nav');
@@ -447,7 +447,13 @@
         }, { passive: true });
       }
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSinglePostToc);
+  } else {
+    initSinglePostToc();
+  }
 </script>
 
 <!-- Neo-Brutalist Non-Blocking Toast Notification -->

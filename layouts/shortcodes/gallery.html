@@ -265,39 +265,47 @@
     };
 
     // Setup Mouse Drag-to-Scroll & Wheel Horizontal Scroll
-    document.addEventListener('DOMContentLoaded', function() {
-      const track = document.getElementById('{{ $galleryId }}-track');
-      if (!track) return;
+    (function() {
+      function initGalleryTrack() {
+        const track = document.getElementById('{{ $galleryId }}-track');
+        if (!track) return;
 
-      let isDown = false;
-      let startX;
-      let scrollLeft;
+        let isDown = false;
+        let startX;
+        let scrollLeft;
 
-      track.addEventListener('mousedown', (e) => {
-        isDown = true;
-        startX = e.pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
-      });
+        track.addEventListener('mousedown', (e) => {
+          isDown = true;
+          startX = e.pageX - track.offsetLeft;
+          scrollLeft = track.scrollLeft;
+        });
 
-      track.addEventListener('mouseleave', () => { isDown = false; });
-      track.addEventListener('mouseup', () => { isDown = false; });
+        track.addEventListener('mouseleave', () => { isDown = false; });
+        track.addEventListener('mouseup', () => { isDown = false; });
 
-      track.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - track.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        track.scrollLeft = scrollLeft - walk;
-      });
-
-      // Horizontal Mouse Wheel Scroll
-      track.addEventListener('wheel', (e) => {
-        if (e.deltaY !== 0) {
+        track.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
           e.preventDefault();
-          track.scrollBy({ left: e.deltaY * 1.2, behavior: 'auto' });
-        }
-      }, { passive: false });
-    });
+          const x = e.pageX - track.offsetLeft;
+          const walk = (x - startX) * 1.5;
+          track.scrollLeft = scrollLeft - walk;
+        });
+
+        // Horizontal Mouse Wheel Scroll
+        track.addEventListener('wheel', (e) => {
+          if (e.deltaY !== 0) {
+            e.preventDefault();
+            track.scrollBy({ left: e.deltaY * 1.2, behavior: 'auto' });
+          }
+        }, { passive: false });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initGalleryTrack);
+      } else {
+        initGalleryTrack();
+      }
+    })();
 
     if (typeof window.galleryScriptsLoaded === 'undefined') {
       window.galleryScriptsLoaded = true;

@@ -42,7 +42,7 @@
 </nav>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  function initDesktopNav() {
     const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
     
     if (isHomepage) {
@@ -105,5 +105,11 @@
       window.addEventListener('hashchange', checkScroll);
       checkScroll();
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDesktopNav);
+  } else {
+    initDesktopNav();
+  }
 </script>

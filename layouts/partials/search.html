@@ -66,7 +66,7 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  function initSearchModal() {
     const searchWrapper = document.getElementById('search-wrapper');
     const searchInput = document.getElementById('search-query');
     const closeBtn = document.getElementById('close-search-button');
@@ -236,5 +236,11 @@
         }
       });
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSearchModal);
+  } else {
+    initSearchModal();
+  }
 </script>

@@ -366,7 +366,7 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  function initLiveSearch() {
     const liveSearchInput = document.getElementById('live-post-search');
     const clearSearchBtn = document.getElementById('clear-live-search');
     const resultsContainer = document.getElementById('live-search-results-container');
@@ -431,14 +431,14 @@
         const rawQuery = this.value.trim();
         const query = normalizeText(rawQuery);
         
-        if (query.length > 0) {
-          if (clearSearchBtn) clearSearchBtn.classList.remove('hidden');
-        } else {
+        if (!query) {
           if (clearSearchBtn) clearSearchBtn.classList.add('hidden');
           if (resultsContainer) resultsContainer.classList.add('hidden');
           if (defaultFeedSection) defaultFeedSection.classList.remove('hidden');
           return;
         }
+
+        if (clearSearchBtn) clearSearchBtn.classList.remove('hidden');
 
         await loadIndexData();
         if (!searchDataCache) return;
@@ -536,6 +536,12 @@
         });
       }
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLiveSearch);
+  } else {
+    initLiveSearch();
+  }
 </script>
 {{ end }}

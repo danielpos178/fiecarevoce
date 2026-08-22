@@ -1,8 +1,8 @@
 const sitePreference = document.documentElement.getAttribute("data-default-appearance") || "light";
 const autoAppearance = document.documentElement.getAttribute("data-auto-appearance") !== "false";
-const userPreference = localStorage.getItem("appearance");
 
 function applyInitialTheme() {
+  const userPreference = localStorage.getItem("appearance");
   if (userPreference === "dark") {
     document.documentElement.classList.add("dark");
   } else if (userPreference === "light") {
@@ -46,7 +46,7 @@ function updateMeta() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+function initAppearanceSwitcher() {
   const switcher = document.getElementById("appearance-switcher");
   const switcherMobile = document.getElementById("appearance-switcher-mobile");
 
@@ -90,5 +90,11 @@ window.addEventListener("DOMContentLoaded", () => {
     switcherMobile.addEventListener("click", handleToggle);
     switcherMobile.addEventListener("contextmenu", handleResetToSystem);
   }
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAppearanceSwitcher);
+} else {
+  initAppearanceSwitcher();
+}
 
