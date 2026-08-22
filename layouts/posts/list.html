@@ -71,9 +71,7 @@
 
     <!-- Default Hugo Paginated Grid Section -->
     <div id="default-feed-section">
-      {{ $featuredPosts := (where (where site.RegularPages "Type" "posts") "Params.featured" true).ByDate.Reverse }}
-      {{ $normalPosts := (where (where site.RegularPages "Type" "posts") "Params.featured" "!=" true).ByDate.Reverse }}
-      {{ $posts := $featuredPosts | append $normalPosts }}
+      {{ $posts := (where site.RegularPages "Type" "posts").ByDate.Reverse }}
       {{ $paginator := .Paginate $posts 6 }}
 
       {{ if gt (len $posts) 0 }}
@@ -142,7 +140,8 @@
                 </h2>
                 <p class="font-zine-body text-base sm:text-lg text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
                   {{ .Summary }}
-                  <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                </p>
+                <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
                   <a href="{{ $authorURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
                     {{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}
                     <span>{{ $author }}</span>
@@ -162,6 +161,11 @@
               <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] rotate-1">
                 {{ $category }}
               </div>
+              {{ if .Params.featured }}
+              <div class="absolute -top-3.5 right-4 bg-brand-green text-white px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] -rotate-1">
+                ★ RECOMANDAT
+              </div>
+              {{ end }}
               
               <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
                 {{ if .Params.image }}
@@ -208,6 +212,11 @@
               <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
                 {{ $category }}
               </div>
+              {{ if .Params.featured }}
+              <div class="absolute -top-3.5 right-4 bg-brand-green text-white px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] rotate-1">
+                ★ RECOMANDAT
+              </div>
+              {{ end }}
 
               <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block shrink-0">
                 {{ if .Params.image }}
@@ -260,6 +269,11 @@
               <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] -rotate-1">
                 {{ $category }}
               </div>
+              {{ if .Params.featured }}
+              <div class="absolute -top-3.5 right-4 bg-brand-green text-white px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] rotate-1">
+                ★ RECOMANDAT
+              </div>
+              {{ end }}
 
               <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
                 {{ if .Params.image }}
@@ -306,6 +320,11 @@
               <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
                 {{ $category }}
               </div>
+              {{ if .Params.featured }}
+              <div class="absolute -top-3.5 right-4 bg-brand-green text-white px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] -rotate-1">
+                ★ RECOMANDAT
+              </div>
+              {{ end }}
 
               <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
                 {{ if .Params.image }}
@@ -371,6 +390,7 @@
     const clearSearchBtn = document.getElementById('clear-live-search');
     const resultsContainer = document.getElementById('live-search-results-container');
     const resultsGrid = document.getElementById('live-search-grid');
+    const resultsTitle = document.getElementById('live-search-title');
     const resultsCount = document.getElementById('live-search-count');
     const searchEmpty = document.getElementById('live-search-empty');
     const defaultFeedSection = document.getElementById('default-feed-section');
@@ -402,44 +422,84 @@
       }
     }
 
-    // Sort order handler
-    if (sortSelect) {
-      sortSelect.addEventListener('change', function() {
-        const order = this.value; // 'desc' or 'asc'
+    function renderArticles(list, query) {
+      if (!resultsGrid) return;
+      if (list.length === 0) {
+        if (searchEmpty) searchEmpty.classList.remove('hidden');
+        resultsGrid.innerHTML = '';
+        return;
+      }
+      if (searchEmpty) searchEmpty.classList.add('hidden');
 
-        // 1. Re-sort feed grid DOM elements
-        const feedGrid = document.querySelector('#default-feed-section section');
-        if (feedGrid) {
-          const articles = Array.from(feedGrid.querySelectorAll('article[data-date]'));
-          articles.sort((a, b) => {
-            const dateA = new Date(a.getAttribute('data-date'));
-            const dateB = new Date(b.getAttribute('data-date'));
-            return order === 'asc' ? dateA - dateB : dateB - dateA;
-          });
-          articles.forEach(art => feedGrid.appendChild(art));
+      let cardsHTML = '';
+      list.forEach(item => {
+        const catLabel = item.categories && item.categories.length > 0 ? item.categories[0] : 'ARTICOL';
+        
+        let snippet = item.summary || '';
+        if (query && item.content) {
+          const normContent = normalizeText(item.content);
+          const idx = normContent.indexOf(query);
+          if (idx !== -1) {
+            const start = Math.max(0, idx - 40);
+            const end = Math.min(item.content.length, idx + 120);
+            snippet = (start > 0 ? '...' : '') + item.content.substring(start, end) + (end < item.content.length ? '...' : '');
+          }
         }
 
-        // 2. Re-trigger search if user typed a query
-        if (liveSearchInput && liveSearchInput.value.trim().length > 0) {
-          liveSearchInput.dispatchEvent(new Event('input'));
-        }
+        const featuredBadge = item.featured ? `
+          <div class="absolute -top-3.5 right-4 bg-brand-green text-white px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] rotate-1">
+            ★ RECOMANDAT
+          </div>
+        ` : '';
+
+        const imageSrc = item.image || '/images/default-cover.webp';
+
+        cardsHTML += `
+          <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+            <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
+              ${catLabel}
+            </div>
+            ${featuredBadge}
+
+            <a href="${item.permalink}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+              <img src="${imageSrc}" alt="${item.title}" class="w-full h-full object-cover nozoom" loading="lazy">
+            </a>
+
+            <div class="p-6 flex flex-col gap-3 flex-grow">
+              <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
+                ${item.formattedDate || item.date} • ${item.readingTime}
+              </span>
+              <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                <a href="${item.permalink}">${item.title}</a>
+              </h3>
+              <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+                ${snippet}
+              </p>
+              <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                <a href="${item.authorUrl || '#'}" class="flex items-center gap-1.5 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
+                  {{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}
+                  <span>${item.author}</span>
+                </a>
+                <a href="${item.permalink}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span>Citește</span>
+                  {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
+                </a>
+              </div>
+            </div>
+          </article>
+        `;
       });
+
+      resultsGrid.innerHTML = cardsHTML;
     }
 
-    if (liveSearchInput) {
-      liveSearchInput.addEventListener('input', async function() {
-        const rawQuery = this.value.trim();
-        const query = normalizeText(rawQuery);
-        
-        if (!query) {
-          if (clearSearchBtn) clearSearchBtn.classList.add('hidden');
-          if (resultsContainer) resultsContainer.classList.add('hidden');
-          if (defaultFeedSection) defaultFeedSection.classList.remove('hidden');
-          return;
-        }
+    async function applySearchAndSort() {
+      const rawQuery = liveSearchInput ? liveSearchInput.value.trim() : '';
+      const query = normalizeText(rawQuery);
+      const currentOrder = sortSelect ? sortSelect.value : 'desc';
 
+      if (query.length > 0) {
         if (clearSearchBtn) clearSearchBtn.classList.remove('hidden');
-
         await loadIndexData();
         if (!searchDataCache) return;
 
@@ -459,82 +519,64 @@
                  content.includes(query);
         });
 
-        // Apply sort selection to search results
-        const currentOrder = sortSelect ? sortSelect.value : 'desc';
         filtered.sort((a, b) => {
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          return currentOrder === 'asc' ? dateA - dateB : dateB - dateA;
+          const timeA = a.timestamp || new Date(a.date).getTime();
+          const timeB = b.timestamp || new Date(b.date).getTime();
+          return currentOrder === 'asc' ? timeA - timeB : timeB - timeA;
         });
 
         if (defaultFeedSection) defaultFeedSection.classList.add('hidden');
         if (resultsContainer) resultsContainer.classList.remove('hidden');
-
+        if (resultsTitle) resultsTitle.textContent = 'REZULTATE CĂUTARE';
         if (resultsCount) {
           resultsCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'REZULTAT' : 'REZULTATE'}`;
         }
 
-        if (filtered.length === 0) {
-          if (searchEmpty) searchEmpty.classList.remove('hidden');
-          if (resultsGrid) resultsGrid.innerHTML = '';
-        } else {
-          if (searchEmpty) searchEmpty.classList.add('hidden');
-          
-          let cardsHTML = '';
-          filtered.forEach(item => {
-            const catLabel = item.categories && item.categories.length > 0 ? item.categories[0] : 'ARTICOL';
-            
-            let snippet = item.summary || '';
-            if (item.content) {
-              const normContent = normalizeText(item.content);
-              const idx = normContent.indexOf(query);
-              if (idx !== -1) {
-                const start = Math.max(0, idx - 40);
-                const end = Math.min(item.content.length, idx + 120);
-                snippet = (start > 0 ? '...' : '') + item.content.substring(start, end) + (end < item.content.length ? '...' : '');
-              }
-            }
+        renderArticles(filtered, query);
+      } else {
+        if (clearSearchBtn) clearSearchBtn.classList.add('hidden');
 
-            cardsHTML += `
-              <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
-                <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
-                  ${catLabel}
-                </div>
+        if (currentOrder === 'asc') {
+          await loadIndexData();
+          if (!searchDataCache) return;
 
-                <div class="p-6 flex flex-col gap-3 flex-grow mt-2">
-                  <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-                    ${item.date} • ${item.readingTime}
-                  </span>
-                  <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
-                    <a href="${item.permalink}">${item.title}</a>
-                  </h3>
-                  <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
-                    ${snippet}
-                  </p>
-                  <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
-                    <span>Autor: ${item.author}</span>
-                    <a href="${item.permalink}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                      <span>Citește</span>
-                      {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
-                    </a>
-                  </div>
-                </div>
-              </article>
-            `;
+          let allPosts = [...searchDataCache];
+          allPosts.sort((a, b) => {
+            const timeA = a.timestamp || new Date(a.date).getTime();
+            const timeB = b.timestamp || new Date(b.date).getTime();
+            return timeA - timeB;
           });
 
-          if (resultsGrid) resultsGrid.innerHTML = cardsHTML;
+          if (defaultFeedSection) defaultFeedSection.classList.add('hidden');
+          if (resultsContainer) resultsContainer.classList.remove('hidden');
+          if (resultsTitle) resultsTitle.textContent = 'TOATE ARTICOLELE (VECHI → NOI)';
+          if (resultsCount) {
+            resultsCount.textContent = `${allPosts.length} ${allPosts.length === 1 ? 'ARTICOL' : 'ARTICOLE'}`;
+          }
+
+          renderArticles(allPosts, '');
+        } else {
+          if (resultsContainer) resultsContainer.classList.add('hidden');
+          if (defaultFeedSection) defaultFeedSection.classList.remove('hidden');
+        }
+      }
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', applySearchAndSort);
+    }
+
+    if (liveSearchInput) {
+      liveSearchInput.addEventListener('input', applySearchAndSort);
+    }
+
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener('click', function() {
+        if (liveSearchInput) {
+          liveSearchInput.value = '';
+          applySearchAndSort();
         }
       });
-
-      if (clearSearchBtn) {
-        clearSearchBtn.addEventListener('click', function() {
-          if (liveSearchInput) {
-            liveSearchInput.value = '';
-            liveSearchInput.dispatchEvent(new Event('input'));
-          }
-        });
-      }
     }
   }
 
