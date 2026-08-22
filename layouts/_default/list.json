@@ -1,5 +1,5 @@
 [
-  {{- $posts := where site.RegularPages "Type" "posts" -}}
+  {{- $posts := (where site.RegularPages "Type" "posts").ByDate.Reverse -}}
   {{- range $i, $p := $posts -}}
     {{- if $i -}},{{- end -}}
     {{- $author := $p.Params.author -}}
@@ -19,14 +19,18 @@
     {
       "title": {{ $p.Title | jsonify }},
       "permalink": {{ $p.RelPermalink | jsonify }},
-      "date": {{ ($p.Date.Format "02 Jan 2006") | jsonify }},
+      "date": {{ ($p.Date.Format "2006-01-02") | jsonify }},
+      "formattedDate": {{ (partial "format-date.html" $p | plainify) | jsonify }},
+      "timestamp": {{ $p.Date.Unix | jsonify }},
       "summary": {{ $p.Summary | plainify | jsonify }},
       "content": {{ $p.Plain | jsonify }},
       "author": {{ $author | jsonify }},
+      "authorUrl": {{ (printf "authors/%s/" ($author | urlize) | relURL) | jsonify }},
       "categories": {{ $cats | jsonify }},
       "tags": {{ $tags | jsonify }},
       "readingTime": {{ (printf "%d MIN READ" ($p.Params.reading_time | default $p.ReadingTime)) | jsonify }},
-      "image": {{ ($p.Params.image | default "") | jsonify }}
+      "image": {{ ($p.Params.image | default "/images/default-cover.webp") | jsonify }},
+      "featured": {{ (cond ($p.Params.featured | default false) true false) | jsonify }}
     }
   {{- end -}}
 ]
