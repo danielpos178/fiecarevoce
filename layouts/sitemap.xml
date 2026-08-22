@@ -1,83 +1,150 @@
 {{ printf "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" | safeHTML }}
+{{ printf "<?xml-stylesheet type=\"text/xsl\" href=\"%s\"?>" ("sitemap.xsl" | absURL) | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-{{- range .Data.Pages -}}
-  {{- $p := . -}}
-  {{- $skip := false -}}
-  {{- if or $p.Draft $p.Sitemap.Disable (in site.Params.sitemap.excludedKinds $p.Kind) $p.Params.excludeFromSearch -}}
-    {{- $skip = true -}}
+
+  {{- /* 1. HOMEPAGE */ -}}
+  {{- with site.Home -}}
+  <url>
+    <loc>{{ .Permalink }}</loc>
+    <lastmod>{{ safeHTML (.Lastmod | default .Date | default now | time.Format "2006-01-02T15:04:05-07:00") }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>{{ "images/logo1000.webp" | absURL }}</image:loc>
+      <image:title>{{ site.Title | plainify | htmlEscape }}</image:title>
+    </image:image>
+  </url>
   {{- end -}}
-  {{- if or (eq $p.RelPermalink "/mentenanta/") (strings.Contains (lower (string $p.Params.robots)) "noindex") -}}
-    {{- $skip = true -}}
+
+  {{- /* 2. MAIN PILLAR SECTIONS (/posts/, /categories/, /authors/) */ -}}
+  {{- $mainSections := slice "posts" "categories" "authors" -}}
+  {{- range site.Sections -}}
+    {{- if and (in $mainSections .Section) (not .Draft) (not .Params.excludeFromSearch) -}}
+      {{- $lastmod := .Lastmod | default .Date | default now -}}
+      {{- $secImage := .Params.image | default "images/og-logo.webp" -}}
+  <url>
+    <loc>{{ .Permalink }}</loc>
+    <lastmod>{{ safeHTML ($lastmod.Format "2006-01-02T15:04:05-07:00") }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>{{ $secImage | absURL }}</image:loc>
+      <image:title>{{ .Title | plainify | htmlEscape }}</image:title>
+    </image:image>
+  </url>
+    {{- end -}}
   {{- end -}}
-  {{- if not $skip -}}
-    {{- if $p.Permalink -}}
-      {{- $lastmod := $p.Lastmod -}}
-      {{- if $lastmod.IsZero -}}
-        {{- $lastmod = $p.PublishDate | default $p.Date | default now -}}
-      {{- end -}}
-      {{- $priority := "0.5" -}}
+
+  {{- /* 3. MAIN STATIC PAGES (/despre-noi/, /termeni-si-conditii/) */ -}}
+  {{- range where site.RegularPages "Section" "" -}}
+    {{- if and (not .Draft) (not (eq .RelPermalink "/mentenanta/")) (not (strings.Contains (lower (string .Params.robots)) "noindex")) -}}
+      {{- $lastmod := .Lastmod | default .Date | default now -}}
+      {{- $priority := "0.70" -}}
       {{- $changefreq := "monthly" -}}
-      {{- if $p.IsHome -}}
-        {{- $priority = "1.0" -}}
-        {{- $changefreq = "daily" -}}
-      {{- else if and $p.IsSection (eq $p.Type "posts") -}}
-        {{- $priority = "0.9" -}}
-        {{- $changefreq = "daily" -}}
-      {{- else if or (eq $p.Type "categories") (eq $p.Kind "taxonomy") (eq $p.Kind "term") -}}
+      {{- if eq .RelPermalink "/despre-noi/" -}}
         {{- $priority = "0.85" -}}
         {{- $changefreq = "weekly" -}}
-      {{- else if and $p.IsPage (or (eq $p.Type "posts") (eq $p.Section "posts")) -}}
-        {{- $priority = "0.8" -}}
-        {{- $changefreq = "weekly" -}}
-      {{- else if eq $p.Type "authors" -}}
-        {{- $priority = "0.75" -}}
-        {{- $changefreq = "weekly" -}}
-      {{- else if $p.IsPage -}}
-        {{- $priority = "0.7" -}}
-        {{- $changefreq = "monthly" -}}
-      {{- end -}}
-      {{- with $p.Params.sitemap_priority -}}
-        {{- $priority = . -}}
-      {{- end -}}
-      {{- with $p.Params.sitemap_changefreq -}}
-        {{- $changefreq = . -}}
+      {{- else if eq .RelPermalink "/termeni-si-conditii/" -}}
+        {{- $priority = "0.30" -}}
+        {{- $changefreq = "yearly" -}}
       {{- end -}}
   <url>
-    <loc>{{ $p.Permalink }}</loc>
-    <lastmod>{{ safeHTML ( $lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>
+    <loc>{{ .Permalink }}</loc>
+    <lastmod>{{ safeHTML ($lastmod.Format "2006-01-02T15:04:05-07:00") }}</lastmod>
     <changefreq>{{ $changefreq }}</changefreq>
     <priority>{{ $priority }}</priority>
-    {{- /* Specific Article / Page Image SEO Resolution */ -}}
-    {{- $pageImage := "" -}}
-    {{- if $p.Params.image -}}
-      {{- if or (strings.HasPrefix $p.Params.image "http://") (strings.HasPrefix $p.Params.image "https://") -}}
-        {{- $pageImage = $p.Params.image -}}
-      {{- else -}}
-        {{- $pageImage = $p.Params.image | absURL -}}
-      {{- end -}}
-    {{- else if $p.IsHome -}}
-      {{- $pageImage = "images/logo1000.webp" | absURL -}}
-    {{- else -}}
-      {{- $resources := $p.Resources.ByType "image" -}}
-      {{- range slice "*featured*" "*cover*" "*thumbnail*" -}}
-        {{- if not $pageImage -}}
-          {{- with $resources.GetMatch . -}}
-            {{- $pageImage = .RelPermalink | absURL -}}
-          {{- end -}}
-        {{- end -}}
-      {{- end -}}
-    {{- end -}}
-    {{- with $pageImage -}}
+    {{- with .Params.image -}}
     <image:image>
-      <image:loc>{{ . }}</image:loc>
-      {{- with $p.Title -}}
-      <image:title>{{ . | plainify | htmlEscape }}</image:title>
-      {{- end -}}
+      <image:loc>{{ . | absURL }}</image:loc>
+      <image:title>{{ $.Title | plainify | htmlEscape }}</image:title>
     </image:image>
     {{- end -}}
   </url>
     {{- end -}}
   {{- end -}}
-{{- end -}}
+
+  {{- /* 4. CATEGORIES ARCHIVES */ -}}
+  {{- range (index site.Taxonomies "categories") -}}
+    {{- $termPage := .Page -}}
+    {{- if and $termPage (not $termPage.Draft) -}}
+      {{- $lastmod := $termPage.Lastmod | default $termPage.Date | default now -}}
+  <url>
+    <loc>{{ $termPage.Permalink }}</loc>
+    <lastmod>{{ safeHTML ($lastmod.Format "2006-01-02T15:04:05-07:00") }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>{{ "images/og-logo.webp" | absURL }}</image:loc>
+      <image:title>{{ $termPage.Title | plainify | htmlEscape }}</image:title>
+    </image:image>
+  </url>
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* 5. ALL PUBLISHED BLOG POSTS (Chronologically sorted, Newest to Oldest) */ -}}
+  {{- $posts := (where (where site.RegularPages "Type" "posts") "Draft" false).ByDate.Reverse -}}
+  {{- range $posts -}}
+    {{- if and (not (strings.Contains (lower (string .Params.robots)) "noindex")) (not .Params.excludeFromSearch) -}}
+      {{- $lastmod := .Lastmod | default .Date | default now -}}
+      {{- $imgUrl := .Params.image | default "/images/default-cover.webp" -}}
+      {{- if not (or (strings.HasPrefix $imgUrl "http://") (strings.HasPrefix $imgUrl "https://")) -}}
+        {{- $imgUrl = $imgUrl | absURL -}}
+      {{- end -}}
+  <url>
+    <loc>{{ .Permalink }}</loc>
+    <lastmod>{{ safeHTML ($lastmod.Format "2006-01-02T15:04:05-07:00") }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>{{ $imgUrl }}</image:loc>
+      <image:title>{{ .Title | plainify | htmlEscape }}</image:title>
+      {{- with .Summary -}}
+      <image:caption>{{ . | plainify | htmlEscape }}</image:caption>
+      {{- end -}}
+    </image:image>
+  </url>
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* 6. AUTHORS DIRECTORY */ -}}
+  {{- range (index site.Taxonomies "authors") -}}
+    {{- $authorPage := .Page -}}
+    {{- if and $authorPage (not $authorPage.Draft) -}}
+      {{- $lastmod := $authorPage.Lastmod | default $authorPage.Date | default now -}}
+      {{- $authorImg := $authorPage.Params.image | default "images/og-logo.webp" -}}
+      {{- if not (or (strings.HasPrefix $authorImg "http://") (strings.HasPrefix $authorImg "https://")) -}}
+        {{- $authorImg = $authorImg | absURL -}}
+      {{- end -}}
+  <url>
+    <loc>{{ $authorPage.Permalink }}</loc>
+    <lastmod>{{ safeHTML ($lastmod.Format "2006-01-02T15:04:05-07:00") }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>{{ $authorImg }}</image:loc>
+      <image:title>{{ $authorPage.Title | plainify | htmlEscape }}</image:title>
+    </image:image>
+  </url>
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* 7. CURATED TOPIC TAGS (Tags with 2+ articles) */ -}}
+  {{- range $tagName, $tagTaxonomy := site.Taxonomies.tags -}}
+    {{- if gt (len $tagTaxonomy.Pages) 1 -}}
+      {{- $tagPage := $tagTaxonomy.Page -}}
+      {{- if and $tagPage (not $tagPage.Draft) -}}
+        {{- $lastmod := $tagPage.Lastmod | default $tagPage.Date | default now -}}
+  <url>
+    <loc>{{ $tagPage.Permalink }}</loc>
+    <lastmod>{{ safeHTML ($lastmod.Format "2006-01-02T15:04:05-07:00") }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
 </urlset>
