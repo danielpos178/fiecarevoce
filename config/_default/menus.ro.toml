@@ -1,24 +1,25 @@
 [[main]]
+  name = "Articole"
+  url = "/posts/"
+  weight = 10
+
+[[main]]
   name = "Despre Noi"
   url = "/despre-noi/"
-  weight = 10
+  weight = 20
+
+[[main]]
+  name = "Realizări"
+  url = "/categories/realizari/"
+  weight = 30
 
 [[main]]
   name = "Impact"
   url = "/#impact"
-  weight = 30
-
-[[main]]
-  name = "Realizări"
-  url = "/#realizari"
-  weight = 35
-
-[[main]]
-  name = "Articole"
-  url = "/posts/"
   weight = 40
 
 [[main]]
   name = "Implică-te"
   url = "/#implica-te"
   weight = 50
+
