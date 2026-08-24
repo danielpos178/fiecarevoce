@@ -49,12 +49,12 @@
     <a 
       href="{{ $url | relURL }}" 
       download 
-      class="font-label text-xs uppercase font-black px-5 py-3 sticker-shadow hover:scale-105 transition-all shrink-0 self-stretch sm:self-center flex items-center justify-center gap-2"
-      style="background-color: #ffbd59 !important; color: #18181b !important; border: 2px solid #18181b !important;">
-      <svg class="w-4 h-4 shrink-0 text-slate-900" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      class="download-btn font-label text-xs uppercase font-black px-5 py-3 hover:scale-105 transition-all shrink-0 self-stretch sm:self-center flex items-center justify-center gap-2 sticker-shadow"
+      style="background-color: #ffbd59 !important; color: #18181b !important; border: 2px solid #18181b !important; text-decoration: none !important;">
+      <svg class="w-4 h-4 shrink-0" fill="none" stroke="#18181b" stroke-width="2.5" viewBox="0 0 24 24" style="color: #18181b !important; stroke: #18181b !important;">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
       </svg>
-      <span>DESCARCĂ FIȘIERUL</span>
+      <span class="font-black" style="color: #18181b !important; -webkit-text-fill-color: #18181b !important;">DESCARCĂ FIȘIERUL</span>
     </a>
     {{ end }}
 

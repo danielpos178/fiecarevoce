@@ -731,3 +731,36 @@ body.mobile-menu-locked {
   overflow: hidden !important;
   touch-action: none;
 }
+
+/* ==========================================================================
+   Download Button Strict High Contrast Overrides
+   ========================================================================== */
+.download-btn,
+.not-prose .download-btn,
+html.dark .not-prose .download-btn,
+.dark .not-prose .download-btn,
+.not-prose a.download-btn,
+html.dark .prose a.download-btn,
+.dark .prose a.download-btn {
+  background-color: #ffbd59 !important;
+  color: #18181b !important;
+  border: 2px solid #18181b !important;
+  box-shadow: 3px 3px 0px 0px #18181b !important;
+  text-decoration: none !important;
+}
+
+.download-btn span,
+.download-btn svg,
+html.dark .download-btn span,
+.dark .download-btn span,
+html.dark .download-btn svg,
+.dark .download-btn svg,
+html.dark .prose a.download-btn span,
+.dark .prose a.download-btn span,
+html.dark .prose a.download-btn svg,
+.dark .prose a.download-btn svg {
+  color: #18181b !important;
+  -webkit-text-fill-color: #18181b !important;
+  fill: none !important;
+  stroke: #18181b !important;
+}
