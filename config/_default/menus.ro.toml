@@ -4,8 +4,8 @@
   weight = 10
 
 [[main]]
-  name = "Despre Noi"
-  url = "/despre-noi/"
+  name = "Autori"
+  url = "/authors/"
   weight = 20
 
 [[main]]
@@ -19,7 +19,12 @@
   weight = 40
 
 [[main]]
+  name = "Despre Noi"
+  url = "/despre-noi/"
+  weight = 50
+
+[[main]]
   name = "Implică-te"
   url = "/#implica-te"
-  weight = 50
+  weight = 60
 
