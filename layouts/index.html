@@ -210,22 +210,20 @@
         </a>
       </div>
 
-      {{ $featuredPosts := (where (where site.RegularPages "Type" "in" site.Params.mainSections) "Params.featured" true).ByDate.Reverse }}
-      {{ $normalPosts := (where (where site.RegularPages "Type" "in" site.Params.mainSections) "Params.featured" "!=" true).ByDate.Reverse }}
-      {{ $allPosts := $featuredPosts | append $normalPosts }}
+      {{ $allPosts := (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
       {{ $otherPosts := slice }}
       {{ range $allPosts }}
         {{ $isRealizari := false }}
         {{ if .Params.categories }}
           {{ range .Params.categories }}
-            {{ if eq (lower .) "realizari" }}
+            {{ if eq (. | urlize) "realizari" }}
               {{ $isRealizari = true }}
             {{ end }}
           {{ end }}
         {{ end }}
         {{ if .Params.tags }}
           {{ range .Params.tags }}
-            {{ if eq (lower .) "realizari" }}
+            {{ if eq (. | urlize) "realizari" }}
               {{ $isRealizari = true }}
             {{ end }}
           {{ end }}
@@ -330,14 +328,14 @@
         {{ $hasTag := false }}
         {{ if .Params.tags }}
           {{ range .Params.tags }}
-            {{ if eq (lower .) "realizari" }}
+            {{ if eq (. | urlize) "realizari" }}
               {{ $hasTag = true }}
             {{ end }}
           {{ end }}
         {{ end }}
         {{ if .Params.categories }}
           {{ range .Params.categories }}
-            {{ if eq (lower .) "realizari" }}
+            {{ if eq (. | urlize) "realizari" }}
               {{ $hasTag = true }}
             {{ end }}
           {{ end }}
