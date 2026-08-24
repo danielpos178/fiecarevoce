@@ -7,7 +7,7 @@ draft: false
 summary: "Analiză privind introducerea examenelor proprii de admitere la liceu din 2027. Cum afectează această schimbare egalitatea de șanse și de ce pregătirea în privat devine un factor decisiv pentru elevii de gimnaziu."
 description: "Analiză despre admiterea separată la liceu: impactul asupra pieței de meditații și inegalității dintre elevi."
 author: "Luca Georgescu"
-authors: ["Luca Georgescu", "Echipa Fiecare Voce"]
+authors: ["Luca Georgescu"]
 categories: ["Educație", "Analize"]
 tags: ["admitere liceu", "evaluare nationala", "meditatii", "inegalitate educationala", "Ministerul Educatiei", "admitere 2027", "Fiecare Voce"]
 keywords: ["admitere liceu 2027", "meditatii elevi", "evaluare nationala", "concurs admitere liceu", "inegalitate educationala", "Fiecare Voce"]

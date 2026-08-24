@@ -7,7 +7,7 @@ draft: false
 summary: "Ministerul Educației propune noi standarde naționale de evaluare pentru clasele I-VIII. Analizăm de ce nota 10 variază drastic între școli și ce presupune uniformizarea criteriilor de notare."
 description: "Standardele naționale de evaluare în școli: de ce diferă notarea între licee și ce schimbări sunt pregătite pentru elevi."
 author: "Yali Ionescu"
-authors: ["Yali Ionescu", "Delia Florescu", "Echipa Fiecare Voce"]
+authors: ["Yali Ionescu", "Delia Florescu"]
 categories: ["Educație", "Analize"]
 tags: ["evaluare nationala", "sistem de notare", "Ministerul Educatiei", "standarde educationale", "note scolare", "notare subiectiva", "Fiecare Voce"]
 keywords: ["standarde nationale evaluare", "sistem de notare scolar", "note comparabile scoli", "Ministerul Educatiei 2026", "notare subiectiva", "Fiecare Voce"]

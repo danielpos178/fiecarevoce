@@ -7,7 +7,7 @@ draft: false
 summary: "Ministerul Educației propune eliminarea bursei sociale pe perioada vacanțelor școlare, printr-un proiect de Hotărâre de Guvern lansat cu doar două săptămâni înainte de începerea anului școlar 2026-2027. Analizăm ce înseamnă această măsură pentru elevii din medii vulnerabile și prezentăm mărturia unei eleve de liceu."
 description: "Analiză despre eliminarea burselor sociale în vacanțe: impactul tăierilor asupra elevilor din medii defavorizate."
 author: "Alexandra Stanciu"
-authors: ["Alexandra Stanciu", "Eliza Geotti", "Echipa Fiecare Voce"]
+authors: ["Alexandra Stanciu", "Eliza Geotti"]
 categories: ["Educație", "Analize"]
 tags: ["bursa sociala", "bursa sociala vacanta", "Ministerul Educatiei", "burse elevi", "drepturile elevilor", "vacanta scolara", "HG 732/2025", "analiza educatie", "marturie elev", "egalitate de sanse"]
 keywords: ["bursa sociala", "bursa sociala vacanta 2026", "Ministerul Educatiei", "proiect HG burse", "HG 732/2025", "taiere burse sociale", "drepturile elevilor", "analiza educatie", "marturie elev", "egalitate de sanse", "Fiecare Voce"]

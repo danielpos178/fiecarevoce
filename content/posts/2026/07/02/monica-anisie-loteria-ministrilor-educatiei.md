@@ -7,7 +7,7 @@ draft: false
 summary: "Analiză a parcursului politic și decizional al Monicăi Anisie la conducerea Ministerului Educației și ce înseamnă instabilitatea cronică de la vârful învățământului românesc."
 description: "Analiză despre schimbările frecvente de miniștri la Educație și impactul lipsei de predictibilitate asupra elevilor."
 author: "Maria Sbîrneciu"
-authors: ["Maria Sbîrneciu", "Alesia Diniță", "Echipa Fiecare Voce"]
+authors: ["Maria Sbîrneciu", "Alesia Diniță"]
 categories: ["Educație", "Analize"]
 tags: ["Monica Anisie", "Ministerul Educatiei", "politica", "criza politica", "miniștrii educației", "reforma educatie", "Fiecare Voce"]
 keywords: ["Monica Anisie ministru educatie", "loteria ministrilor educatiei", "politica educationala romania", "instabilitate ministerul educatiei", "Fiecare Voce"]

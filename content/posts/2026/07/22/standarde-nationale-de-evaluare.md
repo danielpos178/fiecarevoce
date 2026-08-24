@@ -6,9 +6,9 @@ lastmod: 2026-08-21
 draft: false
 summary: "În iulie 2026, un grup de lucru intern al echipei Fiecare Voce a redactat un document de poziție privind standardele naționale de evaluare, transmis Ministerului Educației în consultare publică."
 description: "Poziția oficială a Grupului de Lucru Fiecare Voce privind noile standarde naționale de evaluare propuse de minister."
-author: "Grupul de Lucru FV"
-authors: ["Grupul de Lucru FV", "Redacția Fiecare Voce"]
-categories: ["Realizari"]
+author: "Maria Sbîrneciu, Alessandra Treppiedi, Daria Apalane"
+authors: ["Maria Sbîrneciu", "Alessandra Treppiedi", "Daria Apalane"]
+categories: ["Realizări"]
 tags: ["standarde evaluare", "grup de lucru", "Ministerul Educatiei", "consultare publica", "Fiecare Voce"]
 keywords: ["standarde nationale evaluare", "punct de vedere fiecare voce", "consultare publica educatie", "Fiecare Voce"]
 image: "/images/default-cover.webp"

@@ -8,13 +8,13 @@ summary: "Revista Fiecare Voce a debutat în vara anului 2025 odată cu apariți
 description: "Povestea Revistei Fiecare Voce: spațiul în care elevii scriu liber despre sănătate mintală, drepturi și egalitate."
 author: "Redacția Fiecare Voce"
 authors: ["Redacția Fiecare Voce"]
-categories: ["Realizari"]
+categories: ["Realizări"]
 tags: ["revista", "Arhiva Sirenei", "redactie", "Yumpu", "articole elevi", "Fiecare Voce"]
 keywords: ["revista fiecare voce", "arhiva sirenei", "articole elevi", "yumpu cada", "Fiecare Voce"]
 image: "/images/posts/2025/08/01/revista_cover_1.webp"
 image_position: "center 40%"
 image_fit: "contain"
-photo_credit: "Grafică: Echipa Fiecare Voce"
+photo_credit: "Redacția Fiecare Voce"
 featured: false
 ---
 

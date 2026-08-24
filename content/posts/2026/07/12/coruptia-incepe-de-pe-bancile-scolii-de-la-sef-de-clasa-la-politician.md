@@ -6,15 +6,15 @@ lastmod: 2026-07-12
 draft: false
 summary: "O analiză critică despre modul în care jocurile de putere, șefia clasei și structurile de reprezentare ale elevilor reflectă și formează comportamentele politice de mai târziu."
 description: "Cum se manifestă mirajul puterii în școală: de la alegerea șefului de clasă până la structurile de reprezentare a elevilor."
-author: "Echipa de Social Media Fiecare Voce"
-authors: ["Echipa de Social Media Fiecare Voce", "Echipa Fiecare Voce"]
+author: "Redacția Fiecare Voce"
+authors: ["Redacția Fiecare Voce"]
 categories: ["Educație", "Opinii"]
 tags: ["consiliul elevilor", "corupție", "sistem educational", "politica", "sef de clasa", "mirajul puterii", "Fiecare Voce"]
 keywords: ["coruptie in scoala", "consiliul scolar al elevilor", "sef de clasa reprezentare", "politica scolara elevi", "Fiecare Voce"]
 image: "/images/posts/2026/07/12/coruptie_scoala_cover.webp"
 image_position: "center 40%"
 image_fit: "cover"
-photo_credit: "Echipa de Social Media Fiecare Voce"
+photo_credit: "Redacția Fiecare Voce"
 featured: false
 ---
 

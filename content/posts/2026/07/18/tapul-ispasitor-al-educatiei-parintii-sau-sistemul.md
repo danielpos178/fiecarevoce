@@ -7,7 +7,7 @@ draft: false
 summary: "Analiză privind rezultatele la simularea Evaluării Naționale și tendința de a arunca vina pe părinți sau elevi, în loc să abordăm problemele structurale din sistemul de învățământ."
 description: "Cine poartă responsabilitatea pentru notele mici de la simulări: părinții, elevii sau sistemul? O analiză Fiecare Voce."
 author: "Daria Apalane"
-authors: ["Daria Apalane", "Alesia Diniță", "Echipa Fiecare Voce"]
+authors: ["Daria Apalane", "Alesia Diniță"]
 categories: ["Educație", "Analize"]
 tags: ["evaluare nationala", "Ministerul Educatiei", "parinti", "profesori", "sistem educational", "simulare evaluare nationala", "Fiecare Voce"]
 keywords: ["simulare evaluare nationala", "rezultate evaluare nationala", "responsabilitate educatie", "parinti si scoala", "sistem educational romania", "Fiecare Voce"]

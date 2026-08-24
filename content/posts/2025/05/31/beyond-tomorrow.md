@@ -8,7 +8,7 @@ summary: "Pe 31 mai 2025, Fiecare Voce a organizat la Palatul Culturii din Ploie
 description: "Conferința Beyond Tomorrow la Ploiești: dezbateri cu olimpici și profesori despre burnout și drepturile elevilor."
 author: "Redacția Fiecare Voce"
 authors: ["Redacția Fiecare Voce", "Luca Georgescu", "Iulia Geambazu"]
-categories: ["Realizari"]
+categories: ["Realizări"]
 tags: ["Beyond Tomorrow", "olimpici", "burnout scolar", "Ploiesti", "eveniment elevi", "Fiecare Voce"]
 keywords: ["beyond tomorrow", "eveniment elevi ploiesti", "burnout scolar elevi", "olimpici internationali", "Fiecare Voce"]
 image: "/images/posts/2025/05/31/beyond_tomorrow_cover.webp"

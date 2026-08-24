@@ -7,7 +7,7 @@ draft: false
 summary: "Șase elevi cu punctaje egale la Olimpiada Națională de Matematică au rămas fără premii din partea Ministerului Educației. Părinții dau în judecată instituția pentru nerespectarea regulamentului."
 description: "De ce decizia Ministerului Educației de a reduce premiile olimpicilor afectează motivarea elevilor de performanță."
 author: "Maria Sbîrneciu"
-authors: ["Maria Sbîrneciu", "Alesia Diniță", "Echipa Fiecare Voce"]
+authors: ["Maria Sbîrneciu", "Alesia Diniță"]
 categories: ["Educație", "Analize"]
 tags: ["olimpiade", "Ministerul Educatiei", "burse", "premii", "olimpiada de matematica", "olimpici la egalitate", "Fiecare Voce"]
 keywords: ["olimpiada nationala de matematica", "premii olimpici", "taieri premii Ministerul Educatiei", "mentiuni olimpici egalitate", "Fiecare Voce"]

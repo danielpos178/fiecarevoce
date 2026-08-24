@@ -8,7 +8,7 @@ summary: "În vara anului 2025, echipa Fiecare Voce a participat la două dezbat
 description: "Poziția Fiecare Voce la dezbaterile Ministerului Educației privind bursele școlare de excelență și bursele de merit."
 author: "Redacția Fiecare Voce"
 authors: ["Redacția Fiecare Voce"]
-categories: ["Realizari"]
+categories: ["Realizări"]
 tags: ["Ministerul Educatiei", "dezbateri burse", "burse olimpici", "modificare HG", "drepturile elevilor", "Fiecare Voce"]
 keywords: ["dezbateri ministerul educatiei", "burse scolare 2025", "burse olimpiciHG", "Fiecare Voce"]
 image: "/images/posts/2025/07/15/dezbateri_minister_cover.webp"

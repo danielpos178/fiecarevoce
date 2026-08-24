@@ -6,7 +6,7 @@ lastmod: 2026-08-20 # [OPȚIONAL] Data ultimei actualizări/revizuiri (format: A
 draft: true # [OBLIGATORIU] Starea publicării: false = vizibil pe site, true = ciornă ascunsă
 summary: "Ghidul tehnic complet și articolul model de referință care exemplifică toate câmpurile de date meta, formatările și shortcode-urile disponibile pe platforma Fiecare Voce." # [OBLIGATORIU] Rezumat scurt (1-2 fraze) afișat pe prima pagină, la căutare și în liste
 description: "Ghid complet pentru redactarea și publicarea articolelor pe platforma independentă a tinerilor Fiecare Voce."
-author: "Echipa Fiecare Voce" # [OBLIGATORIU] Numele autorului principal (ex: "Luca Georgescu" sau "Echipa Fiecare Voce")
+author: "Redacția Fiecare Voce" # [OBLIGATORIU] Numele autorului principal (ex: "Luca Georgescu" sau "Echipa Fiecare Voce")
 authors: ["Luca Georgescu", "Iulia Geambazu"] # [OPȚIONAL] Lista tuturor autorilor/contribuitorilor din redacție
 categories: ["Ghiduri", "Proiecte"] # [OBLIGATORIU] Categoriile articolului (ex: "Proiecte", "Educație", "Opinii", "Ghiduri")
 tags: ["ghid", "redactare", "demo", "evenimente", "tehnologie", "jurnalism"] # [OPȚIONAL] Etichete/cuvinte cheie legate de subiect (pentru căutare și filtrare)
@@ -36,7 +36,7 @@ lastmod: 2026-08-20 # [OPȚIONAL] Data ultimei revizuiri (AAAA-LL-ZZ)
 draft: false # [OBLIGATORIU] false = vizibil pe site, true = ciornă
 summary: "Rezumatul scurt (1-2 fraze) afișat în cardurile de pe prima pagină." # [OBLIGATORIU] Rezumat card
 description: "Ghid complet pentru redactarea și publicarea articolelor pe platforma independentă a tinerilor Fiecare Voce."
-author: "Echipa Fiecare Voce" # [OBLIGATORIU] Autor principal
+author: "Redacția Fiecare Voce" # [OBLIGATORIU] Autor principal
 authors: ["Luca Georgescu", "Iulia Geambazu"] # [OPȚIONAL] Lista autorilor
 categories: ["Ghiduri", "Proiecte"] # [OBLIGATORIU] Categorii principale
 tags: ["ghid", "redactare", "demo", "evenimente"] # [OPȚIONAL] Etichete pentru căutare
