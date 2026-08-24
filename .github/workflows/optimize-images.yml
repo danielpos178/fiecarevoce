@@ -34,15 +34,15 @@ jobs:
       - name: Install Pillow
         run: python -m pip install --upgrade Pillow
 
-      - name: Convert and Downscale Post Images to WebP (90% Quality)
+      - name: Convert and Optimize Post Images to High-Quality WebP (95% Quality)
         run: |
           python3 -c "import textwrap; exec(textwrap.dedent('''
           import os
           from PIL import Image, ImageOps
 
           target_dir = 'static/images/posts'
-          max_w, max_h = 1920, 1080
-          quality = 90
+          max_w, max_h = 2560, 2560
+          quality = 95
           valid_exts = ('.jpg', '.jpeg', '.png', '.webp', '.bmp', '.tiff')
 
           if os.path.exists(target_dir):
