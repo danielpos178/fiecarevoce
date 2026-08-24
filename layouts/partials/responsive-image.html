@@ -10,19 +10,19 @@
 {{ $img := resources.Get $cleanSrc }}
 
 {{ if and $img (ne $img.MediaType.SubType "svg") }}
- {{ $w400 := $img.Resize "400x webp q80" }}
- {{ $w600 := $img.Resize "600x webp q82" }}
- {{ $w1000 := $img.Resize "1000x webp q82" }}
- {{ $w1400 := $img.Resize "1400x webp q80" }}
+ {{ $w600 := $img.Resize "600x webp q92" }}
+ {{ $w1000 := $img.Resize "1000x webp q95" }}
+ {{ $w1600 := $img.Resize "1600x webp q95" }}
+ {{ $w2400 := $img.Resize "2400x webp q95" }}
 
  <picture class="{{ $class }}">
  <source
  type="image/webp"
- srcset="{{ $w400.RelPermalink }} 400w, {{ $w600.RelPermalink }} 600w, {{ $w1000.RelPermalink }} 1000w, {{ $w1400.RelPermalink }} 1400w"
+ srcset="{{ $w600.RelPermalink }} 600w, {{ $w1000.RelPermalink }} 1000w, {{ $w1600.RelPermalink }} 1600w, {{ $w2400.RelPermalink }} 2400w"
  sizes="{{ $sizes }}"
  />
  <img
- src="{{ $w600.RelPermalink }}"
+ src="{{ $w1600.RelPermalink }}"
  alt="{{ $alt }}"
  width="{{ $img.Width }}"
  height="{{ $img.Height }}"

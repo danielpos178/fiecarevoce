@@ -1,74 +1,267 @@
 {{ define "main" }}
-<div class="bg-neutral-50 dark:bg-[#121212] text-neutral-900 dark:text-neutral-100 min-h-screen py-12 transition-colors duration-300 w-full font-zine-body">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Back to blog navigation -->
-    <a href="{{ "posts/" | relURL }}" class="inline-flex items-center gap-2 font-label text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:text-brand-green dark:hover:text-emerald-400 mb-8 transition-colors group">
-      {{ partial "icon.html" (dict "name" "arrow_back" "class" "w-4 h-4 group-hover:-translate-x-1 transition-transform") }}
-      <span>Înapoi la Blog</span>
-    </a>
 
-    <!-- Author Header Card -->
-    <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 sm:p-8 bg-white dark:bg-neutral-900 sticker-shadow mb-10">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-4">
-        {{ if .Params.image }}
-          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-none border-2 border-neutral-900 dark:border-neutral-100 overflow-hidden sticker-shadow shrink-0">
-            <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="w-full h-full object-cover nozoom">
+{{ $authorTitle := .Title }}
+{{ $authorLower := lower (trim .Title " ") }}
+
+{{ $writtenPages := slice }}
+{{ $coverPages := slice }}
+
+{{ range .Pages.ByDate.Reverse }}
+  {{ $p := . }}
+  {{ $pAuth := $p.Params.author | default "" }}
+  {{ $pPhoto := $p.Params.photo_credit | default $p.Params.photo_source | default $p.Params.image_source | default $p.Params.image_credit | default "" }}
+  
+  {{ $isWriter := false }}
+  {{ $isCover := false }}
+
+  {{ if and $pAuth (eq (lower (trim $pAuth " ")) $authorLower) }}
+    {{ $isWriter = true }}
+  {{ end }}
+
+  {{ if and $pPhoto (or (eq (lower (trim $pPhoto " ")) $authorLower) (in (lower $pPhoto) $authorLower)) }}
+    {{ $isCover = true }}
+  {{ end }}
+
+  {{ if and (not $isWriter) (not $isCover) }}
+    {{ if $p.Params.authors }}
+      {{ if in $p.Params.authors $authorTitle }}
+        {{ $isWriter = true }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ if $isWriter }}
+    {{ $writtenPages = $writtenPages | append $p }}
+  {{ end }}
+  {{ if $isCover }}
+    {{ $coverPages = $coverPages | append $p }}
+  {{ end }}
+{{ end }}
+
+{{ $writtenCount := len $writtenPages }}
+{{ $coverCount := len $coverPages }}
+
+{{ $roleBadge := .Params.role }}
+{{ if not $roleBadge }}
+  {{ if and (gt $writtenCount 0) (gt $coverCount 0) }}
+    {{ $roleBadge = "Autor & Grafician" }}
+  {{ else if gt $writtenCount 0 }}
+    {{ $roleBadge = "Autor" }}
+  {{ else if gt $coverCount 0 }}
+    {{ $roleBadge = "Grafician" }}
+  {{ else }}
+    {{ $roleBadge = "Autor" }}
+  {{ end }}
+{{ end }}
+
+<div class="bg-neutral-50 dark:bg-[#121212] text-neutral-900 dark:text-neutral-100 min-h-screen py-12 transition-colors duration-300 w-full font-zine-body">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Back navigation -->
+    <div class="flex items-center justify-between gap-4 mb-8">
+      <a href="{{ "authors/" | relURL }}" class="inline-flex items-center gap-2 font-label text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:text-brand-green dark:hover:text-emerald-400 transition-colors group">
+        {{ partial "icon.html" (dict "name" "arrow_back" "class" "w-4 h-4 group-hover:-translate-x-1 transition-transform") }}
+        <span>Toți Autorii &amp; Graficienii</span>
+      </a>
+
+      <a href="{{ "posts/" | relURL }}" class="font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors">
+        Toate Articolele &rarr;
+      </a>
+    </div>
+
+    <!-- Author Profile Header Card -->
+    <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 sm:p-8 bg-white dark:bg-neutral-900 sticker-shadow mb-12">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8 mb-6">
+        <!-- Fixed-dimension Green Monogram Box -->
+        <div class="w-16 h-16 sm:w-20 sm:h-20 min-w-16 min-h-16 sm:min-w-20 sm:min-h-20 aspect-square rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-brand-gold font-display font-black text-3xl sm:text-4xl flex items-center justify-center shrink-0 sticker-shadow select-none mb-3 sm:mb-0">
+          {{ substr .Title 0 1 }}
+        </div>
+        
+        <div class="flex flex-col gap-2.5 flex-grow min-w-0">
+          <div class="flex flex-wrap items-center gap-2.5 pt-1 sm:pt-0">
+            <span class="bg-brand-gold text-neutral-900 font-label text-xs font-black uppercase px-3 py-1 border-2 border-neutral-900 shadow-[2px_2px_0px_0px_#1a1c19] -rotate-1 inline-block">
+              {{ $roleBadge }}
+            </span>
           </div>
-        {{ else }}
-          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-brand-gold font-label font-bold text-3xl flex items-center justify-center shrink-0 sticker-shadow">
-            {{ substr .Title 0 1 }}
-          </div>
-        {{ end }}
-        <div>
-          <span class="font-label text-xs uppercase font-bold text-brand-green dark:text-emerald-400 tracking-widest block mb-1">
-            {{ .Params.role | default "PAGINĂ AUTOR" }}
-          </span>
-          <h1 class="font-display text-2xl sm:text-3xl md:text-4xl font-black uppercase text-neutral-900 dark:text-white leading-tight">
+
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-black uppercase text-neutral-900 dark:text-white leading-tight tracking-tight break-words">
             {{ .Title }}
           </h1>
+
+          <!-- Contribution Stat Pills -->
+          <div class="flex flex-wrap items-center gap-2 mt-1 font-label text-xs uppercase font-bold">
+            {{ if gt $writtenCount 0 }}
+              <span class="inline-flex items-center gap-1.5 bg-brand-green/10 dark:bg-brand-green/20 text-brand-green dark:text-emerald-400 px-2.5 py-1 border border-brand-green/30">
+                {{ partial "icon.html" (dict "name" "edit" "class" "w-3.5 h-3.5") }}
+                {{ $writtenCount }} {{ if eq $writtenCount 1 }}Articol (Autor){{ else }}Articole (Autor){{ end }}
+              </span>
+            {{ end }}
+
+            {{ if gt $coverCount 0 }}
+              <span class="inline-flex items-center gap-1.5 bg-brand-gold/15 dark:bg-brand-gold/25 text-yellow-700 dark:text-brand-gold px-2.5 py-1 border border-brand-gold/40">
+                {{ partial "icon.html" (dict "name" "palette" "class" "w-3.5 h-3.5") }}
+                {{ $coverCount }} {{ if eq $coverCount 1 }}Copertă (Grafician){{ else }}Coperți (Grafician){{ end }}
+              </span>
+            {{ end }}
+          </div>
         </div>
       </div>
+
       {{ if .Params.bio }}
-        <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 leading-relaxed border-l-4 border-brand-green pl-4 py-1 mt-2">
+        <p class="font-zine-body text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed border-l-4 border-brand-green pl-4 sm:pl-6 py-1 mt-4">
           {{ .Params.bio }}
         </p>
       {{ else }}
-        <p class="font-zine-body text-base text-neutral-600 dark:text-neutral-400 mt-2">
-          Toate articolele publicate de <strong class="text-neutral-900 dark:text-white">{{ .Title }}</strong> pe platforma independentă Fiecare Voce.
+        <p class="font-zine-body text-base text-neutral-600 dark:text-neutral-400 border-l-4 border-brand-green pl-4 sm:pl-6 py-1 mt-4">
+          Contribuțiile publicate de <strong class="text-neutral-900 dark:text-white">{{ .Title }}</strong> în cadrul platformei independente Fiecare Voce.
         </p>
       {{ end }}
     </div>
 
-    <!-- Plain List of Articles Written by Author -->
-    <div class="flex flex-col gap-4">
-      <h2 class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white border-b-2 border-neutral-900 dark:border-neutral-700 pb-3 flex items-center justify-between">
-        <span>Articole Publicate</span>
-        <span class="font-label text-xs font-bold text-brand-green dark:text-emerald-400 bg-brand-green/10 px-3 py-1 border border-brand-green/30">
-          {{ len .Pages }} {{ if eq (len .Pages) 1 }}ARTICOL{{ else }}ARTICOLE{{ end }}
-        </span>
-      </h2>
-
-      <div class="flex flex-col gap-4 mt-2">
-        {{ range .Pages.ByDate.Reverse }}
-        <a href="{{ .RelPermalink }}" class="border-2 border-neutral-900 dark:border-neutral-100 p-5 bg-white dark:bg-neutral-900 sticker-shadow sticker-shadow-hover flex flex-col sm:flex-row sm:items-center justify-between gap-3 group transition-all">
-          <div class="flex flex-col gap-1">
-            <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">
-              {{ partial "format-date.html" . }}
-            </span>
-            <h3 class="font-display font-bold text-lg sm:text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors">
-              {{ .Title }}
-            </h3>
+    <!-- SECTION 1: WRITTEN ARTICLES (from 'author' tag in markdown) -->
+    {{ if gt $writtenCount 0 }}
+    <section id="articole-autor" class="mb-16">
+      <div class="flex items-center justify-between border-b-2 border-neutral-900 dark:border-neutral-700 pb-3 mb-8">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-brand-green text-white flex items-center justify-center border-2 border-neutral-900 dark:border-neutral-100 shadow-[2px_2px_0px_0px_#1a1c19]">
+            {{ partial "icon.html" (dict "name" "edit" "class" "w-4 h-4") }}
           </div>
-          {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-5 h-5 text-neutral-400 group-hover:text-brand-green dark:group-hover:text-emerald-400 group-hover:translate-x-1 transition-all self-end sm:self-center") }}
-        </a>
-        {{ else }}
-        <div class="p-8 border-2 border-dashed border-neutral-300 dark:border-neutral-800 text-center font-zine-body text-neutral-500">
-          Nu au fost găsite articole pentru acest autor.
+          <h2 class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-900 dark:text-white">
+            Articole (Autor)
+          </h2>
         </div>
+        <span class="font-label text-xs font-black uppercase text-brand-green dark:text-emerald-400 bg-brand-green/10 dark:bg-brand-green/20 px-3 py-1 border border-brand-green/40">
+          {{ $writtenCount }} {{ if eq $writtenCount 1 }}ARTICOL{{ else }}ARTICOLE{{ end }}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {{ range $writtenPages }}
+          {{ $cat := "Articol" }}
+          {{ if .Params.categories }}
+            {{ if reflect.IsSlice .Params.categories }}
+              {{ $cat = index .Params.categories 0 }}
+            {{ else }}
+              {{ $cat = .Params.categories }}
+            {{ end }}
+          {{ end }}
+          
+          <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-all duration-300">
+            <!-- Category sticker badge -->
+            <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
+              {{ $cat }}
+            </div>
+
+            <!-- Cover Image if present -->
+            {{ if .Params.image }}
+            {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+            <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block">
+              {{ partial "responsive-image.html" (dict "src" .Params.image "alt" .Title "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" $imgPos) "loading" "lazy") }}
+            </a>
+            {{ end }}
+
+            <div class="p-6 flex flex-col gap-3 flex-grow">
+              <div class="flex items-center justify-between font-label text-xs font-bold uppercase text-neutral-500 dark:text-neutral-400">
+                <span class="text-brand-green dark:text-emerald-400">{{ partial "format-date.html" . }}</span>
+                {{ with .Params.photo_credit }}
+                  <span>Grafician: <strong class="text-neutral-800 dark:text-neutral-200">{{ . }}</strong></span>
+                {{ end }}
+              </div>
+
+              <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h3>
+
+              <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+                {{ .Summary }}
+              </p>
+
+              <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                <span class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
+                  {{ partial "icon.html" (dict "name" "edit" "class" "w-4 h-4 text-brand-green") }}
+                  Autor
+                </span>
+                <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span>Citește</span>
+                  {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
+                </a>
+              </div>
+            </div>
+          </article>
         {{ end }}
       </div>
+    </section>
+    {{ end }}
+
+    <!-- SECTION 2: COVER ART & VISUALS (from 'photo_credit' tag in markdown) -->
+    {{ if gt $coverCount 0 }}
+    <section id="coperti-grafician" class="mb-16">
+      <div class="flex items-center justify-between border-b-2 border-neutral-900 dark:border-neutral-700 pb-3 mb-8">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-brand-gold text-slate-900 flex items-center justify-center border-2 border-neutral-900 dark:border-neutral-100 shadow-[2px_2px_0px_0px_#1a1c19]">
+            {{ partial "icon.html" (dict "name" "palette" "class" "w-4 h-4") }}
+          </div>
+          <h2 class="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-900 dark:text-white">
+            Coperți (Grafician)
+          </h2>
+        </div>
+        <span class="font-label text-xs font-black uppercase text-slate-900 bg-brand-gold px-3 py-1 border border-neutral-900 shadow-[2px_2px_0px_0px_#1a1c19]">
+          {{ $coverCount }} {{ if eq $coverCount 1 }}COPERTĂ{{ else }}COPERȚI{{ end }}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {{ range $coverPages }}
+          {{ $coverImg := .Params.image | default "/images/default-cover.webp" }}
+          {{ $imgPos := .Params.image_position | default .Params.object_position | default "50% 50%" }}
+          
+          <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-all duration-300">
+            <!-- Sticker Badge -->
+            <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19] flex items-center gap-1.5">
+              {{ partial "icon.html" (dict "name" "photo_camera" "class" "w-3.5 h-3.5") }}
+              <span>GRAFICIAN</span>
+            </div>
+
+            <!-- Prominent Visual Cover Image -->
+            <a href="{{ .RelPermalink }}" class="w-full aspect-video border-b-2 border-neutral-900 dark:border-neutral-100 overflow-hidden relative block group-hover:opacity-95 transition-opacity">
+              {{ partial "responsive-image.html" (dict "src" $coverImg "alt" .Title "class" "w-full h-full object-cover nozoom" "style" (printf "object-position: %s;" $imgPos) "loading" "lazy") }}
+            </a>
+
+            <div class="p-6 flex flex-col gap-3 flex-grow">
+              <div class="flex items-center justify-between font-label text-xs font-bold uppercase text-neutral-500 dark:text-neutral-400">
+                <span class="text-brand-green dark:text-emerald-400">{{ partial "format-date.html" . }}</span>
+                {{ with .Params.author }}
+                  <span>Autor: <strong class="text-neutral-800 dark:text-neutral-200">{{ . }}</strong></span>
+                {{ end }}
+              </div>
+
+              <h3 class="font-display font-black text-xl uppercase text-neutral-900 dark:text-white group-hover:text-brand-green dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h3>
+
+              <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                <span class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
+                  {{ partial "icon.html" (dict "name" "palette" "class" "w-4 h-4 text-brand-gold") }}
+                  Grafician: {{ $authorTitle }}
+                </span>
+                <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span>Vezi Articolul</span>
+                  {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
+                </a>
+              </div>
+            </div>
+          </article>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- Empty state if no written articles and no covers -->
+    {{ if and (eq $writtenCount 0) (eq $coverCount 0) }}
+    <div class="p-12 border-2 border-dashed border-neutral-300 dark:border-neutral-800 text-center font-zine-body text-neutral-500 bg-white dark:bg-neutral-900 sticker-shadow">
+      Nu au fost găsite articole sau coperți asociate acestui profil.
     </div>
+    {{ end }}
 
   </div>
 </div>

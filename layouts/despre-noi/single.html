@@ -32,7 +32,7 @@
           <div class="absolute inset-0 bg-brand-green translate-x-4 translate-y-4 border-2 border-neutral-900 dark:border-neutral-100 -z-10"></div>
           
           <div class="relative border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow overflow-hidden bg-white dark:bg-neutral-900 transform rotate-1 hover:rotate-0 transition-transform duration-300">
-            {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "w-full h-auto aspect-[4/3] object-cover filter contrast-110 cursor-pointer" "loading" "eager") }}
+            {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "w-full h-auto aspect-[4/3] object-cover cursor-pointer" "loading" "eager" "sizes" "(max-width: 768px) 100vw, 1200px") }}
             <div class="p-4 bg-white dark:bg-neutral-900 border-t-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-between">
               <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400">ECHIPA FIECARE VOCE</span>
             </div>

@@ -10,9 +10,6 @@
             {{ .Title | default "TRANSMISIUNI FIECARE VOCE" }}
           </h1>
         </div>
-        <div class="font-label text-xs uppercase font-bold text-neutral-500 dark:text-neutral-400 shrink-0">
-          EXPLOREAZĂ POVEȘTILE TINERILOR DIN ROMÂNIA
-        </div>
       </div>
 
       <!-- Instant Live Search Bar -->
@@ -105,6 +102,10 @@
               {{ end }}
             {{ end }}
             {{ $authorURL := printf "authors/%s/" ($author | urlize) | relURL }}
+            {{ if and .Params.authors (reflect.IsSlice .Params.authors) (gt (len .Params.authors) 1) }}
+              {{ $firstAuthor := index .Params.authors 0 }}
+              {{ $authorURL = printf "authors/%s/" ($firstAuthor | urlize) | relURL }}
+            {{ end }}
 
             {{/* CARD 1: Large Featured Card (Index 0 - Spans 7 columns) */}}
             {{ if eq $index 0 }}

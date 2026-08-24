@@ -86,11 +86,22 @@
         <div class="flex flex-wrap items-center gap-4 sm:gap-6 border-l-4 border-brand-green pl-4 sm:pl-6 py-1">
           <!-- Clickable Author Header Element (Place 1) -->
           <div class="flex items-center gap-3">
-            <a href="{{ $authorURL }}" class="w-10 h-10 rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-white font-label font-bold text-base flex items-center justify-center shadow-[2px_2px_0px_0px_#1a1c19] dark:shadow-[2px_2px_0px_0px_#ffbd59] shrink-0 hover:scale-105 transition-transform" title="Vezi pagina autorului">
-              {{ substr $authorName 0 1 }}
-            </a>
+            <div class="w-10 h-10 rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-brand-gold font-display font-black text-base flex items-center justify-center shadow-[2px_2px_0px_0px_#1a1c19] dark:shadow-[2px_2px_0px_0px_#ffbd59] shrink-0">
+              {{ partial "icon.html" (dict "name" "person" "class" "w-5 h-5") }}
+            </div>
             <span class="font-label text-xs sm:text-sm uppercase font-bold text-neutral-900 dark:text-neutral-100">
-              Scris de <a href="{{ $authorURL }}" class="text-brand-green dark:text-emerald-400 hover:underline underline-offset-4 transition-all">{{ $authorName }}</a>
+              {{ if and .Params.authors (gt (len .Params.authors) 1) }}Autori:{{ else }}Autor:{{ end }}
+              {{ if and .Params.authors (reflect.IsSlice .Params.authors) }}
+                {{ $authorLinks := slice }}
+                {{ range .Params.authors }}
+                  {{ $aSlug := . | urlize }}
+                  {{ $aURL := printf "authors/%s/" $aSlug | relURL }}
+                  {{ $authorLinks = $authorLinks | append (printf "<a href=\"%s\" class=\"text-brand-green dark:text-emerald-400 hover:underline underline-offset-4 transition-all\">%s</a>" $aURL .) }}
+                {{ end }}
+                {{ delimit $authorLinks " &bull; " | safeHTML }}
+              {{ else }}
+                <a href="{{ $authorURL }}" class="text-brand-green dark:text-emerald-400 hover:underline underline-offset-4 transition-all">{{ $authorName }}</a>
+              {{ end }}
             </span>
           </div>
 
@@ -112,8 +123,8 @@
           {{ $imgFit = "object-contain p-2 sm:p-4 bg-neutral-100 dark:bg-[#121212]" }}
         {{ end }}
         {{ partial "responsive-image.html" (dict "src" $coverImage "alt" .Title "class" (printf "w-full h-full %s" $imgFit) "style" (printf "object-position: %s;" $imgPos) "loading" "eager") }}
-        <a href="{{ $photoCreditURL }}" class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 max-w-[calc(100%-16px)] bg-brand-gold hover:bg-yellow-400 border-2 border-neutral-900 text-neutral-900 px-2.5 sm:px-4 py-1 sm:py-1.5 sticker-shadow z-20 font-label text-[11px] sm:text-xs font-black uppercase tracking-wider truncate inline-flex items-center gap-1.5 hover:-translate-y-0.5 transition-all group/badge" title="Vezi articolele publicate de {{ $photoCredit }}">
-          <span>Grafică: {{ $photoCredit }}</span>
+        <a href="{{ $photoCreditURL }}" class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 max-w-[calc(100%-16px)] bg-brand-gold hover:bg-yellow-400 border-2 border-neutral-900 text-neutral-900 px-2.5 sm:px-4 py-1 sm:py-1.5 sticker-shadow z-20 font-label text-[11px] sm:text-xs font-black uppercase tracking-wider truncate inline-flex items-center gap-1.5 hover:-translate-y-0.5 transition-all group/badge" title="Vezi profilul lui {{ $photoCredit }}">
+          <span>Grafician: {{ $photoCredit }}</span>
           {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-3.5 h-3.5 group-hover/badge:translate-x-0.5 transition-transform") }}
         </a>
       </div>
@@ -202,18 +213,45 @@
 
         <!-- Author Card from Markdown Data (Place 2) -->
         <div class="border-2 border-neutral-900 dark:border-neutral-100 p-6 bg-brand-gold/10 dark:bg-neutral-900 sticker-shadow">
-          <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400 tracking-wider block mb-2">{{ hugo.Data.post_sidebar.author_box.title | default "Despre Autor" }}</span>
-          <div class="flex items-center gap-4 mb-3">
-            <a href="{{ $authorURL }}" class="w-12 h-12 rounded-none border-2 border-neutral-900 bg-brand-green text-brand-gold font-label font-bold text-xl flex items-center justify-center shrink-0 sticker-shadow hover:scale-105 transition-transform" title="Vezi pagina autorului">
-              {{ substr $authorName 0 1 }}
-            </a>
-            <div>
-              <h4 class="font-display font-bold text-lg text-neutral-900 dark:text-white uppercase leading-tight">
-                <a href="{{ $authorURL }}" class="hover:text-brand-green dark:hover:text-emerald-400 transition-colors">{{ $authorName }}</a>
-              </h4>
-            </div>
+          {{ $authorList := slice }}
+          {{ if and .Params.authors (reflect.IsSlice .Params.authors) }}
+            {{ $authorList = .Params.authors }}
+          {{ else if .Params.author }}
+            {{ $authorList = slice .Params.author }}
+          {{ else }}
+            {{ $authorList = slice "Redacția Fiecare Voce" }}
+          {{ end }}
+
+          <span class="font-label text-xs font-bold uppercase text-brand-green dark:text-emerald-400 tracking-wider block mb-3">
+            {{ if gt (len $authorList) 1 }}DESPRE AUTORI{{ else }}{{ hugo.Data.post_sidebar.author_box.title | default "DESPRE AUTOR" }}{{ end }}
+          </span>
+
+          <div class="flex flex-col gap-3.5 mb-3">
+            {{ range $authorList }}
+              {{ $aName := . }}
+              {{ $aSlug := $aName | urlize }}
+              {{ $aURL := printf "authors/%s/" $aSlug | relURL }}
+              {{ $authorTerm := site.GetPage (printf "authors/%s" $aSlug) }}
+
+              <div class="flex items-center gap-3">
+                <a href="{{ $aURL }}" class="w-10 h-10 min-w-10 min-h-10 aspect-square rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-brand-gold font-display font-black text-lg flex items-center justify-center shrink-0 sticker-shadow hover:scale-105 transition-transform" title="Vezi pagina autorului">
+                  {{ substr $aName 0 1 }}
+                </a>
+                <div class="min-w-0">
+                  <h4 class="font-display font-bold text-base text-neutral-900 dark:text-white uppercase leading-tight">
+                    <a href="{{ $aURL }}" class="hover:text-brand-green dark:hover:text-emerald-400 transition-colors">{{ $aName }}</a>
+                  </h4>
+                  {{ if $authorTerm.Params.role }}
+                    <span class="font-label text-[11px] font-bold uppercase text-neutral-500 dark:text-neutral-400 truncate block">
+                      {{ $authorTerm.Params.role }}
+                    </span>
+                  {{ end }}
+                </div>
+              </div>
+            {{ end }}
           </div>
-          <p class="font-zine-body text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+
+          <p class="font-zine-body text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed pt-2 border-t border-neutral-200 dark:border-neutral-800">
             {{ hugo.Data.post_sidebar.author_box.description | default "Echipa Fiecare Voce aduce în prim-plan poveștile, inițiativele și drepturile elevilor din toată România." }}
           </p>
         </div>
