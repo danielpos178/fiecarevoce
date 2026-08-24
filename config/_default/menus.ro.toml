@@ -23,8 +23,3 @@
   url = "/despre-noi/"
   weight = 50
 
-[[main]]
-  name = "Implică-te"
-  url = "/#implica-te"
-  weight = 60
-
