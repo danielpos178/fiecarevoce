@@ -1,6 +1,6 @@
 <div class="flex items-center gap-3">
   
-  <!-- Theme Appearance Switcher for Mobile -->
+  <!-- Theme Appearance Switcher for Mobile Header Bar -->
   {{ if .Site.Params.showAppearanceSwitcher | default true }}
   <button
     id="appearance-switcher-mobile"
@@ -18,19 +18,32 @@
   </button>
   {{ end }}
 
-  <!-- Mobile Hamburger Menu Button -->
-  <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
-  <label for="mobile-menu-toggle" class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-brand-gold text-slate-900 sticker-shadow cursor-pointer flex items-center justify-center select-none relative z-10" aria-label="Deschide Meniul">
+  <!-- Mobile Hamburger Menu Button & Native Checkbox Controller -->
+  <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer" aria-hidden="true">
+  
+  <button
+    type="button"
+    id="mobile-menu-open-btn"
+    aria-label="Deschide Meniul"
+    aria-expanded="false"
+    aria-controls="mobile-menu-drawer"
+    class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-brand-gold text-slate-900 sticker-shadow cursor-pointer flex items-center justify-center select-none relative z-10 hover:bg-brand-gold/90 transition-colors"
+    title="Deschide Meniul">
     {{ partial "icon.html" (dict "name" "menu" "class" "w-6 h-6 stroke-[2.5]") }}
-  </label>
+  </button>
 
   <!-- Fullscreen Neo-Brutalist Mobile Menu Drawer -->
-  <div role="dialog" aria-modal="true" class="fixed inset-0 z-50 pointer-events-none invisible opacity-0 transition-all duration-300 peer-checked:pointer-events-auto peer-checked:visible peer-checked:opacity-100 bg-neutral-50 dark:bg-[#121212] flex flex-col justify-between p-6 sm:p-10 font-zine-body">
+  <div
+    id="mobile-menu-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Meniu Navigare"
+    class="fixed inset-0 z-50 bg-neutral-50 dark:bg-[#121212] flex flex-col justify-between p-6 sm:p-10 font-zine-body overflow-y-auto max-h-[100dvh] overscroll-contain">
     
     <!-- Drawer Top Header Bar -->
-    <div class="flex items-center justify-between border-b-2 border-neutral-900 dark:border-neutral-700 pb-4">
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 bg-brand-green border-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-center sticker-shadow shrink-0 p-0 overflow-hidden">
+    <div class="flex items-center justify-between border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 shrink-0">
+      <a href="{{ "" | relLangURL }}" class="flex items-center gap-3 group" onclick="if(window.closeMobileMenu) window.closeMobileMenu();">
+        <div class="w-11 h-11 bg-brand-green border-2 border-neutral-900 dark:border-neutral-100 flex items-center justify-center sticker-shadow shrink-0 p-0 overflow-hidden group-hover:-rotate-3 transition-transform">
           {{ $logo := resources.Get "images/logo1000.webp" }}
           {{ $logoSrc := "images/logo1000.webp" | relURL }}
           {{ if $logo }}
@@ -41,7 +54,7 @@
         <span class="font-display font-black text-xl uppercase tracking-tight text-neutral-900 dark:text-white">
           FIECARE VOCE
         </span>
-      </div>
+      </a>
 
       <div class="flex items-center gap-3">
         {{ if .Site.Params.showAppearanceSwitcher | default true }}
@@ -61,16 +74,29 @@
         </button>
         {{ end }}
 
-        <label for="mobile-menu-toggle" class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white sticker-shadow cursor-pointer flex items-center justify-center" aria-label="Închide Meniul">
+        <button
+          type="button"
+          id="mobile-menu-close-btn"
+          aria-label="Închide Meniul"
+          class="p-2 border-2 border-neutral-900 dark:border-neutral-100 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white sticker-shadow hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer flex items-center justify-center"
+          title="Închide Meniul">
           {{ partial "icon.html" (dict "name" "close" "class" "w-6 h-6 stroke-[2.5]") }}
-        </label>
+        </button>
       </div>
     </div>
 
     <!-- Navigation Links List -->
-    <nav class="flex flex-col gap-6 py-8 my-auto font-display font-black text-2xl sm:text-3xl uppercase">
+    <nav class="flex flex-col gap-5 py-8 my-auto font-display font-black text-2xl sm:text-3xl uppercase">
+      {{ $page := . }}
       {{ range .Site.Menus.main }}
-        <a href="{{ .URL | relURL }}" onclick="document.getElementById('mobile-menu-toggle').checked = false;" class="text-neutral-900 dark:text-white hover:text-brand-green dark:hover:text-brand-gold flex items-center justify-between border-b-2 border-neutral-200 dark:border-neutral-800 pb-3 transition-colors">
+        {{ $url := .URL | relURL }}
+        {{ $isCurrent := false }}
+        {{ if and (ne $url "/") (not (hasPrefix $url "/#")) }}
+          {{ if or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) (eq $page.RelPermalink $url) (hasPrefix $page.RelPermalink $url) }}
+            {{ $isCurrent = true }}
+          {{ end }}
+        {{ end }}
+        <a href="{{ $url }}" data-nav-href="{{ $url }}" class="mobile-nav-link text-neutral-900 dark:text-white hover:text-brand-green dark:hover:text-brand-gold flex items-center justify-between border-b-2 {{ if $isCurrent }}border-brand-green text-brand-green dark:text-brand-gold{{ else }}border-neutral-200 dark:border-neutral-800{{ end }} pb-3 transition-colors">
           <span>{{ .Name }}</span>
           {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-5 h-5") }}
         </a>
@@ -78,17 +104,116 @@
     </nav>
 
     <!-- Mobile Drawer Footer CTA -->
-    <div class="flex flex-col gap-4 border-t-2 border-neutral-900 dark:border-neutral-700 pt-6">
-      <a href="{{ "/#implica-te" | relURL }}" onclick="document.getElementById('mobile-menu-toggle').checked = false;" class="w-full bg-brand-gold text-slate-900 border-2 border-neutral-900 py-4 font-label text-sm uppercase font-black sticker-shadow sticker-shadow-hover text-center flex items-center justify-center gap-2 transition-all">
+    <div class="flex flex-col gap-4 border-t-2 border-neutral-900 dark:border-neutral-700 pt-6 shrink-0">
+      <a href="{{ "/#implica-te" | relURL }}" class="mobile-nav-link w-full bg-brand-gold text-slate-900 border-2 border-neutral-900 py-4 font-label text-sm uppercase font-black sticker-shadow sticker-shadow-hover text-center flex items-center justify-center gap-2 transition-all" title="Alătură-te Cauzei">
         <span>ALĂTURĂ-TE CAUZEI</span>
         {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
       </a>
 
       <div class="font-label text-xs uppercase text-neutral-500 dark:text-neutral-400 text-center pt-2">
-        © {{ now.Year }} FIECARE VOCE INDEPENDENT PRESS
+        &copy; {{ now.Format "2006" }} FIECARE VOCE &bull; TOATE DREPTURILE REZERVATE
       </div>
     </div>
 
   </div>
 
 </div>
+
+<script>
+  (function() {
+    function setupMobileNav() {
+      const toggleCheckbox = document.getElementById('mobile-menu-toggle');
+      const openBtn = document.getElementById('mobile-menu-open-btn');
+      const closeBtn = document.getElementById('mobile-menu-close-btn');
+      const drawer = document.getElementById('mobile-menu-drawer');
+      const navLinks = drawer ? drawer.querySelectorAll('.mobile-nav-link') : [];
+
+      if (!drawer) return;
+
+      function openMenu() {
+        if (toggleCheckbox) toggleCheckbox.checked = true;
+        drawer.classList.add('is-open');
+        if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('mobile-menu-locked');
+      }
+
+      function closeMenu() {
+        if (toggleCheckbox) toggleCheckbox.checked = false;
+        drawer.classList.remove('is-open');
+        if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('mobile-menu-locked');
+      }
+
+      window.openMobileMenu = openMenu;
+      window.closeMobileMenu = closeMenu;
+
+      if (openBtn && !openBtn.dataset.bound) {
+        openBtn.dataset.bound = 'true';
+        openBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          openMenu();
+        });
+      }
+
+      if (closeBtn && !closeBtn.dataset.bound) {
+        closeBtn.dataset.bound = 'true';
+        closeBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          closeMenu();
+        });
+      }
+
+      if (toggleCheckbox && !toggleCheckbox.dataset.bound) {
+        toggleCheckbox.dataset.bound = 'true';
+        toggleCheckbox.addEventListener('change', function() {
+          if (toggleCheckbox.checked) {
+            openMenu();
+          } else {
+            closeMenu();
+          }
+        });
+      }
+
+      // Close menu on pressing Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+          closeMenu();
+        }
+      });
+
+      // Handle mobile nav links
+      navLinks.forEach(function(link) {
+        if (link.dataset.bound) return;
+        link.dataset.bound = 'true';
+
+        link.addEventListener('click', function(e) {
+          const href = link.getAttribute('href');
+          closeMenu();
+
+          if (href && href.includes('#')) {
+            const hashIndex = href.indexOf('#');
+            const targetId = href.substring(hashIndex + 1);
+            const targetElement = document.getElementById(targetId);
+
+            // If target element is on current page
+            if (targetElement) {
+              e.preventDefault();
+              setTimeout(function() {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+                history.pushState(null, null, '#' + targetId);
+              }, 150);
+            }
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupMobileNav);
+    } else {
+      setupMobileNav();
+    }
+  })();
+</script>

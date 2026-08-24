@@ -694,6 +694,40 @@ html.dark .instagram-preview-box .instagram-preview-icon,
   color: #ffbd59 !important;
 }
 
+/* ==========================================================================
+   MOBILE NAVIGATION DRAWER & BUTTON CONTROLS
+   ========================================================================== */
 
+#mobile-menu-drawer {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, visibility;
+}
 
+#mobile-menu-toggle:checked ~ #mobile-menu-drawer,
+#mobile-menu-drawer.is-open {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
 
+/* Ensure all buttons, links and theme toggles inside the mobile drawer are fully interactive */
+#mobile-menu-drawer button,
+#mobile-menu-drawer a,
+#mobile-menu-drawer [data-theme-switcher],
+#mobile-menu-open-btn,
+#mobile-menu-close-btn,
+#appearance-switcher-mobile,
+#appearance-switcher-drawer {
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent background scroll when mobile menu is open */
+body.mobile-menu-locked {
+  overflow: hidden !important;
+  touch-action: none;
+}
