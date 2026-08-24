@@ -93,14 +93,14 @@
             <p class="font-zine-body text-base text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
               {{ .Summary }}
             </p>
-            <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
-              <a href="{{ printf "authors/%s/" ($author | urlize) | relURL }}" class="flex items-center gap-2 hover:text-brand-green dark:hover:text-emerald-400 transition-colors">
-                {{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}
-                <span>{{ $author }}</span>
+            <div class="mt-auto pt-4 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+              <a href="{{ printf "authors/%s/" ($author | urlize) | relURL }}" class="flex items-center gap-1.5 hover:text-brand-green dark:hover:text-emerald-400 transition-colors truncate min-w-0 flex-1" title="{{ $author }}">
+                <span class="shrink-0">{{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}</span>
+                <span class="truncate">{{ $author }}</span>
               </a>
-              <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform shrink-0 whitespace-nowrap ml-auto">
                 <span>Citește</span>
-                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
+                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4 shrink-0") }}
               </a>
             </div>
           </div>

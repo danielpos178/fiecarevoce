@@ -246,7 +246,22 @@
           {{ end }}
         {{ end }}
 
-        {{ $author := .Params.author | default "Echipa Fiecare Voce" }}
+        {{ $author := .Params.author }}
+        {{ if not $author }}
+          {{ if .Params.authors }}
+            {{ if reflect.IsSlice .Params.authors }}
+              {{ $author = delimit .Params.authors ", " }}
+            {{ else }}
+              {{ $author = .Params.authors }}
+            {{ end }}
+          {{ else }}
+            {{ $author = "Redacția Fiecare Voce" }}
+          {{ end }}
+        {{ end }}
+        {{ $isMultiAuthor := false }}
+        {{ if and .Params.authors (reflect.IsSlice .Params.authors) (gt (len .Params.authors) 1) }}
+          {{ $isMultiAuthor = true }}
+        {{ end }}
 
         <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow sticker-shadow-hover hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full cursor-pointer">
 
@@ -285,11 +300,11 @@
               {{ .Summary }}
             </p>
 
-            <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
-              <span>Autor: {{ $author }}</span>
-              <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <div class="mt-auto pt-4 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+              <span class="truncate min-w-0 flex-1" title="{{ $author }}">{{ if $isMultiAuthor }}Autori:{{ else }}Autor:{{ end }} {{ $author }}</span>
+              <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform shrink-0 whitespace-nowrap ml-auto">
                 <span>Citește</span>
-                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
+                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4 shrink-0") }}
               </a>
             </div>
           </div>
@@ -358,7 +373,22 @@
           {{ end }}
         {{ end }}
 
-        {{ $author := .Params.author | default "Echipa Fiecare Voce" }}
+        {{ $author := .Params.author }}
+        {{ if not $author }}
+          {{ if .Params.authors }}
+            {{ if reflect.IsSlice .Params.authors }}
+              {{ $author = delimit .Params.authors ", " }}
+            {{ else }}
+              {{ $author = .Params.authors }}
+            {{ end }}
+          {{ else }}
+            {{ $author = "Redacția Fiecare Voce" }}
+          {{ end }}
+        {{ end }}
+        {{ $isMultiAuthor := false }}
+        {{ if and .Params.authors (reflect.IsSlice .Params.authors) (gt (len .Params.authors) 1) }}
+          {{ $isMultiAuthor = true }}
+        {{ end }}
 
         <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow sticker-shadow-hover hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full cursor-pointer">
           
@@ -393,11 +423,11 @@
               {{ .Summary }}
             </p>
 
-            <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
-              <span>Autor: {{ $author }}</span>
-              <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <div class="mt-auto pt-4 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+              <span class="truncate min-w-0 flex-1" title="{{ $author }}">{{ if $isMultiAuthor }}Autori:{{ else }}Autor:{{ end }} {{ $author }}</span>
+              <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform shrink-0 whitespace-nowrap ml-auto">
                 <span>Citește</span>
-                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
+                {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4 shrink-0") }}
               </a>
             </div>
           </div>

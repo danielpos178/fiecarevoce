@@ -176,14 +176,14 @@
                 {{ .Summary }}
               </p>
 
-              <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
-                <span class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
-                  {{ partial "icon.html" (dict "name" "edit" "class" "w-4 h-4 text-brand-green") }}
-                  Autor
+              <div class="mt-auto pt-4 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
+                <span class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300 truncate min-w-0 flex-1">
+                  {{ partial "icon.html" (dict "name" "edit" "class" "w-4 h-4 text-brand-green shrink-0") }}
+                  <span class="truncate">Autor</span>
                 </span>
-                <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform shrink-0 whitespace-nowrap ml-auto">
                   <span>Citește</span>
-                  {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4") }}
+                  {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4 shrink-0") }}
                 </a>
               </div>
             </div>
