@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Capture Website GIF
         uses: danielpos178/websnap@main
@@ -39,7 +39,7 @@ jobs:
           time_per_frame: "80"
 
       - name: Commit and Push Preview
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore(docs): update website preview gif [skip ci]"
           file_pattern: "docs/images/preview.gif"
