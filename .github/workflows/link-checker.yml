@@ -27,18 +27,12 @@ jobs:
       - name: Build site
         run: hugo --minify
 
-      - name: Start local server
-        run: npx -y serve -l 8080 public &
-
-      - name: Wait for server to start
-        run: sleep 3
-
       - name: Run Lychee Link Checker
         uses: lycheeverse/lychee-action@v2
         with:
           # Check all html and md files in the built output directory
           args: >-
-            --base-url "http://localhost:8080"
+            --root-dir ./public
             "public/**/*.html"
           # Fail action on broken links
           fail: true
