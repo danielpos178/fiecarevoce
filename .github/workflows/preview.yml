@@ -1,0 +1,45 @@
+name: Generate Website Preview
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1' # Runs weekly on Monday
+  push:
+    branches:
+      - main
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'assets/**'
+      - 'config/**'
+
+permissions:
+  contents: write
+
+jobs:
+  capture-preview:
+    name: Capture Website Preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Capture Website GIF
+        uses: danielpos178/websnap@main
+        with:
+          url: "https://fiecarevoce.com"
+          save_path: "/docs/images"
+          file_name: "preview"
+          file_format: "GIF"
+          window_width: "1440"
+          window_height: "900"
+          final_width: "800"
+          final_height: "500"
+          scroll_step: "35"
+          time_per_frame: "80"
+
+      - name: Commit and Push Preview
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(docs): update website preview gif [skip ci]"
+          file_pattern: "docs/images/preview.gif"
