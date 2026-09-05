@@ -1,8 +1,10 @@
-{{/* Preload critical display and body fonts with Romanian diacritics */}}
-<link rel="preload" href="{{ "fonts/plus-jakarta-sans-400-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ "fonts/plus-jakarta-sans-400-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{/* Preload critical display, hero, and label fonts with Romanian diacritics */}}
 <link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/plus-jakarta-sans-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/plus-jakarta-sans-700-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/archivo-narrow-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+
 
 {{/* Preload LCP Cover Image on Single Post Pages with Responsive srcset */}}
 {{ if and .IsPage (or (eq .Type "posts") (eq .Section "posts")) }}
