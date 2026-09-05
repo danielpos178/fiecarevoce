@@ -1,25 +1,21 @@
-{{/* Preload primary body and display fonts (Latin + Latin-Ext for Romanian diacritics ă, â, î, ș, ț) */}}
+{{/* Preload critical display and body fonts with Romanian diacritics */}}
 <link rel="preload" href="{{ "fonts/plus-jakarta-sans-400-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/plus-jakarta-sans-400-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ "fonts/plus-jakarta-sans-700-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 
-{{/* Preload LCP Image */}}
-{{ if .IsHome }}
-  {{ $homeImg := resources.Get "images/echipa/echipa-fiecare-voce.webp" }}
-  {{ if $homeImg }}
-    {{ $preloadedHome := $homeImg.Resize "1600x webp q95" }}
-    <link rel="preload" href="{{ $preloadedHome.RelPermalink }}" as="image" fetchpriority="high">
-  {{ end }}
-{{ else if and .IsPage (or (eq .Type "posts") (eq .Section "posts")) }}
+{{/* Preload LCP Cover Image on Single Post Pages with Responsive srcset */}}
+{{ if and .IsPage (or (eq .Type "posts") (eq .Section "posts")) }}
   {{ $cover := .Params.image | default "/images/default-cover.webp" }}
   {{ $cleanCover := strings.TrimPrefix "/" $cover }}
   {{ $res := resources.Get $cleanCover }}
   {{ if and $res (ne $res.MediaType.SubType "svg") }}
-    {{ $preloadedImg := $res.Resize "1600x webp q95" }}
-    <link rel="preload" href="{{ $preloadedImg.RelPermalink }}" as="image" fetchpriority="high">
+    {{ $w400 := $res.Resize "400x webp q80" }}
+    {{ $w800 := $res.Resize "800x webp q82" }}
+    {{ $w1200 := $res.Resize "1200x webp q82" }}
+    <link rel="preload" as="image" href="{{ $w800.RelPermalink }}" imagesrcset="{{ $w400.RelPermalink }} 400w, {{ $w800.RelPermalink }} 800w, {{ $w1200.RelPermalink }} 1200w" imagesizes="(max-width: 768px) 100vw, 800px" fetchpriority="high">
   {{ else if $cover }}
     <link rel="preload" href="{{ $cover | relURL }}" as="image" fetchpriority="high">
   {{ end }}
 {{ end }}
+

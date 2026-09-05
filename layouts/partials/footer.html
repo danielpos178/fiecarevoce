@@ -96,7 +96,7 @@
 
   </div>
 
-  {{ if not .Site.Params.disableImageZoom | default true }}
+  {{ if and .IsPage (not .Site.Params.disableImageZoom | default true) }}
     <script>
       mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
         margin: 24,

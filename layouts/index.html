@@ -60,7 +60,7 @@
           </div>
 
           <div class="relative w-full aspect-[4/3] border-2 border-neutral-900 dark:border-neutral-100 sticker-shadow overflow-hidden group">
-            {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "w-full h-full object-cover" "loading" "eager" "fetchpriority" "high" "sizes" "(max-width: 768px) 100vw, 1200px") }}
+            {{ partial "responsive-image.html" (dict "src" .image "alt" .title "class" "w-full h-full object-cover" "loading" "lazy" "fetchpriority" "auto" "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px") }}
           </div>
         </div>
 
