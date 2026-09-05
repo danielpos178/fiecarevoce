@@ -226,7 +226,7 @@
     {{ $cssResources = $cssResources | append (resources.Get "lib/zoom/style.css") }}
   {{ end }}
   {{ $bundleCSS := $cssResources | resources.Concat "css/main.bundle.css" | resources.Minify | resources.Fingerprint $alg }}
-  <link rel="stylesheet" href="{{ $bundleCSS.RelPermalink }}" integrity="{{ $bundleCSS.Data.Integrity }}" crossorigin="anonymous">
+  <style>{{ $bundleCSS.Content | safeCSS }}</style>
 
   {{/* JS loaded immediately (inlined to eliminate render-blocking request & FOUC) */}}
   {{ $jsAppearance := resources.Get "js/appearance.js" | resources.ExecuteAsTemplate "js/appearance.js" . | resources.Minify }}

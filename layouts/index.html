@@ -515,10 +515,12 @@
           </p>
 
           <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-xl">
+            <!--email_off-->
             <a href="{{ .button_url }}" class="bg-brand-green text-white font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center gap-2 transition-all w-full sm:w-auto">
               <span>{{ .button_text }}</span>
               {{ partial "icon.html" (dict "name" "mail" "class" "w-4 h-4") }}
             </a>
+            <!--/email_off-->
 
             {{ if .instagram_url }}
             <a href="{{ .instagram_url }}" target="_blank" rel="noopener noreferrer" class="bg-white text-neutral-900 font-label text-xs sm:text-sm font-black uppercase px-8 py-4 border-2 border-neutral-900 sticker-shadow sticker-shadow-hover inline-flex items-center justify-center gap-2 transition-all w-full sm:w-auto">

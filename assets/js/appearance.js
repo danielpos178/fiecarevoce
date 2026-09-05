@@ -56,13 +56,10 @@ function getTargetAppearance() {
 }
 
 function updateMeta() {
-  const elem = document.querySelector("body");
-  if (elem) {
-    const style = getComputedStyle(elem);
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) {
-      meta.setAttribute("content", style.backgroundColor);
-    }
+  const isDark = document.documentElement.classList.contains("dark");
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute("content", isDark ? "#121212" : "#ffffff");
   }
 }
 
