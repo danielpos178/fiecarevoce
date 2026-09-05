@@ -51,6 +51,14 @@
             {{ $author = "Echipa Fiecare Voce" }}
           {{ end }}
         {{ end }}
+        {{ $firstAuthor := $author }}
+        {{ if and .Params.authors (reflect.IsSlice .Params.authors) }}
+          {{ $firstAuthor = index .Params.authors 0 }}
+        {{ else if strings.Contains $author "," }}
+          {{ $firstAuthor = index (split $author ",") 0 | trim " " }}
+        {{ end }}
+        {{ $authorSlug := $firstAuthor | urlize }}
+        {{ $authorPage := site.GetPage (printf "authors/%s" $authorSlug) }}
         <article class="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 relative sticker-shadow flex flex-col group hover:-translate-y-1 transition-transform duration-300">
           <div class="absolute -top-3.5 -left-3 bg-brand-gold text-slate-900 px-3 py-1 border-2 border-neutral-900 font-label text-xs uppercase font-black z-10 shadow-[2px_2px_0px_0px_#1a1c19]">
             {{ $.Title }}
@@ -83,10 +91,17 @@
               {{ .Summary }}
             </p>
             <div class="mt-auto pt-4 flex items-center justify-between gap-3 border-t border-neutral-200 dark:border-neutral-800 font-label text-xs uppercase font-bold text-neutral-600 dark:text-neutral-400">
-              <a href="{{ printf "authors/%s/" ($author | urlize) | relURL }}" class="flex items-center gap-1.5 hover:text-brand-green dark:hover:text-emerald-400 transition-colors truncate min-w-0 flex-1" title="{{ $author }}">
+              {{ if $authorPage }}
+              <a href="{{ $authorPage.RelPermalink }}" class="flex items-center gap-1.5 hover:text-brand-green dark:hover:text-emerald-400 transition-colors truncate min-w-0 flex-1" title="{{ $author }}">
                 <span class="shrink-0">{{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}</span>
                 <span class="truncate">{{ $author }}</span>
               </a>
+              {{ else }}
+              <span class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300 truncate min-w-0 flex-1" title="{{ $author }}">
+                <span class="shrink-0">{{ partial "icon.html" (dict "name" "person" "class" "w-4 h-4 text-brand-green") }}</span>
+                <span class="truncate">{{ $author }}</span>
+              </span>
+              {{ end }}
               <a href="{{ .RelPermalink }}" class="text-brand-green dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform shrink-0 whitespace-nowrap ml-auto">
                 <span>Citește</span>
                 {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-4 h-4 shrink-0") }}

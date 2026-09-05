@@ -203,9 +203,20 @@
           {{- end -}}
         {{- end -}}
         "url": {{ .Permalink }},
-        "image": [
-          "{{ $imageURL }}"
-        ],
+        "image": {
+          "@type": "ImageObject",
+          "url": "{{ $imageURL }}",
+          "width": 1200,
+          "height": 675,
+          "caption": "{{ .Title | plainify }}"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [
+            "h1",
+            ".font-zine-body"
+          ]
+        },
         "author": [
           {{- range $i, $name := $postAuthors -}}
             {{- if gt $i 0 }},{{ end }}
@@ -250,12 +261,18 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Blog",
+            "name": "Articole",
             "item": "{{ "posts/" | absURL }}"
           },
           {
             "@type": "ListItem",
             "position": 3,
+            "name": "{{ $primaryCategory }}",
+            "item": "{{ printf "categories/%s/" ($primaryCategory | urlize) | absURL }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
             "name": "{{ .Title | plainify }}",
             "item": "{{ .Permalink }}"
           }

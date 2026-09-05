@@ -14,6 +14,18 @@
         {{- $author = "Echipa Fiecare Voce" -}}
       {{- end -}}
     {{- end -}}
+    {{- $firstAuthor := $author -}}
+    {{- if and $p.Params.authors (reflect.IsSlice $p.Params.authors) -}}
+      {{- $firstAuthor = index $p.Params.authors 0 -}}
+    {{- else if strings.Contains $author "," -}}
+      {{- $firstAuthor = index (split $author ",") 0 | trim " " -}}
+    {{- end -}}
+    {{- $authorSlug := $firstAuthor | urlize -}}
+    {{- $authorPage := site.GetPage (printf "authors/%s" $authorSlug) -}}
+    {{- $authorUrl := "" -}}
+    {{- if $authorPage -}}
+      {{- $authorUrl = $authorPage.RelPermalink -}}
+    {{- end -}}
     {{- $cats := $p.Params.categories | default (slice "Articol") -}}
     {{- $tags := $p.Params.tags | default (slice) -}}
     {
@@ -25,7 +37,7 @@
       "summary": {{ $p.Summary | plainify | jsonify }},
       "content": {{ $p.Plain | jsonify }},
       "author": {{ $author | jsonify }},
-      "authorUrl": {{ (printf "authors/%s/" ($author | urlize) | relURL) | jsonify }},
+      "authorUrl": {{ $authorUrl | jsonify }},
       "categories": {{ $cats | jsonify }},
       "tags": {{ $tags | jsonify }},
       "readingTime": {{ (printf "%d MIN READ" ($p.Params.reading_time | default $p.ReadingTime)) | jsonify }},

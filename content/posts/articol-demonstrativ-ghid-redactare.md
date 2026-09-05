@@ -10,7 +10,7 @@ author: "Redacția Fiecare Voce" # [OBLIGATORIU] Numele autorului principal (ex:
 authors: ["Luca Georgescu", "Iulia Geambazu"] # [OPȚIONAL] Lista tuturor autorilor/contribuitorilor din redacție
 categories: ["Ghiduri", "Proiecte"] # [OBLIGATORIU] Categoriile articolului (ex: "Proiecte", "Educație", "Opinii", "Ghiduri")
 tags: ["ghid", "redactare", "demo", "evenimente", "tehnologie", "jurnalism"] # [OPȚIONAL] Etichete/cuvinte cheie legate de subiect (pentru căutare și filtrare)
-image: "/images/posts/demo-cover.jpg" # [OBLIGATORIU] Calea către imaginea de copertă (salvată în folderul static/images/...)
+image: "/images/default-cover.webp" # [OBLIGATORIU] Calea către imaginea de copertă (salvată în folderul static/images/...)
 image_position: "center 40%" # [OPȚIONAL] Punctul de aliniere a coverului (ex: "center 30%", "center top", "center center")
 image_fit: "cover" # [OPȚIONAL] Modul de încadrare al coperții: "cover" (umple tot cadrul) sau "contain" (încadrare completă)
 photo_credit: "Unsplash / Foto Demo" # [OBLIGATORIU] Textul de credit foto afișat pe ecusonul galben al coperții (ex: "Foto: Arhiva Fiecare Voce")

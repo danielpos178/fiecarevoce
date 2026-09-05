@@ -24,7 +24,7 @@
     {{ else }}
       <div id="the-top" class="absolute flex self-center">
         <a
-          class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+          class="px-3 py-1 text-sm -translate-y-8 rounded-none border-2 border-t-0 border-neutral-900 sticker-shadow bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
           href="#main-content">
           <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
           {{ i18n "nav.skip_to_main" }}
@@ -46,9 +46,6 @@
           {{ end }}
         </main>
         {{- partial "footer.html" . -}}
-        {{ if site.Params.enableSearch | default false }}
-          {{- partial "search.html" . -}}
-        {{ end }}
       </div>
     {{ end }}
 

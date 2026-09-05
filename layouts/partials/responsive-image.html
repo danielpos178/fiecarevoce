@@ -34,14 +34,27 @@
  />
  </picture>
 {{ else }}
- <img
- src="{{ $src | relURL }}"
- alt="{{ $alt }}"
- loading="{{ $loading }}"
- fetchpriority="{{ $fetchpriority }}"
- decoding="async"
- class="{{ $class }}"
- {{ with $style }}style="{{ . | safeCSS }}"{{ end }}
- />
+  {{ $w := .width }}
+  {{ $h := .height }}
+  {{ if not $w }}
+    {{ $staticPath := print "static/" $cleanSrc }}
+    {{ if fileExists $staticPath }}
+      {{ $cfg := imageConfig $staticPath }}
+      {{ if $cfg }}
+        {{ $w = $cfg.Width }}
+        {{ $h = $cfg.Height }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  <img
+  src="{{ $src | relURL }}"
+  alt="{{ $alt }}"
+  {{ with $w }}width="{{ . }}"{{ end }}
+  {{ with $h }}height="{{ . }}"{{ end }}
+  loading="{{ $loading }}"
+  fetchpriority="{{ $fetchpriority }}"
+  decoding="async"
+  class="{{ $class }}"
+  {{ with $style }}style="{{ . | safeCSS }}"{{ end }}
+  />
 {{ end }}
-

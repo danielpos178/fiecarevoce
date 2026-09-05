@@ -1,0 +1,69 @@
+{{- /* Neo-Brutalist Blockquote & Admonition Render Hook */ -}}
+{{- if eq .Type "alert" -}}
+  {{- $maps := partialCached "impls/hooks/admonition-maps.html" . -}}
+  {{- $typeMap := $maps.typeMap -}}
+  {{- $iconMap := $maps.iconMap -}}
+
+  {{- $rawType := .AlertType | lower -}}
+  {{- $normalizedType := index $typeMap $rawType | default $rawType -}}
+  {{- $iconName := .Attributes.icon | default (index $iconMap $normalizedType) | default "circle-info" -}}
+
+  {{- $admonitionTitle := .AlertTitle | default ((i18n (printf "admonition.%s" $normalizedType) | default $normalizedType) | title) -}}
+
+  {{- $containerClass := "admonition relative overflow-hidden rounded-none border-l-4 my-3 px-4 py-3 shadow-sm" -}}
+  {{- $headerClass := "flex items-center gap-2 font-semibold text-inherit" -}}
+  {{- $contentClass := "admonition-content mt-3 text-base leading-relaxed text-inherit" -}}
+
+  {{- $isCollapsible := in (slice "+" "-") .AlertSign -}}
+  {{- if $isCollapsible -}}
+    <details
+      class="{{ $containerClass }} group"
+      data-type="{{ $normalizedType }}"
+      {{ if eq .AlertSign "+" }}open{{ end }}>
+      <summary class="{{ $headerClass }} cursor-pointer">
+        <div class="flex shrink-0 h-5 w-5 items-center justify-center text-lg">
+          {{- partial "icon.html" $iconName -}}
+        </div>
+        <div class="grow font-bold">
+          {{ $admonitionTitle }}
+        </div>
+        <div
+          class="ms-auto flex h-5 w-5 items-center justify-center transition-transform ease-in-out -rotate-90 group-open:rotate-0 print:hidden">
+          {{- partial "icon.html" "chevron-down" -}}
+        </div>
+      </summary>
+      {{- if .Text -}}
+        <div class="{{ $contentClass }}">
+          {{- .Text | safeHTML -}}
+        </div>
+      {{- end -}}
+    </details>
+  {{- else -}}
+    <div class="{{ $containerClass }}" data-type="{{ $normalizedType }}">
+      <div class="{{ $headerClass }}">
+        <div class="flex shrink-0 h-5 w-5 items-center justify-center text-lg">
+          {{- partial "icon.html" $iconName -}}
+        </div>
+        <div class="grow font-bold">
+          {{ $admonitionTitle }}
+        </div>
+      </div>
+      {{- if .Text -}}
+        <div class="{{ $contentClass }}">
+          {{- .Text | safeHTML -}}
+        </div>
+      {{- end -}}
+    </div>
+  {{- end -}}
+
+{{- else -}}
+  <blockquote 
+    class="rounded-none not-italic"
+    {{- range $k, $v := .Attributes -}}
+      {{- if $v -}}
+        {{- printf " %s=%q" $k ($v | transform.HTMLEscape) | safeHTMLAttr -}}
+      {{- end -}}
+    {{- end -}}>
+    {{- .Text | safeHTML -}}
+  </blockquote>
+{{- end -}}

@@ -1,0 +1,30 @@
+{{ $author := .Get "author" | default (.Get "by") | default "" }}
+{{ $cite := .Get "cite" | default (.Get "source") | default "" }}
+{{ $url := .Get "url" | default (.Get "link") | default "" }}
+{{ $content := .Inner | default (.Get 0) | default "" }}
+
+<blockquote class="not-prose my-8 p-6 sm:p-8 bg-brand-gold/15 dark:bg-brand-gold/10 border-l-4 border-brand-green text-neutral-900 dark:text-neutral-100 rounded-none sticker-shadow relative font-display font-medium text-lg sm:text-xl leading-relaxed">
+  <div class="quote-text mb-3 text-neutral-900 dark:text-white">
+    {{ if .Inner }}
+      {{ .Inner | markdownify }}
+    {{ else }}
+      <p class="m-0">{{ $content }}</p>
+    {{ end }}
+  </div>
+  {{ if or $author $cite }}
+  <footer class="font-zine-body text-sm font-bold text-neutral-700 dark:text-neutral-300 flex flex-wrap items-center gap-2 pt-2 border-t border-neutral-900/10 dark:border-neutral-100/10">
+    {{ with $author }}
+      <span class="text-brand-green dark:text-emerald-400">— {{ . }}</span>
+    {{ end }}
+    {{ with $cite }}
+      <cite class="not-italic text-neutral-500 dark:text-neutral-400">
+        {{ if $url }}
+          <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="hover:underline text-inherit">({{ . }})</a>
+        {{ else }}
+          ({{ . }})
+        {{ end }}
+      </cite>
+    {{ end }}
+  </footer>
+  {{ end }}
+</blockquote>

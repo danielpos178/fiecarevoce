@@ -5,7 +5,7 @@
 {{ if not $authorName }}
   {{ if .Params.authors }}
     {{ if reflect.IsSlice .Params.authors }}
-      {{ $authorName = delimit .Params.authors ", " }}
+      {{ $authorName = index .Params.authors 0 }}
     {{ else }}
       {{ $authorName = .Params.authors }}
     {{ end }}
@@ -18,11 +18,11 @@
 
 {{/* 2. Photo Credit Resolution */}}
 {{ $photoCredit := .Params.photo_credit | default .Params.photo_source | default .Params.image_source | default .Params.photo | default .Params.image_credit }}
-{{ if not $photoCredit }}
-  {{ $photoCredit = $authorName }}
+{{ $photoCreditPage := false }}
+{{ if $photoCredit }}
+  {{ $photoCreditSlug := $photoCredit | urlize }}
+  {{ $photoCreditPage = site.GetPage (printf "authors/%s" $photoCreditSlug) }}
 {{ end }}
-{{ $photoCreditSlug := $photoCredit | urlize }}
-{{ $photoCreditURL := printf "authors/%s/" $photoCreditSlug | relURL }}
 
 {{/* 3. Category Resolution */}}
 {{ $categories := .Params.categories | default .Params.category | default .Params.tags }}
@@ -42,6 +42,7 @@
 {{ end }}
 
 <div class="bg-neutral-50 dark:bg-[#121212] text-neutral-900 dark:text-neutral-100 min-h-screen pb-24 transition-colors duration-300 w-full font-zine-body">
+  <div id="reading-progress-bar" aria-hidden="true"></div>
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-8 md:pt-12">
 
     <!-- Navigation & Category Header Bar -->
@@ -96,11 +97,21 @@
                 {{ range .Params.authors }}
                   {{ $aSlug := . | urlize }}
                   {{ $aURL := printf "authors/%s/" $aSlug | relURL }}
-                  {{ $authorLinks = $authorLinks | append (printf "<a href=\"%s\" class=\"text-brand-green dark:text-emerald-400 hover:underline underline-offset-4 transition-all\">%s</a>" $aURL .) }}
+                  {{ $authorTerm := site.GetPage (printf "authors/%s" $aSlug) }}
+                  {{ if $authorTerm }}
+                    {{ $authorLinks = $authorLinks | append (printf "<a href=\"%s\" class=\"text-brand-green dark:text-emerald-400 hover:underline underline-offset-4 transition-all\">%s</a>" $aURL .) }}
+                  {{ else }}
+                    {{ $authorLinks = $authorLinks | append (printf "<span class=\"text-neutral-900 dark:text-neutral-100\">%s</span>" .) }}
+                  {{ end }}
                 {{ end }}
                 {{ delimit $authorLinks " &bull; " | safeHTML }}
               {{ else }}
-                <a href="{{ $authorURL }}" class="text-brand-green dark:text-emerald-400 hover:underline underline-offset-4 transition-all">{{ $authorName }}</a>
+                {{ $authorTerm := site.GetPage (printf "authors/%s" $authorSlug) }}
+                {{ if $authorTerm }}
+                  <a href="{{ $authorURL }}" class="text-brand-green dark:text-emerald-400 hover:underline underline-offset-4 transition-all">{{ $authorName }}</a>
+                {{ else }}
+                  <span class="text-neutral-900 dark:text-neutral-100">{{ $authorName }}</span>
+                {{ end }}
               {{ end }}
             </span>
           </div>
@@ -111,6 +122,16 @@
             {{ partial "icon.html" (dict "name" "calendar_today" "class" "w-4 h-4 text-brand-green") }}
             <span>{{ $formattedDate }}</span>
           </div>
+
+          {{ if and .Lastmod (gt .Lastmod.Unix .Date.Unix) }}
+            {{ $modMonthNum := printf "%d" .Lastmod.Month }}
+            {{ $formattedModDate := printf "%02d %s %d" .Lastmod.Day (index $months $modMonthNum) .Lastmod.Year }}
+            <span class="font-label text-neutral-400 dark:text-neutral-600 font-bold hidden sm:inline">|</span>
+            <div class="inline-flex items-center gap-1.5 font-label text-[11px] sm:text-xs uppercase font-bold text-brand-green dark:text-emerald-400 bg-brand-green/10 dark:bg-brand-green/20 px-2.5 py-0.5 border border-brand-green/30" title="Articol revizuit și actualizat conform celor mai recente informații">
+              {{ partial "icon.html" (dict "name" "check_circle" "class" "w-3.5 h-3.5") }}
+              <span>Actualizat: {{ $formattedModDate }}</span>
+            </div>
+          {{ end }}
         </div>
       </div>
 
@@ -123,10 +144,16 @@
           {{ $imgFit = "object-contain p-2 sm:p-4 bg-neutral-100 dark:bg-[#121212]" }}
         {{ end }}
         {{ partial "responsive-image.html" (dict "src" $coverImage "alt" .Title "class" (printf "w-full h-full %s" $imgFit) "style" (printf "object-position: %s;" $imgPos) "loading" "eager") }}
-        <a href="{{ $photoCreditURL }}" class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 max-w-[calc(100%-16px)] bg-brand-gold hover:bg-yellow-400 border-2 border-neutral-900 text-neutral-900 px-2.5 sm:px-4 py-1 sm:py-1.5 sticker-shadow z-20 font-label text-[11px] sm:text-xs font-black uppercase tracking-wider truncate inline-flex items-center gap-1.5 hover:-translate-y-0.5 transition-all group/badge" title="Vezi profilul lui {{ $photoCredit }}">
-          <span>Grafician: {{ $photoCredit }}</span>
+        {{ if $photoCreditPage }}
+        <a href="{{ $photoCreditPage.RelPermalink }}" class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 max-w-[calc(100%-16px)] bg-brand-gold hover:bg-yellow-400 border-2 border-neutral-900 text-neutral-900 px-2.5 sm:px-4 py-1 sm:py-1.5 sticker-shadow z-20 font-label text-[11px] sm:text-xs font-black uppercase tracking-wider truncate inline-flex items-center gap-1.5 hover:-translate-y-0.5 transition-all group/badge" title="Vezi profilul lui {{ $photoCredit }}">
+          <span>Foto: {{ $photoCredit }}</span>
           {{ partial "icon.html" (dict "name" "arrow_forward" "class" "w-3.5 h-3.5 group-hover/badge:translate-x-0.5 transition-transform") }}
         </a>
+        {{ else if $photoCredit }}
+        <span class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 max-w-[calc(100%-16px)] bg-brand-gold border-2 border-neutral-900 text-neutral-900 px-2.5 sm:px-4 py-1 sm:py-1.5 sticker-shadow z-20 font-label text-[11px] sm:text-xs font-black uppercase tracking-wider truncate inline-flex items-center gap-1.5 select-none" title="Foto: {{ $photoCredit }}">
+          <span>Foto: {{ $photoCredit }}</span>
+        </span>
+        {{ end }}
       </div>
     </article>
 
@@ -138,7 +165,7 @@
 
         <!-- Summary / Lead Section (if summary present) -->
         {{ if .Params.summary }}
-        <div class="font-zine-body text-xl md:text-2xl text-neutral-800 dark:text-neutral-200 leading-relaxed font-semibold border-l-4 border-brand-green pl-5 py-3 pr-4 bg-brand-green/5 dark:bg-brand-green/10 rounded-r-xl">
+        <div class="font-zine-body text-xl md:text-2xl text-neutral-800 dark:text-neutral-200 leading-relaxed font-semibold border-l-4 border-brand-green pl-5 py-3 pr-4 bg-brand-green/5 dark:bg-brand-green/10 rounded-none">
           {{ .Params.summary }}
         </div>
         {{ end }}
@@ -182,7 +209,7 @@
                     prose-p:leading-relaxed prose-p:text-neutral-800 prose-p:font-zine-body
                     prose-a:text-brand-green dark:prose-a:text-emerald-400 prose-a:font-bold hover:prose-a:bg-brand-gold/30 prose-a:transition-all
                     prose-img:border-2 prose-img:border-neutral-900 prose-img:shadow-[6px_6px_0px_0px_#1a1c19] dark:prose-img:shadow-[6px_6px_0px_0px_#ffbd59] prose-img:my-8 prose-img:w-full prose-img:object-cover
-                    prose-blockquote:border-l-4 prose-blockquote:border-brand-green prose-blockquote:bg-brand-gold/15 dark:prose-blockquote:bg-brand-gold/10 prose-blockquote:p-6 sm:prose-blockquote:p-8 prose-blockquote:my-8 prose-blockquote:rounded-r-xl prose-blockquote:font-display prose-blockquote:font-bold prose-blockquote:not-italic prose-blockquote:text-neutral-900 prose-blockquote:relative
+                    prose-blockquote:border-l-4 prose-blockquote:border-brand-green prose-blockquote:bg-brand-gold/15 dark:prose-blockquote:bg-brand-gold/10 prose-blockquote:p-6 sm:prose-blockquote:p-8 prose-blockquote:my-8 prose-blockquote:rounded-none prose-blockquote:font-display prose-blockquote:font-bold prose-blockquote:not-italic prose-blockquote:text-neutral-900 prose-blockquote:relative
                     prose-strong:font-bold prose-strong:text-neutral-900">
           {{ .Content }}
         </div>
@@ -234,6 +261,7 @@
               {{ $authorTerm := site.GetPage (printf "authors/%s" $aSlug) }}
 
               <div class="flex items-center gap-3">
+                {{ if $authorTerm }}
                 <a href="{{ $aURL }}" class="w-10 h-10 min-w-10 min-h-10 aspect-square rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-brand-gold font-display font-black text-lg flex items-center justify-center shrink-0 sticker-shadow hover:scale-105 transition-transform" title="Vezi pagina autorului">
                   {{ substr $aName 0 1 }}
                 </a>
@@ -241,12 +269,22 @@
                   <h4 class="font-display font-bold text-base text-neutral-900 dark:text-white uppercase leading-tight">
                     <a href="{{ $aURL }}" class="hover:text-brand-green dark:hover:text-emerald-400 transition-colors">{{ $aName }}</a>
                   </h4>
-                  {{ if $authorTerm.Params.role }}
+                  {{ with $authorTerm.Params.role }}
                     <span class="font-label text-[11px] font-bold uppercase text-neutral-500 dark:text-neutral-400 truncate block">
-                      {{ $authorTerm.Params.role }}
+                      {{ . }}
                     </span>
                   {{ end }}
                 </div>
+                {{ else }}
+                <div class="w-10 h-10 min-w-10 min-h-10 aspect-square rounded-none border-2 border-neutral-900 dark:border-neutral-100 bg-brand-green text-brand-gold font-display font-black text-lg flex items-center justify-center shrink-0 sticker-shadow select-none">
+                  {{ substr $aName 0 1 }}
+                </div>
+                <div class="min-w-0">
+                  <h4 class="font-display font-bold text-base text-neutral-900 dark:text-white uppercase leading-tight">
+                    <span>{{ $aName }}</span>
+                  </h4>
+                </div>
+                {{ end }}
               </div>
             {{ end }}
           </div>
@@ -526,5 +564,31 @@
       }, 2500);
     }
   }
+
+  // Reading progress bar tracker with passive scroll & requestAnimationFrame
+  (function() {
+    const progressBar = document.getElementById('reading-progress-bar');
+    if (!progressBar) return;
+    let ticking = false;
+
+    function updateProgressBar() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        const scrolled = Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100));
+        progressBar.style.width = scrolled + '%';
+      }
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateProgressBar();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+    updateProgressBar();
+  })();
 </script>
 {{ end }}

@@ -3,7 +3,7 @@
   {{- $src := .src -}}
   {{- $alt := .alt -}}
   <img
-    class="my-0 rounded-md"
+    class="my-0 rounded-none"
     loading="lazy"
     decoding="async"
     fetchpriority="low"
@@ -32,7 +32,7 @@
   {{- $srcset := printf "%s 800w, %s 1280w" $img800.RelPermalink $img1280.RelPermalink -}}
 
   <img
-    class="my-0 rounded-md"
+    class="my-0 rounded-none"
     loading="lazy"
     decoding="async"
     fetchpriority="auto"

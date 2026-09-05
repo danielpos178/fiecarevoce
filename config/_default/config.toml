@@ -11,7 +11,7 @@ removePathAccents = true
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
-  section = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
   taxonomy = ["HTML"]
   term = ["HTML"]
 

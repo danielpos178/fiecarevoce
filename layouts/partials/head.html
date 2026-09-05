@@ -8,6 +8,11 @@
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 
+  {{/* Early Resource Preloads (Fonts Latin-Ext & LCP Images) */}}
+  {{ if templates.Exists "partials/extend-head.html" }}
+    {{ partial "extend-head.html" . }}
+  {{ end }}
+
   {{/* 1. Dynamic SERP Title Optimization */}}
   {{ $pageTitle := "" }}
   {{ if .IsHome }}
@@ -159,8 +164,16 @@
         <meta property="article:tag" content="{{ . }}">
       {{ end }}
     {{ end }}
-    {{ with .Params.author }}
-      <meta property="article:author" content="{{ . }}">
+    {{ if .Params.authors }}
+      {{ if reflect.IsSlice .Params.authors }}
+        {{ range .Params.authors }}
+          <meta property="article:author" content="{{ . }}">
+        {{ end }}
+      {{ else }}
+        <meta property="article:author" content="{{ .Params.authors }}">
+      {{ end }}
+    {{ else if .Params.author }}
+      <meta property="article:author" content="{{ .Params.author }}">
     {{ end }}
   {{ end }}
 
@@ -291,10 +304,6 @@
     {{ partial "analytics/main.html" . }}
   {{ end }}
 
-  {{/* Extend head - eg. for custom analytics scripts, preloads, etc. */}}
-  {{ if templates.Exists "partials/extend-head.html" }}
-    {{ partial "extend-head.html" . }}
-  {{ end }}
 
   {{/* Uncached extend head - Example: https://gohugo.io/methods/page/hasshortcode/ */}}
   {{ if templates.Exists "partials/extend-head-uncached.html" }}

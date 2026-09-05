@@ -1,0 +1,47 @@
+name: Submit IndexNow
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "content/**"
+      - "static/**"
+      - "config/**"
+      - "layouts/**"
+  workflow_dispatch:
+
+concurrency:
+  group: indexnow-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  indexnow:
+    name: Notify Search Engines via IndexNow
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: Build site
+        run: hugo --minify --gc
+        env:
+          HUGO_ENVIRONMENT: production
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Submit sitemap to IndexNow endpoints
+        run: python3 scripts/submit_indexnow.py --all-endpoints

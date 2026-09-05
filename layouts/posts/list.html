@@ -101,11 +101,15 @@
                 {{ $author = "Echipa Fiecare Voce" }}
               {{ end }}
             {{ end }}
-            {{ $authorURL := printf "authors/%s/" ($author | urlize) | relURL }}
+            {{ $firstAuthor := $author }}
             {{ if and .Params.authors (reflect.IsSlice .Params.authors) (gt (len .Params.authors) 1) }}
-              {{ $firstAuthor := index .Params.authors 0 }}
-              {{ $authorURL = printf "authors/%s/" ($firstAuthor | urlize) | relURL }}
+              {{ $firstAuthor = index .Params.authors 0 }}
+            {{ else if strings.Contains $author "," }}
+              {{ $firstAuthor = index (split $author ",") 0 | trim " " }}
             {{ end }}
+            {{ $authorSlug := $firstAuthor | urlize }}
+            {{ $authorPage := site.GetPage (printf "authors/%s" $authorSlug) }}
+            {{ $authorURL := printf "authors/%s/" $authorSlug | relURL }}
 
             {{/* CARD 1: Large Featured Card (Index 0 - Spans 7 columns) */}}
             {{ if eq $index 0 }}

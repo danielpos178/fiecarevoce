@@ -1,13 +1,25 @@
-{{/* Preload primary body and display fonts for instant zero-latency rendering */}}
+{{/* Preload primary body and display fonts (Latin + Latin-Ext for Romanian diacritics ă, â, î, ș, ț) */}}
+<link rel="preload" href="{{ "fonts/plus-jakarta-sans-400-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/plus-jakarta-sans-400-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ "fonts/plus-jakarta-sans-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/plus-jakarta-sans-700-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin-ext.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/bricolage-grotesque-700-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 
-{{/* Preload key section image only on homepage */}}
+{{/* Preload LCP Image */}}
 {{ if .IsHome }}
-  {{ $lcpImg := resources.Get "images/echipa/echipa-fiecare-voce.jpg" }}
-  {{ if $lcpImg }}
-    {{ $lcpSrc := ($lcpImg.Resize "600x webp q82").RelPermalink }}
-    <link rel="preload" href="{{ $lcpSrc }}" as="image" fetchpriority="high">
+  {{ $homeImg := resources.Get "images/echipa/echipa-fiecare-voce.webp" }}
+  {{ if $homeImg }}
+    {{ $preloadedHome := $homeImg.Resize "1600x webp q95" }}
+    <link rel="preload" href="{{ $preloadedHome.RelPermalink }}" as="image" fetchpriority="high">
+  {{ end }}
+{{ else if and .IsPage (or (eq .Type "posts") (eq .Section "posts")) }}
+  {{ $cover := .Params.image | default "/images/default-cover.webp" }}
+  {{ $cleanCover := strings.TrimPrefix "/" $cover }}
+  {{ $res := resources.Get $cleanCover }}
+  {{ if and $res (ne $res.MediaType.SubType "svg") }}
+    {{ $preloadedImg := $res.Resize "1600x webp q95" }}
+    <link rel="preload" href="{{ $preloadedImg.RelPermalink }}" as="image" fetchpriority="high">
+  {{ else if $cover }}
+    <link rel="preload" href="{{ $cover | relURL }}" as="image" fetchpriority="high">
   {{ end }}
 {{ end }}
