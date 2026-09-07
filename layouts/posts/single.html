@@ -122,16 +122,6 @@
             {{ partial "icon.html" (dict "name" "calendar_today" "class" "w-4 h-4 text-brand-green") }}
             <span>{{ $formattedDate }}</span>
           </div>
-
-          {{ if and .Lastmod (gt .Lastmod.Unix .Date.Unix) }}
-            {{ $modMonthNum := printf "%d" .Lastmod.Month }}
-            {{ $formattedModDate := printf "%02d %s %d" .Lastmod.Day (index $months $modMonthNum) .Lastmod.Year }}
-            <span class="font-label text-neutral-400 dark:text-neutral-600 font-bold hidden sm:inline">|</span>
-            <div class="inline-flex items-center gap-1.5 font-label text-[11px] sm:text-xs uppercase font-bold text-brand-green dark:text-emerald-400 bg-brand-green/10 dark:bg-brand-green/20 px-2.5 py-0.5 border border-brand-green/30" title="Articol revizuit și actualizat conform celor mai recente informații">
-              {{ partial "icon.html" (dict "name" "check_circle" "class" "w-3.5 h-3.5") }}
-              <span>Actualizat: {{ $formattedModDate }}</span>
-            </div>
-          {{ end }}
         </div>
       </div>
 
