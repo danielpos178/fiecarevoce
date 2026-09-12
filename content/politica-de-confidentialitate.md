@@ -2,7 +2,7 @@
 title: "Politica de Confidențialitate"
 slug: "politica-de-confidentialitate"
 date: 2026-09-05
-lastmod: 2026-09-05
+lastmod: 2026-09-12
 description: "Politica de confidențialitate a platformei Fiecare Voce: protecția datelor, găzduire Cloudflare Pages, statistici anonimizate și drepturile utilizatorilor."
 keywords: ["politica de confidentialitate", "GDPR", "protectia datelor", "Fiecare Voce", "Cloudflare Pages", "Google Analytics"]
 draft: false
@@ -30,8 +30,14 @@ Pentru a înțelege ce subiecte și investigații sunt de interes pentru elevi �
 ### a) Cloudflare Web Analytics / Insights
 Cloudflare Insights măsoară performanța tehnică și traficul agregat al site-ului într-un mod axat pe confidențialitate. Acest instrument **nu utilizează cookie-uri de urmărire**, nu stochează identificatori unici ai utilizatorilor și nu realizează profilare cross-site.
 
-### b) Google Analytics
-Utilizăm Google Analytics pentru a genera statistici agregate despre cititori (de exemplu: numărul total de vizitatori, cele mai citite articole, durata medie de lectură). Aceste date sunt agregate și anonimizate, nefiind utilizate în scopuri de publicitate comercială sau vânzare către terți.
+### b) Google Analytics & Gestionarea Cookie-urilor
+Utilizăm serviciul Google Analytics pentru a genera statistici agregate despre cititori (de exemplu: numărul total de vizitatori, cele mai citite articole, durata medie de lectură). Aceste date sunt anonimizate și nu sunt utilizate în scopuri de publicitate comercială, profilare comportamentală sau vânzare către terți.
+
+Pentru a respecta dreptul dumneavoastră la viață privată și legislația europeană (GDPR și Directiva ePrivacy):
+- **Google Consent Mode v2**: La accesarea site-ului, cookie-urile de analiză (`_ga`, `_ga_*`) sunt blocate în mod implicit (`analytics_storage: 'denied'`). Niciun modul cookie de urmărire nu este stocat în browserul dumneavoastră fără acordul dumneavoastră expres.
+- **Opțiunea de consimțământ**: Puteți alege să acceptați sau să refuzați aceste măsurători prin intermediul bannerului afișat la prima vizită.
+- **Revocarea sau schimbarea opțiunii**: Vă puteți răzgândi sau modifica preferințele oricând, simplu și rapid, accesând butonul **„Preferințe Cookie-uri”** din subsolul (footer-ul) oricărei pagini de pe site.
+- **Opt-out la nivel de browser**: De asemenea, puteți dezactiva colectarea Google Analytics pe orice site prin instalarea modulului oficial [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout).
 
 ## 4. Comunicarea prin Email și Confidențialitatea Ponturilor
 
@@ -56,4 +62,4 @@ Ne rezervăm dreptul de a actualiza această politică dacă adăugăm noi func�
 
 Pentru orice solicitare sau întrebare referitoare la confidențialitate și protecția datelor, ne puteți scrie oricând la: [fiecarevoce@gmail.com](mailto:fiecarevoce@gmail.com).
 
-*Ultima actualizare: 5 Septembrie 2026*
+*Ultima actualizare: 12 Septembrie 2026*
