@@ -809,3 +809,23 @@ html.dark .prose a:not(.download-btn):not([class*="toc-item"]):hover,
   background: #ffbd59;
   box-shadow: 0 1px 3px rgba(75, 146, 63, 0.3);
 }
+
+/* Scroll-to-Top Neo-Brutalist Floating Control */
+#scroll-to-top {
+  pointer-events: none;
+}
+
+#scroll-to-top.opacity-100 {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+#scroll-to-top.opacity-0 {
+  pointer-events: none !important;
+  visibility: hidden;
+}
+
+#scroll-to-top a {
+  border-radius: 0 !important;
+}
+

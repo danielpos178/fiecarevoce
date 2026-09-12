@@ -1,0 +1,21 @@
+{{ $isRTL := .Site.Params.rtl | default false }}
+{{ $coffeeIsRight := and (eq (lower site.Params.buymeacoffee.globalWidgetPosition) "right") .Site.Params.buymeacoffee.globalWidget }}
+{{ if not $coffeeIsRight }}
+  {{ $coffeeIsRight = false }}
+{{ end }}
+
+{{ $needAvoidCoffee := ne $coffeeIsRight $isRTL }}
+{{ $toTopYOffset := cond $needAvoidCoffee "bottom-24" "bottom-6" }}
+
+<div
+  id="scroll-to-top"
+  class="fixed {{ $toTopYOffset }} end-6 z-50 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-none">
+  <a
+    href="#the-top"
+    onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"
+    class="group flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center border-2 border-neutral-900 dark:border-neutral-100 bg-brand-gold text-slate-900 sticker-shadow sticker-shadow-hover hover:bg-brand-green hover:text-white dark:hover:bg-brand-green dark:hover:text-white active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer select-none"
+    aria-label="{{ i18n "nav.scroll_to_top_title" | default "Înapoi sus" }}"
+    title="{{ i18n "nav.scroll_to_top_title" | default "Înapoi sus" }}">
+    {{ partial "icon.html" (dict "name" "arrow_up" "class" "w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5] transition-transform duration-200 group-hover:-translate-y-1") }}
+  </a>
+</div>
