@@ -2,7 +2,7 @@
 title: "Alesia Diniță"
 slug: "alesia-dinita"
 name: "Alesia Diniță"
-role: "Redactor & Coordonator Proiecte"
-bio: "Membru în echipa Fiecare Voce, implicată în organizarea inițiativelor comunitare, dezbaterilor educaționale și redactarea de articole de opinie."
+role: "Vicepreședinte PR și Social Media & Redactor"
+bio: "Vicepreședinte PR și Social Media în echipa Fiecare Voce, coordonând imaginea, promovarea și comunicarea platformei."
 image: "/images/echipa/alesia-dinita.jpg"
 ---

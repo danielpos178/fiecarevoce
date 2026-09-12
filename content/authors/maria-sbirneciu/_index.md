@@ -2,6 +2,7 @@
 title: "Maria Sbîrneciu"
 slug: "maria-sbirneciu"
 name: "Maria Sbîrneciu"
-role: "Redactor Fiecare Voce"
-bio: "Redactor în echipa Fiecare Voce, abordând subiecte de interes major pentru elevi, evaluare școlară și standarde academice."
+role: "Vicepreședinte Research și Politici Educaționale & Redactor"
+bio: "Vicepreședinte Research și Politici Educaționale în echipa Fiecare Voce, coordonând cercetarea și analiza problemelor din educație."
+image: "/images/echipa/maria-sbirneciu.jpg"
 ---

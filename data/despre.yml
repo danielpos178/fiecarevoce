@@ -12,7 +12,7 @@ cine_suntem:
 
 secretariat:
   title: "Secretariat"
-  description: "Secretariatul este echipa care coordonează activitatea Fiecare Voce și contribuie la stabilirea direcției în care mergem. Este format din fondatori, coordonatorul principal, secretar, directorul de PR și coordonatorul de activitate al membrilor."
+  description: "Secretariatul este echipa care coordonează activitatea Fiecare Voce și contribuie la stabilirea direcției în care mergem. Este format din președinte, co-fondator, vicepreședinți și secretar."
 
 social_media:
   title: "Echipa de Social Media"
@@ -41,8 +41,8 @@ structure:
   description: "Fiecare Voce este guvernată de un set clar de reguli și proceduri, detaliate în Regulamentul de Organizare și Funcționare (ROF)."
   rof:
     text: "Citește Regulamentul (ROF)"
-    url: "https://docs.google.com/document/d/1vSN4kOriZqW1tOvKcQyvI67Jl1DyNQ1z-MeKfLFMeog/edit?usp=sharing"
-    subcaption: "Actualizat 20.07.2026"
+    url: "https://docs.google.com/document/d/10A-qwvZuKIs4hLNZyNoTIJ5DGo4-iesU-1ZEoGQoL38/edit?usp=sharing"
+    subcaption: "Actualizat 07.09.2026"
   procedura:
     text: "Procedura de Selecție 2026"
     url: "https://docs.google.com/document/d/1X7XwvwxQ1oYxKQx2_75aERPQPonJ3fpr6RUJVwqwiRM/edit?usp=sharing"
