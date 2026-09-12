@@ -9,6 +9,7 @@
   {{- partialCached "init.html" . -}}
 
   <body class="bg-neutral-50 text-neutral-900 dark:bg-[#121212] dark:text-neutral-100 min-h-screen flex flex-col font-zine-body transition-colors duration-300 {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
+    {{- partial "cookie-banner.html" . -}}
     
     <!-- Top Construction Banner (if enabled in data/status.yml) -->
     {{ if hugo.Data.status.construction_banner.enabled }}

@@ -1,0 +1,130 @@
+{{/* GDPR Cookie Consent Centered Modal Popup - Fiecare Voce */}}
+<div
+  id="cookie-consent-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cookie-modal-title"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 transition-all duration-300 opacity-0 pointer-events-none">
+  
+  {{/* Overlay Backdrop */}}
+  <div class="absolute inset-0 bg-black/75 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
+
+  {{/* Modal Dialog Window */}}
+  <div
+    id="cookie-modal-content"
+    class="relative w-full max-w-lg bg-[#18181b] text-white border border-[#3f3f46] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] p-6 sm:p-8 transform transition-all duration-300 scale-95">
+    
+    <div class="mb-4">
+      <span class="font-label text-[11px] uppercase font-bold text-brand-gold tracking-wider block mb-1 select-none">
+        FIECARE VOCE &bull; CONFIDENȚIALITATE
+      </span>
+      <h2 id="cookie-modal-title" class="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-white">
+        Preferințe Cookie-uri
+      </h2>
+    </div>
+
+    <div class="space-y-3 font-zine-body text-xs sm:text-sm text-[#e4e4e7] leading-relaxed">
+      <p>
+        Pentru a măsura audiența articolelor și a înțelege ce investigații sunt de interes pentru elevi, utilizăm module cookie analitice prin <strong>Google Analytics</strong>.
+      </p>
+      <p class="text-xs text-[#a1a1aa] leading-normal">
+        Datele sunt agregate și anonimizate, nefiind utilizate în scopuri de publicitate comercială sau vânzare către terți. Poți alege dacă dorești să permiți aceste măsurători. Află toate detaliile în 
+        <a href="{{ "politica-de-confidentialitate/" | relURL }}" class="text-brand-gold hover:text-white underline underline-offset-2 transition-colors font-semibold">Politica de Confidențialitate</a>.
+      </p>
+    </div>
+
+    <div class="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-5 border-t border-[#27272a] font-label text-xs uppercase font-bold mt-6">
+      <button
+        type="button"
+        id="cookie-reject-btn"
+        class="w-full sm:w-auto px-5 py-2.5 border border-[#71717a] hover:border-white text-white hover:bg-[#27272a] transition-all text-xs font-bold uppercase tracking-wider cursor-pointer text-center">
+        Doar esențiale
+      </button>
+      <button
+        type="button"
+        id="cookie-accept-btn"
+        class="w-full sm:w-auto px-6 py-2.5 bg-brand-gold hover:bg-[#ffa929] text-neutral-950 font-black border border-brand-gold transition-all text-xs uppercase tracking-wider cursor-pointer text-center shadow-sm">
+        Acceptă toate
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var modal = document.getElementById('cookie-consent-modal');
+    var modalContent = document.getElementById('cookie-modal-content');
+    var acceptBtn = document.getElementById('cookie-accept-btn');
+    var rejectBtn = document.getElementById('cookie-reject-btn');
+
+    function showModal() {
+      if (!modal) return;
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100', 'pointer-events-auto');
+      if (modalContent) {
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+      }
+      if (document.body) {
+        document.body.classList.add('overflow-hidden');
+      }
+    }
+
+    function hideModal() {
+      if (!modal) return;
+      modal.classList.remove('opacity-100', 'pointer-events-auto');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      if (modalContent) {
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+      }
+      if (document.body) {
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+
+    function setConsent(status) {
+      try {
+        localStorage.setItem('fv_cookie_consent', status);
+      } catch (e) {}
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+          'analytics_storage': status
+        });
+      }
+      hideModal();
+    }
+
+    // Verificare imediată: dacă este prima vizită, afișăm instantaneu fără nicio întârziere
+    var storedConsent = null;
+    try {
+      storedConsent = localStorage.getItem('fv_cookie_consent');
+    } catch (e) {}
+
+    if (!storedConsent) {
+      showModal();
+    }
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function() {
+        setConsent('granted');
+      });
+    }
+
+    if (rejectBtn) {
+      rejectBtn.addEventListener('click', function() {
+        setConsent('denied');
+      });
+    }
+
+    // Ascultător global prin delegare de evenimente pentru butonul din footer
+    document.addEventListener('click', function(e) {
+      var trigger = e.target && e.target.closest('#open-cookie-preferences');
+      if (trigger) {
+        e.preventDefault();
+        showModal();
+      }
+    });
+  })();
+</script>
