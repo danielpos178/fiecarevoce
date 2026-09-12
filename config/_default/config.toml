@@ -9,6 +9,10 @@ disableHugoGeneratorInject = true
 paginate = 6
 removePathAccents = true
 
+[services]
+  [services.googleAnalytics]
+    id = 'G-ESPLC36BRN'
+
 [outputs]
   home = ["HTML", "RSS", "JSON"]
   section = ["HTML", "RSS"]
